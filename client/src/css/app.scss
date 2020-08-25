@@ -1,0 +1,97 @@
+// app global css in SCSS form
+.text-logoGreen {
+  color: $positive;
+}
+
+.text-logoRed {
+  color: $logoRed;
+}
+
+.text-color {
+  color: $goldBrown;
+}
+
+.bg-logoRed {
+  background-color: $logoRed;
+}
+
+.bg-goldBrown {
+  background-color: $goldBrown;
+}
+
+.bg-transparent {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.bg-main-layout-light {
+  background-color: #ecf0f1;
+}
+
+.bg-main-layout-dark {
+  background-color: #92a2ae;
+}
+
+.q-card {
+  background: #ecf0f1;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+.q-layout {
+  background: linear-gradient(
+    to top,
+    #8e9eab,
+    #eef2f3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-layout-color {
+  background: linear-gradient(
+    to top,
+    #8e9eab,
+    #eef2f3
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* scrollbars */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 7px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px $goldBrown;
+  border-radius: 3px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $goldBrown;
+  border-radius: 3px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $goldBrown;
+}
+
+.q-dialog__inner--minimized {
+  padding: 0px;
+}
+
+.constrain {
+  max-width: 975px;
+  margin: 0 auto;
+}
+
+.constrain-more {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+
+.camera-frame {
+  border: 2px solid $grey-10;
+  border-radius: 10px;
+}

@@ -1,0 +1,2497 @@
+[{
+  "_id": {
+    "$oid": "5f370bf6ba05a80534f63c31"
+  },
+  "name": "Ham",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:11:02.343Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c02ba05a80534f63c32"
+  },
+  "name": "Mozzarella cheese",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:11:14.519Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c0eba05a80534f63c33"
+  },
+  "name": "Green peppers",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:11:26.335Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c14ba05a80534f63c34"
+  },
+  "name": "Onions",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:11:32.110Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c28ba05a80534f63c35"
+  },
+  "name": "Pineapple",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:11:52.208Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c36ba05a80534f63c36"
+  },
+  "name": "Olives",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:12:06.442Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c42ba05a80534f63c37"
+  },
+  "name": "Salami",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:12:18.518Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c4dba05a80534f63c38"
+  },
+  "name": "Chilli",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:12:29.867Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c5aba05a80534f63c39"
+  },
+  "name": "Chorizo",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:12:42.280Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c66ba05a80534f63c3a"
+  },
+  "name": "Mince",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:12:54.638Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c7eba05a80534f63c3b"
+  },
+  "name": "Garlic",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:13:18.955Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c87ba05a80534f63c3c"
+  },
+  "name": "Bacon",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:13:27.135Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c90ba05a80534f63c3d"
+  },
+  "name": "Chicken pieces",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:13:36.061Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370c9cba05a80534f63c3e"
+  },
+  "name": "Insanity sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:13:48.337Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370ca4ba05a80534f63c3f"
+  },
+  "name": "Feta",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:13:56.749Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cb0ba05a80534f63c40"
+  },
+  "name": "Calamari",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:08.434Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cb8ba05a80534f63c41"
+  },
+  "name": "Mussels",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:16.471Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cc0ba05a80534f63c42"
+  },
+  "name": "Prawns",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:24.862Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cc6ba05a80534f63c43"
+  },
+  "name": "Anchovy",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:30.586Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370ccdba05a80534f63c44"
+  },
+  "name": "Deboned ribs",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:37.306Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cd2ba05a80534f63c45"
+  },
+  "name": "Peppadews",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:42.963Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cddba05a80534f63c46"
+  },
+  "name": "Pepperoni",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:14:53.460Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370ce4ba05a80534f63c47"
+  },
+  "name": "Cheddar cheese",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:15:00.872Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cecba05a80534f63c48"
+  },
+  "name": "Gorgonzola cheese",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:15:08.118Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370cf2ba05a80534f63c49"
+  },
+  "name": "Artichokes",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:15:14.045Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370d47ba05a80534f63c4a"
+  },
+  "name": "Parma ham",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:16:39.801Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370d50ba05a80534f63c4b"
+  },
+  "name": "Rocket",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:16:48.678Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370d58ba05a80534f63c4c"
+  },
+  "name": "Parmesan cheese",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:16:56.726Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370d5fba05a80534f63c4d"
+  },
+  "name": "Fillet steak strips",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:17:03.225Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370d66ba05a80534f63c4e"
+  },
+  "name": "Cherry tomato",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:17:10.004Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f49ba05a80534f63c4f"
+  },
+  "name": "Chicken breast",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:25:13.194Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f51ba05a80534f63c50"
+  },
+  "name": "Beef patty",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:25:21.963Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f5aba05a80534f63c51"
+  },
+  "name": "Lettuce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:25:30.036Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f62ba05a80534f63c52"
+  },
+  "name": "Tomato",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:25:38.496Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f6dba05a80534f63c53"
+  },
+  "name": "Onion",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:25:49.595Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f74ba05a80534f63c54"
+  },
+  "name": "Mushroom sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:25:56.590Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f7aba05a80534f63c55"
+  },
+  "name": "Cheese slice",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:26:02.118Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f8bba05a80534f63c56"
+  },
+  "name": "Egg",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:26:19.628Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370f9cba05a80534f63c57"
+  },
+  "name": "Bacon",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:26:36.200Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370facba05a80534f63c58"
+  },
+  "name": "Mayonnaise",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a95ba05a80534f63c26",
+    "name": "burger-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:09.960Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:26:52.545Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370fc0ba05a80534f63c59"
+  },
+  "name": "Cherry tomato",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:27:12.543Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370fc5ba05a80534f63c5a"
+  },
+  "name": "Cucumber",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:27:17.095Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370fceba05a80534f63c5b"
+  },
+  "name": "Onion",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:27:26.299Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370fd5ba05a80534f63c5c"
+  },
+  "name": "Green peppers",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:27:33.571Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370fddba05a80534f63c5d"
+  },
+  "name": "Carrots",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:27:41.190Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f370fe3ba05a80534f63c5e"
+  },
+  "name": "Olives",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:27:47.772Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371007ba05a80534f63c5f"
+  },
+  "name": "Feta",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:28:23.810Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371013ba05a80534f63c60"
+  },
+  "name": "Peppadews",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a91ba05a80534f63c25",
+    "name": "salad-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:05.131Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:28:35.190Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37102aba05a80534f63c61"
+  },
+  "name": "Strawberries",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b41ba05a80534f63c30",
+    "name": "dessert-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:08:01.654Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:28:58.710Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371033ba05a80534f63c62"
+  },
+  "name": "Banana",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b41ba05a80534f63c30",
+    "name": "dessert-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:08:01.654Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:29:07.164Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371069ba05a80534f63c65"
+  },
+  "name": "Egg",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a9dba05a80534f63c27",
+    "name": "main-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:17.595Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:01.654Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371072ba05a80534f63c66"
+  },
+  "name": "Chilli",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a9dba05a80534f63c27",
+    "name": "main-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:17.595Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:10.913Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371078ba05a80534f63c67"
+  },
+  "name": "Cheese slice",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a9dba05a80534f63c27",
+    "name": "main-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:17.595Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:16.642Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37107fba05a80534f63c68"
+  },
+  "name": "Mushroom",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a9dba05a80534f63c27",
+    "name": "main-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:17.595Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:23.556Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371087ba05a80534f63c69"
+  },
+  "name": "Parma ham",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a9dba05a80534f63c27",
+    "name": "main-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:17.595Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:31.913Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371090ba05a80534f63c6a"
+  },
+  "name": "Rocket",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a9dba05a80534f63c27",
+    "name": "main-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:17.595Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:40.420Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371099ba05a80534f63c6b"
+  },
+  "name": "Vegetables",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370ae5ba05a80534f63c2a",
+    "name": "side-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:29.630Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:49.190Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37109dba05a80534f63c6c"
+  },
+  "name": "Chips",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370ae5ba05a80534f63c2a",
+    "name": "side-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:29.630Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:53.570Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710a1ba05a80534f63c6d"
+  },
+  "name": "Rice",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370ae5ba05a80534f63c2a",
+    "name": "side-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:29.630Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:30:57.985Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710a7ba05a80534f63c6e"
+  },
+  "name": "Baked potato",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370ae5ba05a80534f63c2a",
+    "name": "side-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:29.630Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:03.028Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710abba05a80534f63c6f"
+  },
+  "name": "Mash",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370ae5ba05a80534f63c2a",
+    "name": "side-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:29.630Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:07.377Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710b2ba05a80534f63c70"
+  },
+  "name": "Side salad",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370ae5ba05a80534f63c2a",
+    "name": "side-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:29.630Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:14.316Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710bcba05a80534f63c71"
+  },
+  "name": "Penne",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370af7ba05a80534f63c2b",
+    "name": "pasta-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:47.088Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:24.287Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710c0ba05a80534f63c72"
+  },
+  "name": "Linguine",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370af7ba05a80534f63c2b",
+    "name": "pasta-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:47.088Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:28.296Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710c7ba05a80534f63c73"
+  },
+  "name": "Fettucine",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370af7ba05a80534f63c2b",
+    "name": "pasta-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:47.088Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:35.873Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710ceba05a80534f63c74"
+  },
+  "name": "Spaghetti",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370af7ba05a80534f63c2b",
+    "name": "pasta-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:47.088Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:42.209Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710dbba05a80534f63c75"
+  },
+  "name": "Mince",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:31:55.812Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710e2ba05a80534f63c76"
+  },
+  "name": "Mushrooms",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:02.954Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710eaba05a80534f63c77"
+  },
+  "name": "Onion",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:10.224Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710f5ba05a80534f63c78"
+  },
+  "name": "Meatballs",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:21.687Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3710fdba05a80534f63c79"
+  },
+  "name": "Olives",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:29.071Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371103ba05a80534f63c7a"
+  },
+  "name": "Anchovy",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:35.440Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371109ba05a80534f63c7b"
+  },
+  "name": "Chicken pieces",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:41.152Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371116ba05a80534f63c7c"
+  },
+  "name": "Rosemary",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:32:54.172Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371157ba05a80534f63c7d"
+  },
+  "name": "Capers",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:33:59.290Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711b0ba05a80534f63c7e"
+  },
+  "name": "Mushrooms",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a7dba05a80534f63c23",
+    "name": "pizza-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:45.313Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:35:28.722Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711c0ba05a80534f63c7f"
+  },
+  "name": "Ham",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:35:44.826Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711cfba05a80534f63c80"
+  },
+  "name": "Bacon",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:35:59.106Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711d8ba05a80534f63c81"
+  },
+  "name": "Parmesan",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:36:08.955Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711e2ba05a80534f63c82"
+  },
+  "name": "Cherry tomato",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:36:18.013Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711e7ba05a80534f63c83"
+  },
+  "name": "Capers",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:36:23.777Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3711ecba05a80534f63c84"
+  },
+  "name": "Garlic",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:36:28.406Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371233ba05a80534f63c85"
+  },
+  "name": "Prawns",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370a81ba05a80534f63c24",
+    "name": "pasta-toppings",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:04:49.700Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:37:39.511Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371243ba05a80534f63c86"
+  },
+  "name": "Blue",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b01ba05a80534f63c2c",
+    "name": "meat-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:57.959Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:37:55.511Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371247ba05a80534f63c87"
+  },
+  "name": "Rare",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b01ba05a80534f63c2c",
+    "name": "meat-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:57.959Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:37:59.598Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37124eba05a80534f63c88"
+  },
+  "name": "Medium-rare",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b01ba05a80534f63c2c",
+    "name": "meat-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:57.959Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:06.115Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371253ba05a80534f63c89"
+  },
+  "name": "Medium",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b01ba05a80534f63c2c",
+    "name": "meat-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:57.959Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:11.560Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37125bba05a80534f63c8a"
+  },
+  "name": "Medium-well",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b01ba05a80534f63c2c",
+    "name": "meat-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:57.959Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:19.659Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371262ba05a80534f63c8b"
+  },
+  "name": "Well-done",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b01ba05a80534f63c2c",
+    "name": "meat-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:06:57.959Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:26.957Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371271ba05a80534f63c8c"
+  },
+  "name": "Lemon and herb",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b24ba05a80534f63c2f",
+    "name": "basting-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:32.127Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:41.410Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37127cba05a80534f63c8d"
+  },
+  "name": "Peri peri",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b24ba05a80534f63c2f",
+    "name": "basting-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:32.127Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:52.770Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371283ba05a80534f63c8e"
+  },
+  "name": "Grilled",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b12ba05a80534f63c2e",
+    "name": "fish-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:14.392Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:38:59.936Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37128aba05a80534f63c8f"
+  },
+  "name": "Fried",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b12ba05a80534f63c2e",
+    "name": "fish-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:14.392Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:06.439Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371294ba05a80534f63c90"
+  },
+  "name": "Soft",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b09ba05a80534f63c2d",
+    "name": "egg-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:05.552Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:16.068Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f37129bba05a80534f63c91"
+  },
+  "name": "Sunny side up",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b09ba05a80534f63c2d",
+    "name": "egg-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:05.552Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:23.224Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712a1ba05a80534f63c92"
+  },
+  "name": "Medium",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b09ba05a80534f63c2d",
+    "name": "egg-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:05.552Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:29.365Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712a8ba05a80534f63c93"
+  },
+  "name": "Hard",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370b09ba05a80534f63c2d",
+    "name": "egg-style-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:07:05.552Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:36.618Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712afba05a80534f63c94"
+  },
+  "name": "Café di Paris sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:43.707Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712b5ba05a80534f63c95"
+  },
+  "name": "Black Forest Sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:49.164Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712bdba05a80534f63c96"
+  },
+  "name": "Lemon Cream sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:39:57.655Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712c4ba05a80534f63c97"
+  },
+  "name": "Mushrooms sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:40:04.284Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712c9ba05a80534f63c98"
+  },
+  "name": "Cheese sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:40:09.730Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f3712ceba05a80534f63c99"
+  },
+  "name": "Pepper sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T22:40:14.875Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+},{
+  "_id": {
+    "$oid": "5f371f4dba05a80534f63c9e"
+  },
+  "name": "Sweet Chilli sauce",
+  "price": 10,
+  "addonCategory": {
+    "_id": "5f370aaeba05a80534f63c29",
+    "name": "sauce-options",
+    "disabled": false,
+    "createdAt": "2020-08-14T22:05:34.320Z",
+    "createdAuthor": {
+      "sub": "google-oauth2|115919763547016142757",
+      "name": "Nic Priest"
+    }
+  },
+  "disabled": false,
+  "createdAt": {
+    "$date": "2020-08-14T23:33:33.559Z"
+  },
+  "createdAuthor": {
+    "sub": "google-oauth2|115919763547016142757",
+    "name": "Nic Priest"
+  }
+}]
