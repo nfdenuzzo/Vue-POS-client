@@ -233,7 +233,7 @@ router.delete(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const collection = await loadSpecificCollection("menuItem");
+    const collection = await loadSpecificCollection("menuItems");
 
     const token = await createToken(req);
 

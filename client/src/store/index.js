@@ -11,6 +11,7 @@ import userProfile from "./userProfile";
 import menuItems from "./menuItems";
 import menuSideItems from "./menuSideItems";
 import menuCategories from "./menuCategories";
+import basket from "./basket";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -39,7 +40,8 @@ export default new Vuex.Store({
         "generalSettings.settingsRetrievedDate",
         "menuItems",
         "menuSideItems",
-        "menuCategories"
+        "menuCategories",
+        "basket"
       ]
     })
   ],
@@ -58,7 +60,8 @@ export default new Vuex.Store({
     userProfile,
     menuItems,
     menuSideItems,
-    menuCategories
+    menuCategories,
+    basket
   }
 });
 

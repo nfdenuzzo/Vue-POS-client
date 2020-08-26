@@ -119,5 +119,5 @@ function isTokenExpired(token) {
 }
 
 export function userNotPermitted() {
-  router.push('/').catch(() => {});
+  logout()
 }

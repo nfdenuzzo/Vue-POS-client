@@ -411,7 +411,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedMainToppingOptions"
                     :options="
-                      getMainToppingOptionsObject(
+                      getMainToppingsObject(
                         menuItemDetails.chosenMainToppings
                       )
                     "
@@ -656,9 +656,13 @@
 </template>
 <script>
 import { uid } from 'quasar'
+import getMenuItemDropdownObjects from "../../mixins/getMenuItemDropdownObjects.js";
+import getMenuItemExtraToppingObjects from "../../mixins/getMenuItemExtraToppingObjects.js";
+import getSelectedExtraToppingsObject from "../../mixins/getSelectedExtraToppingsObject.js";
+import getRemovedToppingsObject from "../../mixins/getRemovedToppingsObject.js"
 export default {
   components: {},
-  mixins: [],
+  mixins: [getMenuItemDropdownObjects, getMenuItemExtraToppingObjects, getSelectedExtraToppingsObject, getRemovedToppingsObject],
   props: {
     menuItemSelected: {
       type: Object,
@@ -715,99 +719,6 @@ export default {
     };
   },
   computed: {
-    extraMainOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled && item.addonCategory.name.includes("main-toppings")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
-    extraDessertToppingsOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled &&
-            item.addonCategory.name.includes("dessert-toppings")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
-    extraPastaToppingsOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled && item.addonCategory.name.includes("pasta-toppings")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
-    extraPizzaToppingsOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled && item.addonCategory.name.includes("pizza-toppings")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
-    extraSaladToppingsOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled && item.addonCategory.name.includes("salad-toppings")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
-    extraBurgerToppingsOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled &&
-            item.addonCategory.name.includes("burger-toppings")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
-    extraSaucesOptions() {
-      return this.$store.getters.getSideItems
-        .filter(
-          item =>
-            !item.disabled && item.addonCategory.name.includes("sauce-options")
-        )
-        .map(x => {
-          return {
-            label: `${x.name} (+ R ${x.price})`,
-            value: x._id
-          };
-        });
-    },
     newPriceExtrasAdded() {
       let price = this.menuItemDetails.price;
       if (this.menuItemDetails.calzoneOffered && this.makeCalzone) {
@@ -872,7 +783,7 @@ export default {
   beforeDestroy() {},
   methods: {
     createDisplayOrderObject() {
-      const diplayObject = {
+      return {
         id: uid(),
         price: this.menuItemDetails.price,
         name: this.menuItemDetails.name,
@@ -889,23 +800,23 @@ export default {
         chosenBastingStyleOption: this.selectedMenuItemDetails.selectedBastingOption,
         chosenEggStyleOption: this.selectedMenuItemDetails.selectedEggStyleOption,
         //removed items
-        removePastaToppings: [],
-        removePizzaToppings: [],
-        removeMainToppings: [],
-        removeBurgerToppings: [],
+        removedPastaToppings: this.getRemovedPastaToppings(),
+        removedPizzaToppings: this.getRemovedPizzaToppings(),
+        removedMainToppings: this.getRemovedMainToppings(),
+        removedBurgerToppings: this.getRemovedBurgerToppings(),
         //selected items
         selectedPizzaToppings: this.selectedMenuItemDetails.selectedPizzaToppings,
         selectedMainToppingOptions: this.selectedMenuItemDetails.selectedMainToppingOptions,
         selectedPastaToppings: this.selectedMenuItemDetails.selectedPastaToppings,
         selectedBurgerToppings: this.selectedMenuItemDetails.selectedBurgerToppings,
         //extras
-        extraPizzaToppings: [],
-        extraDessertToppings: [],
-        extraSaladToppings: [],
-        extraBurgerToppings: [],
-        extraPastaToppings: [],
-        extraSuaces: [],
-        extraMainOptions: []
+        extraPizzaToppings: this.selectedMenuItemDetails.extras.extraPizzaToppings,
+        extraDessertToppings: this.selectedMenuItemDetails.extras.extraDessertToppings,
+        extraSaladToppings: this.selectedMenuItemDetails.extras.extraSaladToppings,
+        extraBurgerToppings: this.selectedMenuItemDetails.extras.extraBurgerToppings,
+        extraPastaToppings: this.selectedMenuItemDetails.extras.extraPastaToppings,
+        extraSuaces: this.selectedMenuItemDetails.extras.extraSauces,
+        extraMainOptions: this.selectedMenuItemDetails.extras.extraMainToppings
       }
     },
     calculateExtraSaucesCost() {
@@ -984,7 +895,7 @@ export default {
       this.selectedMenuItemDetails.price = this.menuItemDetails.price;
       this.selectedMenuItemDetails.description = this.menuItemDetails.description;
       if (this.menuItemDetails.hasMainToppings) {
-        this.selectedMenuItemDetails.selectedMainToppingOptions = this.getMainToppingOptionsObject(
+        this.selectedMenuItemDetails.selectedMainToppingOptions = this.getMainToppingsObject(
           this.menuItemDetails.chosenMainToppings
         ).map(itemName => {
           return itemName.value;
@@ -1004,6 +915,13 @@ export default {
           return itemName.value;
         });
       }
+      if (this.menuItemDetails.hasBurgerToppings) {
+        this.selectedMenuItemDetails.selectedBurgerToppings = this.getBurgerToppingsObject(
+          this.menuItemDetails.chosenBurgerToppings
+        ).map(itemName => {
+          return itemName.value;
+        });
+      }
     },
     incrementItems() {
       this.items++;
@@ -1016,96 +934,9 @@ export default {
     closeMenuItemsDetails() {
       this.$emit("closeMenuItemsDetails");
     },
-    getPastaToppingsObject(pastaToppings) {
-      return pastaToppings.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getPizzaToppingsObject(pizzaToppings) {
-      return pizzaToppings.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getBurgerToppingsObject(burgerToppings) {
-      return burgerToppings.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getSauceOptionsObject(saucesObject) {
-      return saucesObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getSideOptionsObject(sidesObject) {
-      return sidesObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getPastaTypeOptionsObject(pastaTypeObject) {
-      return pastaTypeObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getMeatStyleOptionsObject(meatStyleObject) {
-      return meatStyleObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getBastingStyleOptionsObject(bastingStyleObject) {
-      return bastingStyleObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getFishStyleOptionsObject(fishStyleObject) {
-      return fishStyleObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getEggStyleOptionsObject(eggStyleObject) {
-      return eggStyleObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
-    getMainToppingOptionsObject(mainToppingsObject) {
-      return mainToppingsObject.map(item => {
-        return {
-          label: item.name,
-          value: item.name
-        };
-      });
-    },
     async onSubmit() {
-      console.log("onSubmit -> this.selectedMenuItemDetails", this.selectedMenuItemDetails)
+      let result = this.createDisplayOrderObject()
+      console.log("onSubmit -> result", result)
     }
   }
 };

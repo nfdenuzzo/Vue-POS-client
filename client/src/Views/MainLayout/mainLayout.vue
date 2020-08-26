@@ -32,12 +32,14 @@
               </div>
               <div class="col-xs-1 text-right">
                 <q-btn
+                  v-if="hasItemsInOrder"
+                  @click="showBasketDialog"
                   round
                   icon="shopping_cart"
                   class="q-mt-md q-mr-lg bg-goldBrown"
                   :style="$q.screen.lt.md ? 'right: 10px;' : ''"
                 >
-                  <q-badge round color="logoRed" floating>4</q-badge>
+                  <q-badge round color="logoRed" floating>{{ getItemsInOrderCount }}</q-badge>
                 </q-btn>
               </div>
             </div>
@@ -160,6 +162,13 @@
       <q-page-container>
         <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
         <router-view />
+        <q-dialog v-model="viewBasket" 
+          :full-width="$q.platform.is.mobile ? true : false"
+          :full-height="$q.platform.is.mobile ? true : false"
+          transition-show="slide-up"
+          transition-hide="slide-down">
+          <basket v-if="viewBasket" :viewBasket.sync="viewBasket" />
+        </q-dialog>
       </q-page-container>
 
     <q-footer
@@ -231,6 +240,7 @@ export default {
   name: "MainLayout",
   mixins: [computedFunctionsMixin, adminMenu, userMenu],
   components: {
+    "basket": () => import("../../components/Basket/Basket.vue"),
     "delivery-charges": () => import("../../components/deliveryCharges.vue"),
     "trading-Hours": () => import("../../components/tradingHours.vue"),
     "cooking-time-info": () => import("../../components/cookingTimeInfo.vue"),
@@ -239,13 +249,27 @@ export default {
     "terms-and-conditions": () =>
       import("../../components/TandCs/privacyPolicyAndTermsAndConditions.vue")
   },
-  computed: {},
+  computed: {
+    getAdminMainMenuItem() {
+      return this.adminMainMenuItems;
+    },
+    getUserMainMenuItem() {
+      return this.userMainMenuItems;
+    },
+    hasItemsInOrder() {
+      return (this.$store.getters.getBasket.length > 0)
+    },
+    getItemsInOrderCount() {
+      return this.$store.getters.getBasket.length;
+    },
+  },
   data() {
     return {
       images: {
         // eslint-disable-next-line no-undef
         Logo: require("../../assets/logo-min.png")
       },
+      viewBasket: false,
       showAppInstallBanner: false,
       menuDrawerOpen: false
     };
@@ -273,6 +297,9 @@ export default {
   },
   watch: {},
   methods: {
+    showBasketDialog() {
+      this.viewBasket = true;
+    },
     installApp() {
       // Hide the app provided install promotion
       this.showAppInstallBanner = false;
@@ -300,14 +327,6 @@ export default {
     },
     goHome() {
       this.$router.push("/").catch(() => {});
-    }
-  },
-  computed: {
-    getAdminMainMenuItem() {
-      return this.adminMainMenuItems;
-    },
-    getUserMainMenuItem() {
-      return this.userMainMenuItems;
     }
   }
 };
