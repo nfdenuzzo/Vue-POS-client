@@ -226,7 +226,7 @@ export default {
           action: "/menu-options"
         });
       }
-      if (this.$store.getters.getProfile) {
+      if (this.$store.getters.getAuth) {
         options.push({ name: "Sign out", action: "signout" });
       } else {
         options.push({ name: "Login / Sign-up", action: "signin" });
