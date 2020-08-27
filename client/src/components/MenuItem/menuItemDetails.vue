@@ -49,7 +49,7 @@
 
         <q-form
           ref="myForm"
-          :style="!$q.platform.is.mobile ? 'margin-top: -40px' : '' "
+          :style="!$q.platform.is.mobile ? 'margin-top: -40px' : ''"
           @submit="onSubmit"
           :greedy="true"
         >
@@ -411,9 +411,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedMainToppingOptions"
                     :options="
-                      getMainToppingsObject(
-                        menuItemDetails.chosenMainToppings
-                      )
+                      getMainToppingsObject(menuItemDetails.chosenMainToppings)
                     "
                     color="positive"
                     inline
@@ -560,6 +558,7 @@
                 color="positive"
               />
             </div>
+
             <div
               class="row text-caption text-weight-bold"
               v-if="addExtraPizzaToppings"
@@ -655,14 +654,19 @@
   </q-card>
 </template>
 <script>
-import { uid } from 'quasar'
+import { uid } from "quasar";
 import getMenuItemDropdownObjects from "../../mixins/getMenuItemDropdownObjects.js";
 import getMenuItemExtraToppingObjects from "../../mixins/getMenuItemExtraToppingObjects.js";
 import getSelectedExtraToppingsObject from "../../mixins/getSelectedExtraToppingsObject.js";
-import getRemovedToppingsObject from "../../mixins/getRemovedToppingsObject.js"
+import getRemovedToppingsObject from "../../mixins/getRemovedToppingsObject.js";
 export default {
   components: {},
-  mixins: [getMenuItemDropdownObjects, getMenuItemExtraToppingObjects, getSelectedExtraToppingsObject, getRemovedToppingsObject],
+  mixins: [
+    getMenuItemDropdownObjects,
+    getMenuItemExtraToppingObjects,
+    getRemovedToppingsObject,
+    getSelectedExtraToppingsObject
+  ],
   props: {
     menuItemSelected: {
       type: Object,
@@ -749,7 +753,7 @@ export default {
     }
   },
   watch: {
-    "selectedMenuItemDetails": {
+    selectedMenuItemDetails: {
       deep: true,
       handler() {
         if (
@@ -790,34 +794,42 @@ export default {
         description: this.menuItemDetails.description,
         quantity: this.items,
         calzoneOffered: this.menuItemDetails.calzoneOffered,
-        makeCalzone:  this.selectedMenuItemDetails.makeCalzone,
+        makeCalzone: this.selectedMenuItemDetails.makeCalzone,
         //choosen option
-        chosenFishStyleOption: this.selectedMenuItemDetails.selectedFishCookedStyle,
-        chosenMeatStyleOption: this.selectedMenuItemDetails.selectedMeatStyleOption,
+        chosenFishStyleOption: this.selectedMenuItemDetails
+          .selectedFishCookedStyle,
+        chosenMeatStyleOption: this.selectedMenuItemDetails
+          .selectedMeatStyleOption,
         chosenPastaOption: this.selectedMenuItemDetails.selectedPastaOption,
         chosenSauceOption: this.selectedMenuItemDetails.selectedSauceOption,
         chosenSideOption: this.selectedMenuItemDetails.selectedSideOption,
-        chosenBastingStyleOption: this.selectedMenuItemDetails.selectedBastingOption,
-        chosenEggStyleOption: this.selectedMenuItemDetails.selectedEggStyleOption,
+        chosenBastingStyleOption: this.selectedMenuItemDetails
+          .selectedBastingOption,
+        chosenEggStyleOption: this.selectedMenuItemDetails
+          .selectedEggStyleOption,
         //removed items
         removedPastaToppings: this.getRemovedPastaToppings(),
         removedPizzaToppings: this.getRemovedPizzaToppings(),
         removedMainToppings: this.getRemovedMainToppings(),
         removedBurgerToppings: this.getRemovedBurgerToppings(),
         //selected items
-        selectedPizzaToppings: this.selectedMenuItemDetails.selectedPizzaToppings,
-        selectedMainToppingOptions: this.selectedMenuItemDetails.selectedMainToppingOptions,
-        selectedPastaToppings: this.selectedMenuItemDetails.selectedPastaToppings,
-        selectedBurgerToppings: this.selectedMenuItemDetails.selectedBurgerToppings,
+        selectedPizzaToppings: this.selectedMenuItemDetails
+          .selectedPizzaToppings,
+        selectedMainToppingOptions: this.selectedMenuItemDetails
+          .selectedMainToppingOptions,
+        selectedPastaToppings: this.selectedMenuItemDetails
+          .selectedPastaToppings,
+        selectedBurgerToppings: this.selectedMenuItemDetails
+          .selectedBurgerToppings,
         //extras
-        extraPizzaToppings: this.selectedMenuItemDetails.extras.extraPizzaToppings,
-        extraDessertToppings: this.selectedMenuItemDetails.extras.extraDessertToppings,
-        extraSaladToppings: this.selectedMenuItemDetails.extras.extraSaladToppings,
-        extraBurgerToppings: this.selectedMenuItemDetails.extras.extraBurgerToppings,
-        extraPastaToppings: this.selectedMenuItemDetails.extras.extraPastaToppings,
-        extraSuaces: this.selectedMenuItemDetails.extras.extraSauces,
-        extraMainOptions: this.selectedMenuItemDetails.extras.extraMainToppings
-      }
+        extraPizzaToppings: this.getSelectedExtraPizzaToppings(),
+        extraDessertToppings: this.getSelectedExtraDessertToppings(),
+        extraSaladToppings: this.getSelectedExtraSaladToppings(),
+        extraBurgerToppings: this.getSelectedExtraBurgerToppings(),
+        extraPastaToppings: this.getSelectedExtraPastaToppings(),
+        extraSuaces: this.getSelectedExtraSauceOptions(),
+        extraMainOptions: this.getSelectedExtraMainOptions()
+      };
     },
     calculateExtraSaucesCost() {
       const results = this.$store.getters.getSideItems.filter(
@@ -935,8 +947,15 @@ export default {
       this.$emit("closeMenuItemsDetails");
     },
     async onSubmit() {
-      let result = this.createDisplayOrderObject()
-      console.log("onSubmit -> result", result)
+      const specifiedItem = this.createDisplayOrderObject();
+      console.log("onSubmit -> specifiedItem", specifiedItem)
+      this.$store.dispatch("addToBasket", specifiedItem)
+      this.$q.notify({
+        type: 'positive',
+        message: `${ this.items } x ${ this.menuItemDetails.name } has been been added to your order.`,
+        color: "positive"
+      });
+      this.closeMenuItemsDetails();
     }
   }
 };

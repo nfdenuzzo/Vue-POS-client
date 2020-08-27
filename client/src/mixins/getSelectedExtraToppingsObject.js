@@ -1,98 +1,137 @@
 export default {
-    methods: {
-      extraMainOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled && item.addonCategory.name.includes("main-toppings")
+  methods: {
+    getSelectedExtraMainOptions() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled && item.addonCategory.name.includes("main-toppings")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraMainToppings.includes(
+            item._id
           )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      },
-      extraDessertToppingsOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled &&
-              item.addonCategory.name.includes("dessert-toppings")
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getSelectedExtraDessertToppings() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled &&
+            item.addonCategory.name.includes("dessert-toppings")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraDessertToppings.includes(
+            item._id
           )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      },
-      extraPastaToppingsOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled && item.addonCategory.name.includes("pasta-toppings")
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getSelectedExtraPastaToppings() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled && item.addonCategory.name.includes("pasta-toppings")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraPastaToppings.includes(
+            item._id
           )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      },
-      extraPizzaToppingsOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled && item.addonCategory.name.includes("pizza-toppings")
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getSelectedExtraPizzaToppings() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled && item.addonCategory.name.includes("pizza-toppings")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraPizzaToppings.includes(
+            item._id
           )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      },
-      extraSaladToppingsOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled && item.addonCategory.name.includes("salad-toppings")
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getSelectedExtraSaladToppings() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled && item.addonCategory.name.includes("salad-toppings")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraSaladToppings.includes(
+            item._id
           )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      },
-      extraBurgerToppingsOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled &&
-              item.addonCategory.name.includes("burger-toppings")
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getSelectedExtraBurgerToppings() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled &&
+            item.addonCategory.name.includes("burger-toppings")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraBurgerToppings.includes(
+            item._id
           )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      },
-      extraSaucesOptions() {
-        return this.$store.getters.getSideItems
-          .filter(
-            item =>
-              !item.disabled && item.addonCategory.name.includes("sauce-options")
-          )
-          .map(x => {
-            return {
-              label: `${x.name} (+ R ${x.price})`,
-              value: x._id
-            };
-          });
-      }
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getSelectedExtraSauceOptions() {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled && item.addonCategory.name.includes("sauce-options")
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras.extraSauces.includes(item._id)
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
     }
-  };
-  
+  }
+};

@@ -88,6 +88,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
+          type: 'positive',
           message: "Item deleted successfully.",
           color: "positive"
         });

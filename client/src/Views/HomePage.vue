@@ -214,7 +214,6 @@ export default {
     getButtonOptions() {
       let options = [];
       options.push({ name: "Menu", action: "/menu-options" });
-      console.log("getButtonOptions -> this.hasRightToViewCurrentOrders", this.hasRightToViewCurrentOrders)
       if (this.hasRightToViewCurrentOrders) {
         options.push({
           name: "View Current Orders",
