@@ -32,12 +32,13 @@
               </div>
               <div class="col-xs-1 text-right">
                 <q-btn
-                  v-if="hasItemsInOrder"
+                  v-if="hasItemsInOrder && $store.getters.getAuth"
                   @click="showBasketDialog"
                   round
+                  size="md"
                   icon="shopping_cart"
+                  style="right:10px;"
                   class="q-mt-md q-mr-lg bg-goldBrown"
-                  :style="$q.screen.lt.md ? 'right: 10px;' : ''"
                 >
                   <q-badge round color="logoRed" floating>{{ getItemsInOrderCount }}</q-badge>
                 </q-btn>
@@ -162,7 +163,8 @@
       <q-page-container>
         <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
         <router-view />
-        <q-dialog v-model="viewBasket" 
+        <q-dialog v-model="viewBasket"
+          persistent
           :full-width="$q.platform.is.mobile ? true : false"
           :full-height="$q.platform.is.mobile ? true : false"
           transition-show="slide-up"

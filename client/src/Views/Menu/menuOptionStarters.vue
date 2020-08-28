@@ -48,7 +48,6 @@
       <menu-item-details
         :menuItemSelected="menuItemDetails"
         @closeMenuItemsDetails="closeMenuItemsDetails"
-        :style="$q.platform.is.desktop ? 'min-width:600px;' : ''"
       />
     </q-dialog>
   </div>

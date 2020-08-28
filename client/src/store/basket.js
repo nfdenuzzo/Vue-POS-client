@@ -33,6 +33,23 @@ const basket = {
       payload
     ) {
       commit("updateBasket", []);
+    },
+    async updateOrderItemCount(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      const existingItem = rootGetters.getBasket.find(x => x.id === payload.id);
+      const objIndex = rootGetters.getBasket.findIndex((obj => obj.id === payload.id));
+      existingItem.quantity = payload.count;
+      commit('updateSpecifiedBasketItemCount', {index: objIndex, item: existingItem})
+    },
+    async removeOrderItem(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      const existingItem = rootGetters.getBasket.find(x => x.id === payload.id);
+      const objIndex = rootGetters.getBasket.findIndex((obj => obj.id === payload.id));
+      commit('removeSpecifiedBasketItem', { index: objIndex })
     }
   },
   mutations: {
@@ -41,6 +58,12 @@ const basket = {
     },
     updateBasket(state, payload) {
       state.basket = payload;
+    },
+    updateSpecifiedBasketItemCount(state, payload) {
+      state.basket[payload.index] = payload.item;
+    },
+    removeSpecifiedBasketItem(state, payload) {
+      state.basket.splice(payload.index, 1);
     }
   }
 };

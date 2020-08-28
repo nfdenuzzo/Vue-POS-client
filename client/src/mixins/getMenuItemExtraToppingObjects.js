@@ -1,5 +1,5 @@
 export default {
-  methods: {
+  computed: {
     extraMainOptions() {
       return this.$store.getters.getSideItems
         .filter(
