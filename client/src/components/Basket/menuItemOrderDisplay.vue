@@ -2,22 +2,57 @@
   <div class="text-color q-pa-sm">
     <div class="col-xs-10">
       <div class="row">
-        <div class="col-xs-8 text-subtitle1 text-weight-bolder q-pb-sm q-pt-xs">
+        <div class="col-xs-9 text-subtitle1 text-weight-bolder q-pb-sm q-pt-xs">
           {{ menuItemDetails.name }}
         </div>
         <div
-          class="col-xs-2 text-right text-weight-bolder text-subtitle1 q-pt-xs"
+          class="col-xs-3 text-center text-weight-bolder text-subtitle1 q-pt-xs q-pr-sm"
         >
           R {{ menuItemDetails.price }}
         </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-7 q-pb-sm q-pt-xs">
+          {{ menuItemDetails.description }}
+        </div>
         <div
-          class="col-xs-2 text-right text-weight-bolder text-subtitle1 q-pt-xs"
+          class="col-xs-5 text-right text-weight-bolder text-subtitle1 q-pt-xs"
         >
-          x {{ menuItemDetails.quantity }}
+          <q-btn
+            round
+            dense
+            :size="$q.screen.lt.md ? 'sm' : 'md'"
+            color="logoRed"
+            icon="fas fa-minus"
+            @click="decrementItems(menuItemDetails.id)"
+            :disable="!$store.getters.getOrderingActive"
+          />
+          <label
+            class="q-mt-sm q-px-sm text-color text-weight-bolder text-subtitle1"
+          >
+            {{ menuItemDetails.quantity }}
+          </label>
+          <q-btn
+            dense
+            round
+            :size="$q.screen.lt.md ? 'sm' : 'md'"
+            color="positive"
+            icon="fas fa-plus"
+            @click="incrementItems(menuItemDetails.id)"
+          />
         </div>
       </div>
       <div class="row q-py-sm">
-        {{ menuItemDetails.description }}
+        <div class="col-xs-11 q-pb-sm q-pt-xs text-right">
+          <q-btn
+            outline
+            size="xs"
+            color="logoRed"
+            label="Delete"
+            class="text-capitalize text-weight-bolder"
+            @click="removeItem(menuItemDetails.id)"
+          />
+        </div>
       </div>
       <div v-if="menuItemDetails.removedPizzaToppings.length > 0">
         <div
@@ -99,7 +134,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraBurgerToppings"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -114,7 +149,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraDessertToppings"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -129,7 +164,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraMainOptions"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -144,7 +179,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraPastaToppings"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -159,7 +194,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraPizzaToppings"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -174,7 +209,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraSaladToppings"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -189,7 +224,7 @@
           v-for="(extraItem, index) in menuItemDetails.extraSuaces"
           :key="index"
         >
-          <div class="col-xs-8 q-pl-sm">
+          <div class="col-xs-6 q-pl-sm">
             {{ extraItem.label }}
           </div>
           <div class="col-xs-2 text-right text-weight-bold">
@@ -235,7 +270,27 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    removeItem(menuItemId) {
+      this.$store.dispatch("removeOrderItem", { id: menuItemId });
+    },
+    incrementItems(menuItemId) {
+      this.menuItemDetails.quantity = this.menuItemDetails.quantity + 1;
+      this.$store.dispatch("updateOrderItemCount", {
+        id: menuItemId,
+        count: this.menuItemDetails.quantity
+      });
+    },
+    decrementItems(menuItemId) {
+      if (this.menuItemDetails.quantity > 1) {
+        this.menuItemDetails.quantity = this.menuItemDetails.quantity - 1;
+        this.$store.dispatch("updateOrderItemCount", {
+          id: menuItemId,
+          count: this.menuItemDetails.quantity
+        });
+      }
+    }
+  }
 };
 </script>
 <style></style>

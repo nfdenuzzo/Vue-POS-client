@@ -12,20 +12,20 @@
         </div>
       </q-card-section>
       <div class="text-color row items-center text-center q-pb-none">
-        <div class="col-xs-11 text-weight-bold">
-        {{ itemsInOrder }} Items
-        </div>
+        <div class="col-xs-11 text-weight-bold">{{ itemsInOrder }} Items</div>
       </div>
       <q-card-section class="text-color row items-center q-pa-sm">
-        <div v-if="hasItemsInOrder" class="row">
-          <div
-            class="col-xs-12 q-pa-sm"
-            v-for="(item, index) in showItemsInOrder"
-            :key="index"
-          >
-            <q-card>
-              <order-item-display :menuItemDetails="item" />
-            </q-card>
+        <div class="col-xs-12" v-if="hasItemsInOrder">
+          <div class="row">
+            <div
+              class="col-xs-12 q-pa-sm"
+              v-for="(item, index) in showItemsInOrder"
+              :key="index"
+            >
+              <q-card>
+                <order-item-display :menuItemDetails="item" />
+              </q-card>
+            </div>
           </div>
         </div>
         <div v-else>
@@ -79,7 +79,10 @@ export default {
       return this.$store.getters.getBasket;
     },
     itemsInOrder() {
-      return this.$store.getters.getBasket.reduce((a, b) => +a + +b.quantity, 0);;
+      return this.$store.getters.getBasket.reduce(
+        (a, b) => +a + +b.quantity,
+        0
+      );
     }
   },
   watch: {

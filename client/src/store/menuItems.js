@@ -79,12 +79,48 @@ const menuItems = {
     getPizzaBreadsMenuItems: state => {
       return state.pizzaBreadsMenuItems;
     },
-    getMenuItemsRetrievedDate: state => {
-      return state.menuItemsRetrievedDate;
+    getStartersMenuItemRetrievedDate: state => {
+      return state.startersMenuItemsRetrievedDate;
     },
-    getMenuItemsRetrievedDate: state => {
-      return state.menuItemsRetrievedDate;
-    }
+    getClassicPizzasMenuItemRetrievedDate: state => {
+      return state.classicPizzasMenuItemsRetrievedDate;
+    },
+    getPizzaBreadsMenuItemRetrievedDate: state => {
+      return state.pizzaBreadsMenuItemsRetrievedDate;
+    },
+    getSignaturePizzasMenuItemRetrievedDate: state => {
+      return state.signaturePizzasMenuItemsRetrievedDate;
+    },
+    getPastaMenuItemRetrievedDate: state => {
+      return state.pastaMenuItemsRetrievedDate;
+    },
+    getSeafoodMenuItemRetrievedDate: state => {
+      return state.seafoodMenuItemsRetrievedDate;
+    },
+    getDessertMenuItemRetrievedDate: state => {
+      return state.dessertMenuItemsRetrievedDate;
+    },
+    getChefSpecialMeatMenuItemRetrievedDate: state => {
+      return state.chefSpecialMeatMenuItemsRetrievedDate;
+    },
+    getChefSpecialChickenMenuItemRetrievedDate: state => {
+      return state.chefSpecialChickenMenuItemsRetrievedDate;
+    },
+    getChefSpecialPorkMenuItemRetrievedDate: state => {
+      return state.chefSpecialPorkMenuItemsRetrievedDate;
+    },
+    getChefSpecialBurgerMenuItemRetrievedDate: state => {
+      return state.chefSpecialBurgerMenuItemsRetrievedDate;
+    },
+    getChefSpecialOtherMenuItemRetrievedDate: state => {
+      return state.chefSpecialOtherMenuItemsRetrievedDate;
+    },
+    getKidsMenuItemRetrievedDate: state => {
+      return state.kidsMenuItemsRetrievedDate;
+    },
+    getExtraMenuItemRetrievedDate: state => {
+      return state.extraMenuItemsRetrievedDate;
+    },
   },
   actions: {
     async retrieveMenuItems(
@@ -103,7 +139,7 @@ const menuItems = {
         ) {
           const result = await axios.axiosInstance.get(`${menuItemsUrl}/${id}`);
           if (result && result.status === 200) {
-            await dispatch("clearMenuItems", payload.value);
+            await dispatch("updateSpecificCategoryMenuItems", payload.value);
             await dispatch("sortAndSetDifferentMenuItems", {
               data: result.data,
               value: payload.value
@@ -261,7 +297,7 @@ const menuItems = {
         // code block
       }
     },
-    async clearMenuItems(
+    async updateSpecificCategoryMenuItems(
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
@@ -370,47 +406,47 @@ const menuItems = {
       state.pizzaBreadsMenuItems = payload;
     },
     // retrieve dates
-    setExtraMenuItemRetrievedDate(state, payload) {
-      state.extraMenuItemRetrievedDate = payload;
+    setStartersMenuItemRetrievedDate(state, payload) {
+      state.startersMenuItemsRetrievedDate = payload;
     },
-    setKidsMenuItemRetrievedDate(state, payload) {
-      state.kidsMenuItemRetrievedDate = payload;
+    setClassicPizzasMenuItemRetrievedDate(state, payload) {
+      state.classicPizzasMenuItemsRetrievedDate = payload;
     },
-    setChefSpecialOtherMenuItemRetrievedDate(state, payload) {
-      state.chefSpecialOtherMenuItems = payload;
+    setPizzaBreadsMenuItemRetrievedDate(state, payload) {
+      state.pizzaBreadsMenuItemsRetrievedDate = payload;
     },
-    setChefSpecialPorkMenuItemRetrievedDate(state, payload) {
-      state.chefSpecialPorkMenuItems = payload;
+    setSignaturePizzasMenuItemRetrievedDate(state, payload) {
+      state.signaturePizzasMenuItemsRetrievedDate = payload;
+    },
+    setPastaMenuItemRetrievedDate(state, payload) {
+      state.pastaMenuItemsRetrievedDate = payload;
+    },
+    setSeafoodMenuItemRetrievedDate(state, payload) {
+      state.seafoodMenuItemsRetrievedDate = payload;
+    },
+    setDessertMenuItemRetrievedDate(state, payload) {
+      state.dessertMenuItemsRetrievedDate = payload;
     },
     setChefSpecialMeatMenuItemRetrievedDate(state, payload) {
-      state.chefSpecialMeatMenuItemRetrievedDate = payload;
+      state.chefSpecialMeatMenuItemsRetrievedDate = payload;
     },
     setChefSpecialChickenMenuItemRetrievedDate(state, payload) {
-      state.chefSpecialChickenMenuItemRetrievedDate = payload;
+      state.chefSpecialChickenMenuItemsRetrievedDate = payload;
+    },
+    setChefSpecialPorkMenuItemRetrievedDate(state, payload) {
+      state.chefSpecialPorkMenuItemsRetrievedDate = payload;
     },
     setChefSpecialBurgerMenuItemRetrievedDate(state, payload) {
       state.chefSpecialBurgerMenuItemsRetrievedDate = payload;
     },
-    setDessertMenuItemRetrievedDate(state, payload) {
-      state.dessertMenuItemRetrievedDate = payload;
+    setChefSpecialOtherMenuItemRetrievedDate(state, payload) {
+      state.chefSpecialOtherMenuItemsRetrievedDate = payload;
     },
-    setSeafoodMenuItemRetrievedDate(state, payload) {
-      state.seafoodMenuItemRetrievedDate = payload;
+    setKidsMenuItemRetrievedDate(state, payload) {
+      state.kidsMenuItemsRetrievedDate = payload;
     },
-    setPastaMenuItemRetrievedDate(state, payload) {
-      state.pastaMenuItemRetrievedDate = payload;
-    },
-    setStartersMenuItemRetrievedDate(state, payload) {
-      state.startersMenuItemRetrievedDate = payload;
-    },
-    setClassicPizzasMenuItemRetrievedDate(state, payload) {
-      state.classicPizzasMenuItemRetrievedDate = payload;
-    },
-    setSignaturePizzasMenuItemRetrievedDate(state, payload) {
-      state.signaturePizzasMenuItemRetrievedDate = payload;
-    },
-    setPizzaBreadsMenuItemRetrievedDate(state, payload) {
-      state.pizzaBreadsMenuItemsRetrievedDate = payload;
+    setExtraMenuItemRetrievedDate(state, payload) {
+      state.extraMenuItemsRetrievedDate = payload;
     }
   }
 };

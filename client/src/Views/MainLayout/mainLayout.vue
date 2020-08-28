@@ -32,10 +32,12 @@
               </div>
               <div class="col-xs-1 text-right">
                 <q-btn
-                  v-if="hasItemsInOrder"
+                  v-if="hasItemsInOrder && $store.getters.getAuth"
                   @click="showBasketDialog"
                   round
+                  size="md"
                   icon="shopping_cart"
+                  style="right:10px;"
                   class="q-mt-md q-mr-lg bg-goldBrown"
                 >
                   <q-badge round color="logoRed" floating>{{ getItemsInOrderCount }}</q-badge>

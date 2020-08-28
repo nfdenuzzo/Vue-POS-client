@@ -3,10 +3,15 @@
     v-if="dataLoaded"
     :style="!$q.platform.is.mobile ? 'width: 750px; ' : ''"
   >
-    <div class="text-color row justify-center q-pt-md">
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <q-btn icon="close" flat round dense @click="closeMenuItemsDetails" />
+      </div>
+    </div>
+    <div class="text-color row justify-center">
       <div class="col-xs-11 col-sm-11">
         <div class="row">
-          <div class="col-xs-10">
+          <div class="col-xs-12">
             <div class="row">
               <div class="col-xs-9 text-h6 text-weight-bolder q-pb-sm q-pt-xs">
                 {{ menuItemDetails.name }}
@@ -17,15 +22,6 @@
                 R {{ menuItemDetails.price }}
               </div>
             </div>
-          </div>
-          <div class="col-xs-2 text-right">
-            <q-btn
-              icon="close"
-              flat
-              round
-              dense
-              @click="closeMenuItemsDetails"
-            />
           </div>
         </div>
         <div class="row">
@@ -642,9 +638,12 @@
               @click="closeMenuItemsDetails"
             />
             <q-btn
+              :disabled="!$store.getters.getAuth"
               class="text-capitalize"
               color="positive"
-              label="Add to Order"
+              :label="
+                !$store.getters.getAuth ? 'Login Required' : 'Add to Order'
+              "
               type="submit"
             />
           </div>
@@ -939,7 +938,7 @@ export default {
       this.items++;
     },
     decrementItems() {
-      if (this.items >= 1) {
+      if (this.items > 1) {
         this.items--;
       }
     },
@@ -948,11 +947,11 @@ export default {
     },
     async onSubmit() {
       const specifiedItem = this.createDisplayOrderObject();
-      console.log("onSubmit -> specifiedItem", specifiedItem)
-      this.$store.dispatch("addToBasket", specifiedItem)
+      console.log("onSubmit -> specifiedItem", specifiedItem);
+      this.$store.dispatch("addToBasket", specifiedItem);
       this.$q.notify({
-        type: 'positive',
-        message: `${ this.items } x ${ this.menuItemDetails.name } has been been added to your order.`,
+        type: "positive",
+        message: `${this.items} x ${this.menuItemDetails.name} has been been added to your order.`,
         color: "positive"
       });
       this.closeMenuItemsDetails();
