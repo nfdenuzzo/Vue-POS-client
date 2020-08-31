@@ -6,7 +6,7 @@
           {{ menuItemDetails.name }}
         </div>
         <div
-          class="col-xs-3 text-center text-weight-bolder text-subtitle1 q-pt-xs q-pr-sm"
+          class="col-xs-3 text-right text-weight-bolder text-subtitle1 q-pt-xs q-pr-lg"
         >
           R {{ menuItemDetails.price }}
         </div>
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="row q-py-sm">
-        <div class="col-xs-11 q-pb-sm q-pt-xs text-right">
+        <div class="col-xs-12 q-pb-sm q-pt-xs text-right q-pr-md">
           <q-btn
             outline
             size="xs"

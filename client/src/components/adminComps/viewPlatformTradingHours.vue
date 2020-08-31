@@ -147,6 +147,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
+          type: 'positive',
           message: "Opening hours updated successfully.",
           color: "positive"
         });

@@ -72,6 +72,7 @@ axiosInstance.interceptors.response.use(
       case 401:
         userNotPermitted()
         Notify.create({
+          type: 'negative',
           message: "We could not authorize you, reload or login again",
           color: "logoRed"
         });
@@ -80,6 +81,7 @@ axiosInstance.interceptors.response.use(
       // Bad request, either a model error or an error we want the user to see
       case 400:
         Notify.create({
+          type: 'negative',
           message:
             error.response &&
             error.response.data &&
@@ -92,6 +94,7 @@ axiosInstance.interceptors.response.use(
       // Forbidden, user does not have the required rights to view a page
       case 403:
         Notify.create({
+          type: 'negative',
           message: "This action is forbidden!",
           color: "logoRed"
         });
@@ -102,6 +105,7 @@ axiosInstance.interceptors.response.use(
       // Backend-controller action was not found.
       case 404:
         Notify.create({
+          type: 'negative',
           message: "Sorry, the resource was not found on the server.",
           color: "logoRed"
         });
@@ -109,6 +113,7 @@ axiosInstance.interceptors.response.use(
       // Internal server error
       case 500:
         Notify.create({
+          type: 'negative',
           message:
             "An error occurred on the server. Please try again. Sorry for the inconvenience.",
           color: "logoRed"
@@ -118,6 +123,7 @@ axiosInstance.interceptors.response.use(
       case 503:
         logout();
         Notify.create({
+          type: 'negative',
           message: "Sorry, the server is unavailable.",
           color: "logoRed"
         });

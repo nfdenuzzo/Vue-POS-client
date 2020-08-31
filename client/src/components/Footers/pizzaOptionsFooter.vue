@@ -1,9 +1,6 @@
 <template>
   <div container>
     <q-footer bordered class="bg-main-layout-light">
-      <!-- <q-tabs align="center" shrink no-caps active-color="logoRed" indicator-color="logoRed" class="text-color text-weight-bold" v-model="tab">
-        <q-tab class="q-px-sm" :ripple="false" :name="option.name" :label="option.name" v-for="(option, index) in pizzaTypes" :key="index" />
-      </q-tabs> -->
       <q-tabs
         inline-label
         outside-arrows

@@ -13,9 +13,9 @@ async function loadSpecificCollection(collectionName) {
 
 //#region
 // retrieve latest menu items
-router.get("/:Id", async (req, res) => {
+router.get("/:category", async (req, res) => {
 
-  const myQuery = { "menuCategory.name": req.params.Id };
+  const myQuery = { "menuCategory.name": req.params.category };
 
   const collection = await loadSpecificCollection("menuItems");
   const allMenuItems = await collection.find(myQuery).toArray();

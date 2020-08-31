@@ -7,9 +7,7 @@ const jwt = require("express-jwt");
 const {
   hasReadPermission,
   hasUpdatePermission,
-  hasDeletePermission,
-  hasCreatePermission,
-  isSuperAdmin,
+  hasDeletePermission
 } = require("../../../utils/getPermissions.js");
 const jwksRsa = require("jwks-rsa");
 require("dotenv").config();

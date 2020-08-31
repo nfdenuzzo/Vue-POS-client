@@ -207,6 +207,13 @@ export default {
       isntagramLink: "https://www.instagram.com/black_forest_grill/"
     };
   },
+  beforeRouteLeave(to, from, next) {
+    if (this.$store.getters.getViewingPurchaseProcess) {
+      next(false);
+    } else {
+      next();
+    }
+  },
   computed: {
     getPlatformOpen() {
       return this.$store.getters.getOrderingActive;
@@ -253,6 +260,7 @@ export default {
         logout();
       } else {
         this.$q.notify({
+          type: 'negative',
           message:
             "Unable to grant you access, please contact Black Forest Grill for more information",
           timeout: 4500,

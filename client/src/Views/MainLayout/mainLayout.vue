@@ -33,7 +33,7 @@
               <div class="col-xs-1 text-right">
                 <q-btn
                   v-if="hasItemsInOrder && $store.getters.getAuth"
-                  @click="showBasketDialog"
+                  @click="showPurchaseProcessDialog"
                   round
                   size="md"
                   icon="shopping_cart"
@@ -163,13 +163,13 @@
       <q-page-container>
         <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
         <router-view />
-        <q-dialog v-model="viewBasket"
+        <q-dialog v-model="viewPurchaseProcess"
           persistent
           :full-width="$q.platform.is.mobile ? true : false"
           :full-height="$q.platform.is.mobile ? true : false"
           transition-show="slide-up"
           transition-hide="slide-down">
-          <basket v-if="viewBasket" :viewBasket.sync="viewBasket" />
+          <purchaseProcess v-if="viewPurchaseProcess" :viewPurchaseProcess.sync="viewPurchaseProcess" />
         </q-dialog>
       </q-page-container>
 
@@ -242,7 +242,7 @@ export default {
   name: "MainLayout",
   mixins: [computedFunctionsMixin, adminMenu, userMenu],
   components: {
-    "basket": () => import("../../components/Basket/Basket.vue"),
+    "purchaseProcess": () => import("../../components/PurchaseProcess/purchaseProcess.vue"),
     "delivery-charges": () => import("../../components/deliveryCharges.vue"),
     "trading-Hours": () => import("../../components/tradingHours.vue"),
     "cooking-time-info": () => import("../../components/cookingTimeInfo.vue"),
@@ -262,8 +262,11 @@ export default {
       return (this.$store.getters.getBasket.length > 0)
     },
     getItemsInOrderCount() {
-      return this.$store.getters.getBasket.length;
-    },
+      return this.$store.getters.getBasket.reduce(
+        (a, b) => +a + +b.quantity,
+        0
+      );
+    }
   },
   data() {
     return {
@@ -271,7 +274,7 @@ export default {
         // eslint-disable-next-line no-undef
         Logo: require("../../assets/logo-min.png")
       },
-      viewBasket: false,
+      viewPurchaseProcess: false,
       showAppInstallBanner: false,
       menuDrawerOpen: false
     };
@@ -297,10 +300,18 @@ export default {
       });
     }
   },
-  watch: {},
+  watch: {
+    viewPurchaseProcess() {
+      if (this.viewPurchaseProcess) {
+        this.$store.commit("setViewingPurchaseProcess", true)
+      } else {
+        this.$store.commit("setViewingPurchaseProcess", false)
+      }
+    }
+  },
   methods: {
-    showBasketDialog() {
-      this.viewBasket = true;
+    showPurchaseProcessDialog() {
+      this.viewPurchaseProcess = true;
     },
     installApp() {
       // Hide the app provided install promotion
