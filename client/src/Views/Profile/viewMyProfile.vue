@@ -56,35 +56,33 @@
                 />
               </div>
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
-              <q-select
-                outlined
-                v-model="updateProfileObj.deliveryArea"
-                :options="deliveryAreas"
-                label="Select Delivery Area"
-                color="positive"
-                dense
-                @filter="filterFn"
-                use-input
-                input-debounce="0"
-                option-value="_id"
-                option-label="area"
-                lazy-rules
-                :rules="[
-                  val =>
-                    (val != null) ||
-                    'Please select a delivery area!'
-                ]"
-              >
-                <template v-slot:no-option>
-                  <q-item>
-                    <q-item-section class="text-italic text-grey">
-                      No options available
-                    </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
+                <q-select
+                  outlined
+                  v-model="updateProfileObj.deliveryArea"
+                  :options="deliveryAreas"
+                  label="Select Delivery Area"
+                  color="positive"
+                  dense
+                  @filter="filterFn"
+                  use-input
+                  input-debounce="0"
+                  option-value="_id"
+                  option-label="area"
+                  lazy-rules
+                  :rules="[
+                    val => val != null || 'Please select a delivery area!'
+                  ]"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-italic text-grey">
+                        No options available
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
               </div>
-              
+
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
                   outlined
@@ -166,7 +164,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: "Profile updated successfully.",
           color: "positive"
         });
@@ -177,15 +175,17 @@ export default {
       await this.assignData();
       this.$refs.myForm.resetValidation();
     },
-    filterFn (val, update, abort) {
+    filterFn(val, update, abort) {
       update(() => {
-        const needle = val.toLocaleLowerCase()
-        this.deliveryAreas = this.$store.getters.getDeliveryCharges.filter(v => v.area.toLocaleLowerCase().indexOf(needle) > -1)
-      })
+        const needle = val.toLocaleLowerCase();
+        this.deliveryAreas = this.$store.getters.getDeliveryCharges.filter(
+          v => v.area.toLocaleLowerCase().indexOf(needle) > -1
+        );
+      });
     },
 
-    setModel (val) {
-      this.deliveryAreas = val
+    setModel(val) {
+      this.deliveryAreas = val;
     }
   }
 };

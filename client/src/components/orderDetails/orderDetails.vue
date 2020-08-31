@@ -125,6 +125,29 @@
               </div>
             </div>
           </div>
+          <div
+            class="col-xs-6 text-center q-px-md q-pt-md text-color text-weight-bold"
+          >
+            <q-checkbox
+              left-label
+              v-model="subscribe"
+              label="Update me on order status changes"
+              color="positive"
+            />
+          </div>
+          <div
+            class="col-xs-6 text-center text-caption text-color text-weight-bold"
+          >
+            Notifications will be sent to you when -
+            <br />Your order has been processed. <br />Your order is being
+            prepared. <br />Your order is ready. <br /><span
+              v-if="deliveryType === 'Delivery'"
+              >Your order is out for Delivery</span
+            >
+            <br /><span v-if="deliveryType !== 'Delivery'"
+              >Your order is ready for Collection</span
+            >
+          </div>
         </q-form>
       </q-card>
     </div>
@@ -146,7 +169,8 @@ export default {
       useExistingAddress: false,
       useExistingContactNumber: false,
       deliveryType: false,
-      deliveryAreas: []
+      deliveryAreas: [],
+      subscribe: false
     };
   },
   computed: {
@@ -160,7 +184,7 @@ export default {
       ) {
         return this.updateOrderDetailsObj.deliveryArea.price;
       } else {
-        return 0
+        return 0;
       }
     }
   },
@@ -210,11 +234,19 @@ export default {
       }
     },
     async onSubmit() {
-      this.$emit("proceedPaymentMethod");
+      const dto = this.createDTO();
+      console.log("onSubmit -> dto", dto)
+      this.$emit("proceedPaymentMethod", dto);
     },
     async onReset() {
       await this.assignData();
       this.$refs.myForm.resetValidation();
+    },
+    createDTO() {
+      this.updateOrderDetailsObj.deliveryType = this.deliveryType
+      this.updateOrderDetailsObj.subscribeNotifications = this.subscribe
+      console.log("createDTO -> this.updateOrderDetailsObj", this.updateOrderDetailsObj)
+      return this.updateOrderDetailsObj
     }
   }
 };
