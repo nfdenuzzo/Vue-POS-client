@@ -99,7 +99,13 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+    viewMenuItemsDetails() {
+      if (!this.viewMenuItemsDetails) {
+        this.menuItemDetails = null
+      }
+    }
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {},

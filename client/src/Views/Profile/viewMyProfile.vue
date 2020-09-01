@@ -56,6 +56,34 @@
                 />
               </div>
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
+                <q-select
+                  outlined
+                  v-model="updateProfileObj.deliveryArea"
+                  :options="deliveryAreas"
+                  label="Select Delivery Area"
+                  color="positive"
+                  dense
+                  @filter="filterFn"
+                  use-input
+                  input-debounce="0"
+                  option-value="_id"
+                  option-label="area"
+                  lazy-rules
+                  :rules="[
+                    val => val != null || 'Please select a delivery area!'
+                  ]"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-italic text-grey">
+                        No options available
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+
+              <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
                   outlined
                   v-model="updateProfileObj.contactNumber"
@@ -102,27 +130,28 @@ export default {
   props: {},
   data() {
     return {
+      deliveryAreas: [],
       updateProfileObj: null,
       updateBtnLoading: false
     };
   },
   computed: {
     getCurrentProfile() {
-      return this.$store.getters.getMyProfiile;
+      return this.$store.getters.getMyProfile;
     }
   },
   watch: {},
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {
-    this.assignData();
+  async mounted() {
+    await this.assignData();
   },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   methods: {
-    assignData() {
+    async assignData() {
       this.updateProfileObj = JSON.parse(
         JSON.stringify(this.getCurrentProfile)
       );
@@ -135,15 +164,28 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
+          type: "positive",
           message: "Profile updated successfully.",
           color: "positive"
         });
       }
       this.updateBtnLoading = false;
     },
-    onReset() {
-      this.assignData();
+    async onReset() {
+      await this.assignData();
       this.$refs.myForm.resetValidation();
+    },
+    filterFn(val, update, abort) {
+      update(() => {
+        const needle = val.toLocaleLowerCase();
+        this.deliveryAreas = this.$store.getters.getDeliveryCharges.filter(
+          v => v.area.toLocaleLowerCase().indexOf(needle) > -1
+        );
+      });
+    },
+
+    setModel(val) {
+      this.deliveryAreas = val;
     }
   }
 };

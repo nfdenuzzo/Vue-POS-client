@@ -5,11 +5,15 @@ const generalBasketUrl = "/general-settings";
 
 const basket = {
   state: {
-    basket: []
+    basket: [],
+    orderDetails: null,
   },
   getters: {
     getBasket: state => {
       return state.basket;
+    },
+    getOrderDetails: state => {
+      return state.orderDetails;
     }
   },
   actions: {
@@ -47,7 +51,6 @@ const basket = {
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
-      const existingItem = rootGetters.getBasket.find(x => x.id === payload.id);
       const objIndex = rootGetters.getBasket.findIndex((obj => obj.id === payload.id));
       commit('removeSpecifiedBasketItem', { index: objIndex })
     }
@@ -64,6 +67,9 @@ const basket = {
     },
     removeSpecifiedBasketItem(state, payload) {
       state.basket.splice(payload.index, 1);
+    },
+    setOrderDetails(state, payload) {
+      state.orderDetails = payload;
     }
   }
 };

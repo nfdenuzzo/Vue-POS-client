@@ -354,6 +354,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
+          type: 'positive',
           message: "Delivery area created successfully.",
           color: "positive"
         });

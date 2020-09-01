@@ -7,9 +7,7 @@ const jwt = require("express-jwt");
 const {
   hasReadPermission,
   hasUpdatePermission,
-  hasDeletePermission,
-  hasCreatePermission,
-  isSuperAdmin,
+  hasDeletePermission
 } = require("../../../utils/getPermissions.js");
 const jwksRsa = require("jwks-rsa");
 require("dotenv").config();
@@ -177,7 +175,6 @@ router.put(
         return res.status(500).send(err);
       }
       const generalSettings = await collection.findOne({ _id: { $ne: null } });
-      const openingHours = req.body;
 
       const updateGeneralSetting = {
         $set: {
@@ -204,6 +201,7 @@ router.put(
   "/update-delivery-area",
   checkJwt,
   hasUpdatePermission,
+  [body("_id").not().isEmpty().trim().withMessage("Id is Required!")],
   [body("area").not().isEmpty().trim().withMessage("Area is Required!")],
   [body("price").isDecimal().withMessage("Price is required")],
   async (req, res) => {
@@ -212,6 +210,7 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
     const collection = await loadSpecificCollection("generalSettings");
+    const usersCollection = await loadSpecificCollection("users");
 
     const token = await createToken(req);
 
@@ -222,6 +221,7 @@ router.put(
         return res.status(500).send(err);
       }
       const generalSettings = await collection.findOne({ _id: { $ne: null } });
+      const userDeliveryArea = await usersCollection.find();
 
       let deliveryCharges = generalSettings.deliveryCharges
         ? generalSettings.deliveryCharges
@@ -275,6 +275,17 @@ router.put(
       };
       // update general settings
       await collection.updateOne(generalSettings, updateGeneralSetting);
+
+      const collectionUsers = await loadSpecificCollection("users");
+      await collectionUsers.updateMany(
+        { "deliveryArea._id": req.body._id.toString() },
+        {
+          $set: {
+            "deliveryArea.price": req.body.price,
+            "deliveryArea.area": req.body.area,
+          },
+        }
+      );
 
       res.status(200).send();
     });

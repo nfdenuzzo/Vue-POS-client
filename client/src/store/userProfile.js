@@ -5,12 +5,12 @@ const myProfileUrl = "/my-profile";
 
 const myProfile = {
   state: {
-    myProfiile: [],
+    myProfile: [],
     myProfileRetrievedDate: null
   },
   getters: {
-    getMyProfiile: state => {
-      return state.myProfiile;
+    getMyProfile: state => {
+      return state.myProfile;
     },
     getMyProfileRetrievedDate: state => {
       return state.myProfileRetrievedDate;
@@ -22,10 +22,10 @@ const myProfile = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getMyProfileRetrievedDate) ||
-          (payload && payload.forceRefresh)
-        ) {
+        // if (
+        //   cachingTimeExpired(rootGetters.getMyProfileRetrievedDate) ||
+        //   (payload && payload.forceRefresh)
+        // ) {
           const result = await axios.axiosInstance.get(`${myProfileUrl}`);
           if (result && result.status === 200) {
             commit("setMyProfile", result.data);
@@ -35,9 +35,9 @@ const myProfile = {
             );
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveUsersList -> ex", ex);
         return false;
@@ -53,7 +53,7 @@ const myProfile = {
           payload
         );
         if (result && result.status === 200) {
-          commit("retrieveMyProfile", { forceRefresh: true });
+          dispatch("retrieveMyProfile", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -63,7 +63,7 @@ const myProfile = {
   },
   mutations: {
     setMyProfile(state, payload) {
-      state.myProfiile = payload;
+      state.myProfile = payload;
     },
     setMyProfileRetrievedDate(state, payload) {
       state.myProfileRetrievedDate = payload;

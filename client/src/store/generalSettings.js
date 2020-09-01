@@ -9,9 +9,13 @@ const generalSettings = {
     curentVATRate: true,
     openingTimes: [],
     settingsRetrievedDate: null,
-    deliveryCharges: []
+    deliveryCharges: [],
+    viewingPurchaseProcess: false
   },
   getters: {
+    getViewingPurchaseProcess: state => {
+      return state.viewingPurchaseProcess;
+    },
     getDeliveryCharges: state => {
       return state.deliveryCharges;
     },
@@ -90,7 +94,10 @@ const generalSettings = {
     },
     setSettingsRetrievedDate(state, payload) {
       state.settingsRetrievedDate = payload;
-    }
+    },
+    setViewingPurchaseProcess(state, payload) {
+      state.viewingPurchaseProcess  = payload;
+    },
   }
 };
 

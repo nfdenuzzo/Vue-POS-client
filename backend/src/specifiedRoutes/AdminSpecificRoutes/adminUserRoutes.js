@@ -1,14 +1,9 @@
 const router = require("express").Router();
 const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const {
   hasReadPermission,
-  hasUpdatePermission,
-  hasDeletePermission,
-  hasCreatePermission,
-  isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 const jwksRsa = require("jwks-rsa");
 require("dotenv").config();
@@ -84,6 +79,7 @@ router.get("/", checkJwt, async (req, res) => {
         name: userInfo.nickname,
         emailVerified: userInfo.email_verified,
         address: null,
+        deliveryArea: null,
         addressLine2: null,
         contactNumber: null,
       });

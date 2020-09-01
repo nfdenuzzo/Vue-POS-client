@@ -132,12 +132,12 @@ const menuItems = {
           "getDifferentMenuItemsRetrievedDate",
           payload.value
         );
-        const id = payload.value;
+        const category = payload.value;
         if (
           cachingTimeExpired(retrievedDate) ||
           (payload && payload.forceRefresh)
         ) {
-          const result = await axios.axiosInstance.get(`${menuItemsUrl}/${id}`);
+          const result = await axios.axiosInstance.get(`${menuItemsUrl}/${category}`);
           if (result && result.status === 200) {
             await dispatch("updateSpecificCategoryMenuItems", payload.value);
             await dispatch("sortAndSetDifferentMenuItems", {

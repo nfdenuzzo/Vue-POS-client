@@ -87,7 +87,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedPizzaToppings"
                     :options="
-                      getPizzaToppingsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenPizzaToppings
                       )
                     "
@@ -121,7 +121,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedBurgerToppings"
                     :options="
-                      getBurgerToppingsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenBurgerToppings
                       )
                     "
@@ -151,7 +151,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedSauceOption"
                     :options="
-                      getSauceOptionsObject(menuItemDetails.chosenSauceOptions)
+                      getDropDownObject(menuItemDetails.chosenSauceOptions)
                     "
                     color="positive"
                     inline
@@ -178,7 +178,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedSideOption"
                     :options="
-                      getSideOptionsObject(menuItemDetails.chosenSideOptions)
+                      getDropDownObject(menuItemDetails.chosenSideOptions)
                     "
                     color="positive"
                     inline
@@ -205,7 +205,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedPastaOption"
                     :options="
-                      getPastaTypeOptionsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenPastaOptions
                       )
                     "
@@ -238,7 +238,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedPastaToppings"
                     :options="
-                      getPastaToppingsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenPastaToppings
                       )
                     "
@@ -272,7 +272,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedMeatStyleOption"
                     :options="
-                      getMeatStyleOptionsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenMeatStyleOptions
                       )
                     "
@@ -303,7 +303,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedBastingOption"
                     :options="
-                      getBastingStyleOptionsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenBastingStyleOptions
                       )
                     "
@@ -340,7 +340,7 @@
                       dense
                       v-model="selectedMenuItemDetails.selectedFishCookedStyle"
                       :options="
-                        getFishStyleOptionsObject(
+                        getDropDownObject(
                           menuItemDetails.chosenFishStyleOptions
                         )
                       "
@@ -374,7 +374,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedEggStyleOption"
                     :options="
-                      getEggStyleOptionsObject(
+                      getDropDownObject(
                         menuItemDetails.chosenEggStyleOptions
                       )
                     "
@@ -407,7 +407,7 @@
                     dense
                     v-model="selectedMenuItemDetails.selectedMainToppingOptions"
                     :options="
-                      getMainToppingsObject(menuItemDetails.chosenMainToppings)
+                      getDropDownObject(menuItemDetails.chosenMainToppings)
                     "
                     color="positive"
                     inline
@@ -654,18 +654,10 @@
 </template>
 <script>
 import { uid } from "quasar";
-import getMenuItemDropdownObjects from "../../mixins/getMenuItemDropdownObjects.js";
-import getMenuItemExtraToppingObjects from "../../mixins/getMenuItemExtraToppingObjects.js";
-import getSelectedExtraToppingsObject from "../../mixins/getSelectedExtraToppingsObject.js";
-import getRemovedToppingsObject from "../../mixins/getRemovedToppingsObject.js";
+import _ from "lodash";
 export default {
   components: {},
-  mixins: [
-    getMenuItemDropdownObjects,
-    getMenuItemExtraToppingObjects,
-    getRemovedToppingsObject,
-    getSelectedExtraToppingsObject
-  ],
+  mixins: [],
   props: {
     menuItemSelected: {
       type: Object,
@@ -675,6 +667,13 @@ export default {
   },
   data() {
     return {
+      extraMainOptions: [],
+      extraDessertToppingsOptions: [],
+      extraPastaToppingsOptions: [],
+      extraBurgerToppingsOptions: [],
+      extraSaladToppingsOptions: [],
+      extraPizzaToppingsOptions: [],
+      extraSaucesOptions: [],
       addExtraMainOptions: false,
       addExtraDessertToppings: false,
       addExtraPastaToppings: false,
@@ -727,27 +726,12 @@ export default {
       if (this.menuItemDetails.calzoneOffered && this.makeCalzone) {
         price + this.menuItemDetails.calzonePrice;
       }
-      if (this.selectedMenuItemDetails.extras.extraSauces.length > 0) {
-        price = price + this.calculateExtraSaucesCost();
-      }
-      if (this.selectedMenuItemDetails.extras.extraPizzaToppings.length > 0) {
-        price = price + this.calculateExtraPizzaToppingsCost();
-      }
-      if (this.selectedMenuItemDetails.extras.extraPastaToppings.length) {
-        price = price + this.calculateExtraPastaToppingsCost();
-      }
-      if (this.selectedMenuItemDetails.extras.extraMainToppings.length > 0) {
-        price = price + this.calculateExtraMainToppingsCost();
-      }
-      if (this.selectedMenuItemDetails.extras.extraBurgerToppings.length > 0) {
-        price = price + this.calculateExtraBurgerToppingsCost();
-      }
-      if (this.selectedMenuItemDetails.extras.extraSaladToppings.length > 0) {
-        price = price + this.calculateExtraSaladToppingsCost();
-      }
-      if (this.selectedMenuItemDetails.extras.extraDessertToppings.length > 0) {
-        price = price + this.calculateExtraDessertToppingsCost();
-      }
+      const keys = _.keys(this.selectedMenuItemDetails.extras)
+      keys.forEach(key => {
+        if (this.selectedMenuItemDetails.extras[key].length > 0) {
+          price = price + this.calculateExtrasSelectedCost(key);
+        }
+      })
       return price;
     }
   },
@@ -785,6 +769,48 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    getSelectedExtraToppingsAndOptions(key1, key2) {
+      return this.$store.getters.getSideItems
+        .filter(
+          item => !item.disabled && item.addonCategory.name.includes(key1)
+        )
+        .filter(item =>
+          this.selectedMenuItemDetails.extras[key2].includes(item._id)
+        )
+        .map(x => {
+          return {
+            label: x.name,
+            price: x.price,
+            value: x._id
+          };
+        });
+    },
+    getRemovedToppings(key1, key2) {
+      return this.getDropDownObject(this.menuItemDetails[key1]).filter(
+        item => !this.selectedMenuItemDetails[key2].includes(item.value)
+      );
+    },
+    getDropDownObject(object) {
+      return object.map(item => {
+        return {
+          label: item.name,
+          value: item.name
+        };
+      });
+    },
+    getExtraToppingsOrOptionsObject(key) {
+      return this.$store.getters.getSideItems
+        .filter(
+          item =>
+            !item.disabled && item.addonCategory.name.includes(key)
+        )
+        .map(x => {
+          return {
+            label: `${x.name} (+ R ${x.price})`,
+            value: x._id
+          };
+        });
+    },
     createDisplayOrderObject() {
       return {
         id: uid(),
@@ -807,10 +833,10 @@ export default {
         chosenEggStyleOption: this.selectedMenuItemDetails
           .selectedEggStyleOption,
         //removed items
-        removedPastaToppings: this.getRemovedPastaToppings(),
-        removedPizzaToppings: this.getRemovedPizzaToppings(),
-        removedMainToppings: this.getRemovedMainToppings(),
-        removedBurgerToppings: this.getRemovedBurgerToppings(),
+        removedPastaToppings: this.getRemovedToppings('chosenPastaToppings', 'selectedPastaToppings'),
+        removedPizzaToppings: this.getRemovedToppings('chosenPizzaToppings', 'selectedPizzaToppings'),
+        removedMainToppings: this.getRemovedToppings('chosenMainToppings', 'selectedMainToppingOptions'),
+        removedBurgerToppings: this.getRemovedToppings('chosenBurgerToppings', 'selectedBurgerToppings'),
         //selected items
         selectedPizzaToppings: this.selectedMenuItemDetails
           .selectedPizzaToppings,
@@ -821,79 +847,19 @@ export default {
         selectedBurgerToppings: this.selectedMenuItemDetails
           .selectedBurgerToppings,
         //extras
-        extraPizzaToppings: this.getSelectedExtraPizzaToppings(),
-        extraDessertToppings: this.getSelectedExtraDessertToppings(),
-        extraSaladToppings: this.getSelectedExtraSaladToppings(),
-        extraBurgerToppings: this.getSelectedExtraBurgerToppings(),
-        extraPastaToppings: this.getSelectedExtraPastaToppings(),
-        extraSuaces: this.getSelectedExtraSauceOptions(),
-        extraMainOptions: this.getSelectedExtraMainOptions()
+        extraPizzaToppings: this.getSelectedExtraToppingsAndOptions("pizza-toppings", "extraPizzaToppings"),
+        extraDessertToppings: this.getSelectedExtraToppingsAndOptions("dessert-toppings", "extraDessertToppings"),
+        extraSaladToppings: this.getSelectedExtraToppingsAndOptions("salad-toppings", "extraSaladToppings"),
+        extraBurgerToppings: this.getSelectedExtraToppingsAndOptions("burger-toppings", "extraBurgerToppings"),
+        extraPastaToppings: this.getSelectedExtraToppingsAndOptions("pasta-toppings", "extraPastaToppings"),
+        extraSuaces: this.getSelectedExtraToppingsAndOptions("sauce-options", "extraSauces"),
+        extraMainOptions: this.getSelectedExtraToppingsAndOptions("main-toppings", "extraMainToppings")
       };
     },
-    calculateExtraSaucesCost() {
+    calculateExtrasSelectedCost(key) {
       const results = this.$store.getters.getSideItems.filter(
         function(item) {
-          return this.selectedMenuItemDetails.extras.extraSauces.includes(
-            item._id
-          );
-        }.bind(this)
-      );
-      return results.reduce((a, b) => +a + +b.price, 0);
-    },
-    calculateExtraPizzaToppingsCost() {
-      const results = this.$store.getters.getSideItems.filter(
-        function(item) {
-          return this.selectedMenuItemDetails.extras.extraPizzaToppings.includes(
-            item._id
-          );
-        }.bind(this)
-      );
-      return results.reduce((a, b) => +a + +b.price, 0);
-    },
-    calculateExtraPastaToppingsCost() {
-      const results = this.$store.getters.getSideItems.filter(
-        function(item) {
-          return this.selectedMenuItemDetails.extras.extraPastaToppings.includes(
-            item._id
-          );
-        }.bind(this)
-      );
-      return results.reduce((a, b) => +a + +b.price, 0);
-    },
-    calculateExtraMainToppingsCost() {
-      const results = this.$store.getters.getSideItems.filter(
-        function(item) {
-          return this.selectedMenuItemDetails.extras.extraMainToppings.includes(
-            item._id
-          );
-        }.bind(this)
-      );
-      return results.reduce((a, b) => +a + +b.price, 0);
-    },
-    calculateExtraBurgerToppingsCost() {
-      const results = this.$store.getters.getSideItems.filter(
-        function(item) {
-          return this.selectedMenuItemDetails.extras.extraBurgerToppings.includes(
-            item._id
-          );
-        }.bind(this)
-      );
-      return results.reduce((a, b) => +a + +b.price, 0);
-    },
-    calculateExtraSaladToppingsCost() {
-      const results = this.$store.getters.getSideItems.filter(
-        function(item) {
-          return this.selectedMenuItemDetails.extras.extraSaladToppings.includes(
-            item._id
-          );
-        }.bind(this)
-      );
-      return results.reduce((a, b) => +a + +b.price, 0);
-    },
-    calculateExtraDessertToppingsCost() {
-      const results = this.$store.getters.getSideItems.filter(
-        function(item) {
-          return this.selectedMenuItemDetails.extras.extraDessertToppings.includes(
+          return this.selectedMenuItemDetails.extras[key].includes(
             item._id
           );
         }.bind(this)
@@ -906,33 +872,40 @@ export default {
       this.selectedMenuItemDetails.price = this.menuItemDetails.price;
       this.selectedMenuItemDetails.description = this.menuItemDetails.description;
       if (this.menuItemDetails.hasMainToppings) {
-        this.selectedMenuItemDetails.selectedMainToppingOptions = this.getMainToppingsObject(
+        this.selectedMenuItemDetails.selectedMainToppingOptions = this.getDropDownObject(
           this.menuItemDetails.chosenMainToppings
         ).map(itemName => {
           return itemName.value;
         });
       }
       if (this.menuItemDetails.hasPastaToppings) {
-        this.selectedMenuItemDetails.selectedPastaToppings = this.getPastaToppingsObject(
+        this.selectedMenuItemDetails.selectedPastaToppings = this.getDropDownObject(
           this.menuItemDetails.chosenPastaToppings
         ).map(itemName => {
           return itemName.value;
         });
       }
       if (this.menuItemDetails.hasPizzaToppings) {
-        this.selectedMenuItemDetails.selectedPizzaToppings = this.getPizzaToppingsObject(
+        this.selectedMenuItemDetails.selectedPizzaToppings = this.getDropDownObject(
           this.menuItemDetails.chosenPizzaToppings
         ).map(itemName => {
           return itemName.value;
         });
       }
       if (this.menuItemDetails.hasBurgerToppings) {
-        this.selectedMenuItemDetails.selectedBurgerToppings = this.getBurgerToppingsObject(
+        this.selectedMenuItemDetails.selectedBurgerToppings = this.getDropDownObject(
           this.menuItemDetails.chosenBurgerToppings
         ).map(itemName => {
           return itemName.value;
         });
       }
+      this.extraMainOptions = this.getExtraToppingsOrOptionsObject("main-toppings")
+      this.extraDessertToppingsOptions = this.getExtraToppingsOrOptionsObject("dessert-toppings");
+      this.extraPastaToppingsOptions = this.getExtraToppingsOrOptionsObject("pasta-toppings");
+      this.extraBurgerToppingsOptions = this.getExtraToppingsOrOptionsObject("burger-toppings");
+      this.extraSaladToppingsOptions = this.getExtraToppingsOrOptionsObject("salad-toppings");
+      this.extraPizzaToppingsOptions = this.getExtraToppingsOrOptionsObject("pizza-toppings");
+      this.extraSaucesOptions = this.getExtraToppingsOrOptionsObject("sauce-options");
     },
     incrementItems() {
       this.items++;
@@ -947,7 +920,6 @@ export default {
     },
     async onSubmit() {
       const specifiedItem = this.createDisplayOrderObject();
-      console.log("onSubmit -> specifiedItem", specifiedItem);
       this.$store.dispatch("addToBasket", specifiedItem);
       this.$q.notify({
         type: "positive",

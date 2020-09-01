@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
@@ -61,6 +60,7 @@ router.get("/", checkJwt, async (req, res) => {
       address: 1,
       contactNumber: 1,
       addressLine2: 1,
+      deliveryArea: 1,
       _id: 0,
     };
 
@@ -116,6 +116,9 @@ router.put(
           contactNumber: req.body.contactNumber
             ? req.body.contactNumber
             : myProfile.contactNumber,
+          deliveryArea: req.body.deliveryArea
+            ? req.body.deliveryArea
+            : myProfile.deliveryArea,
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,

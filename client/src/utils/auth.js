@@ -77,6 +77,7 @@ export async function setAccessToken() {
     const result = await jwtDecode(accessToken)
     store.commit("setUserPermissions", result.permissions)
     store.dispatch("updateAuthStatus", true)
+    store.dispatch("retrieveMyProfile", { forceRefresh: true })
   }
 }
 
