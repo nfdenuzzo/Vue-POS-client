@@ -31,25 +31,34 @@
                   ]"
                 />
               </div>
-              <q-field
-                dense
-                borderless
-                :value="deliveryType"
-                :rules="[val => val != null || 'Please select delivery type!']"
-              >
-                <template v-slot:control>
-                  <div
-                    class="col-xs-12 justify-around text-center text-color text-weight-bold"
-                  >
-                    <q-option-group
-                      inline
-                      v-model="deliveryType"
-                      :options="options"
-                      color="positive"
-                    />
+              <div class="col-xs-11 items-center ">
+                <div class="row justify-center text-center">
+                  <div>
+                    <q-field
+                      dense
+                      class="delivery-fit-content"
+                      borderless
+                      :value="deliveryType"
+                      :rules="[
+                        val => val != null || 'Please select delivery type!'
+                      ]"
+                    >
+                      <template v-slot:control>
+                        <div
+                          class="col-xs-12 justify-around text-center text-color text-weight-bold"
+                        >
+                          <q-option-group
+                            inline
+                            v-model="deliveryType"
+                            :options="options"
+                            color="positive"
+                          />
+                        </div>
+                      </template>
+                    </q-field>
                   </div>
-                </template>
-              </q-field>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -131,21 +140,21 @@
             <q-checkbox
               left-label
               v-model="subscribe"
-              label="Update me on order status changes"
+              label="Notify me when the status of my order changes"
               color="positive"
             />
           </div>
           <div
-            class="col-xs-6 text-center text-caption text-color text-weight-bold"
+            class="col-xs-6 text-center text-caption text-color text-weight-bold q-pt-sm"
           >
-            Notifications will be sent to you when -
-            <br />Your order has been processed. <br />Your order is being
-            prepared. <br />Your order is ready. <br /><span
-              v-if="deliveryType === 'Delivery'"
-              >Your order is out for Delivery</span
+            Notifications will be sent to you when - Your order has been
+            processed. <br />Your order is being prepared. <br />Your order is
+            ready.
+            <span v-if="deliveryType === 'Delivery'"
+              ><br />Your order is out for Delivery</span
             >
-            <br /><span v-if="deliveryType !== 'Delivery'"
-              >Your order is ready for Collection</span
+            <span v-if="deliveryType !== 'Delivery'"
+              ><br />Your order is ready for Collection</span
             >
           </div>
         </q-form>
@@ -168,7 +177,7 @@ export default {
       updateOrderDetailsObj: null,
       useExistingAddress: false,
       useExistingContactNumber: false,
-      deliveryType: false,
+      deliveryType: null,
       deliveryAreas: [],
       subscribe: false
     };
@@ -234,21 +243,39 @@ export default {
       }
     },
     async onSubmit() {
-      const dto = this.createDTO();
-      console.log("onSubmit -> dto", dto)
-      this.$emit("proceedPaymentMethod", dto);
+      this.$refs.myForm.validate().then(success => {
+        if (success) {
+          const dto = this.createDTO();
+          console.log("onSubmit -> dto", dto);
+          this.$emit("proceedPaymentMethod", dto);
+        } else {
+          // oh no, user has filled in
+          // at least one invalid value
+        }
+      });
     },
     async onReset() {
       await this.assignData();
       this.$refs.myForm.resetValidation();
     },
     createDTO() {
-      this.updateOrderDetailsObj.deliveryType = this.deliveryType
-      this.updateOrderDetailsObj.subscribeNotifications = this.subscribe
-      console.log("createDTO -> this.updateOrderDetailsObj", this.updateOrderDetailsObj)
-      return this.updateOrderDetailsObj
+      this.updateOrderDetailsObj.subscribeNotifications = this.subscribe;
+      const dto = JSON.parse(
+        JSON.stringify(this.updateOrderDetailsObj)
+      );
+      dto.orderType = this.deliveryType
+      if (this.deliveryType !== "Delivery") {
+        delete dto.deliveryArea;
+        delete dto.address;
+        delete dto.addressLine2;
+      }
+      return dto;
     }
   }
 };
 </script>
-<style></style>
+<style>
+.delivery-fit-content {
+  width: fit-content;
+}
+</style>

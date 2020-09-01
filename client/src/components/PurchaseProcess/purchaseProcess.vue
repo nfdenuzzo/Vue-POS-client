@@ -7,6 +7,7 @@
       animated
       :vertical="$q.screen.lt.sm"
       :horizontal="$q.screen.gt.sm"
+      :keep-alive="true"
     >
       <q-step
         :name="1"
@@ -18,7 +19,10 @@
       >
         <div class="row">
           <div class="col-xs-12">
-            <basket :viewPurchaseProcess="viewPurchaseProcess" v-if="step === 1" />
+            <basket
+              :viewPurchaseProcess="viewPurchaseProcess"
+              v-if="step === 1"
+            />
           </div>
         </div>
       </q-step>
@@ -105,7 +109,8 @@ export default {
   },
   data() {
     return {
-      step: 1
+      step: 1,
+      orderDetails: {}
     };
   },
   computed: {
@@ -113,11 +118,11 @@ export default {
       if (!this.$store.getters.getAuth) {
         return "Login Required";
       } else if (this.step === 1) {
-        return "Order Details";
+        return "Order Details " + this.step;
       } else if (this.step === 2) {
-        return "Payment Methods";
+        return "Payment Methods " + this.step;
       } else {
-        return "Pay";
+        return "Pay " + this.step;
       }
     }
   },
@@ -125,8 +130,8 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {
-    this.$store.dispatch("retrieveMyProfile")
-    this.$store.dispatch("retrieveDefaultSettings", { forceRefresh: true })
+    this.$store.dispatch("retrieveMyProfile");
+    this.$store.dispatch("retrieveDefaultSettings", { forceRefresh: true });
   },
   mounted() {},
   beforeUpdate() {},
@@ -136,7 +141,9 @@ export default {
     closeDialog() {
       this.$emit("update:viewPurchaseProcess", false);
     },
-    proceedPaymentMethod() {
+    proceedPaymentMethod(dto) {
+      console.log("proceedPaymentMethod -> dto", dto);
+      this.orderDetails = dto;
       this.step++;
     },
     proceed() {
@@ -145,7 +152,11 @@ export default {
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();
       } else if (this.step === 3) {
-        return "should be doing the payment here!";
+        let basket = this.$store.getters.getBasket;
+        let preBuiltDTO = { ...basket, ...this.orderDetails };
+        preBuiltDTO['orderDetails'] = preBuiltDTO[0]
+        delete preBuiltDTO[0]
+        console.log("proceed -> preBuiltDTO", preBuiltDTO)
       }
     }
   }

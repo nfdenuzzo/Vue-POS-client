@@ -11,11 +11,10 @@ import userProfile from "./userProfile";
 import menuItems from "./menuItems";
 import menuSideItems from "./menuSideItems";
 import menuCategories from "./menuCategories";
+import orders from "./orders";
 import basket from "./basket";
 
 import createPersistedState from "vuex-persistedstate";
-
-// import example from './module-example'
 
 Vue.use(Vuex);
 
@@ -61,7 +60,8 @@ export default new Vuex.Store({
     menuItems,
     menuSideItems,
     menuCategories,
-    basket
+    basket,
+    orders
   }
 });
 

@@ -2,11 +2,12 @@
   <div class="text-color q-pa-sm">
     <div class="col-xs-10">
       <div class="row">
-        <div class="col-xs-9 text-subtitle1 text-weight-bolder q-pb-sm q-pt-xs">
+        <div class="col-xs-8 text-subtitle1 text-weight-bolder q-pb-sm q-pt-xs">
           {{ menuItemDetails.name }}
         </div>
         <div
-          class="col-xs-3 text-right text-weight-bolder text-subtitle1 q-pt-xs q-pr-lg"
+          class="col-xs-4 text-right text-weight-bolder text-subtitle1 q-pt-xs "
+          :class="{'q-pr-lg': !$q.platform.is.mobile}"
         >
           R {{ menuItemDetails.price }}
         </div>

@@ -40,17 +40,29 @@ router.post(
   "/",
   checkJwt,
   [
+    body("name")
+      .not()
+      .isEmpty()
+      .trim()
+      .withMessage("name is required"),
+    body("userEmail")
+      .not()
+      .isEmpty()
+      .trim()
+      .withMessage("user email is required"),
     body("contactNumber")
       .not()
       .isEmpty()
       .trim()
       .withMessage("Contact Number is required"),
-    body("address").not().isEmpty().trim().withMessage("Address is Required!"),
     body("orderType")
       .not()
       .isEmpty()
       .trim()
       .withMessage("Order type is Required!"),
+    body("subscribeNotifications")
+      .isBoolean()
+      .withMessage("user email is required"),
     body("orderDetails").isArray(),
     body("orderDetails.*.calzoneOffered").isBoolean(),
     body("orderDetails.*.chosenBastingStyleOption").optional().isBoolean(),
