@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 const MongoClient = require("mongodb").MongoClient;
+const ObjectId = require("mongodb").ObjectID;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
@@ -27,6 +28,12 @@ const authClient = new auth0.AuthenticationClient({
   clientId: AUTH0_CLIENT_ID,
 });
 
+async function createToken(req) {
+  return req.headers.authorization
+    .replace("bearer ", "")
+    .replace("Bearer ", "");
+}
+
 //#region LoadSpecificCollection
 async function loadSpecificCollection(collectionName) {
   const client = await MongoClient.connect(MONGODB_URL);
@@ -35,9 +42,51 @@ async function loadSpecificCollection(collectionName) {
 //#endregion
 
 //#region
+// retrieve last 5 orders
+router.get("/order-history", checkJwt, async (req, res) => {
+  const token = await createToken(req);
+
+    authClient.getProfile(token, async (err, userInfo) => {
+      if (userInfo && userInfo.hasOwnProperty("error")) {
+        return res.status(401).send(userInfo.error);
+      } else if (err) {
+        return res.status(500).send(err);
+      }
+
+      const collection = await loadSpecificCollection("orders");
+      const allOrders = await collection.find({ _id: ObjectId(userInfo.userId), status: "Complete" }).sort({_id:-1}).limit(5).toArray();
+
+      res.send(allOrders);
+
+    })
+});
+//#endregion
+
+//#region
+// retrieve last 5 orders
+router.get("/active-orders", checkJwt, async (req, res) => {
+  const token = await createToken(req);
+
+    authClient.getProfile(token, async (err, userInfo) => {
+      if (userInfo && userInfo.hasOwnProperty("error")) {
+        return res.status(401).send(userInfo.error);
+      } else if (err) {
+        return res.status(500).send(err);
+      }
+
+      const collection = await loadSpecificCollection("orders");
+      const activeOrders = await collection.find({ _id: ObjectId(userInfo.userId) }, { $and: [ { status: { $ne: "Complete" } }, { status: { $ne: "Canceled" } } ]}).sort({_id:-1}).toArray();
+
+      res.send(activeOrders);
+
+    })
+});
+//#endregion
+
+//#region
 // create order
 router.post(
-  "/",
+  "/place-order",
   checkJwt,
   [
     body("name")
@@ -65,13 +114,13 @@ router.post(
       .withMessage("user email is required"),
     body("orderDetails").isArray(),
     body("orderDetails.*.calzoneOffered").isBoolean(),
-    body("orderDetails.*.chosenBastingStyleOption").optional().isBoolean(),
-    body("orderDetails.*.chosenEggStyleOption").optional().isBoolean(),
-    body("orderDetails.*.chosenFishStyleOption").optional().isBoolean(),
-    body("orderDetails.*.chosenMeatStyleOption").optional().isBoolean(),
-    body("orderDetails.*.chosenPastaOption").optional().isBoolean(),
-    body("orderDetails.*.chosenSauceOption").optional().isBoolean(),
-    body("orderDetails.*.chosenSideOption").optional().isBoolean(),
+    body("orderDetails.*.chosenBastingStyleOption").optional(),
+    body("orderDetails.*.chosenEggStyleOption").optional(),
+    body("orderDetails.*.chosenFishStyleOption").optional(),
+    body("orderDetails.*.chosenMeatStyleOption").optional(),
+    body("orderDetails.*.chosenPastaOption").optional(),
+    body("orderDetails.*.chosenSauceOption").optional(),
+    body("orderDetails.*.chosenSideOption").optional(),
     body("orderDetails.*.description")
       .not()
       .isEmpty()
@@ -107,6 +156,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    const ordersCollection = await loadSpecificCollection("orders");
 
     const token = await createToken(req);
 
@@ -122,52 +172,29 @@ router.post(
       const collection = await loadSpecificCollection("users");
       const myProfile = await collection.findOne(myQuery);
 
-      const ordersCollection = await loadSpecificCollection("orders");
-
-      req.body.forEach(async (item) => {
+      try {
         await ordersCollection.insertOne({
           createdAt: new Date(),
           userId: myProfile._id,
           userEmail: myProfile.userEmail,
-          calzoneOffered: item.calzoneOffered,
-          chosenBastingStyleOption: item.chosenBastingStyleOption,
-          chosenEggStyleOption: item.chosenEggStyleOption,
-          chosenFishStyleOption: item.chosenFishStyleOption,
-          chosenMeatStyleOption: item.chosenMeatStyleOption,
-          chosenPastaOption: item.chosenPastaOption,
-          chosenSauceOption: item.chosenSauceOption,
-          chosenSideOption: item.chosenSideOption,
-          description: item.description,
-          extraBurgerToppings: item.extraBurgerToppings,
-          extraDessertToppings: item.extraDessertToppings,
-          extraMainOptions: item.extraMainOptions,
-          extraPastaToppings: item.extraPastaToppings,
-          extraPizzaToppings: item.extraPizzaToppings,
-          extraSaladToppings: item.extraSaladToppings,
-          extraSuaces: item.extraSuaces,
-          orderId: item.id,
-          makeCalzone: item.makeCalzone,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-          removedBurgerToppings: item.removedBurgerToppings,
-          removedMainToppings: item.removedMainToppings,
-          removedPastaToppings: item.removedPastaToppings,
-          removedPizzaToppings: item.removedPizzaToppings,
-          selectedBurgerToppings: item.selectedBurgerToppings,
-          selectedMainToppingOptions: item.selectedMainToppingOptions,
-          selectedPastaToppings: item.selectedPastaToppings,
-          selectedPizzaToppings: item.selectedPizzaToppings,
+          orderDetails: req.body.orderDetails,
+          contactNumber: req.body.contactNumber,
+          name: req.body.name,
+          orderType: req.body.orderType,
+          deliveryArea: req.body.deliveryArea ? req.body.deliveryArea : null,
+          address: req.body.address ? req.body.address : null,
+          addressLine2: req.body.addressLine2 ? req.body.addressLine2 : null,
+          subscribeNotifications: req.body.subscribeNotifications,
           orderStatus: "PROCESSING",
         });
-      });
+      } catch (ex) {
+        console.log("ex", ex)
+      }
 
       res.status(200).send();
     });
   }
 );
-//#endregion
-
 //#endregion
 
 module.exports = router;

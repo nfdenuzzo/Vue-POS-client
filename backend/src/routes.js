@@ -6,7 +6,7 @@ router.get('/health', (req, res) => {
   res.json({ status: 'healthy' });
 })
 
-router.use('/place-order', require('./specifiedRoutes/orderRoute.js'));
+router.use('/order', require('./specifiedRoutes/orderRoute.js'));
 router.use('/menu-items', require('./specifiedRoutes/menuItemsRoute.js'));
 router.use('/menu-categories', require('./specifiedRoutes/menuCategoryRoute.js'));
 router.use('/side-items', require('./specifiedRoutes/sideItemsRoute.js'));

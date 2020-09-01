@@ -118,11 +118,11 @@ export default {
       if (!this.$store.getters.getAuth) {
         return "Login Required";
       } else if (this.step === 1) {
-        return "Order Details " + this.step;
+        return "Order Details";
       } else if (this.step === 2) {
-        return "Payment Methods " + this.step;
+        return "Payment Methods";
       } else {
-        return "Pay " + this.step;
+        return "Pay";
       }
     }
   },
@@ -147,6 +147,7 @@ export default {
       this.step++;
     },
     proceed() {
+      console.log("1111111")
       if (this.step === 1) {
         this.step++;
       } else if (this.step === 2) {
@@ -154,9 +155,9 @@ export default {
       } else if (this.step === 3) {
         let basket = this.$store.getters.getBasket;
         let preBuiltDTO = { ...basket, ...this.orderDetails };
-        preBuiltDTO['orderDetails'] = preBuiltDTO[0]
+        preBuiltDTO['orderDetails'] = [preBuiltDTO[0]]
         delete preBuiltDTO[0]
-        console.log("proceed -> preBuiltDTO", preBuiltDTO)
+        this.$store.dispatch('placeOrder', preBuiltDTO)
       }
     }
   }
