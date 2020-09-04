@@ -5,6 +5,7 @@ const ObjectId = require("mongodb").ObjectID;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
+const UUID = require('uuid-v4')
 require("dotenv").config();
 
 const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, MONGODB_URL, DB_NAME } = process.env;
@@ -172,8 +173,31 @@ router.post(
       const collection = await loadSpecificCollection("users");
       const myProfile = await collection.findOne(myQuery);
 
+      const returnFields = { deliveryCharges: 1, openingHours: 0, vat: 1, _id: 0 };
+      const generalSettingsCollection = await loadSpecificCollection("generalSettings");
+      const generalSettings = await generalSettingsCollection.findOne(
+        { _id: { $ne: null } },
+        { projection: returnFields }
+      );
+
+      const menuItemsCollection = await loadSpecificCollection("menuItems");
+      const requiredItemIds = await getOrderItemIds(req.body.orderDetails)
+      const menuItems = await menuItemsCollection.find(
+        { $and: requiredItemIds }
+      );
+
+      const verifiedOrderItems = await ensureItemPriceIsCorrect(req.body.orderDetails, menuItems)
+
+      const deliveryCharges = generalSettings.deliveryCharges.find(area => area._id === ObjectId(req.body.deliveryArea._id))
+    
+      const basketExtrasCost = getBasketExtrasCost(verifiedOrderItems)
+      const vat = getVatTotal(generalSettings.vat, verifiedOrderItems)
+      const itemsInOrder = getItemsInOrder(verifiedOrderItems)
+      const basketTotal = getBasketTotal(verifiedOrderItems)
+
       try {
         await ordersCollection.insertOne({
+          uniqueOrderId: UUID(),
           createdAt: new Date(),
           userId: myProfile._id,
           userEmail: myProfile.userEmail,
@@ -181,11 +205,16 @@ router.post(
           contactNumber: req.body.contactNumber,
           name: req.body.name,
           orderType: req.body.orderType,
-          deliveryArea: req.body.deliveryArea ? req.body.deliveryArea : null,
+          deliveryArea: deliveryCharges ? deliveryCharges : null,
           address: req.body.address ? req.body.address : null,
           addressLine2: req.body.addressLine2 ? req.body.addressLine2 : null,
           subscribeNotifications: req.body.subscribeNotifications,
           orderStatus: "PROCESSING",
+          vat: vat,
+          itemsInOrder: itemsInOrder,
+          orderExtrasCost:  basketExtrasCost,
+          orderTotal: basketTotal
+
         });
       } catch (ex) {
         console.log("ex", ex)
@@ -196,5 +225,89 @@ router.post(
   }
 );
 //#endregion
+
+function getItemsInOrder(orderItems) {
+  return orderItems.reduce(
+    (a, b) => +a + +b.quantity,
+    0
+  );
+}
+
+function getVatTotal(vat, orderItems) {
+  return (getBasketTotal(orderItems) * Number(vat)).toFixed(2)
+}
+
+function getBasketTotal(orderItems) {
+  return getItemTotal(orderItems) + getBasketExtrasCost(orderItems);
+}
+function getItemTotal(orderItems) {
+  return orderItems.reduce((a, b) => +a + (+b.price * b.quantity), 0);
+}
+
+function getBasketExtrasCost(orderItems) {
+  let extrasCost = 0;
+  orderItems.forEach(orderItemDetails => {
+    if (orderItemDetails.extraBurgerToppings.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraBurgerToppings.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+    if (orderItemDetails.extraDessertToppings.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraDessertToppings.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+    if (orderItemDetails.extraMainOptions.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraMainOptions.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+    if (orderItemDetails.extraPastaToppings.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraPastaToppings.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+    if (orderItemDetails.extraPizzaToppings.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraPizzaToppings.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+    if (orderItemDetails.extraSaladToppings.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraSaladToppings.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+    if (orderItemDetails.extraSuaces.length > 0) {
+      extrasCost = extrasCost + orderItemDetails.extraSuaces.reduce(
+        (a, b) => +a + +b.price,
+        0
+      );
+    }
+  });
+  return extrasCost;
+}
+
+function ensureItemPriceIsCorrect(orderItems, backendItems) {
+  orderItems.forEach(orderItemDetails => {
+    const matchingItem = backendItems.find(item => item._id === ObjectId(orderItemDetails._id))
+    orderItemDetails.price = matchingItem ? matchingItem.price : 0
+  });
+  return orderItems;
+}
+
+async function getOrderItemIds(orderItems) {
+  const orderItemIds = []
+  orderItems.forEach(orderItemDetails => {
+    orderItemIds.push({ _id: ObjectId(orderItemDetails._id)})
+  });
+  return orderItemIds;
+}
+
 
 module.exports = router;

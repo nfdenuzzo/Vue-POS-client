@@ -66,7 +66,7 @@
             <div class="col-xs-12 items-center">
               <div
                 class="col-xs-6 text-center text-color text-weight-bold"
-                v-if="updateOrderDetailsObj.address"
+                v-if="hasExistingAddresss"
               >
                 <q-checkbox
                   left-label
@@ -127,7 +127,7 @@
                 </q-select>
               </div>
               <div
-                class="col-xs-11 q-px-md text-color text-weight-bold"
+                class="col-xs-11 q-px-md text-color text-center text-weight-bold"
                 v-if="deliveryType === 'Delivery'"
               >
                 Delivery cost R {{ getDeliveryCost }}
@@ -177,6 +177,7 @@ export default {
       updateOrderDetailsObj: null,
       useExistingAddress: false,
       useExistingContactNumber: false,
+      hasExistingAddresss: false,
       deliveryType: null,
       deliveryAreas: [],
       subscribe: false
@@ -197,7 +198,20 @@ export default {
       }
     }
   },
-  watch: {},
+  watch: {
+    useExistingAddress() {
+      if (this.useExistingAddress) {
+        this.updateOrderDetailsObj.address = this.getCurrentProfile.address
+        this.updateOrderDetailsObj.addressLine2 = this.getCurrentProfile.addressLine2
+        this.updateOrderDetailsObj.deliveryArea = this.getCurrentProfile.deliveryArea
+      }
+    },
+    useExistingContactNumber() {
+      if (this.useExistingAddress) {
+        this.updateOrderDetailsObj.contactNumber = this.getCurrentProfile.contactNumber
+      }
+    }
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {},
@@ -224,11 +238,8 @@ export default {
       this.updateOrderDetailsObj = JSON.parse(
         JSON.stringify(this.getCurrentProfile)
       );
-      console.log(
-        "assignData -> this.updateOrderDetailsObj",
-        this.updateOrderDetailsObj
-      );
       if (this.updateOrderDetailsObj && this.updateOrderDetailsObj.address) {
+        this.hasExistingAddresss = true;
         this.useExistingAddress = true;
       } else {
         this.useExistingAddress = false;
@@ -246,7 +257,6 @@ export default {
       this.$refs.myForm.validate().then(success => {
         if (success) {
           const dto = this.createDTO();
-          console.log("onSubmit -> dto", dto);
           this.$emit("proceedPaymentMethod", dto);
         } else {
           // oh no, user has filled in

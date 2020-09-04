@@ -14,7 +14,7 @@
       <div class="col-xs-12" v-if="hasItemsInOrder">
         <div class="row">
           <div
-            class="col-xs-12 q-pr-sm"
+            class="col-xs-12 q-px-xs"
             v-for="(item, index) in showItemsInOrder"
             :key="index"
           >

@@ -142,12 +142,10 @@ export default {
       this.$emit("update:viewPurchaseProcess", false);
     },
     proceedPaymentMethod(dto) {
-      console.log("proceedPaymentMethod -> dto", dto);
       this.orderDetails = dto;
       this.step++;
     },
     proceed() {
-      console.log("1111111")
       if (this.step === 1) {
         this.step++;
       } else if (this.step === 2) {
