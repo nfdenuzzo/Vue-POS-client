@@ -5,7 +5,7 @@ const ObjectId = require("mongodb").ObjectID;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const UUID = require("uuid-v4");
+const { generateUUID } = require("../../utils/generateUUID.js");
 require("dotenv").config();
 
 const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, MONGODB_URL, DB_NAME } = process.env;
@@ -241,7 +241,7 @@ router.post(
       const basketTotal = await getBasketTotal(verifiedOrderItemsAndSideItems);
 
       await ordersCollection.insertOne({
-        uniqueOrderId: UUID(),
+        uniqueOrderId: generateUUID(),
         createdAt: new Date(),
         userId: myProfile._id,
         userEmail: myProfile.userEmail,
