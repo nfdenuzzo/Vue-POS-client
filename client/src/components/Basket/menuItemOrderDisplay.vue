@@ -7,7 +7,7 @@
         </div>
         <div
           class="col-xs-4 text-right text-weight-bolder text-subtitle1 q-pt-xs "
-          :class="{'q-pr-lg': !$q.platform.is.mobile}"
+          :class="{ 'q-pr-lg': !$q.platform.is.mobile }"
         >
           R {{ menuItemDetails.price }}
         </div>
@@ -93,9 +93,7 @@
         </div>
       </div>
 
-      <div class="row" v-if="menuItemDetails.makeCalzone">
-        Make Calzone
-      </div>
+      <br>
 
       <div class="row" v-if="menuItemDetails.chosenBastingStyleOption">
         Chosen basting - {{ menuItemDetails.chosenBastingStyleOption }}
@@ -127,6 +125,15 @@
 
       <div class="row text-body2 text-weight-bold q-py-xs" v-if="hasExtras">
         Selected Extras
+      </div>
+
+      <div class="row" v-if="menuItemDetails.makeCalzone">
+        <div class="col-xs-6">
+          Make Calzone
+        </div>
+        <div class="col-xs-2 text-right text-weight-bold">
+          R {{ menuItemDetails.calzonePrice }}
+        </div>
       </div>
 
       <div v-if="menuItemDetails.extraBurgerToppings.length > 0">
@@ -253,6 +260,7 @@ export default {
   computed: {
     hasExtras() {
       return (
+        this.menuItemDetails.makeCalzone ||
         this.menuItemDetails.extraBurgerToppings.length > 0 ||
         this.menuItemDetails.extraDessertToppings.length > 0 ||
         this.menuItemDetails.extraMainOptions.length > 0 ||

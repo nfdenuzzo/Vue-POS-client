@@ -5,7 +5,7 @@ const ObjectId = require("mongodb").ObjectID;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-const UUID = require('uuid-v4')
+const UUID = require("uuid-v4");
 require("dotenv").config();
 
 const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, MONGODB_URL, DB_NAME } = process.env;
@@ -47,19 +47,22 @@ async function loadSpecificCollection(collectionName) {
 router.get("/order-history", checkJwt, async (req, res) => {
   const token = await createToken(req);
 
-    authClient.getProfile(token, async (err, userInfo) => {
-      if (userInfo && userInfo.hasOwnProperty("error")) {
-        return res.status(401).send(userInfo.error);
-      } else if (err) {
-        return res.status(500).send(err);
-      }
+  authClient.getProfile(token, async (err, userInfo) => {
+    if (userInfo && userInfo.hasOwnProperty("error")) {
+      return res.status(401).send(userInfo.error);
+    } else if (err) {
+      return res.status(500).send(err);
+    }
 
-      const collection = await loadSpecificCollection("orders");
-      const allOrders = await collection.find({ _id: ObjectId(userInfo.userId), status: "Complete" }).sort({_id:-1}).limit(5).toArray();
+    const collection = await loadSpecificCollection("orders");
+    const allOrders = await collection
+      .find({ _id: ObjectId(userInfo.userId), status: "Complete" })
+      .sort({ _id: -1 })
+      .limit(5)
+      .toArray();
 
-      res.send(allOrders);
-
-    })
+    res.send(allOrders);
+  });
 });
 //#endregion
 
@@ -68,19 +71,29 @@ router.get("/order-history", checkJwt, async (req, res) => {
 router.get("/active-orders", checkJwt, async (req, res) => {
   const token = await createToken(req);
 
-    authClient.getProfile(token, async (err, userInfo) => {
-      if (userInfo && userInfo.hasOwnProperty("error")) {
-        return res.status(401).send(userInfo.error);
-      } else if (err) {
-        return res.status(500).send(err);
-      }
+  authClient.getProfile(token, async (err, userInfo) => {
+    if (userInfo && userInfo.hasOwnProperty("error")) {
+      return res.status(401).send(userInfo.error);
+    } else if (err) {
+      return res.status(500).send(err);
+    }
 
-      const collection = await loadSpecificCollection("orders");
-      const activeOrders = await collection.find({ _id: ObjectId(userInfo.userId) }, { $and: [ { status: { $ne: "Complete" } }, { status: { $ne: "Canceled" } } ]}).sort({_id:-1}).toArray();
+    const collection = await loadSpecificCollection("orders");
+    const activeOrders = await collection
+      .find(
+        { _id: ObjectId(userInfo.userId) },
+        {
+          $and: [
+            { status: { $ne: "Complete" } },
+            { status: { $ne: "Canceled" } },
+          ],
+        }
+      )
+      .sort({ _id: -1 })
+      .toArray();
 
-      res.send(activeOrders);
-
-    })
+    res.send(activeOrders);
+  });
 });
 //#endregion
 
@@ -90,11 +103,7 @@ router.post(
   "/place-order",
   checkJwt,
   [
-    body("name")
-      .not()
-      .isEmpty()
-      .trim()
-      .withMessage("name is required"),
+    body("name").not().isEmpty().trim().withMessage("name is required"),
     body("userEmail")
       .not()
       .isEmpty()
@@ -173,52 +182,72 @@ router.post(
       const collection = await loadSpecificCollection("users");
       const myProfile = await collection.findOne(myQuery);
 
-      const returnFields = { deliveryCharges: 1, openingHours: 0, vat: 1, _id: 0 };
-      const generalSettingsCollection = await loadSpecificCollection("generalSettings");
+      const returnFields = { deliveryCharges: 1, vat: 1, _id: 0 };
+      const generalSettingsCollection = await loadSpecificCollection(
+        "generalSettings"
+      );
       const generalSettings = await generalSettingsCollection.findOne(
         { _id: { $ne: null } },
         { projection: returnFields }
       );
 
       const menuItemsCollection = await loadSpecificCollection("menuItems");
-      const requiredItemIds = await getOrderItemIds(req.body.orderDetails)
-      const menuItems = await menuItemsCollection.find(
-        { $and: requiredItemIds }
+      const requiredItemIds = await getOrderItemIds(req.body.orderDetails);
+      const menuItems = await menuItemsCollection
+        .find({ _id: { $in: requiredItemIds } })
+        .toArray();
+
+      const verifiedOrderItems = await ensureItemPriceIsCorrect(
+        req.body.orderDetails,
+        menuItems
       );
 
-      const verifiedOrderItems = await ensureItemPriceIsCorrect(req.body.orderDetails, menuItems)
+      const sideItemsCollection = await loadSpecificCollection("sideItems");
+      const requiredSideItemIds = await getOrderSideItemIds(verifiedOrderItems);
+      const sideItems = await sideItemsCollection
+        .find({ _id: { $in: requiredSideItemIds } })
+        .toArray();
 
-      const deliveryCharges = generalSettings.deliveryCharges.find(area => area._id === ObjectId(req.body.deliveryArea._id))
-    
-      const basketExtrasCost = getBasketExtrasCost(verifiedOrderItems)
-      const vat = getVatTotal(generalSettings.vat, verifiedOrderItems)
-      const itemsInOrder = getItemsInOrder(verifiedOrderItems)
-      const basketTotal = getBasketTotal(verifiedOrderItems)
+      const verifiedOrderItemsAndSideItems = await ensureItemExtraPricesAreCorrect(
+        verifiedOrderItems,
+        sideItems
+      );
 
-      try {
-        await ordersCollection.insertOne({
-          uniqueOrderId: UUID(),
-          createdAt: new Date(),
-          userId: myProfile._id,
-          userEmail: myProfile.userEmail,
-          orderDetails: req.body.orderDetails,
-          contactNumber: req.body.contactNumber,
-          name: req.body.name,
-          orderType: req.body.orderType,
-          deliveryArea: deliveryCharges ? deliveryCharges : null,
-          address: req.body.address ? req.body.address : null,
-          addressLine2: req.body.addressLine2 ? req.body.addressLine2 : null,
-          subscribeNotifications: req.body.subscribeNotifications,
-          orderStatus: "PROCESSING",
-          vat: vat,
-          itemsInOrder: itemsInOrder,
-          orderExtrasCost:  basketExtrasCost,
-          orderTotal: basketTotal
+      const deliveryCharges = generalSettings.deliveryCharges.find(
+        (area) => area._id === ObjectId(req.body.deliveryArea._id)
+      );
 
-        });
-      } catch (ex) {
-        console.log("ex", ex)
-      }
+      const basketExtrasCost = await getBasketExtrasCost(
+        verifiedOrderItemsAndSideItems
+      );
+      const vat = await getVatTotal(
+        generalSettings.vat,
+        verifiedOrderItemsAndSideItems
+      );
+      const itemsInOrder = await getItemsInOrder(
+        verifiedOrderItemsAndSideItems
+      );
+      const basketTotal = await getBasketTotal(verifiedOrderItemsAndSideItems);
+
+      await ordersCollection.insertOne({
+        uniqueOrderId: UUID(),
+        createdAt: new Date(),
+        userId: myProfile._id,
+        userEmail: myProfile.userEmail,
+        orderDetails: verifiedOrderItemsAndSideItems,
+        contactNumber: req.body.contactNumber,
+        name: req.body.name,
+        orderType: req.body.orderType,
+        deliveryArea: deliveryCharges ? deliveryCharges : null,
+        address: req.body.address ? req.body.address : null,
+        addressLine2: req.body.addressLine2 ? req.body.addressLine2 : null,
+        subscribeNotifications: req.body.subscribeNotifications,
+        orderStatus: "PROCESSING",
+        vat: vat,
+        itemsInOrder: itemsInOrder,
+        orderExtrasCost: basketExtrasCost,
+        orderTotal: basketTotal,
+      });
 
       res.status(200).send();
     });
@@ -226,88 +255,188 @@ router.post(
 );
 //#endregion
 
-function getItemsInOrder(orderItems) {
-  return orderItems.reduce(
-    (a, b) => +a + +b.quantity,
-    0
-  );
+async function getItemsInOrder(orderItems) {
+  return orderItems.reduce((a, b) => +a + +b.quantity, 0);
 }
 
-function getVatTotal(vat, orderItems) {
-  return (getBasketTotal(orderItems) * Number(vat)).toFixed(2)
+async function getVatTotal(vat, orderItems) {
+  const basketTotal = await getBasketTotal(orderItems);
+  return (basketTotal * Number(vat)).toFixed(2);
 }
 
-function getBasketTotal(orderItems) {
-  return getItemTotal(orderItems) + getBasketExtrasCost(orderItems);
-}
-function getItemTotal(orderItems) {
-  return orderItems.reduce((a, b) => +a + (+b.price * b.quantity), 0);
+async function getBasketTotal(orderItems) {
+  const itemsTotal = await getItemTotal(orderItems);
+  const extrasTotal = await getBasketExtrasCost(orderItems);
+  return itemsTotal + extrasTotal;
 }
 
-function getBasketExtrasCost(orderItems) {
+async function getItemTotal(orderItems) {
+  return orderItems.reduce((a, b) => +a + +b.price * b.quantity, 0);
+}
+
+async function getBasketExtrasCost(orderItems) {
   let extrasCost = 0;
-  orderItems.forEach(orderItemDetails => {
+  orderItems.forEach((orderItemDetails) => {
+    if (orderItemDetails.makeCalzone) {
+      extrasCost = extrasCost + orderItemDetails.calzonePrice;
+    }
     if (orderItemDetails.extraBurgerToppings.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraBurgerToppings.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost =
+        extrasCost + calculatePrice(orderItemDetails.extraBurgerToppings);
     }
     if (orderItemDetails.extraDessertToppings.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraDessertToppings.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost =
+        extrasCost + calculatePrice(orderItemDetails.extraDessertToppings);
     }
     if (orderItemDetails.extraMainOptions.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraMainOptions.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost =
+        extrasCost + calculatePrice(orderItemDetails.extraMainOptions);
     }
     if (orderItemDetails.extraPastaToppings.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraPastaToppings.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost =
+        extrasCost + calculatePrice(orderItemDetails.extraPastaToppings);
     }
     if (orderItemDetails.extraPizzaToppings.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraPizzaToppings.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost =
+        extrasCost + calculatePrice(orderItemDetails.extraPizzaToppings);
     }
     if (orderItemDetails.extraSaladToppings.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraSaladToppings.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost =
+        extrasCost + calculatePrice(orderItemDetails.extraSaladToppings);
     }
     if (orderItemDetails.extraSuaces.length > 0) {
-      extrasCost = extrasCost + orderItemDetails.extraSuaces.reduce(
-        (a, b) => +a + +b.price,
-        0
-      );
+      extrasCost = extrasCost + calculatePrice(orderItemDetails.extraSuaces);
     }
   });
   return extrasCost;
 }
 
-function ensureItemPriceIsCorrect(orderItems, backendItems) {
-  orderItems.forEach(orderItemDetails => {
-    const matchingItem = backendItems.find(item => item._id === ObjectId(orderItemDetails._id))
-    orderItemDetails.price = matchingItem ? matchingItem.price : 0
+async function ensureItemPriceIsCorrect(orderItems, backendItems) {
+  orderItems.forEach((orderItemDetails) => {
+    const matchingItem = backendItems.find(
+      (item) => item._id.toString() === orderItemDetails.id.toString()
+    );
+    orderItemDetails.price = matchingItem ? matchingItem.price : 0;
+    orderItemDetails.calzonePrice = matchingItem
+      ? matchingItem.calzonePrice
+      : 0;
+    orderItemDetails.id = matchingItem
+      ? matchingItem._id
+      : ObjectId(orderItemDetails.id);
   });
   return orderItems;
 }
 
 async function getOrderItemIds(orderItems) {
-  const orderItemIds = []
-  orderItems.forEach(orderItemDetails => {
-    orderItemIds.push({ _id: ObjectId(orderItemDetails._id)})
+  const orderItemIds = [];
+  orderItems.forEach((orderItemDetails) => {
+    orderItemIds.push(ObjectId(orderItemDetails.id));
   });
   return orderItemIds;
 }
 
+async function getOrderSideItemIds(orderItems) {
+  const orderSideItemIds = [];
+  orderItems.forEach((orderItemDetails) => {
+    if (orderItemDetails.extraBurgerToppings.length > 0) {
+      orderItemDetails.extraBurgerToppings.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+    if (orderItemDetails.extraDessertToppings.length > 0) {
+      orderItemDetails.extraDessertToppings.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+    if (orderItemDetails.extraMainOptions.length > 0) {
+      orderItemDetails.extraMainOptions.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+    if (orderItemDetails.extraPastaToppings.length > 0) {
+      orderItemDetails.extraPastaToppings.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+    if (orderItemDetails.extraPizzaToppings.length > 0) {
+      orderItemDetails.extraPizzaToppings.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+    if (orderItemDetails.extraSaladToppings.length > 0) {
+      orderItemDetails.extraSaladToppings.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+    if (orderItemDetails.extraSuaces.length > 0) {
+      orderItemDetails.extraSuaces.forEach((extra) => {
+        orderSideItemIds.push(ObjectId(extra.value));
+      });
+    }
+  });
+  return orderSideItemIds;
+}
+
+async function ensureItemExtraPricesAreCorrect(orderItems, backendSideItems) {
+  orderItems.forEach(async (orderItemDetails) => {
+    if (orderItemDetails.extraBurgerToppings.length > 0) {
+      orderItemDetails.extraBurgerToppings = await assignMatchingsideItemPrice(
+        orderItemDetails.extraBurgerToppings,
+        backendSideItems
+      );
+    }
+    if (orderItemDetails.extraDessertToppings.length > 0) {
+      orderItemDetails.extraDessertToppings = await assignMatchingsideItemPrice(
+        orderItemDetails.extraDessertToppings,
+        backendSideItems
+      );
+    }
+    if (orderItemDetails.extraMainOptions.length > 0) {
+      orderItemDetails.extraMainOptions = await assignMatchingsideItemPrice(
+        orderItemDetails.extraMainOptions,
+        backendSideItems
+      );
+    }
+    if (orderItemDetails.extraPastaToppings.length > 0) {
+      orderItemDetails.extraPastaToppings = await assignMatchingsideItemPrice(
+        orderItemDetails.extraPastaToppings,
+        backendSideItems
+      );
+    }
+    if (orderItemDetails.extraPizzaToppings.length > 0) {
+      orderItemDetails.extraPizzaToppings = await assignMatchingsideItemPrice(
+        orderItemDetails.extraPizzaToppings,
+        backendSideItems
+      );
+    }
+    if (orderItemDetails.extraSaladToppings.length > 0) {
+      orderItemDetails.extraSaladToppings = await assignMatchingsideItemPrice(
+        orderItemDetails.extraSaladToppings,
+        backendSideItems
+      );
+    }
+    if (orderItemDetails.extraSuaces.length > 0) {
+      orderItemDetails.extraSuaces = await assignMatchingsideItemPrice(
+        orderItemDetails.extraSuaces,
+        backendSideItems
+      );
+    }
+  });
+  return orderItems;
+}
+
+function calculatePrice(toppings) {
+  return toppings.reduce((a, b) => +a + +b.price, 0);
+}
+
+function assignMatchingsideItemPrice(extras, backendSideItems) {
+  extras.forEach((extra) => {
+    const matchingItem = backendSideItems.find(
+      (item) => item._id.toString() === extra.value.toString()
+    );
+    extra.price = matchingItem ? matchingItem.price : 0;
+  });
+  return extras;
+}
 
 module.exports = router;

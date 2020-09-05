@@ -76,6 +76,7 @@
                   class="q-mr-lg text-capitalize"
                 />
                 <q-btn
+                  v-if="hasItemsInOrder"
                   :label="getLabel"
                   @click="proceed"
                   color="positive"
@@ -114,6 +115,9 @@ export default {
     };
   },
   computed: {
+    hasItemsInOrder() {
+      return this.$store.getters.getBasket.length > 0;
+    },
     getLabel() {
       if (!this.$store.getters.getAuth) {
         return "Login Required";
@@ -151,11 +155,9 @@ export default {
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();
       } else if (this.step === 3) {
-        let basket = this.$store.getters.getBasket;
-        let preBuiltDTO = { ...basket, ...this.orderDetails };
-        preBuiltDTO['orderDetails'] = [preBuiltDTO[0]]
-        delete preBuiltDTO[0]
-        this.$store.dispatch('placeOrder', preBuiltDTO)
+        const orderSpecs = this.orderDetails
+        orderSpecs.orderDetails = this.$store.getters.getBasket;
+        this.$store.dispatch('placeOrder', orderSpecs)
       }
     }
   }
