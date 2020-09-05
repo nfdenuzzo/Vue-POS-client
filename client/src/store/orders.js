@@ -21,14 +21,14 @@ const menuSideItems = {
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
-      console.log("payload", payload)
       const result = await axios.axiosInstance.post(`${ordersUrl}/place-order`,
         payload
       );
-      console.log("result", result)
       if (result && result.status === 200) {
-        // commit('updateBasket', [])
+        commit('updateBasket', [])
         return true;
+      } else {
+        return false;
       }
     },
     async retrieveOrders(

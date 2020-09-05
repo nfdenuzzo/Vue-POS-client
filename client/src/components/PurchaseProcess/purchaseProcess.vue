@@ -82,6 +82,7 @@
                   color="positive"
                   class="text-capitalize"
                   :disabled="!$store.getters.getAuth"
+                  :loading="placingOrder"
                 />
               </div>
             </q-stepper-navigation>
@@ -111,7 +112,8 @@ export default {
   data() {
     return {
       step: 1,
-      orderDetails: {}
+      orderDetails: {},
+      placingOrder: false
     };
   },
   computed: {
@@ -149,7 +151,7 @@ export default {
       this.orderDetails = dto;
       this.step++;
     },
-    proceed() {
+    async proceed() {
       if (this.step === 1) {
         this.step++;
       } else if (this.step === 2) {
@@ -157,7 +159,18 @@ export default {
       } else if (this.step === 3) {
         const orderSpecs = this.orderDetails
         orderSpecs.orderDetails = this.$store.getters.getBasket;
-        this.$store.dispatch('placeOrder', orderSpecs)
+        this.placingOrder = true
+        const result = await this.$store.dispatch('placeOrder', orderSpecs)
+        this.placingOrder = false
+        if (result) {
+          if (orderSpecs.orderDetails.orderType !== "Delivery")
+          this.$q.notify({
+            type: 'positive',
+            message: "Order has been placed.",
+            color: "positive"
+          });
+          this.closeDialog();
+        }
       }
     }
   }

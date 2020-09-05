@@ -867,7 +867,6 @@ export default {
     },
     async assignData() {
       this.menuItemDetails = JSON.parse(JSON.stringify(this.menuItemSelected));
-      console.log("assignData -> this.menuItemDetails", this.menuItemDetails)
       this.selectedMenuItemDetails.id = this.menuItemDetails._id
       this.selectedMenuItemDetails.name = this.menuItemDetails.name;
       this.selectedMenuItemDetails.price = this.menuItemDetails.price;
@@ -921,7 +920,6 @@ export default {
     },
     async onSubmit() {
       const specifiedItem = this.createDisplayOrderObject();
-      console.log("onSubmit -> specifiedItem", specifiedItem)
       this.$store.dispatch("addToBasket", specifiedItem);
       this.$q.notify({
         type: "positive",

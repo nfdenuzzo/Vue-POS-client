@@ -22,22 +22,15 @@ const myProfile = {
       payload
     ) {
       try {
-        // if (
-        //   cachingTimeExpired(rootGetters.getMyProfileRetrievedDate) ||
-        //   (payload && payload.forceRefresh)
-        // ) {
-          const result = await axios.axiosInstance.get(`${myProfileUrl}`);
-          if (result && result.status === 200) {
-            commit("setMyProfile", result.data);
-            commit(
-              "setMyProfileRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
-            return true;
-          }
-        // } else {
-        //   return true;
-        // }
+        const result = await axios.axiosInstance.get(`${myProfileUrl}`);
+        if (result && result.status === 200) {
+          commit("setMyProfile", result.data);
+          commit(
+            "setMyProfileRetrievedDate",
+            new Date().toLocaleString("en-ZA")
+          );
+          return true;
+        }
       } catch (ex) {
         console.log("retrieveUsersList -> ex", ex);
         return false;

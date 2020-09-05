@@ -182,19 +182,27 @@ router.post(
       const collection = await loadSpecificCollection("users");
       const myProfile = await collection.findOne(myQuery);
 
-      const returnFields = { deliveryCharges: 1, vat: 1, _id: 0 };
+      const returnFieldsGeneralSettings = {
+        deliveryCharges: 1,
+        vat: 1,
+        _id: 0,
+      };
       const generalSettingsCollection = await loadSpecificCollection(
         "generalSettings"
       );
       const generalSettings = await generalSettingsCollection.findOne(
         { _id: { $ne: null } },
-        { projection: returnFields }
+        { projection: returnFieldsGeneralSettings }
       );
 
+      const returnFieldsMenuItem = { menuItemImage: 0 };
       const menuItemsCollection = await loadSpecificCollection("menuItems");
       const requiredItemIds = await getOrderItemIds(req.body.orderDetails);
       const menuItems = await menuItemsCollection
-        .find({ _id: { $in: requiredItemIds } })
+        .find(
+          { _id: { $in: requiredItemIds } },
+          { projection: returnFieldsMenuItem }
+        )
         .toArray();
 
       const verifiedOrderItems = await ensureItemPriceIsCorrect(
@@ -213,9 +221,12 @@ router.post(
         sideItems
       );
 
-      const deliveryCharges = generalSettings.deliveryCharges.find(
-        (area) => area._id === ObjectId(req.body.deliveryArea._id)
-      );
+      let deliveryCharges = null;
+      if (req.body.orderType === "Delivery") {
+        deliveryCharges = generalSettings.deliveryCharges.find(
+          (area) => area._id === ObjectId(req.body.deliveryArea._id)
+        );
+      }
 
       const basketExtrasCost = await getBasketExtrasCost(
         verifiedOrderItemsAndSideItems

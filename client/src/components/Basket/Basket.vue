@@ -101,7 +101,6 @@ export default {
     basketExtrasCost() {
       let extrasCost = 0;
       this.showItemsInOrder.forEach(menuItemDetails => {
-        console.log("basketExtrasCost -> menuItemDetails", menuItemDetails)
         if (menuItemDetails.makeCalzone) {
           extrasCost = extrasCost + menuItemDetails.calzonePrice
         }
