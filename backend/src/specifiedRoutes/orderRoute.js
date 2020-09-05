@@ -380,43 +380,43 @@ async function getOrderSideItemIds(orderItems) {
 async function ensureItemExtraPricesAreCorrect(orderItems, backendSideItems) {
   orderItems.forEach(async (orderItemDetails) => {
     if (orderItemDetails.extraBurgerToppings.length > 0) {
-      orderItemDetails.extraBurgerToppings = await assignMatchingsideItemPrice(
+      orderItemDetails.extraBurgerToppings = await assignMatchingSideItemPrice(
         orderItemDetails.extraBurgerToppings,
         backendSideItems
       );
     }
     if (orderItemDetails.extraDessertToppings.length > 0) {
-      orderItemDetails.extraDessertToppings = await assignMatchingsideItemPrice(
+      orderItemDetails.extraDessertToppings = await assignMatchingSideItemPrice(
         orderItemDetails.extraDessertToppings,
         backendSideItems
       );
     }
     if (orderItemDetails.extraMainOptions.length > 0) {
-      orderItemDetails.extraMainOptions = await assignMatchingsideItemPrice(
+      orderItemDetails.extraMainOptions = await assignMatchingSideItemPrice(
         orderItemDetails.extraMainOptions,
         backendSideItems
       );
     }
     if (orderItemDetails.extraPastaToppings.length > 0) {
-      orderItemDetails.extraPastaToppings = await assignMatchingsideItemPrice(
+      orderItemDetails.extraPastaToppings = await assignMatchingSideItemPrice(
         orderItemDetails.extraPastaToppings,
         backendSideItems
       );
     }
     if (orderItemDetails.extraPizzaToppings.length > 0) {
-      orderItemDetails.extraPizzaToppings = await assignMatchingsideItemPrice(
+      orderItemDetails.extraPizzaToppings = await assignMatchingSideItemPrice(
         orderItemDetails.extraPizzaToppings,
         backendSideItems
       );
     }
     if (orderItemDetails.extraSaladToppings.length > 0) {
-      orderItemDetails.extraSaladToppings = await assignMatchingsideItemPrice(
+      orderItemDetails.extraSaladToppings = await assignMatchingSideItemPrice(
         orderItemDetails.extraSaladToppings,
         backendSideItems
       );
     }
     if (orderItemDetails.extraSuaces.length > 0) {
-      orderItemDetails.extraSuaces = await assignMatchingsideItemPrice(
+      orderItemDetails.extraSuaces = await assignMatchingSideItemPrice(
         orderItemDetails.extraSuaces,
         backendSideItems
       );
@@ -429,7 +429,7 @@ function calculatePrice(toppings) {
   return toppings.reduce((a, b) => +a + +b.price, 0);
 }
 
-function assignMatchingsideItemPrice(extras, backendSideItems) {
+function assignMatchingSideItemPrice(extras, backendSideItems) {
   extras.forEach((extra) => {
     const matchingItem = backendSideItems.find(
       (item) => item._id.toString() === extra.value.toString()
