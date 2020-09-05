@@ -76,11 +76,13 @@
                   class="q-mr-lg text-capitalize"
                 />
                 <q-btn
+                  v-if="hasItemsInOrder"
                   :label="getLabel"
                   @click="proceed"
                   color="positive"
                   class="text-capitalize"
                   :disabled="!$store.getters.getAuth"
+                  :loading="placingOrder"
                 />
               </div>
             </q-stepper-navigation>
@@ -110,10 +112,14 @@ export default {
   data() {
     return {
       step: 1,
-      orderDetails: {}
+      orderDetails: {},
+      placingOrder: false
     };
   },
   computed: {
+    hasItemsInOrder() {
+      return this.$store.getters.getBasket.length > 0;
+    },
     getLabel() {
       if (!this.$store.getters.getAuth) {
         return "Login Required";
@@ -142,22 +148,29 @@ export default {
       this.$emit("update:viewPurchaseProcess", false);
     },
     proceedPaymentMethod(dto) {
-      console.log("proceedPaymentMethod -> dto", dto);
       this.orderDetails = dto;
       this.step++;
     },
-    proceed() {
-      console.log("1111111")
+    async proceed() {
       if (this.step === 1) {
         this.step++;
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();
       } else if (this.step === 3) {
-        let basket = this.$store.getters.getBasket;
-        let preBuiltDTO = { ...basket, ...this.orderDetails };
-        preBuiltDTO['orderDetails'] = [preBuiltDTO[0]]
-        delete preBuiltDTO[0]
-        this.$store.dispatch('placeOrder', preBuiltDTO)
+        const orderSpecs = this.orderDetails
+        orderSpecs.orderDetails = this.$store.getters.getBasket;
+        this.placingOrder = true
+        const result = await this.$store.dispatch('placeOrder', orderSpecs)
+        this.placingOrder = false
+        if (result) {
+          if (orderSpecs.orderDetails.orderType !== "Delivery")
+          this.$q.notify({
+            type: 'positive',
+            message: "Order has been placed.",
+            color: "positive"
+          });
+          this.closeDialog();
+        }
       }
     }
   }

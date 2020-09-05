@@ -32,7 +32,6 @@ axiosInstance.interceptors.response.use(
   response => {
     switch (response.status) {
       case 200:
-        console.log("response.", response);
         console.log("Operation was Successful.");
         break;
       // A successful response SHOULD be 200 (OK) if the response includes an entity describing the status, 201 (Created)
@@ -51,8 +50,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   error => {
-    // eslint-disable-next-line no-console
-    console.log(error);
     // No response from server, so either the server is
     // down or their internet is off --> Network error
     if (!error.response) {
@@ -76,7 +73,7 @@ axiosInstance.interceptors.response.use(
           message: "We could not authorize you, reload or login again",
           color: "logoRed"
         });
-        break;
+        return error.response
       // We clear the storage so that the authorize request can be executed the next time the page reloads
       // Bad request, either a model error or an error we want the user to see
       case 400:
@@ -90,7 +87,7 @@ axiosInstance.interceptors.response.use(
               : "There were either outstanding required data or the data was not in the correct format.",
           color: "logoRed"
         });
-        break;
+        return error.response
       // Forbidden, user does not have the required rights to view a page
       case 403:
         Notify.create({
@@ -101,7 +98,7 @@ axiosInstance.interceptors.response.use(
         break;
       case 406:
         console.log("Sorry, error 406");
-        break;
+        return error.response
       // Backend-controller action was not found.
       case 404:
         Notify.create({
@@ -109,7 +106,7 @@ axiosInstance.interceptors.response.use(
           message: "Sorry, the resource was not found on the server.",
           color: "logoRed"
         });
-        break;
+        return error.response
       // Internal server error
       case 500:
         Notify.create({
@@ -118,7 +115,7 @@ axiosInstance.interceptors.response.use(
             "An error occurred on the server. Please try again. Sorry for the inconvenience.",
           color: "logoRed"
         });
-        break;
+        return error.response
       // Network related error
       case 503:
         logout();
@@ -127,13 +124,13 @@ axiosInstance.interceptors.response.use(
           message: "Sorry, the server is unavailable.",
           color: "logoRed"
         });
-        break;
+        return error.response
       // Unexpected error code
       default:
         console.log(
           "We are not sure what just happened, Please try again. Sorry for the inconvenience"
         );
-        break;
+        return error.response
     }
 
     return Promise.reject(error);

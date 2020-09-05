@@ -653,7 +653,6 @@
   </q-card>
 </template>
 <script>
-import { uid } from "quasar";
 import _ from "lodash";
 export default {
   components: {},
@@ -683,7 +682,6 @@ export default {
       addExtraSauces: false,
       menuItemDetails: null,
       extrasOfferedCalculateNeeded: false,
-      makeCalzone: false,
       items: 1,
       image: {
         name: "cookingIcon",
@@ -691,7 +689,7 @@ export default {
         descripton: "+- 30min Food preperation time"
       },
       selectedMenuItemDetails: {
-        id: uid(),
+        id: null,
         name: null,
         price: null,
         makeCalzone: false,
@@ -723,8 +721,8 @@ export default {
   computed: {
     newPriceExtrasAdded() {
       let price = this.menuItemDetails.price;
-      if (this.menuItemDetails.calzoneOffered && this.makeCalzone) {
-        price + this.menuItemDetails.calzonePrice;
+      if (this.menuItemDetails.calzoneOffered && this.selectedMenuItemDetails.makeCalzone) {
+        price = price + this.menuItemDetails.calzonePrice;
       }
       const keys = _.keys(this.selectedMenuItemDetails.extras)
       keys.forEach(key => {
@@ -813,13 +811,14 @@ export default {
     },
     createDisplayOrderObject() {
       return {
-        id: uid(),
+        id: this.menuItemDetails._id,
         price: this.menuItemDetails.price,
         name: this.menuItemDetails.name,
         description: this.menuItemDetails.description,
         quantity: this.items,
         calzoneOffered: this.menuItemDetails.calzoneOffered,
         makeCalzone: this.selectedMenuItemDetails.makeCalzone,
+        calzonePrice: this.selectedMenuItemDetails.makeCalzone ? this.menuItemDetails.calzonePrice : 0,
         //choosen option
         chosenFishStyleOption: this.selectedMenuItemDetails
           .selectedFishCookedStyle,
@@ -868,6 +867,7 @@ export default {
     },
     async assignData() {
       this.menuItemDetails = JSON.parse(JSON.stringify(this.menuItemSelected));
+      this.selectedMenuItemDetails.id = this.menuItemDetails._id
       this.selectedMenuItemDetails.name = this.menuItemDetails.name;
       this.selectedMenuItemDetails.price = this.menuItemDetails.price;
       this.selectedMenuItemDetails.description = this.menuItemDetails.description;

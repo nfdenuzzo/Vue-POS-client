@@ -14,7 +14,7 @@
       <div class="col-xs-12" v-if="hasItemsInOrder">
         <div class="row">
           <div
-            class="col-xs-12 q-pr-sm"
+            class="col-xs-12 q-px-xs q-py-sm"
             v-for="(item, index) in showItemsInOrder"
             :key="index"
           >
@@ -101,6 +101,9 @@ export default {
     basketExtrasCost() {
       let extrasCost = 0;
       this.showItemsInOrder.forEach(menuItemDetails => {
+        if (menuItemDetails.makeCalzone) {
+          extrasCost = extrasCost + menuItemDetails.calzonePrice
+        }
         if (menuItemDetails.extraBurgerToppings.length > 0) {
           extrasCost = extrasCost + menuItemDetails.extraBurgerToppings.reduce(
             (a, b) => +a + +b.price,
