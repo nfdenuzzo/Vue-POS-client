@@ -5,46 +5,48 @@ const ordersUrl = "/order";
 
 const menuSideItems = {
   state: {
-    ordersRetrievedDate: null,
-    orders: []
+    activeOrdersRetrievedDate: null,
+    activeOrders: []
   },
   getters: {
-    getOrders: state => {
-      return state.orders;
+    getActiveOrders: state => {
+      return state.activeOrders;
     },
-    getOrdersRetrievedDate: state => {
-      return state.ordersRetrievedDate;
+    getActiveOrdersRetrievedDate: state => {
+      return state.activeOrdersRetrievedDate;
     }
   },
   actions: {
-    async placeOrder(
-      { commit, dispatch, rootState, rootGetters },
-      payload
-    ) {
-      const result = await axios.axiosInstance.post(`${ordersUrl}/place-order`,
+    async placeOrder({ commit, dispatch, rootState, rootGetters }, payload) {
+      const result = await axios.axiosInstance.post(
+        `${ordersUrl}/place-order`,
         payload
       );
       if (result && result.status === 200) {
-        commit('updateBasket', [])
+        commit("updateBasket", []);
+        dispatch("retrieveActiveOrders", { forceRefresh: true });
         return true;
       } else {
         return false;
       }
     },
-    async retrieveOrders(
+    async retrieveActiveOrders(
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
       try {
         if (
-          cachingTimeExpired(rootGetters.getOrdersRetrievedDate) ||
+          cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
           (payload && payload.forceRefresh)
         ) {
-          const result = await axios.axiosInstance.get(`${ordersUrl}`);
+          const result = await axios.axiosInstance.get(
+            `${ordersUrl}/my-active-orders`
+          );
+          console.log("result", result);
           if (result && result.status === 200) {
-            commit("setOrders", result.data);
+            commit("setActiveOrders", result.data);
             commit(
-              "setOrdersRetrievedDate",
+              "setActiveOrdersRetrievedDate",
               new Date().toLocaleString("en-ZA")
             );
             return true;
@@ -53,17 +55,17 @@ const menuSideItems = {
           return true;
         }
       } catch (ex) {
-        console.log("retrieveOrders -> ex", ex);
+        console.log("retrieveActiveOrders -> ex", ex);
         return false;
       }
     }
   },
   mutations: {
-    setOrders(state, payload) {
-      state.orders = payload;
+    setActiveOrders(state, payload) {
+      state.activeOrders = payload;
     },
-    setOrdersRetrievedDate(state, payload) {
-      state.ordersRetrievedDate = payload;
+    setActiveOrdersRetrievedDate(state, payload) {
+      state.activeOrdersRetrievedDate = payload;
     }
   }
 };

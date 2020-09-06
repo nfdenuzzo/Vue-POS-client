@@ -157,18 +157,18 @@ export default {
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();
       } else if (this.step === 3) {
-        const orderSpecs = this.orderDetails
+        const orderSpecs = this.orderDetails;
         orderSpecs.orderDetails = this.$store.getters.getBasket;
-        this.placingOrder = true
-        const result = await this.$store.dispatch('placeOrder', orderSpecs)
-        this.placingOrder = false
+        this.placingOrder = true;
+        const result = await this.$store.dispatch("placeOrder", orderSpecs);
+        this.placingOrder = false;
         if (result) {
           if (orderSpecs.orderDetails.orderType !== "Delivery")
-          this.$q.notify({
-            type: 'positive',
-            message: "Order has been placed.",
-            color: "positive"
-          });
+            this.$q.notify({
+              type: "positive",
+              message: "Order has been placed.",
+              color: "positive"
+            });
           this.closeDialog();
         }
       }

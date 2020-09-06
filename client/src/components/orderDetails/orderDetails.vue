@@ -201,14 +201,14 @@ export default {
   watch: {
     useExistingAddress() {
       if (this.useExistingAddress) {
-        this.updateOrderDetailsObj.address = this.getCurrentProfile.address
-        this.updateOrderDetailsObj.addressLine2 = this.getCurrentProfile.addressLine2
-        this.updateOrderDetailsObj.deliveryArea = this.getCurrentProfile.deliveryArea
+        this.updateOrderDetailsObj.address = this.getCurrentProfile.address;
+        this.updateOrderDetailsObj.addressLine2 = this.getCurrentProfile.addressLine2;
+        this.updateOrderDetailsObj.deliveryArea = this.getCurrentProfile.deliveryArea;
       }
     },
     useExistingContactNumber() {
       if (this.useExistingAddress) {
-        this.updateOrderDetailsObj.contactNumber = this.getCurrentProfile.contactNumber
+        this.updateOrderDetailsObj.contactNumber = this.getCurrentProfile.contactNumber;
       }
     }
   },
@@ -270,10 +270,8 @@ export default {
     },
     createDTO() {
       this.updateOrderDetailsObj.subscribeNotifications = this.subscribe;
-      const dto = JSON.parse(
-        JSON.stringify(this.updateOrderDetailsObj)
-      );
-      dto.orderType = this.deliveryType
+      const dto = JSON.parse(JSON.stringify(this.updateOrderDetailsObj));
+      dto.orderType = this.deliveryType;
       if (this.deliveryType !== "Delivery") {
         delete dto.deliveryArea;
         delete dto.address;

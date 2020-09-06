@@ -71,7 +71,10 @@ router.post(
     body("disabled").optional(),
     body("description").not().isEmpty().withMessage("description is Required!"),
     body("price").isDecimal().withMessage("price is Required!"),
-    body("menuCategory").not().isEmpty().withMessage("menu category is Required!"),
+    body("menuCategory")
+      .not()
+      .isEmpty()
+      .withMessage("menu category is Required!"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -144,12 +147,16 @@ router.put(
   "/update-menu-item",
   checkJwt,
   hasUpdatePermission,
-  [body("_id").not().isEmpty().trim().withMessage("Item id is required"),
+  [
+    body("_id").not().isEmpty().trim().withMessage("Item id is required"),
     body("name").not().isEmpty().trim().withMessage("Name is Required!"),
     body("disabled").optional(),
     body("description").not().isEmpty().withMessage("description is Required!"),
     body("price").isDecimal().withMessage("price is Required!"),
-    body("menuCategory").not().isEmpty().withMessage("menu category is Required!"),
+    body("menuCategory")
+      .not()
+      .isEmpty()
+      .withMessage("menu category is Required!"),
   ],
   async (req, res) => {
     const errors = validationResult(req);

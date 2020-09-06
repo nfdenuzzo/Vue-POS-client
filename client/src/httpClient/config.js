@@ -67,18 +67,18 @@ axiosInstance.interceptors.response.use(
     switch (error.response.status) {
       // Unauthorized, either his token expired or he does not have on.
       case 401:
-        userNotPermitted()
+        userNotPermitted();
         Notify.create({
-          type: 'negative',
+          type: "negative",
           message: "We could not authorize you, reload or login again",
           color: "logoRed"
         });
-        return error.response
+        return error.response;
       // We clear the storage so that the authorize request can be executed the next time the page reloads
       // Bad request, either a model error or an error we want the user to see
       case 400:
         Notify.create({
-          type: 'negative',
+          type: "negative",
           message:
             error.response &&
             error.response.data &&
@@ -87,50 +87,50 @@ axiosInstance.interceptors.response.use(
               : "There were either outstanding required data or the data was not in the correct format.",
           color: "logoRed"
         });
-        return error.response
+        return error.response;
       // Forbidden, user does not have the required rights to view a page
       case 403:
         Notify.create({
-          type: 'negative',
+          type: "negative",
           message: "This action is forbidden!",
           color: "logoRed"
         });
         break;
       case 406:
         console.log("Sorry, error 406");
-        return error.response
+        return error.response;
       // Backend-controller action was not found.
       case 404:
         Notify.create({
-          type: 'negative',
+          type: "negative",
           message: "Sorry, the resource was not found on the server.",
           color: "logoRed"
         });
-        return error.response
+        return error.response;
       // Internal server error
       case 500:
         Notify.create({
-          type: 'negative',
+          type: "negative",
           message:
             "An error occurred on the server. Please try again. Sorry for the inconvenience.",
           color: "logoRed"
         });
-        return error.response
+        return error.response;
       // Network related error
       case 503:
         logout();
         Notify.create({
-          type: 'negative',
+          type: "negative",
           message: "Sorry, the server is unavailable.",
           color: "logoRed"
         });
-        return error.response
+        return error.response;
       // Unexpected error code
       default:
         console.log(
           "We are not sure what just happened, Please try again. Sorry for the inconvenience"
         );
-        return error.response
+        return error.response;
     }
 
     return Promise.reject(error);

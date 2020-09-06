@@ -97,7 +97,12 @@
                               {{ col.value }}
                             </div>
                             <div v-else-if="col.id === 4">
-                              <q-badge outline :color="col.value ? 'logoRed' : 'positive'" :label="col.value.toString()" class="text-capitalize"/>
+                              <q-badge
+                                outline
+                                :color="col.value ? 'logoRed' : 'positive'"
+                                :label="col.value.toString()"
+                                class="text-capitalize"
+                              />
                             </div>
                             <div class="text-color" v-else>
                               <span class="q-pr-sm">
@@ -189,7 +194,12 @@
                       {{ col.value }}
                     </div>
                     <div v-else>
-                      <q-badge outline :color="col.value ? 'logoRed' : 'positive'" :label="col.value.toString()" class="text-capitalize"/>
+                      <q-badge
+                        outline
+                        :color="col.value ? 'logoRed' : 'positive'"
+                        :label="col.value.toString()"
+                        class="text-capitalize"
+                      />
                     </div>
                   </template>
                 </q-td>
@@ -200,9 +210,11 @@
       </div>
     </div>
 
-    <q-dialog v-model="viewUpdateDialog" 
+    <q-dialog
+      v-model="viewUpdateDialog"
       transition-show="slide-up"
-      transition-hide="slide-down">
+      transition-hide="slide-down"
+    >
       <update-side-items
         :isEditing="true"
         :selectedSideItem="selectedSideObj"
@@ -210,9 +222,11 @@
       />
     </q-dialog>
 
-    <q-dialog v-model="viewDeleteDialog" 
+    <q-dialog
+      v-model="viewDeleteDialog"
       transition-show="slide-up"
-      transition-hide="slide-down">
+      transition-hide="slide-down"
+    >
       <query-delete-request
         :selectedItem="selectedSideObj"
         :deleteFunction="deleteFunction"
@@ -360,7 +374,7 @@ export default {
         default:
           break;
       }
-    },
+    }
   }
 };
 </script>

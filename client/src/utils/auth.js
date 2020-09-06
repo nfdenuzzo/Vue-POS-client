@@ -1,13 +1,13 @@
-import store from '../store/index.js';
-import auth0 from 'auth0-js';
-import Router from 'vue-router';
+import store from "../store/index.js";
+import auth0 from "auth0-js";
+import Router from "vue-router";
 import jwtDecode from "jwt-decode";
 
-const CLIENT_ID =  process.env.AUTH0_CLIENT_ID;
+const CLIENT_ID = process.env.AUTH0_CLIENT_ID;
 const CLIENT_DOMAIN = process.env.AUTH0_DOMAIN;
 const REDIRECT = process.env.AUTH0_CALLBACK_URL;
-const SCOPE = 'openid email profile role';
-const AUDIENCE = 'https://bfgrill-pwa';
+const SCOPE = "openid email profile role";
+const AUDIENCE = "https://bfgrill-pwa";
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -16,7 +16,7 @@ var auth = new auth0.WebAuth({
 
 export function login() {
   auth.authorize({
-    responseType: 'token id_token',
+    responseType: "token id_token",
     redirectUri: REDIRECT,
     audience: AUDIENCE,
     scope: SCOPE
@@ -24,22 +24,22 @@ export function login() {
 }
 
 var router = new Router({
-   mode: 'history',
+  mode: "history"
 });
 
 export function logout() {
   clearIdToken();
   clearAccessToken();
-  store.dispatch("updateAuthStatus", false)
+  store.dispatch("updateAuthStatus", false);
   // this is required to log a user out as it saves a user
-  auth.logout()
-  router.push('/').catch(() => {});
+  auth.logout();
+  router.push("/").catch(() => {});
 }
 
 export function requireAuth(to, from, next) {
   if (!isLoggedIn()) {
     next({
-      path: '/',
+      path: "/",
       query: { redirect: to.fullPath }
     });
   } else {
@@ -48,65 +48,67 @@ export function requireAuth(to, from, next) {
 }
 
 export function getIdToken() {
-  return localStorage.getItem('id_token');
+  return localStorage.getItem("id_token");
 }
 
 export function getAccessToken() {
-  return localStorage.getItem('access_token');
+  return localStorage.getItem("access_token");
 }
 
 function clearIdToken() {
-  localStorage.removeItem('id_token');
+  localStorage.removeItem("id_token");
 }
 
 function clearAccessToken() {
-  localStorage.removeItem('access_token');
+  localStorage.removeItem("access_token");
 }
 
 // Helper function that will allow us to extract the access_token and id_token
 function getParameterByName(name) {
-  let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+  let match = RegExp("[#&]" + name + "=([^&]*)").exec(window.location.hash);
+  return match && decodeURIComponent(match[1].replace(/\+/g, " "));
 }
 
 // Get and store access_token in local storage
 export async function setAccessToken() {
-  let accessToken = getParameterByName('access_token');
+  let accessToken = getParameterByName("access_token");
   if (accessToken) {
-    localStorage.setItem('access_token', accessToken);
-    const result = await jwtDecode(accessToken)
-    store.commit("setUserPermissions", result.permissions)
-    store.dispatch("updateAuthStatus", true)
-    store.dispatch("retrieveMyProfile", { forceRefresh: true })
+    localStorage.setItem("access_token", accessToken);
+    const result = await jwtDecode(accessToken);
+    store.commit("setUserPermissions", result.permissions);
+    store.dispatch("updateAuthStatus", true);
+    store.dispatch("retrieveMyProfile", { forceRefresh: true });
   }
 }
 
 // Get and store id_token in local storage
 export async function setIdToken() {
-  let idToken = getParameterByName('id_token');
+  let idToken = getParameterByName("id_token");
   if (idToken) {
-    localStorage.setItem('id_token', idToken);
-    const result = await jwtDecode(idToken)
-    store.commit("setProfile", ({
-        name: result.given_name,
-        email: result.email
-    }))
+    localStorage.setItem("id_token", idToken);
+    const result = await jwtDecode(idToken);
+    store.commit("setProfile", {
+      name: result.given_name,
+      email: result.email
+    });
   }
 }
 
 export function isLoggedIn() {
   const idToken = getIdToken();
   if (!idToken || isTokenExpired(idToken)) {
-    store.dispatch("updateAuthStatus", false)
-    store.commit("setUserPermissions", [])
-    store.commit("setProfile", null)
+    store.dispatch("updateAuthStatus", false);
+    store.commit("setUserPermissions", []);
+    store.commit("setProfile", null);
   }
   return !!idToken && !isTokenExpired(idToken);
 }
 
 function getTokenExpirationDate(encodedToken) {
   const token = jwtDecode(encodedToken);
-  if (!token.exp) { return null; }
+  if (!token.exp) {
+    return null;
+  }
 
   const date = new Date(0);
   date.setUTCSeconds(token.exp);
@@ -120,5 +122,5 @@ function isTokenExpired(token) {
 }
 
 export function userNotPermitted() {
-  logout()
+  logout();
 }

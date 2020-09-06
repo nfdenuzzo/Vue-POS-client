@@ -97,7 +97,12 @@
                               {{ col.value }}
                             </div>
                             <div v-else-if="col.id === 2">
-                              <q-badge outline :color="col.value ? 'logoRed' : 'positive'" :label="col.value.toString()" class="text-capitalize"/>
+                              <q-badge
+                                outline
+                                :color="col.value ? 'logoRed' : 'positive'"
+                                :label="col.value.toString()"
+                                class="text-capitalize"
+                              />
                             </div>
                             <div class="text-color" v-else>
                               <span class="q-pr-sm">
@@ -189,7 +194,12 @@
                       {{ col.value }}
                     </div>
                     <div v-else>
-                      <q-badge outline :color="col.value ? 'logoRed' : 'positive'" :label="col.value.toString()" class="text-capitalize"/>
+                      <q-badge
+                        outline
+                        :color="col.value ? 'logoRed' : 'positive'"
+                        :label="col.value.toString()"
+                        class="text-capitalize"
+                      />
                     </div>
                   </template>
                 </q-td>
@@ -200,9 +210,11 @@
       </div>
     </div>
 
-    <q-dialog v-model="viewUpdateDialog" 
+    <q-dialog
+      v-model="viewUpdateDialog"
       transition-show="slide-up"
-      transition-hide="slide-down">
+      transition-hide="slide-down"
+    >
       <update-addon-categories
         :isEditing="true"
         :selectedAddOnItem="selectedAddOnItem"
@@ -210,9 +222,11 @@
       />
     </q-dialog>
 
-    <q-dialog v-model="viewDeleteDialog" 
+    <q-dialog
+      v-model="viewDeleteDialog"
       transition-show="slide-up"
-      transition-hide="slide-down">
+      transition-hide="slide-down"
+    >
       <query-delete-request
         :selectedItem="selectedAddOnItem"
         :deleteFunction="deleteFunction"
@@ -242,7 +256,7 @@ export default {
       visibleColumns: ["name", "disabled"],
       columnsOptions: [
         { label: "Name", value: "name" },
-        { label: "Disabled", value: "disabled" },
+        { label: "Disabled", value: "disabled" }
       ],
       loading: false,
       columns: [
@@ -330,7 +344,7 @@ export default {
         default:
           break;
       }
-    },
+    }
   }
 };
 </script>

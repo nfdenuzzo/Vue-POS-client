@@ -2,9 +2,7 @@ const router = require("express").Router();
 const MongoClient = require("mongodb").MongoClient;
 const auth0 = require("auth0");
 const jwt = require("express-jwt");
-const {
-  hasReadPermission,
-} = require("../../../utils/getPermissions.js");
+const { hasReadPermission } = require("../../../utils/getPermissions.js");
 const jwksRsa = require("jwks-rsa");
 require("dotenv").config();
 

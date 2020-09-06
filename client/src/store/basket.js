@@ -6,7 +6,7 @@ const generalBasketUrl = "/general-settings";
 const basket = {
   state: {
     basket: [],
-    orderDetails: null,
+    orderDetails: null
   },
   getters: {
     getBasket: state => {
@@ -32,10 +32,7 @@ const basket = {
         commit("updateBasket", results);
       }
     },
-    async clearBasket(
-      { commit, dispatch, rootState, rootGetters },
-      payload
-    ) {
+    async clearBasket({ commit, dispatch, rootState, rootGetters }, payload) {
       commit("updateBasket", []);
     },
     async updateOrderItemCount(
@@ -43,16 +40,23 @@ const basket = {
       payload
     ) {
       const existingItem = rootGetters.getBasket.find(x => x.id === payload.id);
-      const objIndex = rootGetters.getBasket.findIndex((obj => obj.id === payload.id));
+      const objIndex = rootGetters.getBasket.findIndex(
+        obj => obj.id === payload.id
+      );
       existingItem.quantity = payload.count;
-      commit('updateSpecifiedBasketItemCount', {index: objIndex, item: existingItem})
+      commit("updateSpecifiedBasketItemCount", {
+        index: objIndex,
+        item: existingItem
+      });
     },
     async removeOrderItem(
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
-      const objIndex = rootGetters.getBasket.findIndex((obj => obj.id === payload.id));
-      commit('removeSpecifiedBasketItem', { index: objIndex })
+      const objIndex = rootGetters.getBasket.findIndex(
+        obj => obj.id === payload.id
+      );
+      commit("removeSpecifiedBasketItem", { index: objIndex });
     }
   },
   mutations: {

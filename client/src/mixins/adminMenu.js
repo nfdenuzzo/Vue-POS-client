@@ -11,7 +11,7 @@ export default {
       return this.$store.getters.getAuth && isLoggedIn();
     },
     hasRightToViewCurrentOrders() {
-      return this.hasCorrectPermissions
+      return this.hasCorrectPermissions;
     },
     hasCorrectPermissions() {
       return this.$store.getters.getUserPermissions.includes("read:systemData");

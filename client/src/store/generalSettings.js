@@ -96,8 +96,8 @@ const generalSettings = {
       state.settingsRetrievedDate = payload;
     },
     setViewingPurchaseProcess(state, payload) {
-      state.viewingPurchaseProcess  = payload;
-    },
+      state.viewingPurchaseProcess = payload;
+    }
   }
 };
 

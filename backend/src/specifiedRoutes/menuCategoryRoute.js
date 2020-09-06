@@ -1,12 +1,9 @@
 const router = require("express").Router();
 const MongoClient = require("mongodb").MongoClient;
-const {
-  hasReadPermission
-} = require("../../utils/getPermissions.js");
+const { hasReadPermission } = require("../../utils/getPermissions.js");
 require("dotenv").config();
 
-const {  MONGODB_URL, DB_NAME } = process.env;
-
+const { MONGODB_URL, DB_NAME } = process.env;
 
 //#region LoadSpecificCollection
 async function loadSpecificCollection(collectionName) {

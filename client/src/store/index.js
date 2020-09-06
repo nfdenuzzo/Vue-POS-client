@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./auth";
 import generalSettings from "./generalSettings";
-import adminGeneralSettings from "./adminGeneralSettings"
+import adminGeneralSettings from "./adminGeneralSettings";
 import adminSideItems from "./adminSideItems";
 import adminAddonCategories from "./adminAddonCategories";
 import adminMenuItems from "./adminMenuItems";

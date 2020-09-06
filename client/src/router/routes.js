@@ -309,6 +309,17 @@ const routes = [
         beforeEnter: requireAuth
       },
       {
+        path: "/view-my-active-orders",
+        name: "myActiveOrders",
+        meta: {
+          title: "Black Forest Grill - My Active Orders",
+          dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Orders/viewMyActiveOders.vue"),
+        beforeEnter: requireAuth
+      },
+      {
         path: "/general-settings",
         name: "generalSettings",
         meta: {

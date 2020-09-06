@@ -24,9 +24,7 @@
           </div>
         </div>
         <div class="row q-pt-md q-px-lg">
-          <div
-            class="col-xs-12 text-right text-weight-bolder text-caption"
-          >
+          <div class="col-xs-12 text-right text-weight-bolder text-caption">
             Items Total: R {{ itemTotal }}
           </div>
         </div>
@@ -39,16 +37,13 @@
           </div>
         </div>
         <div class="row q-px-lg">
-          <div
-            class="col-xs-12 text-right text-weight-bolder text-caption"
-          >
-            VAT {{ ($store.getters.getVATRate * 100).toFixed(0) }}% (Already Included): R {{ vatTotal }}
+          <div class="col-xs-12 text-right text-weight-bolder text-caption">
+            VAT {{ ($store.getters.getVATRate * 100).toFixed(0) }}% (Already
+            Included): R {{ vatTotal }}
           </div>
         </div>
         <div class="row q-px-lg">
-          <div
-            class="col-xs-12 text-right text-weight-bolder text-subtitle1"
-          >
+          <div class="col-xs-12 text-right text-weight-bolder text-subtitle1">
             Order Total: R {{ basketTotal }}
           </div>
         </div>
@@ -90,61 +85,74 @@ export default {
       );
     },
     vatTotal() {
-      return (this.basketTotal * Number(this.$store.getters.getVATRate)).toFixed(2)
+      return (
+        this.basketTotal * Number(this.$store.getters.getVATRate)
+      ).toFixed(2);
     },
     basketTotal() {
       return this.itemTotal + this.basketExtrasCost;
     },
     itemTotal() {
-      return this.$store.getters.getBasket.reduce((a, b) => +a + (+b.price * b.quantity), 0);
+      return this.$store.getters.getBasket.reduce(
+        (a, b) => +a + +b.price * b.quantity,
+        0
+      );
     },
     basketExtrasCost() {
       let extrasCost = 0;
       this.showItemsInOrder.forEach(menuItemDetails => {
         if (menuItemDetails.makeCalzone) {
-          extrasCost = extrasCost + menuItemDetails.calzonePrice
+          extrasCost = extrasCost + menuItemDetails.calzonePrice;
         }
         if (menuItemDetails.extraBurgerToppings.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraBurgerToppings.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraBurgerToppings.reduce(
+              (a, b) => +a + +b.price,
+              0
+            );
         }
         if (menuItemDetails.extraDessertToppings.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraDessertToppings.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraDessertToppings.reduce(
+              (a, b) => +a + +b.price,
+              0
+            );
         }
         if (menuItemDetails.extraMainOptions.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraMainOptions.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraMainOptions.reduce((a, b) => +a + +b.price, 0);
         }
         if (menuItemDetails.extraPastaToppings.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraPastaToppings.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraPastaToppings.reduce(
+              (a, b) => +a + +b.price,
+              0
+            );
         }
         if (menuItemDetails.extraPizzaToppings.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraPizzaToppings.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraPizzaToppings.reduce(
+              (a, b) => +a + +b.price,
+              0
+            );
         }
         if (menuItemDetails.extraSaladToppings.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraSaladToppings.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraSaladToppings.reduce(
+              (a, b) => +a + +b.price,
+              0
+            );
         }
         if (menuItemDetails.extraSuaces.length > 0) {
-          extrasCost = extrasCost + menuItemDetails.extraSuaces.reduce(
-            (a, b) => +a + +b.price,
-            0
-          );
+          extrasCost =
+            extrasCost +
+            menuItemDetails.extraSuaces.reduce((a, b) => +a + +b.price, 0);
         }
       });
       return extrasCost;

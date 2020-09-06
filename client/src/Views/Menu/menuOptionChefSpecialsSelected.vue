@@ -84,32 +84,36 @@ export default {
           );
           break;
         case "pork-dishes":
-          return _.sortBy(this.$store.getters.getChefSpecialPorkMenuItems, function(
-            user
-          ) {
-            return user.name.toLowerCase();
-          });
+          return _.sortBy(
+            this.$store.getters.getChefSpecialPorkMenuItems,
+            function(user) {
+              return user.name.toLowerCase();
+            }
+          );
           break;
         case "other-dishes":
-          return _.sortBy(this.$store.getters.getChefSpecialOtherMenuItems, function(
-            user
-          ) {
-            return user.name.toLowerCase();
-          });
+          return _.sortBy(
+            this.$store.getters.getChefSpecialOtherMenuItems,
+            function(user) {
+              return user.name.toLowerCase();
+            }
+          );
           break;
         case "burger":
-          return _.sortBy(this.$store.getters.getChefSpecialBurgerMenuItems, function(
-            user
-          ) {
-            return user.name.toLowerCase();
-          });
+          return _.sortBy(
+            this.$store.getters.getChefSpecialBurgerMenuItems,
+            function(user) {
+              return user.name.toLowerCase();
+            }
+          );
           break;
         default:
-          return _.sortBy(this.$store.getters.getChefSpecialMeatMenuItems, function(
-            user
-          ) {
-            return user.name.toLowerCase();
-          });
+          return _.sortBy(
+            this.$store.getters.getChefSpecialMeatMenuItems,
+            function(user) {
+              return user.name.toLowerCase();
+            }
+          );
       }
     }
   },

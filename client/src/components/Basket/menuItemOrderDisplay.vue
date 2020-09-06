@@ -7,7 +7,7 @@
         </div>
         <div
           class="col-xs-4 text-right text-weight-bolder text-subtitle1 q-pt-xs "
-          :class="{ 'q-pr-lg': !$q.platform.is.mobile }"
+          :class="{ 'q-pr-lg': !$q.platform.is.mobile && !viewingOrderHistory }"
         >
           R {{ menuItemDetails.price }}
         </div>
@@ -17,10 +17,12 @@
           {{ menuItemDetails.description }}
         </div>
         <div
-          class="col-xs-5 text-right text-weight-bolder text-subtitle1 q-pt-xs"
+          class="col-xs-5 text-right text-weight-bolder text-subtitle1"
+          :class="{ 'q-pt-xs': !viewingOrderHistory }"
         >
           <q-btn
             round
+            v-if="!viewingOrderHistory"
             dense
             :size="$q.screen.lt.md ? 'sm' : 'md'"
             color="logoRed"
@@ -30,11 +32,16 @@
           />
           <label
             class="q-mt-sm q-px-sm text-color text-weight-bolder text-subtitle1"
+            v-if="!viewingOrderHistory"
           >
             {{ menuItemDetails.quantity }}
           </label>
+          <label class="text-color text-weight-bold text-caption" v-else>
+            Quantity: {{ menuItemDetails.quantity }}
+          </label>
           <q-btn
             dense
+            v-if="!viewingOrderHistory"
             round
             :size="$q.screen.lt.md ? 'sm' : 'md'"
             color="positive"
@@ -46,6 +53,7 @@
       <div class="row q-py-sm">
         <div class="col-xs-12 q-pb-sm q-pt-xs text-right q-pr-md">
           <q-btn
+            v-if="!viewingOrderHistory"
             outline
             size="xs"
             color="logoRed"
@@ -93,7 +101,7 @@
         </div>
       </div>
 
-      <br>
+      <br />
 
       <div class="row" v-if="menuItemDetails.chosenBastingStyleOption">
         Chosen basting - {{ menuItemDetails.chosenBastingStyleOption }}
@@ -248,6 +256,11 @@ export default {
   components: {},
   mixins: [],
   props: {
+    viewingOrderHistory: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     menuItemDetails: {
       type: Object,
       required: true,

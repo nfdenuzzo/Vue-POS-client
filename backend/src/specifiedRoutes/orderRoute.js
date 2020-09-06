@@ -67,8 +67,8 @@ router.get("/order-history", checkJwt, async (req, res) => {
 //#endregion
 
 //#region
-// retrieve last 5 orders
-router.get("/active-orders", checkJwt, async (req, res) => {
+// retrieve my active orders
+router.get("/my-active-orders", checkJwt, async (req, res) => {
   const token = await createToken(req);
 
   authClient.getProfile(token, async (err, userInfo) => {
@@ -81,11 +81,11 @@ router.get("/active-orders", checkJwt, async (req, res) => {
     const collection = await loadSpecificCollection("orders");
     const activeOrders = await collection
       .find(
-        { _id: ObjectId(userInfo.userId) },
+        { userEmail: userInfo.email },
         {
           $and: [
-            { status: { $ne: "Complete" } },
-            { status: { $ne: "Canceled" } },
+            { status: { $ne: "COMPLETE" } },
+            { status: { $ne: "CANCELLED" } },
           ],
         }
       )
@@ -224,7 +224,7 @@ router.post(
       let deliveryCharges = null;
       if (req.body.orderType === "Delivery") {
         deliveryCharges = generalSettings.deliveryCharges.find(
-          (area) => area._id === ObjectId(req.body.deliveryArea._id)
+          (area) => area._id.toString() === req.body.deliveryArea._id.toString()
         );
       }
 
@@ -238,6 +238,10 @@ router.post(
       const itemsInOrder = await getItemsInOrder(
         verifiedOrderItemsAndSideItems
       );
+      const basketItemsTotal = await getItemTotal(
+        verifiedOrderItemsAndSideItems
+      );
+
       const basketTotal = await getBasketTotal(verifiedOrderItemsAndSideItems);
 
       await ordersCollection.insertOne({
@@ -255,7 +259,9 @@ router.post(
         subscribeNotifications: req.body.subscribeNotifications,
         orderStatus: "PROCESSING",
         vat: vat,
+        vatRate: generalSettings.vat * 100,
         itemsInOrder: itemsInOrder,
+        itemTotal: basketItemsTotal,
         orderExtrasCost: basketExtrasCost,
         orderTotal: basketTotal,
       });

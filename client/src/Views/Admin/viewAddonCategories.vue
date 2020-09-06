@@ -1,8 +1,8 @@
 <template>
   <div>
-      <create-addon-cat />
+    <create-addon-cat />
 
-      <current-addon-categories />
+    <current-addon-categories />
   </div>
 </template>
 
@@ -10,9 +10,13 @@
 export default {
   components: {
     "create-addon-cat": () =>
-      import("../../components/adminComps/AddonCatDetails/createUpdateAddonCatItem.vue"),
+      import(
+        "../../components/adminComps/AddonCatDetails/createUpdateAddonCatItem.vue"
+      ),
     "current-addon-categories": () =>
-      import("../../components/adminComps/AddonCatDetails/addOnItemsDataTable.vue")
+      import(
+        "../../components/adminComps/AddonCatDetails/addOnItemsDataTable.vue"
+      )
   },
   mixins: [],
   props: {},

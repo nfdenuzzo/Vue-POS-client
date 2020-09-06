@@ -74,7 +74,9 @@ const adminAddonCategories = {
     ) {
       try {
         if (
-          cachingTimeExpired(rootGetters.getAdminAddonCategoriesRetrievedDate) ||
+          cachingTimeExpired(
+            rootGetters.getAdminAddonCategoriesRetrievedDate
+          ) ||
           (payload && payload.forceRefresh)
         ) {
           const result = await axios.axiosInstance.get(addonCategoriesAdminUrl);

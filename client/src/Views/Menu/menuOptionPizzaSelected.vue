@@ -102,7 +102,7 @@ export default {
   watch: {
     viewMenuItemsDetails() {
       if (!this.viewMenuItemsDetails) {
-        this.menuItemDetails = null
+        this.menuItemDetails = null;
       }
     }
   },

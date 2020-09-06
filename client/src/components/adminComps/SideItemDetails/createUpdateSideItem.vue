@@ -91,9 +91,7 @@
                     lazy-rules
                     mask="#####.##"
                     color="positive"
-                    :rules="[
-                      val => (val && val >= 0) || 'Price is required!'
-                    ]"
+                    :rules="[val => (val && val >= 0) || 'Price is required!']"
                   />
                 </div>
 
@@ -220,7 +218,7 @@ export default {
       const result = await this.$store.dispatch(method, this.sideItemObj);
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: this.isEditing
             ? "Item updated successfully."
             : "Item created successfully.",

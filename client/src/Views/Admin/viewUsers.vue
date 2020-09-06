@@ -93,7 +93,12 @@
                             {{ col.value }}
                           </div>
                           <div v-else>
-                            <q-badge outline :color="col.value ? 'positive' : 'logoRed'" :label="col.value.toString()" class="text-capitalize"/>
+                            <q-badge
+                              outline
+                              :color="col.value ? 'positive' : 'logoRed'"
+                              :label="col.value.toString()"
+                              class="text-capitalize"
+                            />
                           </div>
                         </div>
                       </div>
@@ -127,7 +132,12 @@
                     {{ col.value }}
                   </div>
                   <div v-else>
-                    <q-badge outline :color="col.value ? 'positive' : 'logoRed'" :label="col.value.toString()" class="text-capitalize"/>
+                    <q-badge
+                      outline
+                      :color="col.value ? 'positive' : 'logoRed'"
+                      :label="col.value.toString()"
+                      class="text-capitalize"
+                    />
                   </div>
                 </template>
               </q-td>
