@@ -51,8 +51,6 @@ async function loadSpecificCollection(collectionName) {
 //#region
 // retrieve latest side category items
 router.get("/", hasReadPermission, async (req, res) => {
-  const token = await createToken(req);
-
   const collection = await loadSpecificCollection("addonCategories");
   const allAddonCategories = await collection.find({}).toArray();
 

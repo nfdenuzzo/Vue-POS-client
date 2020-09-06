@@ -301,7 +301,7 @@ const routes = [
         path: "/view-my-profile",
         name: "myProfile",
         meta: {
-          title: "Black Forest Grill - Current Users",
+          title: "Black Forest Grill - My Profile",
           dispatchMethod: { name: "retrieveMyProfile", payload: "" },
           auth: true
         },
@@ -310,13 +310,24 @@ const routes = [
       },
       {
         path: "/view-my-active-orders",
-        name: "myActiveOrders",
+        name: "activeOrders",
         meta: {
-          title: "Black Forest Grill - My Active Orders",
+          title: "Black Forest Grill - Active Orders",
           dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
           auth: true
         },
         component: () => import("../views/Orders/viewMyActiveOders.vue"),
+        beforeEnter: requireAuth
+      },
+      {
+        path: "/order-history",
+        name: "orderHistory",
+        meta: {
+          title: "Black Forest Grill - Order History",
+          dispatchMethod: { name: "retrieveOrderHistory", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Orders/viewMyOrderHistory.vue"),
         beforeEnter: requireAuth
       },
       {

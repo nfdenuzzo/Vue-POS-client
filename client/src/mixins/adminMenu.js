@@ -56,6 +56,12 @@ export default {
             routeName: "currentUsers"
           },
           {
+            name: "Order History",
+            routeLink: "/order-history",
+            icon: "fas fa-list",
+            routeName: "orderHistory"
+          },
+          {
             name: "General Settings",
             routeLink: "/general-settings",
             icon: "fas fa-cogs",

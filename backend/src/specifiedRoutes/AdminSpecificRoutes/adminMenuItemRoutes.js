@@ -51,8 +51,6 @@ async function loadSpecificCollection(collectionName) {
 //#region
 // retrieve latest menu items
 router.get("/", hasReadPermission, async (req, res) => {
-  const token = await createToken(req);
-
   const collection = await loadSpecificCollection("menuItems");
   const allMenuItems = await collection.find({}).toArray();
 

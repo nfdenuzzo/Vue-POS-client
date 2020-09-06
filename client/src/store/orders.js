@@ -6,7 +6,9 @@ const ordersUrl = "/order";
 const menuSideItems = {
   state: {
     activeOrdersRetrievedDate: null,
-    activeOrders: []
+    activeOrders: [],
+    orderHistoryRetrievedDate: null,
+    orderHistory: []
   },
   getters: {
     getActiveOrders: state => {
@@ -14,6 +16,12 @@ const menuSideItems = {
     },
     getActiveOrdersRetrievedDate: state => {
       return state.activeOrdersRetrievedDate;
+    },
+    getOrderHistoryRetrievedDate: state => {
+      return state.orderHistoryRetrievedDate;
+    },
+    getOrderHistory: state => {
+      return state.orderHistory;
     }
   },
   actions: {
@@ -40,7 +48,7 @@ const menuSideItems = {
           (payload && payload.forceRefresh)
         ) {
           const result = await axios.axiosInstance.get(
-            `${ordersUrl}/my-active-orders`
+            `${ordersUrl}/active-orders`
           );
           console.log("result", result);
           if (result && result.status === 200) {
@@ -58,6 +66,36 @@ const menuSideItems = {
         console.log("retrieveActiveOrders -> ex", ex);
         return false;
       }
+    },
+    async retrieveOrderHistory(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        // if (
+        //   cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
+        //   (payload && payload.forceRefresh)
+        // ) {
+          const page = payload && payload.page ? payload.page : 1;
+          const result = await axios.axiosInstance.get(
+            `${ordersUrl}/order-history?page=${page}`
+          );
+          if (result && result.status === 200) {
+            console.log("result", result)
+            commit("setOrderHistory", result.data);
+            commit(
+              "setOrderHistoryRetrievedDate",
+              new Date().toLocaleString("en-ZA")
+            );
+            return true;
+          }
+        // } else {
+        //   return true;
+        // }
+      } catch (ex) {
+        console.log("retrieveOrderHistory -> ex", ex);
+        return false;
+      }
     }
   },
   mutations: {
@@ -66,6 +104,12 @@ const menuSideItems = {
     },
     setActiveOrdersRetrievedDate(state, payload) {
       state.activeOrdersRetrievedDate = payload;
+    },
+    setOrderHistory(state, payload) {
+      state.orderHistory = payload;
+    },
+    setOrderHistoryRetrievedDate(state, payload) {
+      state.orderHistoryRetrievedDate = payload;
     }
   }
 };

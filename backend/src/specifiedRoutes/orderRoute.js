@@ -6,6 +6,13 @@ const auth0 = require("auth0");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { generateUUID } = require("../../utils/generateUUID.js");
+const {
+  hasReadPermission,
+  hasUpdatePermission,
+  hasDeletePermission,
+  hasCreatePermission,
+  isSuperAdmin,
+} = require("../../utils/getPermissions.js");
 require("dotenv").config();
 
 const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, MONGODB_URL, DB_NAME } = process.env;
@@ -45,8 +52,11 @@ async function loadSpecificCollection(collectionName) {
 //#region
 // retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
-  const token = await createToken(req);
+  const page = isSuperAdmin ? parseInt(req.query.page) : 1;
+  const PAGE_SIZE = isSuperAdmin ? 20 : 5;
+  const skip = (page - 1) * PAGE_SIZE;
 
+  const token = await createToken(req);
   authClient.getProfile(token, async (err, userInfo) => {
     if (userInfo && userInfo.hasOwnProperty("error")) {
       return res.status(401).send(userInfo.error);
@@ -55,20 +65,34 @@ router.get("/order-history", checkJwt, async (req, res) => {
     }
 
     const collection = await loadSpecificCollection("orders");
+    const count = await collection.countDocuments();
+
     const allOrders = await collection
-      .find({ _id: ObjectId(userInfo.userId), status: "Complete" })
+      .find({
+        // $and: [
+        //   { status: { $eq: "COMPLETE" } },
+        //   { status: { $eq: "CANCELLED" } },
+        // ],
+      })
       .sort({ _id: -1 })
-      .limit(5)
+      .skip(skip)
+      .limit(PAGE_SIZE)
       .toArray();
 
-    res.send(allOrders);
+    const results = {
+      data: allOrders,
+      totalPages: Math.ceil(count / PAGE_SIZE),
+      currentPage: page,
+    };
+
+    res.send(results);
   });
 });
 //#endregion
 
 //#region
 // retrieve my active orders
-router.get("/my-active-orders", checkJwt, async (req, res) => {
+router.get("/active-orders", checkJwt, async (req, res) => {
   const token = await createToken(req);
 
   authClient.getProfile(token, async (err, userInfo) => {

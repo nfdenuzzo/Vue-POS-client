@@ -43,8 +43,6 @@ async function loadSpecificCollection(collectionName) {
 //#region
 // retrieve current users
 router.get("/current-users", checkJwt, hasReadPermission, async (req, res) => {
-  const token = await createToken(req);
-
   const collection = await loadSpecificCollection("users");
   const availableUsers = await collection.find({}).toArray();
 

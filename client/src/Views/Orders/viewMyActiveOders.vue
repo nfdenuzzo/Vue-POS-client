@@ -29,10 +29,6 @@ export default {
   },
   computed: {
     getActiveOrders() {
-      console.log(
-        "getActiveOrders -> this.$store.getters.getActiveOrders",
-        this.$store.getters.getActiveOrders
-      );
       return this.$store.getters.getActiveOrders;
     }
   },
@@ -40,7 +36,7 @@ export default {
   beforeCreate() {},
   created() {},
   async beforeMount() {
-    // await this.$store.dispatch("retrieveActiveOrders");
+    await this.$store.dispatch("retrieveActiveOrders");
   },
   mounted() {},
   beforeUpdate() {},

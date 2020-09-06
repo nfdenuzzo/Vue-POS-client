@@ -51,8 +51,6 @@ async function loadSpecificCollection(collectionName) {
 //#region
 // retrieve latest side option items
 router.get("/", hasReadPermission, async (req, res) => {
-  const token = await createToken(req);
-
   const collection = await loadSpecificCollection("sideItems");
   const availableSideItems = await collection.find({}).toArray();
 
