@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { sendPushNotification } = require("../../utils/pushNotifications.js");
 const { body, validationResult } = require("express-validator");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
@@ -64,16 +65,19 @@ router.get("/order-history", checkJwt, async (req, res) => {
       return res.status(500).send(err);
     }
 
+    const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
     const count = await collection.countDocuments();
 
     const allOrders = await collection
-      .find({
-        // $and: [
-        //   { status: { $eq: "COMPLETE" } },
-        //   { status: { $eq: "CANCELLED" } },
-        // ],
-      })
+      .find(
+        { $and: [
+            { status: { $eq: "COMPLETE" } },
+            { status: { $eq: "CANCELLED" } },
+          ], 
+        },
+        { projection: returnFieldsOrders }
+      )
       .sort({ _id: -1 })
       .skip(skip)
       .limit(PAGE_SIZE)
@@ -102,6 +106,7 @@ router.get("/active-orders", checkJwt, async (req, res) => {
       return res.status(500).send(err);
     }
 
+    const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
     const activeOrders = await collection
       .find(
@@ -111,7 +116,8 @@ router.get("/active-orders", checkJwt, async (req, res) => {
             { status: { $ne: "COMPLETE" } },
             { status: { $ne: "CANCELLED" } },
           ],
-        }
+        },
+        { projection: returnFieldsOrders }
       )
       .sort({ _id: -1 })
       .toArray();
@@ -281,6 +287,7 @@ router.post(
         address: req.body.address ? req.body.address : null,
         addressLine2: req.body.addressLine2 ? req.body.addressLine2 : null,
         subscribeNotifications: req.body.subscribeNotifications,
+        subscriptionObject: req.body.subscribeNotifications ? req.body.subscriptionObject : null,
         orderStatus: "PROCESSING",
         vat: vat,
         vatRate: generalSettings.vat * 100,
@@ -289,6 +296,10 @@ router.post(
         orderExtrasCost: basketExtrasCost,
         orderTotal: basketTotal,
       });
+
+      if (req.body.subscribeNotifications) {
+        await sendPushNotification(req.body.subscriptionObject)
+      }
 
       res.status(200).send();
     });

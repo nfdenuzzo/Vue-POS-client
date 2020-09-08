@@ -6,7 +6,8 @@
   "scripts": {
     "docker:serve": "node --inspect=0.0.0.0:9229 ./src/index.js",
     "dev:serve": "node --inspect=0.0.0.0:9229 ./src/development-server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web-push": "web-push"
   },
   "keywords": [],
   "author": "",
@@ -30,7 +31,8 @@
     "moment-timezone": "^0.5.31",
     "mongodb": "^3.5.9",
     "morgan": "^1.9.1",
-    "nanoid": "^2.0.3"
+    "nanoid": "^2.0.3",
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "claudia": "^5.1.2"

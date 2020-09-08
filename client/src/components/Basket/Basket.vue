@@ -38,7 +38,7 @@
         </div>
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-caption">
-            VAT {{ ($store.getters.getVATRate * 100).toFixed(0) }}% (Already
+            VAT {{ ($store.getters.getVATRate * 100).toFixed(2) }}% (Already
             Included): R {{ vatTotal }}
           </div>
         </div>

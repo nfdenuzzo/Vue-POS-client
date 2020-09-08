@@ -887,7 +887,6 @@ export default {
       return results.reduce((a, b) => +a + +b.price, 0);
     },
     async assignData() {
-      console.log("assignData -> this.menuItemSelected", this.menuItemSelected);
       this.menuItemDetails = JSON.parse(JSON.stringify(this.menuItemSelected));
       this.selectedMenuItemDetails.id = this.menuItemDetails._id;
       this.selectedMenuItemDetails.name = this.menuItemDetails.name;

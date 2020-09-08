@@ -20,4 +20,6 @@ router.use(
   require("./specifiedRoutes/generalSettingsRoute.js")
 );
 
+router.use("/notifications", require("./specifiedRoutes/notificationRoute.js"));
+
 module.exports = router;

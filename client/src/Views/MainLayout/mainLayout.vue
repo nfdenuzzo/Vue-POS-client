@@ -171,6 +171,49 @@
       </q-drawer>
 
       <q-page-container>
+        <transition
+          appear
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated fadeOut"
+        >
+          <div v-if="showNotificationsBanner && pushNotificationsSupported" class="banner-container bg-positive">
+            <div class="constrain">
+              <q-banner class="bg-positive text-white" inline-actions dense>
+                <template v-slot:avatar>
+                  <q-avatar size="40px" color="white">
+                    <q-img contain :src="images.Logo"></q-img>
+                  </q-avatar>
+                </template>
+
+                <b> Would you like to enable notifications?</b>
+
+                <template v-slot:action>
+                  <q-btn
+                    @click="enableNotifications"
+                    label="Yes"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                  <q-btn
+                    @click="showNotificationsBanner = false"
+                    label="Later"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                  <q-btn
+                    @click="neverShowNotificationsBanner"
+                    label="Never"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                </template>
+              </q-banner>
+            </div>
+          </div>
+        </transition>
         <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
         <router-view />
         <q-dialog
@@ -242,6 +285,9 @@ import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 import adminMenu from "../../mixins/adminMenu.js";
 import userMenu from "../../mixins/userMenu.js";
 import { logout } from "../../utils/auth.js";
+import { urlBase64ToUint8Array } from "../../utils/webpushUtil.js"
+const qs = require('qs')
+
 let deferredPrompt;
 export default {
   name: "MainLayout",
@@ -258,6 +304,14 @@ export default {
       import("../../components/TandCs/privacyPolicyAndTermsAndConditions.vue")
   },
   computed: {
+    serviceWorkerSupported() {
+      if ("serviceWorker" in navigator) return true;
+      return false;
+    },
+    pushNotificationsSupported() {
+      if ("PushManager" in window) return true;
+      return false;
+    },
     getAdminMainMenuItem() {
       return this.adminMainMenuItems;
     },
@@ -282,6 +336,7 @@ export default {
       },
       viewPurchaseProcess: false,
       showAppInstallBanner: false,
+      showNotificationsBanner: false,
       menuDrawerOpen: false
     };
   },
@@ -307,6 +362,11 @@ export default {
     }
   },
   watch: {
+    "$store.getters.getAuth"() {
+      if (this.$store.getters.getAuth) {
+        this.initNotificationsBanner();
+      }
+    },
     viewPurchaseProcess() {
       if (this.viewPurchaseProcess) {
         this.$store.commit("setViewingPurchaseProcess", true);
@@ -346,6 +406,82 @@ export default {
     },
     goHome() {
       this.$router.push("/").catch(() => {});
+    },
+    initNotificationsBanner() {
+      let neverShowNotificationsBanner = this.$q.localStorage.getItem(
+        "neverShowNotificationsBanner"
+      );
+
+      if (!neverShowNotificationsBanner) {
+        this.showNotificationsBanner = true;
+      }
+    },
+    enableNotifications() {
+      if (this.pushNotificationsSupported) {
+        Notification.requestPermission(result => {
+          console.log("result: ", result);
+          this.neverShowNotificationsBanner();
+          if (result == "granted") {
+            this.checkForExistingPushSubscription();
+          }
+        });
+      }
+    },
+    checkForExistingPushSubscription() {
+      if (this.serviceWorkerSupported && this.pushNotificationsSupported) {
+        let reg;
+        navigator.serviceWorker.ready
+          .then(swreg => {
+            reg = swreg;
+            return swreg.pushManager.getSubscription();
+          })
+          .then(sub => {
+            if (!sub) {
+              this.createPushSubscription(reg);
+            }
+          });
+      }
+    },
+    async createPushSubscription(reg) {
+      const vapidPublicKey = "BJeT3WbOLmulqq1RNixIGxdtDcO7oxIZ2XYzZtk5MV0ucrbMrGIq-JLW26x53JTh33hBeoI_aOu31XM8Z3Mq2kE";
+      const vapidPublicKeyConverted = urlBase64ToUint8Array(vapidPublicKey);
+      reg.pushManager
+        .subscribe({
+          applicationServerKey: vapidPublicKeyConverted,
+          userVisibleOnly: true
+        })
+        .then(async newSub => {
+          const newSubData = newSub.toJSON(),
+            newSubDataQS = qs.stringify(newSubData);
+            let result = await this.$store.dispath("subscribeNotifications", newSubDataQS)
+            if (result) {
+              this.displayGrantedNotification();
+            }
+        })
+        .catch(err => {
+          console.log("err: ", err);
+        });
+    },
+    displayGrantedNotification() {
+      if (this.serviceWorkerSupported && this.pushNotificationsSupported) {
+        navigator.serviceWorker.ready.then(swreg => {
+          swreg.showNotification("You're subscribed to notifications!", {
+            body: "Thanks for subscribing!",
+            icon: "icons/icon-128x128.png",
+            image: "icons/icon-128x128.png",
+            badge: "icons/icon-128x128.png",
+            dir: "ltr",
+            lang: "en-US",
+            vibrate: [100, 50, 200],
+            tag: "confirm-notification",
+            renotify: true
+          });
+        });
+      }
+    },
+    neverShowNotificationsBanner() {
+      this.showNotificationsBanner = false;
+      this.$q.localStorage.set("neverShowNotificationsBanner", true);
     }
   }
 };

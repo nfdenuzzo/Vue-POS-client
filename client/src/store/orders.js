@@ -50,7 +50,6 @@ const menuSideItems = {
           const result = await axios.axiosInstance.get(
             `${ordersUrl}/active-orders`
           );
-          console.log("result", result);
           if (result && result.status === 200) {
             commit("setActiveOrders", result.data);
             commit(
@@ -76,19 +75,18 @@ const menuSideItems = {
         //   cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
         //   (payload && payload.forceRefresh)
         // ) {
-          const page = payload && payload.page ? payload.page : 1;
-          const result = await axios.axiosInstance.get(
-            `${ordersUrl}/order-history?page=${page}`
+        const page = payload && payload.page ? payload.page : 1;
+        const result = await axios.axiosInstance.get(
+          `${ordersUrl}/order-history?page=${page}`
+        );
+        if (result && result.status === 200) {
+          commit("setOrderHistory", result.data);
+          commit(
+            "setOrderHistoryRetrievedDate",
+            new Date().toLocaleString("en-ZA")
           );
-          if (result && result.status === 200) {
-            console.log("result", result)
-            commit("setOrderHistory", result.data);
-            commit(
-              "setOrderHistoryRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
-            return true;
-          }
+          return true;
+        }
         // } else {
         //   return true;
         // }

@@ -122,7 +122,7 @@
         </div>
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-caption">
-            VAT {{ orderSpecifications.vatRate }}% (Already Included): R
+            VAT {{ orderSpecifications.vatRate.toFixed(2) }}% (Already Included): R
             {{ orderSpecifications.vat }}
           </div>
         </div>

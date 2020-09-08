@@ -21,8 +21,8 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(helmet());
 
 // use bodyParser to parse application/json content-type
-app.use(bodyParser.json({ limit: "10mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+app.use(bodyParser.json({ limit: "2mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "2mb", extended: true }));
 
 // enable all CORS requests
 app.use(cors());

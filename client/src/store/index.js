@@ -13,6 +13,7 @@ import menuSideItems from "./menuSideItems";
 import menuCategories from "./menuCategories";
 import orders from "./orders";
 import basket from "./basket";
+import notifications from "./notifications";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -61,7 +62,8 @@ export default new Vuex.Store({
     menuSideItems,
     menuCategories,
     basket,
-    orders
+    orders,
+    notifications
   }
 });
 

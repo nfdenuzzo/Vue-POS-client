@@ -7,7 +7,7 @@
             <div class="col-xs-12">
               <div
                 class="col-xs-6 text-center q-pa-md text-color text-weight-bold"
-                v-if="updateOrderDetailsObj.contactNumber"
+                v-if="hasExistingContactNumber"
               >
                 <q-checkbox
                   left-label
@@ -26,8 +26,9 @@
                   color="positive"
                   :rules="[
                     val =>
-                      (val && val.length > 0 && /\S/.test(val)) ||
-                      'Contact number is required!'
+                      (val && /\S/.test(val)) || 'Contact number is required!',
+                    val =>
+                      val.length === 16 || 'Valid contact number is required'
                   ]"
                 />
               </div>
@@ -164,6 +165,7 @@
 </template>
 
 <script>
+import { webPushCreateSub } from "../../utils/webpushUtil.js";
 export default {
   components: {},
   mixins: [],
@@ -178,6 +180,7 @@ export default {
       useExistingAddress: false,
       useExistingContactNumber: false,
       hasExistingAddresss: false,
+      hasExistingContactNumber: false,
       deliveryType: null,
       deliveryAreas: [],
       subscribe: false
@@ -248,15 +251,16 @@ export default {
         this.updateOrderDetailsObj &&
         this.updateOrderDetailsObj.contactNumber
       ) {
+        this.hasExistingContactNumber = true;
         this.useExistingContactNumber = true;
       } else {
         this.useExistingContactNumber = false;
       }
     },
     async onSubmit() {
-      this.$refs.myForm.validate().then(success => {
+      await this.$refs.myForm.validate().then(async success => {
         if (success) {
-          const dto = this.createDTO();
+          const dto = await this.createDTO();
           this.$emit("proceedPaymentMethod", dto);
         } else {
           // oh no, user has filled in
@@ -268,8 +272,11 @@ export default {
       await this.assignData();
       this.$refs.myForm.resetValidation();
     },
-    createDTO() {
+    async createDTO() {
       this.updateOrderDetailsObj.subscribeNotifications = this.subscribe;
+      if (this.updateOrderDetailsObj.subscribeNotifications) {
+        this.updateOrderDetailsObj.subscriptionObject = await webPushCreateSub();
+      }
       const dto = JSON.parse(JSON.stringify(this.updateOrderDetailsObj));
       dto.orderType = this.deliveryType;
       if (this.deliveryType !== "Delivery") {
