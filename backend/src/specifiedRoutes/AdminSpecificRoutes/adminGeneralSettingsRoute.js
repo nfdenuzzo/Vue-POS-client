@@ -2,7 +2,8 @@ const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
-  getAuthClient,
+  authClient,
+  checkJwt,
   createToken,
 } = require("../../../utils/dbUtils.js");
 const ObjectId = require("mongodb").ObjectID;
@@ -11,25 +12,6 @@ const {
   hasUpdatePermission,
   hasDeletePermission,
 } = require("../../../utils/getPermissions.js");
-const { AUTH0_DOMAIN } = process.env;
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
-require("dotenv").config();
-
-const authClient = getAuthClient();
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
-  }),
-
-  // Validate the audience and the issuer.
-  audience: "https://bfgrill-pwa",
-  issuer: `https://${AUTH0_DOMAIN}/`,
-  algorithms: ["RS256"],
-});
 
 //#region
 // retrieve admin general Settings

@@ -13,12 +13,20 @@
             outline
             :color="getLabelColor(orderSpecifications.orderStatus)"
           >
+            <q-spinner
+              v-if="showSpinner(orderSpecifications.orderStatus)"
+              color="primary"
+              size="2em"
+            />
             <q-icon
+              v-else
               :name="getIcon(orderSpecifications.orderStatus)"
               size="20px"
               class="q-pr-xs"
             />
-            {{ getLabelText(orderSpecifications.orderStatus) }}
+            <span class="q-pl-sm">
+              {{ getLabelText(orderSpecifications.orderStatus) }}</span
+            >
           </q-badge>
         </div>
       </div>
@@ -122,7 +130,8 @@
         </div>
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-caption">
-            VAT {{ orderSpecifications.vatRate.toFixed(2) }}% (Already Included): R
+            VAT {{ orderSpecifications.vatRate.toFixed(2) }}% (Already
+            Included): R
             {{ orderSpecifications.vat }}
           </div>
         </div>
@@ -189,6 +198,16 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    showSpinner(text) {
+      switch (text) {
+        case "PROCESSING":
+          return true;
+        case "PREPARING":
+          return true;
+        default:
+          return false;
+      }
+    },
     getIcon(text) {
       switch (text) {
         case "PROCESSING":
@@ -206,9 +225,9 @@ export default {
     getLabelColor(text) {
       switch (text) {
         case "PROCESSING":
-          return "warning";
+          return "primary";
         case "PREPARING":
-          return "warning";
+          return "primary";
         case "CANCELLED":
           return "logoRed";
         case "READY FOR COLLECTION":

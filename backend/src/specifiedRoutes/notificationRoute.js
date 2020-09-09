@@ -1,30 +1,11 @@
 const router = require("express").Router();
 const {
   loadSpecificCollection,
-  getAuthClient,
+  authClient,
+  checkJwt,
   createToken,
 } = require("../../utils/dbUtils.js");
 const { body, validationResult } = require("express-validator");
-const { AUTH0_DOMAIN } = process.env;
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
-require("dotenv").config();
-
-const authClient = getAuthClient();
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
-  }),
-
-  authClient.getProfile(token, async (err, userInfo) => {
-    if (userInfo && userInfo.hasOwnProperty("error")) {
-      return res.status(401).send(userInfo.error);
-    } else if (err) {
-      return res.status(500).send(err);
-    }
 
 //#region
 // retrieve my platform status

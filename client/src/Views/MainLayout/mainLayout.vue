@@ -294,7 +294,7 @@ export default {
   mixins: [computedFunctionsMixin, adminMenu, userMenu],
   components: {
     purchaseProcess: () =>
-      import("../../components/PurchaseProcess/purchaseProcess.vue"),
+      import("../../components/PurchaseProcess/purchaseProcessSteps.vue"),
     "delivery-charges": () => import("../../components/deliveryCharges.vue"),
     "trading-Hours": () => import("../../components/tradingHours.vue"),
     "cooking-time-info": () => import("../../components/cookingTimeInfo.vue"),
@@ -420,7 +420,7 @@ export default {
     async enableNotifications() {
       if (this.pushNotificationsSupported) {
         Notification.requestPermission(async result => {
-          // this.neverShowNotificationsBanner();
+          this.neverShowNotificationsBanner();
           if (result == "granted") {
             this.checkForExistingPushSubscription();
           }

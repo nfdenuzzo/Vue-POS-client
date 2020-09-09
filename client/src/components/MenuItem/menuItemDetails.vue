@@ -4,7 +4,7 @@
     :style="!$q.platform.is.mobile ? 'width: 750px; ' : ''"
   >
     <div class="row">
-      <div class="col-xs-12 text-right">
+      <div class="col-xs-12 text-right text-color">
         <q-btn icon="close" flat round dense @click="closeMenuItemsDetails" />
       </div>
     </div>

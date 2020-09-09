@@ -261,7 +261,7 @@ export default {
       await this.$refs.myForm.validate().then(async success => {
         if (success) {
           const dto = await this.createDTO();
-          this.$emit("proceedPaymentMethod", dto);
+          this.$emit("proceedPaymentMethod", { dto: dto, deliveryCost: this.getDeliveryCost });
         } else {
           // oh no, user has filled in
           // at least one invalid value

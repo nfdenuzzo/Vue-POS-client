@@ -24,7 +24,7 @@ async function sendPushNotification(subscription) {
   const pushContent = {
     title: "Your order has been placed!",
     body: "View your order status now!",
-    openUrl: "/#/",
+    openUrl: "http://localhost:8080/view-my-active-orders",
     imageUrl: imageUrl,
   };
   const pushContentStringified = JSON.stringify(pushContent);

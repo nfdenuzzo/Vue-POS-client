@@ -1,7 +1,7 @@
 <template>
   <div class="text-color">
     <div class="text-weight-bolder q-pb-xs  q-pt-md text-center text-subtitle1">
-      Order History {{ hasCorrectPermissions ? '' : '(Last 5)' }} 
+      Order History {{ hasCorrectPermissions ? "" : "(Last 5)" }}
     </div>
     <div class="q-pa-md row justify-center">
       <div
@@ -13,8 +13,18 @@
           <view-order :orderSpecifications="order"></view-order>
         </q-card>
       </div>
+      <div
+        class="text-weight-bold q-pb-xs  q-pt-md text-center text-subtitle1"
+        v-if="getMyOrderHistory.length === 0"
+      >
+        <q-icon name="fas fa-exclamation-triangle" class="text-logoRed" style="font-size: 2rem;" /> 
+        <span class="q-pl-md">There is currently no order history available</span>
+      </div>
     </div>
-    <div class="q-pa-md row justify-center" v-if='hasCorrectPermissions'>
+    <div
+      class="q-pa-md row justify-center"
+      v-if="hasCorrectPermissions && getMyOrderHistory.length > 0"
+    >
       <q-pagination
         color="logoRed"
         v-model="current"
@@ -49,11 +59,15 @@ export default {
       return this.$store.getters.getUserPermissions.includes("read:systemData");
     },
     getMyOrderHistory() {
-      return this.$store.getters.getOrderHistory.data ? this.$store.getters.getOrderHistory.data : [];
+      return this.$store.getters.getOrderHistory.data
+        ? this.$store.getters.getOrderHistory.data
+        : [];
     },
     getMyOrderHistoryPage() {
-      return this.$store.getters.getOrderHistory.totalPages ? this.$store.getters.getOrderHistory.totalPages : 1;
-    },
+      return this.$store.getters.getOrderHistory.totalPages
+        ? this.$store.getters.getOrderHistory.totalPages
+        : 1;
+    }
   },
   watch: {
     current(to, from) {

@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 const { hasReadPermission } = require("../../utils/getPermissions.js");
-require("dotenv").config();
 
 //#region
 // retrieve latest side option items

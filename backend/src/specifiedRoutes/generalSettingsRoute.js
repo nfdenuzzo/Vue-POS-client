@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 const { isPlatformClosed } = require("../../utils/isPlatformClosed.js");
-require("dotenv").config();
 
 //#region
 // retrieve my general Settings
