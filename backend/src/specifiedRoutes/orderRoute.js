@@ -1,54 +1,15 @@
 const router = require("express").Router();
+const {
+  loadSpecificCollection,
+  authClient,
+  checkJwt,
+  createToken,
+} = require("../../utils/dbUtils.js");
 const { sendPushNotification } = require("../../utils/pushNotifications.js");
 const { body, validationResult } = require("express-validator");
-const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
-const auth0 = require("auth0");
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
 const { generateUUID } = require("../../utils/generateUUID.js");
-const {
-  hasReadPermission,
-  hasUpdatePermission,
-  hasDeletePermission,
-  hasCreatePermission,
-  isSuperAdmin,
-} = require("../../utils/getPermissions.js");
-require("dotenv").config();
-
-const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, MONGODB_URL, DB_NAME } = process.env;
-
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
-  }),
-
-  // Validate the audience and the issuer.
-  audience: "https://bfgrill-pwa",
-  issuer: `https://${AUTH0_DOMAIN}/`,
-  algorithms: ["RS256"],
-});
-
-const authClient = new auth0.AuthenticationClient({
-  domain: AUTH0_DOMAIN,
-  clientId: AUTH0_CLIENT_ID,
-});
-
-async function createToken(req) {
-  return req.headers.authorization
-    .replace("bearer ", "")
-    .replace("Bearer ", "");
-}
-
-//#region LoadSpecificCollection
-async function loadSpecificCollection(collectionName) {
-  const client = await MongoClient.connect(MONGODB_URL);
-  return client.db(DB_NAME).collection(collectionName);
-}
-//#endregion
+const { isSuperAdmin } = require("../../utils/getPermissions.js");
 
 //#region
 // retrieve last 5 orders
@@ -71,10 +32,11 @@ router.get("/order-history", checkJwt, async (req, res) => {
 
     const allOrders = await collection
       .find(
-        { $and: [
+        {
+          $and: [
             { status: { $eq: "COMPLETE" } },
             { status: { $eq: "CANCELLED" } },
-          ], 
+          ],
         },
         { projection: returnFieldsOrders }
       )
@@ -287,7 +249,9 @@ router.post(
         address: req.body.address ? req.body.address : null,
         addressLine2: req.body.addressLine2 ? req.body.addressLine2 : null,
         subscribeNotifications: req.body.subscribeNotifications,
-        subscriptionObject: req.body.subscribeNotifications ? req.body.subscriptionObject : null,
+        subscriptionObject: req.body.subscribeNotifications
+          ? req.body.subscriptionObject
+          : null,
         orderStatus: "PROCESSING",
         vat: vat,
         vatRate: generalSettings.vat * 100,
@@ -298,7 +262,7 @@ router.post(
       });
 
       if (req.body.subscribeNotifications) {
-        await sendPushNotification(req.body.subscriptionObject)
+        await sendPushNotification(req.body.subscriptionObject);
       }
 
       res.status(200).send();
