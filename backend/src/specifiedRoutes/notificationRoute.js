@@ -19,11 +19,12 @@ const checkJwt = jwt({
     jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`,
   }),
 
-  // Validate the audience and the issuer.
-  audience: "https://bfgrill-pwa",
-  issuer: `https://${AUTH0_DOMAIN}/`,
-  algorithms: ["RS256"],
-});
+  authClient.getProfile(token, async (err, userInfo) => {
+    if (userInfo && userInfo.hasOwnProperty("error")) {
+      return res.status(401).send(userInfo.error);
+    } else if (err) {
+      return res.status(500).send(err);
+    }
 
 //#region
 // retrieve my platform status
