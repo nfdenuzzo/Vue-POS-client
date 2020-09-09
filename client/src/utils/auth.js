@@ -36,8 +36,13 @@ export function logout() {
   router.push("/").catch(() => {});
 }
 
+
+function hasCorrectPermissions() {
+  return store.getters.getUserPermissions.includes("read:systemData");
+}
+
 export function requireAuth(to, from, next) {
-  if (!isLoggedIn()) {
+  if (!isLoggedIn() && !hasCorrectPermissions) {
     next({
       path: "/",
       query: { redirect: to.fullPath }

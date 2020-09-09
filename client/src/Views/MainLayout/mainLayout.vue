@@ -345,7 +345,6 @@ export default {
     this.$store.dispatch("retrievePlatformStatus");
   },
   async mounted() {
-    this.initNotificationsBanner();
     let neverShowAppInstallBanner = this.$q.localStorage.getItem(
       "neverShowAppInstallBanner"
     );
@@ -365,6 +364,7 @@ export default {
   watch: {
     "$store.getters.getAuth"() {
       if (this.$store.getters.getAuth) {
+        // TODO : when we set up a way to show specials or new additions
         this.initNotificationsBanner();
       }
     },

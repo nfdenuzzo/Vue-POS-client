@@ -305,8 +305,7 @@ const routes = [
           dispatchMethod: { name: "retrieveMyProfile", payload: "" },
           auth: true
         },
-        component: () => import("../views/Profile/viewMyProfile.vue"),
-        beforeEnter: requireAuth
+        component: () => import("../views/Profile/viewMyProfile.vue")
       },
       {
         path: "/view-my-active-orders",
@@ -316,7 +315,17 @@ const routes = [
           dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
           auth: true
         },
-        component: () => import("../views/Orders/viewMyActiveOders.vue"),
+        component: () => import("../views/Orders/viewMyActiveOders.vue")
+      },
+      {
+        path: "/current-orders",
+        name: "currentActiveOrders",
+        meta: {
+          title: "Black Forest Grill - Current Orders",
+          dispatchMethod: { name: "", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Orders/viewAllActiveOrders.vue"),
         beforeEnter: requireAuth
       },
       {

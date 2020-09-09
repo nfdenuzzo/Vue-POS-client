@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const moment = require("moment");
+
 const {
   loadSpecificCollection,
   authClient,
@@ -67,6 +69,9 @@ router.get("/active-orders", checkJwt, async (req, res) => {
     } else if (err) {
       return res.status(500).send(err);
     }
+    // used to get only active orders from today
+    const startDate = moment().startOf('day'); // set to 12:00 am today
+    const endDate = moment().endOf('day'); // set to 23:59 pm today
 
     const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
@@ -77,6 +82,7 @@ router.get("/active-orders", checkJwt, async (req, res) => {
           $and: [
             { status: { $ne: "COMPLETE" } },
             { status: { $ne: "CANCELLED" } },
+            { createdAt: {$gte: startDate, $lt: endDate} },
           ],
         },
         { projection: returnFieldsOrders }

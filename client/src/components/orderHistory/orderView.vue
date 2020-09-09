@@ -10,6 +10,7 @@
         <div class="text-weight-bolder q-pb-xs text-center text-subtitle1">
           Order Status:
           <q-badge
+            v-if="!adminView"
             outline
             :color="getLabelColor(orderSpecifications.orderStatus)"
           >
@@ -28,6 +29,25 @@
               {{ getLabelText(orderSpecifications.orderStatus) }}</span
             >
           </q-badge>
+          <q-select
+            v-else
+            outlined
+            v-model="status"
+            :options="currentStatuses"
+            color="positive"
+            option-value="_id"
+            option-label="name"
+            dense
+            @input="val => updateOrderStatus(val)"
+          >
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-italic text-grey">
+                  No options available
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
         </div>
       </div>
     </q-card-section>
@@ -166,10 +186,24 @@ export default {
       type: Object,
       default: () => [],
       required: true
+    },
+    adminView: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
   data() {
-    return {};
+    return {
+      status: "PROCESSING",
+      currentStatuses: [
+        { _id:"PROCESSING" , name: "PROCESSING"},
+        { _id:"PREPARING" , name: "PREPARING"},
+        { _id:"OUT FOR DELIVERY" , name: "OUT FOR DELIVERY"},
+        { _id:"READY FOR COLLECTION" , name: "READY FOR COLLECTION"},
+        { _id:"COMPLETE" , name: "COMPLETE"},
+      ]
+    };
   },
   computed: {
     hasItemsInOrder() {
@@ -193,11 +227,16 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {},
+  mounted() {
+    this.status = this.orderSpecifications.orderStatus
+  },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   methods: {
+    updateOrderStatus(val) {
+      console.log("updateOrderStatus -> val", val)
+    },
     showSpinner(text) {
       switch (text) {
         case "PROCESSING":
