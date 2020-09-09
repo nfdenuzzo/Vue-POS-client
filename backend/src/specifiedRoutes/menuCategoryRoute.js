@@ -1,16 +1,7 @@
 const router = require("express").Router();
-const MongoClient = require("mongodb").MongoClient;
+const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 const { hasReadPermission } = require("../../utils/getPermissions.js");
 require("dotenv").config();
-
-const { MONGODB_URL, DB_NAME } = process.env;
-
-//#region LoadSpecificCollection
-async function loadSpecificCollection(collectionName) {
-  const client = await MongoClient.connect(MONGODB_URL);
-  return client.db(DB_NAME).collection(collectionName);
-}
-//#endregion
 
 //#region
 // retrieve latest side option items

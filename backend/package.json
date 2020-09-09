@@ -35,6 +35,6 @@
     "web-push": "^3.4.4"
   },
   "devDependencies": {
-    "claudia": "^5.1.2"
+    "claudia": "^5.12.0"
   }
 }

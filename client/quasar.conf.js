@@ -52,6 +52,8 @@ module.exports = function (ctx) {
         BACKEND_URL: ctx.dev ? 'http://localhost:8081/api/' : 'http://localhost:8081/api/',
         AUTH0_CLIENT_ID: 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8',
         AUTH0_DOMAIN: 'dev-o3-zte9e.eu.auth0.com',
+        // AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:4000/` : `http://localhost:4000/`,
+        // AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:4000/callback` : `http://localhost:4000/callback`
         AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `http://localhost:8080/`,
         AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `http://localhost:8080/callback`
         // AUTH0_LOGOUT_URL: ctx.dev ? `http://192.168.0.24:8080/` : `http://192.168.0.24:8080/`,

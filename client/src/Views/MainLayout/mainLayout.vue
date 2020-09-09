@@ -345,6 +345,7 @@ export default {
     this.$store.dispatch("retrievePlatformStatus");
   },
   async mounted() {
+    this.initNotificationsBanner();
     let neverShowAppInstallBanner = this.$q.localStorage.getItem(
       "neverShowAppInstallBanner"
     );
@@ -416,11 +417,10 @@ export default {
         this.showNotificationsBanner = true;
       }
     },
-    enableNotifications() {
+    async enableNotifications() {
       if (this.pushNotificationsSupported) {
-        Notification.requestPermission(result => {
-          console.log("result: ", result);
-          this.neverShowNotificationsBanner();
+        Notification.requestPermission(async result => {
+          // this.neverShowNotificationsBanner();
           if (result == "granted") {
             this.checkForExistingPushSubscription();
           }
@@ -430,15 +430,12 @@ export default {
     checkForExistingPushSubscription() {
       if (this.serviceWorkerSupported && this.pushNotificationsSupported) {
         let reg;
-        navigator.serviceWorker.ready
-          .then(swreg => {
+        navigator.serviceWorker.ready.then(swreg => {
             reg = swreg;
             return swreg.pushManager.getSubscription();
           })
           .then(sub => {
-            if (!sub) {
               this.createPushSubscription(reg);
-            }
           });
       }
     },
@@ -453,7 +450,7 @@ export default {
         .then(async newSub => {
           const newSubData = newSub.toJSON(),
             newSubDataQS = qs.stringify(newSubData);
-            let result = await this.$store.dispath("subscribeNotifications", newSubDataQS)
+            let result = await this.$store.dispatch("subscribeNotifications", newSubDataQS)
             if (result) {
               this.displayGrantedNotification();
             }

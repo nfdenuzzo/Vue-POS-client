@@ -1,15 +1,5 @@
 const router = require("express").Router();
-const MongoClient = require("mongodb").MongoClient;
-require("dotenv").config();
-
-const { MONGODB_URL, DB_NAME } = process.env;
-
-//#region LoadSpecificCollection
-async function loadSpecificCollection(collectionName) {
-  const client = await MongoClient.connect(MONGODB_URL);
-  return client.db(DB_NAME).collection(collectionName);
-}
-//#endregion
+const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 
 //#region
 // retrieve latest menu items
