@@ -229,18 +229,22 @@
       </div>
     </div>
 
-    <q-dialog v-model="viewUpdateDialog" 
+    <q-dialog
+      v-model="viewUpdateDialog"
       transition-show="slide-up"
-      transition-hide="slide-down">
+      transition-hide="slide-down"
+    >
       <update-delivery-charge
         :selectedDeliveryAreaObj="selectedDeliveryAreaObj"
         @closeViewDialog="closeUpdateDialog"
       />
     </q-dialog>
 
-    <q-dialog v-model="viewDeleteDialog" 
+    <q-dialog
+      v-model="viewDeleteDialog"
       transition-show="slide-up"
-      transition-hide="slide-down">
+      transition-hide="slide-down"
+    >
       <query-delete-request
         :selectedItem="selectedDeliveryAreaObj"
         :deleteFunction="deleteFunction"
@@ -354,7 +358,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: "Delivery area created successfully.",
           color: "positive"
         });

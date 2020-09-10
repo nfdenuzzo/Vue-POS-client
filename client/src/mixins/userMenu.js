@@ -11,7 +11,9 @@ export default {
       return this.$store.getters.getAuth && isLoggedIn();
     },
     hasNoPermissions() {
-      return !this.$store.getters.getUserPermissions.includes("read:systemData");
+      return !this.$store.getters.getUserPermissions.includes(
+        "read:systemData"
+      );
     },
     userMainMenuItems() {
       if (this.hasAccessToken && this.hasNoPermissions) {

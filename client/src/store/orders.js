@@ -5,46 +5,72 @@ const ordersUrl = "/order";
 
 const menuSideItems = {
   state: {
-    ordersRetrievedDate: null,
-    orders: []
+    activeOrdersRetrievedDate: null,
+    activeOrders: [],
+    orderHistoryRetrievedDate: null,
+    orderHistory: []
   },
   getters: {
-    getOrders: state => {
-      return state.orders;
+    getActiveOrders: state => {
+      return state.activeOrders;
     },
-    getOrdersRetrievedDate: state => {
-      return state.ordersRetrievedDate;
+    getActiveOrdersRetrievedDate: state => {
+      return state.activeOrdersRetrievedDate;
+    },
+    getOrderHistoryRetrievedDate: state => {
+      return state.orderHistoryRetrievedDate;
+    },
+    getOrderHistory: state => {
+      return state.orderHistory;
     }
   },
   actions: {
-    async placeOrder(
-      { commit, dispatch, rootState, rootGetters },
-      payload
-    ) {
-      const result = await axios.axiosInstance.post(`${ordersUrl}/place-order`,
+    async placeOrder({ commit, dispatch, rootState, rootGetters }, payload) {
+      const result = await axios.axiosInstance.post(
+        `${ordersUrl}/place-order`,
         payload
       );
       if (result && result.status === 200) {
-        commit('updateBasket', [])
+        commit("updateBasket", []);
+        dispatch("retrieveActiveOrders", { forceRefresh: true });
         return true;
       } else {
         return false;
       }
     },
-    async retrieveOrders(
+    async updateOrderStatus(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        const result = await axios.axiosInstance.put(
+          `${ordersUrl}/update-order-status`,
+          payload
+        );
+        if (result && result.status === 200) {
+          dispatch("retrieveActiveOrders", { forceRefresh: true });
+          return result;
+        }
+      } catch (ex) {
+        console.log("updateSideItem -> ex", ex);
+      }
+    },
+    async retrieveActiveOrders(
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
       try {
         if (
-          cachingTimeExpired(rootGetters.getOrdersRetrievedDate) ||
+          cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
           (payload && payload.forceRefresh)
         ) {
-          const result = await axios.axiosInstance.get(`${ordersUrl}`);
+          const result = await axios.axiosInstance.get(
+            `${ordersUrl}/active-orders`
+          );
           if (result && result.status === 200) {
-            commit("setOrders", result.data);
+            commit("setActiveOrders", result.data);
             commit(
-              "setOrdersRetrievedDate",
+              "setActiveOrdersRetrievedDate",
               new Date().toLocaleString("en-ZA")
             );
             return true;
@@ -53,17 +79,52 @@ const menuSideItems = {
           return true;
         }
       } catch (ex) {
-        console.log("retrieveOrders -> ex", ex);
+        console.log("retrieveActiveOrders -> ex", ex);
+        return false;
+      }
+    },
+    async retrieveOrderHistory(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        // if (
+        //   cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
+        //   (payload && payload.forceRefresh)
+        // ) {
+        const page = payload && payload.page ? payload.page : 1;
+        const result = await axios.axiosInstance.get(
+          `${ordersUrl}/order-history?page=${page}`
+        );
+        if (result && result.status === 200) {
+          commit("setOrderHistory", result.data);
+          commit(
+            "setOrderHistoryRetrievedDate",
+            new Date().toLocaleString("en-ZA")
+          );
+          return true;
+        }
+        // } else {
+        //   return true;
+        // }
+      } catch (ex) {
+        console.log("retrieveOrderHistory -> ex", ex);
         return false;
       }
     }
   },
   mutations: {
-    setOrders(state, payload) {
-      state.orders = payload;
+    setActiveOrders(state, payload) {
+      state.activeOrders = payload;
     },
-    setOrdersRetrievedDate(state, payload) {
-      state.ordersRetrievedDate = payload;
+    setActiveOrdersRetrievedDate(state, payload) {
+      state.activeOrdersRetrievedDate = payload;
+    },
+    setOrderHistory(state, payload) {
+      state.orderHistory = payload;
+    },
+    setOrderHistoryRetrievedDate(state, payload) {
+      state.orderHistoryRetrievedDate = payload;
     }
   }
 };

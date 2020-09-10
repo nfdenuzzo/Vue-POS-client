@@ -1,4 +1,3 @@
-
 const jwtDecode = require("jwt-decode");
 
 module.exports = {
@@ -17,9 +16,9 @@ async function createToken(req) {
 
 async function hasReadPermission(request, response, next) {
   const token = await createToken(request);
-  const result = await jwtDecode(token)
-  if (result && result.permissions.includes("read:systemData"))
-    return next(); // so continue on the next middleware
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("read:systemData")) return next();
+  // so continue on the next middleware
   else {
     return response.status(403).json({ message: "Forbidden" }); // user is forbidden
   }
@@ -27,9 +26,9 @@ async function hasReadPermission(request, response, next) {
 
 async function hasUpdatePermission(request, response, next) {
   const token = await createToken(request);
-  const result = await jwtDecode(token)
-  if (result && result.permissions.includes("update:systemData"))
-    return next(); // so continue on the next middleware
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("update:systemData")) return next();
+  // so continue on the next middleware
   else {
     return response.status(403).json({ message: "Forbidden" }); // user is forbidden
   }
@@ -37,9 +36,9 @@ async function hasUpdatePermission(request, response, next) {
 
 async function hasDeletePermission(request, response, next) {
   const token = await createToken(request);
-  const result = await jwtDecode(token)
-  if (result && result.permissions.includes("delete:systemData"))
-    return next(); // so continue on the next middleware
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("delete:systemData")) return next();
+  // so continue on the next middleware
   else {
     return response.status(403).json({ message: "Forbidden" }); // user is forbidden
   }
@@ -47,9 +46,9 @@ async function hasDeletePermission(request, response, next) {
 
 async function hasCreatePermission(request, response, next) {
   const token = await createToken(request);
-  const result = await jwtDecode(token)
-  if (result && result.permissions.includes("create:systemData"))
-    return next(); // so continue on the next middleware
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("create:systemData")) return next();
+  // so continue on the next middleware
   else {
     return response.status(403).json({ message: "Forbidden" }); // user is forbidden
   }
@@ -57,10 +56,20 @@ async function hasCreatePermission(request, response, next) {
 
 async function isSuperAdmin(request, response, next) {
   const token = await createToken(request);
-  const result = await jwtDecode(token)
-  if (result && result.permissions.includes("superAdmin"))
-    return next(); // so continue on the next middleware
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("superAdmin")) return next();
+  // so continue on the next middleware
   else {
     return response.status(403).json({ message: "Forbidden" }); // user is forbidden
+  }
+}
+
+async function hasSuperAdminRights(request, response, next) {
+  const token = await createToken(request);
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("superAdmin")) {
+    return true;
+  } else {
+    return false
   }
 }

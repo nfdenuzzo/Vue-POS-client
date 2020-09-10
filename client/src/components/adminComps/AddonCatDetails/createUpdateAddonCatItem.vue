@@ -161,7 +161,7 @@ export default {
       const result = await this.$store.dispatch(method, this.addonCatObj);
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: this.isEditing
             ? "Item updated successfully."
             : "Item created successfully.",

@@ -1,8 +1,8 @@
 <template>
   <div>
-      <create-menu-item />
+    <create-menu-item />
 
-      <current-menu-items />
+    <current-menu-items />
   </div>
 </template>
 
@@ -10,9 +10,13 @@
 export default {
   components: {
     "create-menu-item": () =>
-      import("../../components/adminComps/MenuItemDetails/createUpdateMenuItem.vue"),
+      import(
+        "../../components/adminComps/MenuItemDetails/createUpdateMenuItem.vue"
+      ),
     "current-menu-items": () =>
-      import("../../components/adminComps/MenuItemDetails/menuItemsDataTable.vue")
+      import(
+        "../../components/adminComps/MenuItemDetails/menuItemsDataTable.vue"
+      )
   },
   mixins: [],
   props: {},

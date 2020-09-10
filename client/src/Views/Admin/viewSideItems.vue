@@ -1,8 +1,8 @@
 <template>
   <div>
-      <create-side-item />
+    <create-side-item />
 
-      <current-side-items />
+    <current-side-items />
   </div>
 </template>
 
@@ -10,9 +10,13 @@
 export default {
   components: {
     "create-side-item": () =>
-      import("../../components/adminComps/SideItemDetails/createUpdateSideItem.vue"),
+      import(
+        "../../components/adminComps/SideItemDetails/createUpdateSideItem.vue"
+      ),
     "current-side-items": () =>
-      import("../../components/adminComps/SideItemDetails/sideItemsDataTable.vue")
+      import(
+        "../../components/adminComps/SideItemDetails/sideItemsDataTable.vue"
+      )
   },
   mixins: [],
   props: {},

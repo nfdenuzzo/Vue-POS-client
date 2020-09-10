@@ -41,7 +41,7 @@ export default function({ store } /* ssrContext } */) {
       if (
         dispatchMethod &&
         dispatchMethod.meta &&
-        dispatchMethod.meta.dispatchMethod && 
+        dispatchMethod.meta.dispatchMethod &&
         dispatchMethod.meta.dispatchMethod.name
       ) {
         const method = dispatchMethod.meta.dispatchMethod.name;

@@ -105,7 +105,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: "Delievery area updated successfully.",
           color: "positive"
         });

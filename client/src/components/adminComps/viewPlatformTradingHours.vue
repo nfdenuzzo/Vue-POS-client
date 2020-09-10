@@ -17,7 +17,9 @@
               v-for="(item, index) in openingHours"
               :key="index"
             >
-              <div class="col-xs-6 col-sm-6 col-md-4 col-lg-2 text-weight-bold text-weight-bold q-pt-sm">
+              <div
+                class="col-xs-6 col-sm-6 col-md-4 col-lg-2 text-weight-bold text-weight-bold q-pt-sm"
+              >
                 {{ item.day }}
               </div>
               <div class="col-xs-6 col-sm-6 col-md-4 col-lg-2">
@@ -147,7 +149,7 @@ export default {
       );
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: "Opening hours updated successfully.",
           color: "positive"
         });

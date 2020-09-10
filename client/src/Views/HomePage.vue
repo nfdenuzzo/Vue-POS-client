@@ -183,7 +183,7 @@
 import { isLoggedIn, login, logout } from "../utils/auth.js";
 import adminMenu from "../mixins/adminMenu.js";
 export default {
-  name: 'homepage',
+  name: "homepage",
   components: {
     "delivery-charges": () => import("../components/deliveryCharges.vue"),
     "trading-Hours": () => import("../components/tradingHours.vue"),
@@ -221,18 +221,19 @@ export default {
     getButtonOptions() {
       let options = [];
       options.push({ name: "Menu", action: "/menu-options" });
-      if (this.hasRightToViewCurrentOrders) {
-        options.push({
-          name: "View Current Orders",
-          action: "/current-orders"
-        });
-      } else {
-        options.push({
-          name: "View Current Order Status",
-          action: "/menu-options"
-        });
-      }
       if (this.$store.getters.getAuth) {
+        // to change
+        // if (this.hasRightToViewCurrentOrders) {
+        //   options.push({
+        //     name: "View Current Orders",
+        //     action: "/current-orders"
+        //   });
+        // } else {
+          options.push({
+            name: "View Active Orders",
+            action: "/view-my-active-orders"
+          });
+        // }
         options.push({ name: "Sign out", action: "signout" });
       } else {
         options.push({ name: "Login / Sign-up", action: "signin" });
@@ -260,7 +261,7 @@ export default {
         logout();
       } else {
         this.$q.notify({
-          type: 'negative',
+          type: "negative",
           message:
             "Unable to grant you access, please contact Black Forest Grill for more information",
           timeout: 4500,
@@ -286,7 +287,7 @@ export default {
           this.handleLogout();
           this.updateAuth("logout");
           break;
-        case "/menu-options":
+        default:
           this.$router.push(actionName);
           break;
       }

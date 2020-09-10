@@ -102,7 +102,7 @@ const adminGeneralSettings = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {

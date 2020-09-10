@@ -40,7 +40,9 @@
                   style="right:10px;"
                   class="q-mt-md q-mr-lg bg-goldBrown"
                 >
-                  <q-badge round color="logoRed" floating>{{ getItemsInOrderCount }}</q-badge>
+                  <q-badge round color="logoRed" floating>{{
+                    getItemsInOrderCount
+                  }}</q-badge>
                 </q-btn>
               </div>
             </div>
@@ -62,14 +64,20 @@
               <label
                 class="text-weight-bolder text-subtitle1 text-color q-pb-sm"
               >
-                {{ getAdminMainMenuItem.length > 0 ? "Admin Options" : "Main Menu" }}
+                {{
+                  getAdminMainMenuItem.length > 0
+                    ? "Admin Options"
+                    : "Main Menu"
+                }}
               </label>
             </div>
             <!-- admin -->
             <q-separator
               v-if="$store.getters.getAuth && getAdminMainMenuItem.length > 0"
             />
-            <div v-if="$store.getters.getAuth && getAdminMainMenuItem.length > 0">
+            <div
+              v-if="$store.getters.getAuth && getAdminMainMenuItem.length > 0"
+            >
               <q-item
                 clickable
                 v-ripple
@@ -100,7 +108,9 @@
             <q-separator
               v-if="$store.getters.getAuth && getUserMainMenuItem.length > 0"
             />
-            <div v-if="$store.getters.getAuth && getUserMainMenuItem.length > 0">
+            <div
+              v-if="$store.getters.getAuth && getUserMainMenuItem.length > 0"
+            >
               <q-item
                 clickable
                 v-ripple
@@ -161,73 +171,111 @@
       </q-drawer>
 
       <q-page-container>
+        <transition
+          appear
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated fadeOut"
+        >
+          <div v-if="showNotificationsBanner && pushNotificationsSupported" class="banner-container bg-positive">
+            <div class="constrain">
+              <q-banner class="bg-positive text-white" inline-actions dense>
+                <template v-slot:avatar>
+                  <q-avatar size="40px" color="white">
+                    <q-img contain :src="images.Logo"></q-img>
+                  </q-avatar>
+                </template>
+
+                <b> Would you like to enable notifications?</b>
+
+                <template v-slot:action>
+                  <q-btn
+                    @click="enableNotifications"
+                    label="Yes"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                  <q-btn
+                    @click="showNotificationsBanner = false"
+                    label="Later"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                  <q-btn
+                    @click="neverShowNotificationsBanner"
+                    label="Never"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                </template>
+              </q-banner>
+            </div>
+          </div>
+        </transition>
         <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
         <router-view />
-        <q-dialog v-model="viewPurchaseProcess"
+        <q-dialog
+          v-model="viewPurchaseProcess"
           persistent
           :full-width="$q.platform.is.mobile ? true : false"
           :full-height="$q.platform.is.mobile ? true : false"
           transition-show="slide-up"
-          transition-hide="slide-down">
-          <purchaseProcess v-if="viewPurchaseProcess" :viewPurchaseProcess.sync="viewPurchaseProcess" />
+          transition-hide="slide-down"
+        >
+          <purchaseProcess
+            v-if="viewPurchaseProcess"
+            :viewPurchaseProcess.sync="viewPurchaseProcess"
+          />
         </q-dialog>
       </q-page-container>
 
-    <q-footer
-      class="bg-white"
-      bordered
-    >
-      <transition
-        appear
-        enter-active-class="animated fadeIn"
-        leave-active-class="animated fadeOut"
-      >
-        <div
-          v-if="showAppInstallBanner"
-          class="banner-container bg-positive"
+      <q-footer class="bg-white" bordered>
+        <transition
+          appear
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated fadeOut"
         >
-          <div class="constrain">
-            <q-banner
-              class="bg-positive text-white"
-              inline-actions
-              dense
-            >
-              <template v-slot:avatar>
-                <q-avatar size="40px" color="white">
-                  <q-img contain :src="images.Logo"></q-img>
-                </q-avatar>
-              </template>
+          <div v-if="showAppInstallBanner" class="banner-container bg-positive">
+            <div class="constrain">
+              <q-banner class="bg-positive text-white" inline-actions dense>
+                <template v-slot:avatar>
+                  <q-avatar size="40px" color="white">
+                    <q-img contain :src="images.Logo"></q-img>
+                  </q-avatar>
+                </template>
 
-              <b>Install Black Forest Grill App?</b>
+                <b>Install Black Forest Grill App?</b>
 
-              <template v-slot:action>
-                <q-btn
-                  @click="installApp"
-                  label="Yes"
-                  class="q-px-sm text-capitalize"
-                  dense
-                  flat
-                />
-                <q-btn
-                  @click="showAppInstallBanner = false"
-                  label="Later"
-                  class="q-px-sm text-capitalize"
-                  dense
-                  flat
-                />
-                <q-btn
-                  @click="neverShowAppInstallBanner"
-                  label="Never"
-                  class="q-px-sm text-capitalize"
-                  dense
-                  flat
-                />
-              </template>
-            </q-banner>
+                <template v-slot:action>
+                  <q-btn
+                    @click="installApp"
+                    label="Yes"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                  <q-btn
+                    @click="showAppInstallBanner = false"
+                    label="Later"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                  <q-btn
+                    @click="neverShowAppInstallBanner"
+                    label="Never"
+                    class="q-px-sm text-capitalize"
+                    dense
+                    flat
+                  />
+                </template>
+              </q-banner>
+            </div>
           </div>
-        </div>
-      </transition>
-    </q-footer>
+        </transition>
+      </q-footer>
     </q-layout>
   </div>
 </template>
@@ -237,12 +285,16 @@ import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 import adminMenu from "../../mixins/adminMenu.js";
 import userMenu from "../../mixins/userMenu.js";
 import { logout } from "../../utils/auth.js";
+import { urlBase64ToUint8Array } from "../../utils/webpushUtil.js"
+const qs = require('qs')
+
 let deferredPrompt;
 export default {
   name: "MainLayout",
   mixins: [computedFunctionsMixin, adminMenu, userMenu],
   components: {
-    "purchaseProcess": () => import("../../components/PurchaseProcess/purchaseProcess.vue"),
+    purchaseProcess: () =>
+      import("../../components/PurchaseProcess/purchaseProcessSteps.vue"),
     "delivery-charges": () => import("../../components/deliveryCharges.vue"),
     "trading-Hours": () => import("../../components/tradingHours.vue"),
     "cooking-time-info": () => import("../../components/cookingTimeInfo.vue"),
@@ -252,6 +304,14 @@ export default {
       import("../../components/TandCs/privacyPolicyAndTermsAndConditions.vue")
   },
   computed: {
+    serviceWorkerSupported() {
+      if ("serviceWorker" in navigator) return true;
+      return false;
+    },
+    pushNotificationsSupported() {
+      if ("PushManager" in window) return true;
+      return false;
+    },
     getAdminMainMenuItem() {
       return this.adminMainMenuItems;
     },
@@ -259,7 +319,7 @@ export default {
       return this.userMainMenuItems;
     },
     hasItemsInOrder() {
-      return (this.$store.getters.getBasket.length > 0)
+      return this.$store.getters.getBasket.length > 0;
     },
     getItemsInOrderCount() {
       return this.$store.getters.getBasket.reduce(
@@ -276,6 +336,7 @@ export default {
       },
       viewPurchaseProcess: false,
       showAppInstallBanner: false,
+      showNotificationsBanner: false,
       menuDrawerOpen: false
     };
   },
@@ -301,11 +362,17 @@ export default {
     }
   },
   watch: {
+    "$store.getters.getAuth"() {
+      if (this.$store.getters.getAuth) {
+        // TODO : when we set up a way to show specials or new additions
+        this.initNotificationsBanner();
+      }
+    },
     viewPurchaseProcess() {
       if (this.viewPurchaseProcess) {
-        this.$store.commit("setViewingPurchaseProcess", true)
+        this.$store.commit("setViewingPurchaseProcess", true);
       } else {
-        this.$store.commit("setViewingPurchaseProcess", false)
+        this.$store.commit("setViewingPurchaseProcess", false);
       }
     }
   },
@@ -340,6 +407,78 @@ export default {
     },
     goHome() {
       this.$router.push("/").catch(() => {});
+    },
+    initNotificationsBanner() {
+      let neverShowNotificationsBanner = this.$q.localStorage.getItem(
+        "neverShowNotificationsBanner"
+      );
+
+      if (!neverShowNotificationsBanner) {
+        this.showNotificationsBanner = true;
+      }
+    },
+    async enableNotifications() {
+      if (this.pushNotificationsSupported) {
+        Notification.requestPermission(async result => {
+          this.neverShowNotificationsBanner();
+          if (result == "granted") {
+            this.checkForExistingPushSubscription();
+          }
+        });
+      }
+    },
+    checkForExistingPushSubscription() {
+      if (this.serviceWorkerSupported && this.pushNotificationsSupported) {
+        let reg;
+        navigator.serviceWorker.ready.then(swreg => {
+            reg = swreg;
+            return swreg.pushManager.getSubscription();
+          })
+          .then(sub => {
+              this.createPushSubscription(reg);
+          });
+      }
+    },
+    async createPushSubscription(reg) {
+      const vapidPublicKey = "BJeT3WbOLmulqq1RNixIGxdtDcO7oxIZ2XYzZtk5MV0ucrbMrGIq-JLW26x53JTh33hBeoI_aOu31XM8Z3Mq2kE";
+      const vapidPublicKeyConverted = urlBase64ToUint8Array(vapidPublicKey);
+      reg.pushManager
+        .subscribe({
+          applicationServerKey: vapidPublicKeyConverted,
+          userVisibleOnly: true
+        })
+        .then(async newSub => {
+          const newSubData = newSub.toJSON(),
+            newSubDataQS = qs.stringify(newSubData);
+            let result = await this.$store.dispatch("subscribeNotifications", newSubDataQS)
+            if (result) {
+              this.displayGrantedNotification();
+            }
+        })
+        .catch(err => {
+          console.log("err: ", err);
+        });
+    },
+    displayGrantedNotification() {
+      if (this.serviceWorkerSupported && this.pushNotificationsSupported) {
+        navigator.serviceWorker.ready.then(swreg => {
+          swreg.showNotification("You're subscribed to notifications!", {
+            body: "Thanks for subscribing!",
+            icon: "icons/icon-128x128.png",
+            image: "icons/icon-128x128.png",
+            badge: "icons/icon-128x128.png",
+            dir: "ltr",
+            lang: "en-US",
+            vibrate: [100, 50, 200],
+            tag: "confirm-notification",
+            renotify: true
+          });
+        });
+      }
+    },
+    neverShowNotificationsBanner() {
+      this.showNotificationsBanner = false;
+      this.$q.localStorage.set("neverShowNotificationsBanner", true);
     }
   }
 };

@@ -301,11 +301,42 @@ const routes = [
         path: "/view-my-profile",
         name: "myProfile",
         meta: {
-          title: "Black Forest Grill - Current Users",
+          title: "Black Forest Grill - My Profile",
           dispatchMethod: { name: "retrieveMyProfile", payload: "" },
           auth: true
         },
-        component: () => import("../views/Profile/viewMyProfile.vue"),
+        component: () => import("../views/Profile/viewMyProfile.vue")
+      },
+      {
+        path: "/view-my-active-orders",
+        name: "activeOrders",
+        meta: {
+          title: "Black Forest Grill - Active Orders",
+          dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Orders/viewMyActiveOders.vue")
+      },
+      {
+        path: "/current-orders",
+        name: "currentActiveOrders",
+        meta: {
+          title: "Black Forest Grill - Current Orders",
+          dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Orders/viewAllActiveOrders.vue"),
+        beforeEnter: requireAuth
+      },
+      {
+        path: "/order-history",
+        name: "orderHistory",
+        meta: {
+          title: "Black Forest Grill - Order History",
+          dispatchMethod: { name: "retrieveOrderHistory", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Orders/viewMyOrderHistory.vue"),
         beforeEnter: requireAuth
       },
       {

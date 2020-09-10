@@ -73,7 +73,7 @@ export default {
       const result = this.$store.dispatch("updateVATRate", Number(this.vat));
       if (result && result.status === 200) {
         this.$q.notify({
-          type: 'positive',
+          type: "positive",
           message: "VAT rate updated successfully.",
           color: "positive"
         });

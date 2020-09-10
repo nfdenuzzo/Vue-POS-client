@@ -11,7 +11,7 @@ export default {
       return this.$store.getters.getAuth && isLoggedIn();
     },
     hasRightToViewCurrentOrders() {
-      return this.hasCorrectPermissions
+      return this.hasCorrectPermissions;
     },
     hasCorrectPermissions() {
       return this.$store.getters.getUserPermissions.includes("read:systemData");
@@ -54,6 +54,18 @@ export default {
             routeLink: "/current-users",
             icon: "fas fa-users",
             routeName: "currentUsers"
+          },
+          {
+            name: "Current Orders",
+            routeLink: "/current-orders",
+            icon: "fas fa-list-ol",
+            routeName: "currentActiveOrders"
+          },
+          {
+            name: "Order History",
+            routeLink: "/order-history",
+            icon: "fas fa-list",
+            routeName: "orderHistory"
           },
           {
             name: "General Settings",

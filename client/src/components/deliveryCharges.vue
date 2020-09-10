@@ -1,8 +1,6 @@
 <template>
   <div class="text-color">
-    <div
-      class="text-weight-bolder q-pb-xs text-center text-body2"
-    >
+    <div class="text-weight-bolder q-pb-xs text-center text-body2">
       Delivery Rates
     </div>
     <div
@@ -13,19 +11,13 @@
       <div class="row q-pt-xs justify-center">
         <div class="col-xs-10 col-sm-6 col-md-6">
           <div class="row justify-center">
-            <div
-              class="col-xs-4 text-center"
-            >
+            <div class="col-xs-4 text-center">
               <span>
                 {{ item.area }}
               </span>
             </div>
-            <div
-              class="col-xs-4 text-center"
-            >
-              <span>
-                R {{ item.price }}
-              </span>
+            <div class="col-xs-4 text-center">
+              <span> R {{ item.price }} </span>
             </div>
           </div>
         </div>

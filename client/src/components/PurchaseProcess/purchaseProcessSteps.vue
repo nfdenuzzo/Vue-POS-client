@@ -21,6 +21,7 @@
           <div class="col-xs-12">
             <basket
               :viewPurchaseProcess="viewPurchaseProcess"
+              ref="basket"
               v-if="step === 1"
             />
           </div>
@@ -53,7 +54,11 @@
         done-color="positive"
         active-color="logoRed"
       >
-        This step won't show up because it is disabled.
+        <purchaseSummary
+          v-if="step === 3"
+          :orderTotal="orderTotal"
+          :orderDeliveryCharge="orderDeliveryCharge"
+        />
       </q-step>
 
       <template v-slot:navigation>
@@ -96,10 +101,34 @@
 <script>
 import basket from "../Basket/Basket.vue";
 import orderDetails from "../orderDetails/orderDetails.vue";
+import purchaseSummary from "./purchaseSummary.vue";
+
+const md5 = require("md5");
+const params = new URLSearchParams({
+  merchant_id: "10000100",
+  merchant_key: "46f0cd694581a",
+  return_url: "http://localhost:8080/",
+  cancel_url: "http://localhost:8080/cancel",
+  notify_url: "http://localhost:8080/success",
+  name_first: "name_first",
+  email_address: "email_address",
+  m_payment_id: "unique_id_for_user",
+  amount: "amount",
+  item_name: "payment_name",
+  item_description: "description_if_any",
+  custom_int1: "custome_integer_value_if_any",
+  custom_str1: "custome_string_value_if_any",
+  custom_str2: "custome_string_value_if_any",
+  passphrase: "passphrase_set_in_payfast_account"
+});
+
+// // Create an MD5 signature of it.
+const MD5Signature = md5(params.toString());
 export default {
   components: {
     basket,
-    orderDetails
+    orderDetails,
+    purchaseSummary
   },
   mixins: [],
   props: {
@@ -113,7 +142,9 @@ export default {
     return {
       step: 1,
       orderDetails: {},
-      placingOrder: false
+      placingOrder: false,
+      orderTotal: 0,
+      orderDeliveryCharge: 0
     };
   },
   computed: {
@@ -144,31 +175,42 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    calculateTotalAmount(basket, orderDetails) {
+      console.log("calculateTotalAmount -> orderDetails", orderDetails);
+      console.log("calculateTotalAmount -> basket", basket);
+    },
     closeDialog() {
       this.$emit("update:viewPurchaseProcess", false);
     },
-    proceedPaymentMethod(dto) {
-      this.orderDetails = dto;
+    proceedPaymentMethod(obj) {
+      this.orderDetails = obj.dto;
+      this.orderDeliveryCharge = obj.deliveryCost;
       this.step++;
     },
     async proceed() {
       if (this.step === 1) {
+        this.orderTotal = this.$refs.basket.basketTotal;
+        console.log("proceed -> this.orderTotal", this.orderTotal);
         this.step++;
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();
+        this.calculateTotalAmount(
+          this.$store.getters.getBasket,
+          this.orderDetails
+        );
       } else if (this.step === 3) {
-        const orderSpecs = this.orderDetails
+        const orderSpecs = this.orderDetails;
         orderSpecs.orderDetails = this.$store.getters.getBasket;
-        this.placingOrder = true
-        const result = await this.$store.dispatch('placeOrder', orderSpecs)
-        this.placingOrder = false
+        this.placingOrder = true;
+        const result = await this.$store.dispatch("placeOrder", orderSpecs);
+        this.placingOrder = false;
         if (result) {
           if (orderSpecs.orderDetails.orderType !== "Delivery")
-          this.$q.notify({
-            type: 'positive',
-            message: "Order has been placed.",
-            color: "positive"
-          });
+            this.$q.notify({
+              type: "positive",
+              message: "Order has been placed.",
+              color: "positive"
+            });
           this.closeDialog();
         }
       }

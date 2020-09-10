@@ -20,6 +20,7 @@ const generalSettings = {
       return state.deliveryCharges;
     },
     getOrderingActive: state => {
+      // TODO : switch this on when going live
       return true;
       // return state.orderingActive;
     },
@@ -96,8 +97,8 @@ const generalSettings = {
       state.settingsRetrievedDate = payload;
     },
     setViewingPurchaseProcess(state, payload) {
-      state.viewingPurchaseProcess  = payload;
-    },
+      state.viewingPurchaseProcess = payload;
+    }
   }
 };
 

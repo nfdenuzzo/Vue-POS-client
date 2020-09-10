@@ -120,7 +120,7 @@ const menuItems = {
     },
     getExtraMenuItemRetrievedDate: state => {
       return state.extraMenuItemsRetrievedDate;
-    },
+    }
   },
   actions: {
     async retrieveMenuItems(
@@ -137,7 +137,9 @@ const menuItems = {
           cachingTimeExpired(retrievedDate) ||
           (payload && payload.forceRefresh)
         ) {
-          const result = await axios.axiosInstance.get(`${menuItemsUrl}/${category}`);
+          const result = await axios.axiosInstance.get(
+            `${menuItemsUrl}/${category}`
+          );
           if (result && result.status === 200) {
             await dispatch("updateSpecificCategoryMenuItems", payload.value);
             await dispatch("sortAndSetDifferentMenuItems", {

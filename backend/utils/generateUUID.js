@@ -1,5 +1,4 @@
-
-const generate = require('nanoid/generate')
+const generate = require("nanoid/generate");
 
 module.exports = {
   generateUUID,

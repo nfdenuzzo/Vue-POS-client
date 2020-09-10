@@ -7,7 +7,7 @@
             <div class="col-xs-12">
               <div
                 class="col-xs-6 text-center q-pa-md text-color text-weight-bold"
-                v-if="updateOrderDetailsObj.contactNumber"
+                v-if="hasExistingContactNumber"
               >
                 <q-checkbox
                   left-label
@@ -26,8 +26,9 @@
                   color="positive"
                   :rules="[
                     val =>
-                      (val && val.length > 0 && /\S/.test(val)) ||
-                      'Contact number is required!'
+                      (val && /\S/.test(val)) || 'Contact number is required!',
+                    val =>
+                      val.length === 16 || 'Valid contact number is required'
                   ]"
                 />
               </div>
@@ -164,6 +165,7 @@
 </template>
 
 <script>
+import { webPushCreateSub } from "../../utils/webpushUtil.js";
 export default {
   components: {},
   mixins: [],
@@ -178,6 +180,7 @@ export default {
       useExistingAddress: false,
       useExistingContactNumber: false,
       hasExistingAddresss: false,
+      hasExistingContactNumber: false,
       deliveryType: null,
       deliveryAreas: [],
       subscribe: false
@@ -201,14 +204,14 @@ export default {
   watch: {
     useExistingAddress() {
       if (this.useExistingAddress) {
-        this.updateOrderDetailsObj.address = this.getCurrentProfile.address
-        this.updateOrderDetailsObj.addressLine2 = this.getCurrentProfile.addressLine2
-        this.updateOrderDetailsObj.deliveryArea = this.getCurrentProfile.deliveryArea
+        this.updateOrderDetailsObj.address = this.getCurrentProfile.address;
+        this.updateOrderDetailsObj.addressLine2 = this.getCurrentProfile.addressLine2;
+        this.updateOrderDetailsObj.deliveryArea = this.getCurrentProfile.deliveryArea;
       }
     },
     useExistingContactNumber() {
       if (this.useExistingAddress) {
-        this.updateOrderDetailsObj.contactNumber = this.getCurrentProfile.contactNumber
+        this.updateOrderDetailsObj.contactNumber = this.getCurrentProfile.contactNumber;
       }
     }
   },
@@ -248,16 +251,17 @@ export default {
         this.updateOrderDetailsObj &&
         this.updateOrderDetailsObj.contactNumber
       ) {
+        this.hasExistingContactNumber = true;
         this.useExistingContactNumber = true;
       } else {
         this.useExistingContactNumber = false;
       }
     },
     async onSubmit() {
-      this.$refs.myForm.validate().then(success => {
+      await this.$refs.myForm.validate().then(async success => {
         if (success) {
-          const dto = this.createDTO();
-          this.$emit("proceedPaymentMethod", dto);
+          const dto = await this.createDTO();
+          this.$emit("proceedPaymentMethod", { dto: dto, deliveryCost: this.getDeliveryCost });
         } else {
           // oh no, user has filled in
           // at least one invalid value
@@ -268,12 +272,13 @@ export default {
       await this.assignData();
       this.$refs.myForm.resetValidation();
     },
-    createDTO() {
+    async createDTO() {
       this.updateOrderDetailsObj.subscribeNotifications = this.subscribe;
-      const dto = JSON.parse(
-        JSON.stringify(this.updateOrderDetailsObj)
-      );
-      dto.orderType = this.deliveryType
+      if (this.updateOrderDetailsObj.subscribeNotifications) {
+        this.updateOrderDetailsObj.subscriptionObject = await webPushCreateSub();
+      }
+      const dto = JSON.parse(JSON.stringify(this.updateOrderDetailsObj));
+      dto.orderType = this.deliveryType;
       if (this.deliveryType !== "Delivery") {
         delete dto.deliveryArea;
         delete dto.address;
