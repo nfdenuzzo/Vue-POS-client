@@ -32,13 +32,20 @@
           <q-select
             v-else
             outlined
-            v-model="status"
+            :value="status"
             :options="currentStatuses"
             color="positive"
             option-value="_id"
             option-label="name"
             dense
-            @input="val => updateOrderStatus(val)"
+            @input="
+              val =>
+                confirmOrderStatusUpdate(
+                  val,
+                  orderSpecifications.uniqueOrderId,
+                  orderSpecifications._id
+                )
+            "
           >
             <template v-slot:no-option>
               <q-item>
@@ -171,6 +178,34 @@
         </div>
       </div>
     </q-card-section>
+
+    <q-dialog v-model="confirmationCancelOrder" persistent>
+      <q-card class="text-color">
+        <q-card-section class="row justify-center">
+          <div class="text-weight-bolder q-pb-xs text-center text-subtitle1">
+            Cancel Order?
+          </div>
+          <span class="q-pt-md text-center"
+            >Are you sure you would like to cancel this order?, once you cancel it you will not be able to undo this action.</span
+          >
+        </q-card-section>
+
+        <div class="row q-pa-sm justify-between q-pb-md">
+          <q-btn
+            class="text-capitalize"
+            color="logoRed"
+            label="Cancel"
+            @click="closeDialog"
+          />
+          <q-btn
+            class="text-capitalize"
+            color="positive"
+            label="Confirm"
+            @click="updateOrderStatus"
+          />
+        </div>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -195,13 +230,18 @@ export default {
   },
   data() {
     return {
+      confirmationCancelOrder: false,
+      selectedOrderId: null,
+      selectedOrderUniqueOrderId: null,
+      selectedStatus: null,
       status: "PROCESSING",
       currentStatuses: [
-        { _id:"PROCESSING" , name: "PROCESSING"},
-        { _id:"PREPARING" , name: "PREPARING"},
-        { _id:"OUT FOR DELIVERY" , name: "OUT FOR DELIVERY"},
-        { _id:"READY FOR COLLECTION" , name: "READY FOR COLLECTION"},
-        { _id:"COMPLETE" , name: "COMPLETE"},
+        "PROCESSING",
+        "PREPARING",
+        "OUT FOR DELIVERY",
+        "READY FOR COLLECTION",
+        "COMPLETE",
+        "CANCELLED"
       ]
     };
   },
@@ -228,14 +268,45 @@ export default {
   created() {},
   beforeMount() {},
   mounted() {
-    this.status = this.orderSpecifications.orderStatus
+    this.status = this.orderSpecifications.orderStatus;
   },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   methods: {
-    updateOrderStatus(val) {
-      console.log("updateOrderStatus -> val", val)
+    closeDialog() {
+      this.confirmationCancelOrder = false;
+      this.selectedOrderId = null;
+      this.selectedOrderUniqueOrderId = null;
+      this.selectedStatus = null;
+    },
+    confirmOrderStatusUpdate(val, uniqueOrderId, _id) {
+      console.log("confirmOrderStatusUpdate -> val", val);
+      this.selectedOrderId = _id;
+      this.selectedOrderUniqueOrderId = uniqueOrderId;
+      this.selectedStatus = val;
+      if (val === "CANCELLED") {
+        this.confirmationCancelOrder = true;
+      } else {
+        this.updateOrderStatus();
+      }
+    },
+    async updateOrderStatus() {
+      this.confirmationCancelOrder = false;
+      this.status = this.selectedStatus;
+      const dto = {
+        orderStatus: this.selectedStatus,
+        uniqueOrderId: this.selectedOrderUniqueOrderId,
+        _id: this.selectedOrderId
+      };
+      const result = await this.$store.dispatch("updateOrderStatus", dto);
+      if (result && result.status === 200) {
+        this.$emit("closeOrderDetailsDialog");
+        this.$emit("refreshCurrentOrders");
+      }
+      this.selectedOrderId = null;
+      this.selectedOrderUniqueOrderId = null;
+      this.selectedStatus = null;
     },
     showSpinner(text) {
       switch (text) {
@@ -259,6 +330,8 @@ export default {
           return "far fa-check-circle";
         case "OUT FOR DELIVERY":
           return "far fa-check-circle";
+        case "COMPLETE":
+          return "fas fa-check-double";
       }
     },
     getLabelColor(text) {
@@ -272,6 +345,8 @@ export default {
         case "READY FOR COLLECTION":
           return "positive";
         case "OUT FOR DELIVERY":
+          return "positive";
+        case "COMPLETE":
           return "positive";
       }
     },
@@ -287,6 +362,8 @@ export default {
           return "Ready for collection";
         case "OUT FOR DELIVERY":
           return "Out for delivery";
+        case "COMPLETE":
+          return "Complete";
       }
     }
   }

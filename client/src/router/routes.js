@@ -322,7 +322,7 @@ const routes = [
         name: "currentActiveOrders",
         meta: {
           title: "Black Forest Grill - Current Orders",
-          dispatchMethod: { name: "", payload: "" },
+          dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
           auth: true
         },
         component: () => import("../views/Orders/viewAllActiveOrders.vue"),

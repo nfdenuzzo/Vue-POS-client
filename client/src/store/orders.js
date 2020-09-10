@@ -38,6 +38,23 @@ const menuSideItems = {
         return false;
       }
     },
+    async updateOrderStatus(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        const result = await axios.axiosInstance.put(
+          `${ordersUrl}/update-order-status`,
+          payload
+        );
+        if (result && result.status === 200) {
+          dispatch("retrieveActiveOrders", { forceRefresh: true });
+          return result;
+        }
+      } catch (ex) {
+        console.log("updateSideItem -> ex", ex);
+      }
+    },
     async retrieveActiveOrders(
       { commit, dispatch, rootState, rootGetters },
       payload

@@ -59,6 +59,7 @@
           :orderSpecifications="selectedOrder"
           :adminView="true"
           @closeOrderDetailsDialog="closeOrderDetailsDialog"
+          @refreshCurrentOrders="refreshCurrentOrders"
         />
         <div class="row justify-center q-pb-md q-pt-lg">
           <q-btn
@@ -90,7 +91,16 @@ export default {
     return {
       selectedOrder: null,
       viewOrderDetails: false,
-      getGroupedByStatus: [
+      options: {
+        multipleDropzonesItemsDraggingEnabled: false,
+        dropzoneSelector: ".q-list",
+        draggableSelector: ".q-item"
+      }
+    };
+  },
+  computed: {
+    getGroupedByStatus() {
+      return [
         {
           id: 1,
           Status: "New",
@@ -121,15 +131,9 @@ export default {
             item => item.orderStatus === "COMPLETE"
           )
         }
-      ],
-      options: {
-        multipleDropzonesItemsDraggingEnabled: false,
-        dropzoneSelector: ".q-list",
-        draggableSelector: ".q-item"
-      }
-    };
+      ];
+    }
   },
-  computed: {},
   watch: {},
   beforeCreate() {},
   created() {},
@@ -139,6 +143,7 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    refreshCurrentOrders() {},
     closeOrderDetailsDialog() {
       this.viewOrderDetails = false;
       this.selectedOrder = null;
@@ -147,19 +152,31 @@ export default {
       this.selectedOrder = orderDetails;
       this.viewOrderDetails = true;
     },
-    updateOrderStatus(val) {
-      console.log("updateOrderStatus -> val", val)
+    updateOrderStatus(val, uniqueOrderId, _id) {
+      const dto = {
+        orderStatus: val,
+        uniqueOrderId: uniqueOrderId,
+        _id: _id
+      };
+      this.$store.dispatch("updateOrderStatus", dto);
     },
     added(event, group) {
-      console.log("added -> event", event);
-      console.log("added -> event.detail", event.detail);
-      console.log("added -> event.detail.ids", event.detail.ids);
-      console.log("1 added -> group", group);
       const newItems = this.getGroupedByStatus
         .map(group => group.items)
         .reduce((prev, curr) => [...prev, ...curr], [])
         .filter(item => event.detail.ids.map(x => x).indexOf(item._id) >= 0);
       group.items.splice(event.detail.index, 0, ...newItems);
+      let matchingOrder = this.$store.getters.getActiveOrders.find(
+        order => order._id === event.detail.ids[0]
+      );
+      if (matchingOrder != null) {
+        const selectedStatus = this.getCorrectStatus(group.Status.toUpperCase(), matchingOrder)
+        this.updateOrderStatus(
+          selectedStatus,
+          matchingOrder.uniqueOrderId,
+          matchingOrder._id
+        );
+      }
     },
     removed(event, group) {
       group.items = group.items.filter(
@@ -175,6 +192,24 @@ export default {
       );
       newItems.splice(event.detail.index, 0, ...reorderedItems);
       group.items = newItems;
+    },
+    getCorrectStatus(selectedGroup, selectedOrder) {
+      console.log("getCorrectStatus -> selectedOrder", selectedOrder)
+      console.log("getCorrectStatus -> selectedGroup", selectedGroup)
+      switch (selectedGroup) {
+        case "NEW":
+          return "PROCESSING";
+        case "PREPARING":
+          return "PREPARING";
+        case "READY":
+          if (selectedOrder.orderType === "Delivery") {
+            return "OUT FOR DELIVERY";
+          } else {
+            return "READY FOR COLLECTION";
+          }
+        case "DONE":
+          return "COMPLETE";
+      }
     }
   }
 };

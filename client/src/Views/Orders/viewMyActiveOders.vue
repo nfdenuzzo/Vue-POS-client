@@ -13,6 +13,13 @@
           <view-order :orderSpecifications="order"></view-order>
         </q-card>
       </div>
+      <div
+        class="text-weight-bold q-pb-xs  q-pt-md text-center text-subtitle1"
+        v-if="getActiveOrders.length === 0"
+      >
+        <q-icon name="far fa-question-circle" class="text-logoGreen" style="font-size: 2rem;" /> 
+        <span class="q-pl-md">You currently have no active orders, please place an order!</span>
+      </div>
     </div>
   </div>
 </template>

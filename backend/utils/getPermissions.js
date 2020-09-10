@@ -63,3 +63,13 @@ async function isSuperAdmin(request, response, next) {
     return response.status(403).json({ message: "Forbidden" }); // user is forbidden
   }
 }
+
+async function hasSuperAdminRights(request, response, next) {
+  const token = await createToken(request);
+  const result = await jwtDecode(token);
+  if (result && result.permissions.includes("superAdmin")) {
+    return true;
+  } else {
+    return false
+  }
+}

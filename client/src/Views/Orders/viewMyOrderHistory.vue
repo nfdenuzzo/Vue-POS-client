@@ -80,9 +80,7 @@ export default {
   },
   beforeCreate() {},
   created() {},
-  async beforeMount() {
-    await this.$store.dispatch("retrieveOrderHistory");
-  },
+  beforeMount() {},
   mounted() {},
   beforeUpdate() {},
   updated() {},

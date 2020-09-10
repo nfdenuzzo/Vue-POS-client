@@ -11,25 +11,44 @@ module.exports = {
   sendPushNotification,
 };
 
-async function sendPushNotification(subscription) {
-  const obj = qs.parse(subscription);
-  const imageUrl = "";
-  const pushSubscription = {
-    endpoint: obj.endpoint,
-    keys: {
-      auth: obj.keys.auth,
-      p256dh: obj.keys.p256dh,
-    },
-  };
-  const pushContent = {
-    title: "Your order has been placed!",
-    body: "View your order status now!",
-    openUrl: "http://localhost:8080/view-my-active-orders",
-    imageUrl: imageUrl,
-  };
-  const pushContentStringified = JSON.stringify(pushContent);
-  await webpush.sendNotification(
-    pushSubscription,
-    pushContentStringified
-  );
+async function sendPushNotification(
+  subscription,
+  status
+) {
+  try {
+    const obj = qs.parse(subscription);
+    const imageUrl = "";
+    const pushSubscription = {
+      endpoint: obj.endpoint,
+      keys: {
+        auth: obj.keys.auth,
+        p256dh: obj.keys.p256dh,
+      },
+    };
+    const pushContent = {
+      title: "Order Status Update!!",
+      body: getNotificationBodyWording(status),
+      openUrl: "http://localhost:8080/view-my-active-orders",
+      imageUrl: imageUrl,
+    };
+    const pushContentStringified = JSON.stringify(pushContent);
+    await webpush.sendNotification(pushSubscription, pushContentStringified);
+  } catch (ex) {
+    console.log("sendPushNotification -> ex", ex);
+  }
+}
+
+function getNotificationBodyWording(status) {
+  switch (status) {
+    case "PROCESSING":
+      return "Your order has been placed!";
+    case "PREPARING":
+      return "Your order is currently being prepared!";
+    case "OUT FOR DELIVERY":
+      return "Your order is out for delivery!";
+    case "READY FOR COLLECTION":
+      return "Your order is ready for collection!";
+    case "COMPLETE":
+      return "Thank you for your continued support!";
+  }
 }

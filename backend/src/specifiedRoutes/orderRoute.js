@@ -11,13 +11,16 @@ const { sendPushNotification } = require("../../utils/pushNotifications.js");
 const { body, validationResult } = require("express-validator");
 const ObjectId = require("mongodb").ObjectID;
 const { generateUUID } = require("../../utils/generateUUID.js");
-const { isSuperAdmin } = require("../../utils/getPermissions.js");
+const {
+  hasSuperAdminRights,
+  hasUpdatePermission,
+} = require("../../utils/getPermissions.js");
 
 //#region
 // retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
-  const page = isSuperAdmin ? parseInt(req.query.page) : 1;
-  const PAGE_SIZE = isSuperAdmin ? 20 : 5;
+  const page = hasSuperAdminRights ? parseInt(req.query.page) : 1;
+  const PAGE_SIZE = hasSuperAdminRights ? 20 : 5;
   const skip = (page - 1) * PAGE_SIZE;
 
   const token = await createToken(req);
@@ -36,8 +39,11 @@ router.get("/order-history", checkJwt, async (req, res) => {
       .find(
         {
           $and: [
-            { status: { $eq: "COMPLETE" } },
-            { status: { $eq: "CANCELLED" } },
+            { userEmail: userInfo.email },
+            { $or: [
+              { orderStatus: { $eq: "COMPLETE" } },
+              { orderStatus: { $eq: "CANCELLED" } },
+            ]}
           ],
         },
         { projection: returnFieldsOrders }
@@ -70,19 +76,19 @@ router.get("/active-orders", checkJwt, async (req, res) => {
       return res.status(500).send(err);
     }
     // used to get only active orders from today
-    const startDate = moment().startOf('day'); // set to 12:00 am today
-    const endDate = moment().endOf('day'); // set to 23:59 pm today
+    const startDate = moment().startOf("day"); // set to 12:00 am today
+    const endDate = moment().endOf("day"); // set to 23:59 pm today
 
     const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
     const activeOrders = await collection
       .find(
-        { userEmail: userInfo.email },
         {
           $and: [
-            { status: { $ne: "COMPLETE" } },
-            { status: { $ne: "CANCELLED" } },
-            { createdAt: {$gte: startDate, $lt: endDate} },
+            { userEmail: hasSuperAdminRights ? { $ne: null } : userInfo.email },
+            { orderStatus: { $ne: "CANCELLED" } },
+            { orderStatus: { $ne: "COMPLETE" } },
+            { createdAt: { $gte: startDate, $lt: endDate } },
           ],
         },
         { projection: returnFieldsOrders }
@@ -93,6 +99,74 @@ router.get("/active-orders", checkJwt, async (req, res) => {
     res.send(activeOrders);
   });
 });
+//#endregion
+
+//#region
+// update order
+router.put(
+  "/update-order-status",
+  checkJwt,
+  hasUpdatePermission,
+  [
+    body("_id").not().isEmpty().trim().withMessage("Order Id is required"),
+    body("uniqueOrderId")
+      .not()
+      .isEmpty()
+      .trim()
+      .withMessage("Unique Order Id is Required!"),
+    body("orderStatus")
+      .not()
+      .isEmpty()
+      .trim()
+      .withMessage("Order Status is Required!"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const collection = await loadSpecificCollection("orders");
+
+    const token = await createToken(req);
+
+    authClient.getProfile(token, async (err, userInfo) => {
+      if (userInfo && userInfo.hasOwnProperty("error")) {
+        return res.status(401).send(userInfo.error);
+      } else if (err) {
+        return res.status(500).send(err);
+      }
+
+      const myQuery = {
+        _id: ObjectId(req.body._id),
+        uniqueOrderId: req.body.uniqueOrderId,
+      };
+
+      const specificOrder = await collection.findOne(myQuery);
+
+      const newUpdatedValues = {
+        $set: {
+          orderStatus: req.body.orderStatus,
+          updatedAt: new Date(),
+          updatedAuthor: {
+            sub: userInfo.sub,
+            name: userInfo.name,
+          },
+        },
+      };
+
+      await collection.updateOne(myQuery, newUpdatedValues);
+
+      if (specificOrder.subscribeNotifications) {
+        await sendPushNotification(
+          specificOrder.subscriptionObject,
+          req.body.orderStatus
+        );
+      }
+
+      res.status(200).send();
+    });
+  }
+);
 //#endregion
 
 //#region
@@ -268,7 +342,10 @@ router.post(
       });
 
       if (req.body.subscribeNotifications) {
-        await sendPushNotification(req.body.subscriptionObject);
+        await sendPushNotification(
+          req.body.subscriptionObject,
+          req.body.orderStatus
+        );
       }
 
       res.status(200).send();
