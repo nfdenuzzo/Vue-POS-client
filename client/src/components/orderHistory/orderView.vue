@@ -105,6 +105,13 @@
             <span class="text-weight-bold">Order for </span>
             {{ orderSpecifications.orderType }}
           </div>
+          <div class="col-xs-12" v-if="orderSpecifications.paymentType === 'Pay now'">
+            <span class="text-weight-bold">Payment Made</span>
+
+          </div>
+          <div class="col-xs-12" v-else>
+            <span class="text-weight-bold">Pay on collection</span>
+          </div>
         </div>
 
         <div
@@ -281,7 +288,6 @@ export default {
       this.selectedStatus = null;
     },
     confirmOrderStatusUpdate(val, uniqueOrderId, _id) {
-      console.log("confirmOrderStatusUpdate -> val", val);
       this.selectedOrderId = _id;
       this.selectedOrderUniqueOrderId = uniqueOrderId;
       this.selectedStatus = val;

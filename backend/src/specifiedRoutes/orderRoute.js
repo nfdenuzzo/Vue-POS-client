@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const moment = require("moment");
+const momentTZ = require("moment-timezone");
 
 const {
   loadSpecificCollection,
@@ -76,16 +76,16 @@ router.get("/active-orders", checkJwt, async (req, res) => {
       return res.status(500).send(err);
     }
     // used to get only active orders from today
-    const startDate = moment().startOf("day"); // set to 12:00 am today
-    const endDate = moment().endOf("day"); // set to 23:59 pm today
+    const startDate = momentTZ.tz("africa/Johannesburg").startOf('day').utc(); // set to 12:00 am today
+    const endDate = momentTZ.tz("africa/Johannesburg").endOf('day').utc(); // set to 23:59 pm today
 
     const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
     const activeOrders = await collection
       .find(
+        { userEmail: hasSuperAdminRights ? { $ne: null } : userInfo.email },
         {
           $and: [
-            { userEmail: hasSuperAdminRights ? { $ne: null } : userInfo.email },
             { orderStatus: { $ne: "CANCELLED" } },
             { orderStatus: { $ne: "COMPLETE" } },
             { createdAt: { $gte: startDate, $lt: endDate } },
@@ -146,7 +146,7 @@ router.put(
       const newUpdatedValues = {
         $set: {
           orderStatus: req.body.orderStatus,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -186,6 +186,11 @@ router.post(
       .isEmpty()
       .trim()
       .withMessage("Contact Number is required"),
+      body("paymentType")
+      .not()
+      .isEmpty()
+      .trim()
+      .withMessage("Payment type is Required!"),
     body("orderType")
       .not()
       .isEmpty()
@@ -315,14 +320,16 @@ router.post(
       );
 
       const basketTotal = await getBasketTotal(verifiedOrderItemsAndSideItems);
+      const orderStatus = "PROCESSING";
 
       await ordersCollection.insertOne({
         uniqueOrderId: generateUUID(),
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         userId: myProfile._id,
         userEmail: myProfile.userEmail,
         orderDetails: verifiedOrderItemsAndSideItems,
         contactNumber: req.body.contactNumber,
+        paymentType:  req.body.paymentType,
         name: req.body.name,
         orderType: req.body.orderType,
         deliveryArea: deliveryCharges ? deliveryCharges : null,
@@ -332,7 +339,7 @@ router.post(
         subscriptionObject: req.body.subscribeNotifications
           ? req.body.subscriptionObject
           : null,
-        orderStatus: "PROCESSING",
+        orderStatus: orderStatus,
         vat: vat,
         vatRate: generalSettings.vat * 100,
         itemsInOrder: itemsInOrder,
@@ -344,7 +351,7 @@ router.post(
       if (req.body.subscribeNotifications) {
         await sendPushNotification(
           req.body.subscriptionObject,
-          req.body.orderStatus
+          orderStatus
         );
       }
 

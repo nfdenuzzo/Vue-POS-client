@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -50,7 +51,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           orderingActive: req.body.platformStatus,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -95,7 +96,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           vat: formatedVAT,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -146,7 +147,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           openingHours: req.body,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -233,7 +234,7 @@ router.put(
       }
       const updateGeneralSetting = {
         $set: {
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -292,7 +293,7 @@ router.delete(
 
       const updateGeneralSetting = {
         $set: {
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,

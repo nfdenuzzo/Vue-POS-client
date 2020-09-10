@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -59,7 +60,7 @@ router.post(
       await collection.insertOne({
         name: req.body.name,
         disabled: req.body.disabled,
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -105,7 +106,7 @@ router.put(
         $set: {
           name: req.body.name,
           disabled: req.body.disabled,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -130,7 +131,7 @@ router.put(
         $set: {
           "addonCategory.name": req.body.name,
           "addonCategory.disabled": req.body.disabled,
-          "addonCategory.updatedAt": new Date(),
+          "addonCategory.updatedAt": moment.tz("africa/Johannesburg"),
           "addonCategory.updatedAuthor": {
             sub: userInfo.sub,
             name: userInfo.name,

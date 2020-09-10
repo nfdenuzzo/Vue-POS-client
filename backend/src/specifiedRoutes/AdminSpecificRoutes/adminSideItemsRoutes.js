@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -58,7 +59,7 @@ router.post(
         price: req.body.price,
         addonCategory: req.body.addonCategory,
         disabled: req.body.disabled,
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -107,7 +108,7 @@ router.put(
           price: req.body.price,
           addonCategory: req.body.addonCategory,
           disabled: req.body.disabled,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,

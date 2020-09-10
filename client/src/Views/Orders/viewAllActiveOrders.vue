@@ -194,8 +194,6 @@ export default {
       group.items = newItems;
     },
     getCorrectStatus(selectedGroup, selectedOrder) {
-      console.log("getCorrectStatus -> selectedOrder", selectedOrder)
-      console.log("getCorrectStatus -> selectedGroup", selectedGroup)
       switch (selectedGroup) {
         case "NEW":
           return "PROCESSING";

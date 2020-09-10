@@ -57,7 +57,9 @@
         <purchaseSummary
           v-if="step === 3"
           :orderTotal="orderTotal"
+          ref="purchaseSummary"
           :orderDeliveryCharge="orderDeliveryCharge"
+          @placeOrder="placeOrder"
         />
       </q-step>
 
@@ -159,7 +161,7 @@ export default {
       } else if (this.step === 2) {
         return "Payment Methods";
       } else {
-        return "Pay";
+        return "Confirm";
       }
     }
   },
@@ -175,10 +177,6 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
-    calculateTotalAmount(basket, orderDetails) {
-      console.log("calculateTotalAmount -> orderDetails", orderDetails);
-      console.log("calculateTotalAmount -> basket", basket);
-    },
     closeDialog() {
       this.$emit("update:viewPurchaseProcess", false);
     },
@@ -187,32 +185,31 @@ export default {
       this.orderDeliveryCharge = obj.deliveryCost;
       this.step++;
     },
+    async placeOrder(paymentType) {
+      this.orderDetails.paymentType = paymentType;
+      const orderSpecs = this.orderDetails;
+      orderSpecs.orderDetails = this.$store.getters.getBasket;
+      this.placingOrder = true;
+      const result = await this.$store.dispatch("placeOrder", orderSpecs);
+      this.placingOrder = false;
+      if (result) {
+        if (orderSpecs.orderDetails.orderType !== "Delivery")
+          this.$q.notify({
+            type: "positive",
+            message: "Order has been placed.",
+            color: "positive"
+          });
+        this.closeDialog();
+      }
+    },
     async proceed() {
       if (this.step === 1) {
         this.orderTotal = this.$refs.basket.basketTotal;
-        console.log("proceed -> this.orderTotal", this.orderTotal);
         this.step++;
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();
-        this.calculateTotalAmount(
-          this.$store.getters.getBasket,
-          this.orderDetails
-        );
       } else if (this.step === 3) {
-        const orderSpecs = this.orderDetails;
-        orderSpecs.orderDetails = this.$store.getters.getBasket;
-        this.placingOrder = true;
-        const result = await this.$store.dispatch("placeOrder", orderSpecs);
-        this.placingOrder = false;
-        if (result) {
-          if (orderSpecs.orderDetails.orderType !== "Delivery")
-            this.$q.notify({
-              type: "positive",
-              message: "Order has been placed.",
-              color: "positive"
-            });
-          this.closeDialog();
-        }
+        this.$refs.purchaseSummary.onSubmit();
       }
     }
   }

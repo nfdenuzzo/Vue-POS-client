@@ -2,7 +2,7 @@
   <div class="row justify-center">
     <div class="col-xs-12 col-sm-12" v-if="updateOrderDetailsObj">
       <q-card class="q-pa-md">
-        <q-form ref="myForm" @submit="onSubmit" @reset="onReset">
+        <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center">
             <div class="col-xs-12">
               <div
@@ -267,10 +267,6 @@ export default {
           // at least one invalid value
         }
       });
-    },
-    async onReset() {
-      await this.assignData();
-      this.$refs.myForm.resetValidation();
     },
     async createDTO() {
       this.updateOrderDetailsObj.subscribeNotifications = this.subscribe;

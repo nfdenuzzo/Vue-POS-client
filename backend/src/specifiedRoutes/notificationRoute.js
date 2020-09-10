@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
+
 const {
   loadSpecificCollection,
   authClient,
@@ -28,7 +30,7 @@ router.post("/createSubscription", checkJwt, async (req, res) => {
     await collection.insertOne({
       userEmail: userInfo.email,
       subscriptionObj: req.query,
-      createdAt: new Date(),
+      createdAt: moment.tz("africa/Johannesburg"),
     });
     res.status(200).send();
   });

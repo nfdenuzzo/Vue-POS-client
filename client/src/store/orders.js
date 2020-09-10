@@ -60,10 +60,10 @@ const menuSideItems = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
-          (payload && payload.forceRefresh)
-        ) {
+      //   if (
+      //     cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
+      //     (payload && payload.forceRefresh)
+      //   ) {
           const result = await axios.axiosInstance.get(
             `${ordersUrl}/active-orders`
           );
@@ -75,9 +75,9 @@ const menuSideItems = {
             );
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveActiveOrders -> ex", ex);
         return false;
