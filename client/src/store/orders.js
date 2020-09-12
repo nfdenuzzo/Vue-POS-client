@@ -118,7 +118,6 @@ const menuSideItems = {
             : momentTZ.tz("africa/Johannesburg").startOf('month').utc(),
           dateTo: payload.dateRange ? payload.dateRange.dateTo : momentTZ.tz("africa/Johannesburg")
         };
-        console.log("params", params)
         const result = await axios.axiosInstance.get(
           `${ordersUrl}/order-history?page=${page}`,
           {

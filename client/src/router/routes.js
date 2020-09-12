@@ -351,6 +351,17 @@ const routes = [
         beforeEnter: requireAuth
       },
       {
+        path: "/system-statistics",
+        name: "systemStatistics",
+        meta: {
+          title: "Black Forest Grill - Admin System Statistics",
+          dispatchMethod: { name: "retrieveSystemStatistics", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Admin/viewSystemStatistics.vue"),
+        beforeEnter: requireAuth
+      },
+      {
         path: "/callback",
         name: "Callback",
         component: Callback
