@@ -19,6 +19,7 @@ const {
 //#region
 // retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
+  const dateRange = JSON.parse(req.query.dateRange)
   const page = hasSuperAdminRights ? parseInt(req.query.page) : 1;
   const PAGE_SIZE = hasSuperAdminRights ? 20 : 5;
   const skip = (page - 1) * PAGE_SIZE;
@@ -40,6 +41,7 @@ router.get("/order-history", checkJwt, async (req, res) => {
         {
           $and: [
             { userEmail: userInfo.email },
+            { createdAt: { $gte: new Date(dateRange.dateFrom), $lt: new Date(dateRange.dateTo) } },
             { $or: [
               { orderStatus: { $eq: "COMPLETE" } },
               { orderStatus: { $eq: "CANCELLED" } },
@@ -199,7 +201,7 @@ router.put(
       const myQuery = {
         _id: ObjectId(req.body._id),
       };
-      
+
       const newUpdatedValues = {
         $set: {
           tableNo: req.body.tableNo,
