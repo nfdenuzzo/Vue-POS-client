@@ -308,7 +308,6 @@ export default {
       const result = await this.$store.dispatch("updateOrderStatus", dto);
       if (result && result.status === 200) {
         this.$emit("closeOrderDetailsDialog");
-        this.$emit("refreshCurrentOrders");
       }
       this.selectedOrderId = null;
       this.selectedOrderUniqueOrderId = null;

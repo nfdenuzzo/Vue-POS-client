@@ -146,7 +146,7 @@ router.put(
       const newUpdatedValues = {
         $set: {
           orderStatus: req.body.orderStatus,
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: momentTZ.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -162,6 +162,56 @@ router.put(
           req.body.orderStatus
         );
       }
+
+      res.status(200).send();
+    });
+  }
+);
+//#endregion
+
+
+//#region
+// update order assign table no
+router.put(
+  "/update-order-assign-table-no",
+  checkJwt,
+  hasUpdatePermission,
+  [
+    body("_id").not().isEmpty().trim().withMessage("Order Id is required"),
+    body("tableNo").not().isEmpty().trim().withMessage("Table No. is required"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const collection = await loadSpecificCollection("orders");
+
+    const token = await createToken(req);
+
+    authClient.getProfile(token, async (err, userInfo) => {
+      if (userInfo && userInfo.hasOwnProperty("error")) {
+        return res.status(401).send(userInfo.error);
+      } else if (err) {
+        return res.status(500).send(err);
+      }
+
+      const myQuery = {
+        _id: ObjectId(req.body._id),
+      };
+      
+      const newUpdatedValues = {
+        $set: {
+          tableNo: req.body.tableNo,
+          updatedAt: momentTZ.tz("africa/Johannesburg"),
+          updatedAuthor: {
+            sub: userInfo.sub,
+            name: userInfo.name,
+          },
+        },
+      };
+
+      await collection.updateOne(myQuery, newUpdatedValues);
 
       res.status(200).send();
     });

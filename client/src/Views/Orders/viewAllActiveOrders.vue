@@ -1,5 +1,20 @@
 <template>
   <div class="text-color">
+    <div class="row q-pa-md">
+      <div class="col-xs-5 col-md-4 col-lg-2">
+        <q-input
+          stack-label
+          label="Filter Ready Orders (Unique Order Id):"
+          outlined
+          dense
+          debounce="300"
+          v-model="filter"
+          placeholder="Search"
+        >
+          <q-icon slot="append" name="search" />
+        </q-input>
+      </div>
+    </div>
     <div class="row justify-center" v-drag-and-drop="options">
       <div
         class="col-xs-12 col-sm-12 col-md-3 q-pa-sm"
@@ -9,7 +24,7 @@
       >
         <div class="row justify-center text-center">
           <label class="text-weight-bolder q-pl-sm text-subtitle1">
-            {{ group.Status }}
+            {{ group.status }}
           </label>
           <q-separator color="positive" size="2px" />
         </div>
@@ -21,13 +36,38 @@
           @reordered="reordered($event, group)"
         >
           <q-item
-            v-for="item in group.items"
+            v-for="(item, index) in group.items"
             :key="item._id"
             :data-id="item._id"
             class="app-custom-item"
           >
             <q-item-section @dblclick="viewOrderDetailsDialog(item)">
-              <q-card class="row" dark>
+              <q-card class="row justify-center" dark>
+                <div class="row justify-between q-px-md q-pt-md" v-if="group.status === 'New'">
+                  <div class="col-xs-6">
+                    <q-input
+                      stack-label
+                      label="Pilot Table No."
+                      :key="item._id"
+                      outlined
+                      dense
+                      debounce="300"
+                      v-model="orderTableNo[index]"
+                    >
+                    </q-input>
+                  </div>
+                  <div class="col-xs-5">
+                    <q-btn
+                      :disabled='!orderTableNo[index]'
+                      label="Assign table no."
+                      type="submit"
+                      color="positive"
+                      class="text-capitalize"
+                      :loading="orderbtnLoadingNo.includes(index)"
+                      @click="updateOrderAssignTableNo(index, item._id)"
+                    />
+                  </div>
+                </div>
                 <simple-order-view :orderSpecifications="item" />
               </q-card>
             </q-item-section>
@@ -59,7 +99,6 @@
           :orderSpecifications="selectedOrder"
           :adminView="true"
           @closeOrderDetailsDialog="closeOrderDetailsDialog"
-          @refreshCurrentOrders="refreshCurrentOrders"
         />
         <div class="row justify-center q-pb-md q-pt-lg">
           <q-btn
@@ -89,6 +128,9 @@ export default {
   props: {},
   data() {
     return {
+      orderbtnLoadingNo: [],
+      orderTableNo: [],
+      filter: null,
       selectedOrder: null,
       viewOrderDetails: false,
       options: {
@@ -99,34 +141,45 @@ export default {
     };
   },
   computed: {
+    getFilteredReadyOrders() {
+      if (this.filter) {
+        return this.$store.getters.getActiveOrders.filter(
+          item =>
+            item.orderStatus === "READY FOR COLLECTION" &&
+            item.uniqueOrderId.toLowerCase().includes(this.filter.toLowerCase())
+        );
+      } else {
+        return this.$store.getters.getActiveOrders.filter(
+          item =>
+            item.orderStatus === "OUT FOR DELIVERY" ||
+            item.orderStatus === "READY FOR COLLECTION"
+        );
+      }
+    },
     getGroupedByStatus() {
       return [
         {
           id: 1,
-          Status: "New",
+          status: "New",
           items: this.$store.getters.getActiveOrders.filter(
             item => item.orderStatus === "PROCESSING"
           )
         },
         {
           id: 2,
-          Status: "Preparing",
+          status: "Preparing",
           items: this.$store.getters.getActiveOrders.filter(
             item => item.orderStatus === "PREPARING"
           )
         },
         {
           id: 3,
-          Status: "Ready",
-          items: this.$store.getters.getActiveOrders.filter(
-            item =>
-              item.orderStatus === "OUT FOR DELIVERY" ||
-              item.orderStatus === "READY FOR COLLECTION"
-          )
+          status: "Ready",
+          items: this.getFilteredReadyOrders
         },
         {
           id: 4,
-          Status: "Done",
+          status: "Done",
           items: this.$store.getters.getActiveOrders.filter(
             item => item.orderStatus === "COMPLETE"
           )
@@ -143,7 +196,15 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
-    refreshCurrentOrders() {},
+    async updateOrderAssignTableNo(index, orderId) {
+      this.orderbtnLoadingNo.push(index)
+      const tableNo = this.orderTableNo[index];
+      const result = await this.$store.dispatch("updateOrderAssignTableNo", { tableNo: tableNo, _id: orderId });
+      if (result && result.status === 200) {
+        this.orderTableNo = [];
+      }
+      this.orderbtnLoadingNo = [];
+    },
     closeOrderDetailsDialog() {
       this.viewOrderDetails = false;
       this.selectedOrder = null;
@@ -170,7 +231,10 @@ export default {
         order => order._id === event.detail.ids[0]
       );
       if (matchingOrder != null) {
-        const selectedStatus = this.getCorrectStatus(group.Status.toUpperCase(), matchingOrder)
+        const selectedStatus = this.getCorrectStatus(
+          group.status.toUpperCase(),
+          matchingOrder
+        );
         this.updateOrderStatus(
           selectedStatus,
           matchingOrder.uniqueOrderId,
@@ -215,6 +279,7 @@ export default {
 <style lang="scss">
 .app-custom-list {
   min-width: 10rem;
+  line-height: normal;
   height: 90vh;
   margin-top: 0 !important;
 }

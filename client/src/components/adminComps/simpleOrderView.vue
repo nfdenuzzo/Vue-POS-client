@@ -1,9 +1,14 @@
 <template>
   <div class="text-color">
     <q-card-section class="row items-center q-pb-none">
-      <div class="col-xs-12 col-sm-12 col-md-12">
+      <div :class="orderSpecifications.tableNo ? 'col-xs-6' : 'col-xs-12'">
         <div class="text-weight-bolder q-pb-xs text-center text-subtitle1">
           Order No. {{ orderSpecifications.uniqueOrderId }}
+        </div>
+      </div>
+      <div class="col-xs-6" v-if="orderSpecifications.tableNo">
+        <div class="text-weight-bolder q-pb-xs text-center text-subtitle1">
+          Table No. {{ orderSpecifications.tableNo }}
         </div>
       </div>
     </q-card-section>

@@ -365,7 +365,7 @@ export default {
     "$store.getters.getAuth"() {
       if (this.$store.getters.getAuth) {
         // TODO : when we set up a way to show specials or new additions
-        this.initNotificationsBanner();
+        // this.initNotificationsBanner();
       }
     },
     viewPurchaseProcess() {
