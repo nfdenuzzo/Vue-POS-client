@@ -26,9 +26,9 @@ const systemStatistics = {
         //   cachingTimeExpired(rootGetters.getSystemStatisticsRetrievedDate) ||
         //   (payload && payload.forceRefresh)
         // ) {
-            console.log("sdhfjbaskjhfbaksjdhfbakjshdbfaksjdhbfkjashddbf")
           const result = await axios.axiosInstance.get(`${systemStatisticsAdminUrl}`);
           if (result && result.status === 200) {
+            console.log("result", result)
             commit("setSystemStatistics", result.data);
             commit(
               "setSystemStatisticsRetrievedDate",
