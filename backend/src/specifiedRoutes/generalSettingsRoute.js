@@ -2,8 +2,7 @@ const router = require("express").Router();
 const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 const { isPlatformClosed } = require("../../utils/isPlatformClosed.js");
 
-//#region
-// retrieve my general Settings
+//#region retrieve my general Settings
 router.get("/", async (req, res) => {
   const returnFields = { deliveryCharges: 1, openingHours: 1, vat: 1, _id: 0 };
   const collection = await loadSpecificCollection("generalSettings");
@@ -16,8 +15,7 @@ router.get("/", async (req, res) => {
 });
 //#endregion
 
-//#region
-// retrieve my platform status
+//#region retrieve my platform status
 router.get("/platform-status", async (req, res) => {
   const returnFields = { orderingActive: 1, openingHours: 1, _id: 0 };
   const collection = await loadSpecificCollection("generalSettings");

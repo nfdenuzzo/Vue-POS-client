@@ -14,7 +14,8 @@ router.use("/menu-items", require("./AdminSpecificRoutes/adminMenuItemRoutes"));
 router.use("/users", require("./AdminSpecificRoutes/adminUserRoutes"));
 router.use(
   "/general-settings",
-  require("./AdminSpecificRoutes/adminGeneralSettingsRoute")
+  require("./AdminSpecificRoutes/adminGeneralSettingsRoutes")
 );
+router.use("/system-statistics", require("./AdminSpecificRoutes/adminSystemStatisticsRoutes"));
 
 module.exports = router;

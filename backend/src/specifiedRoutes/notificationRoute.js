@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
+
 const {
   loadSpecificCollection,
   authClient,
@@ -7,8 +9,7 @@ const {
 } = require("../../utils/dbUtils.js");
 const { body, validationResult } = require("express-validator");
 
-//#region
-// retrieve my platform status
+//#region retrieve my platform status
 router.post("/createSubscription", checkJwt, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -28,7 +29,7 @@ router.post("/createSubscription", checkJwt, async (req, res) => {
     await collection.insertOne({
       userEmail: userInfo.email,
       subscriptionObj: req.query,
-      createdAt: new Date(),
+      createdAt: moment.tz("africa/Johannesburg"),
     });
     res.status(200).send();
   });

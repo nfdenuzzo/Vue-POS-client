@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -15,8 +16,7 @@ const {
   isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest side option items
+//#region retrieve latest side option items
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("sideItems");
   const availableSideItems = await collection.find({}).toArray();
@@ -25,8 +25,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create side option item
+//#region create side option item
 router.post(
   "/create-side-item",
   checkJwt,
@@ -58,7 +57,7 @@ router.post(
         price: req.body.price,
         addonCategory: req.body.addonCategory,
         disabled: req.body.disabled,
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -70,8 +69,7 @@ router.post(
 );
 //#endregion
 
-//#region
-// update side option items
+//#region update side option items
 router.put(
   "/update-side-item",
   checkJwt,
@@ -107,7 +105,7 @@ router.put(
           price: req.body.price,
           addonCategory: req.body.addonCategory,
           disabled: req.body.disabled,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -122,8 +120,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// delete side option item
+//#region delete side option item
 router.delete(
   "/delete-side-item",
   checkJwt,

@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 
-//#region
-// retrieve latest menu items
+//#region retrieve latest menu items
 router.get("/:category", async (req, res) => {
   const myQuery = { "menuCategory.name": req.params.category };
 

@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -15,8 +16,7 @@ const {
   isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest side category items
+//#region retrieve latest side category items
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("addonCategories");
   const allAddonCategories = await collection.find({}).toArray();
@@ -25,8 +25,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create side category item
+//#region create side category item
 router.post(
   "/create-addon-category",
   checkJwt,
@@ -59,7 +58,7 @@ router.post(
       await collection.insertOne({
         name: req.body.name,
         disabled: req.body.disabled,
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -71,8 +70,7 @@ router.post(
 );
 //#endregion
 
-//#region
-// update side category item
+//#region update side category item
 router.put(
   "/update-addon-category",
   checkJwt,
@@ -105,7 +103,7 @@ router.put(
         $set: {
           name: req.body.name,
           disabled: req.body.disabled,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -130,7 +128,7 @@ router.put(
         $set: {
           "addonCategory.name": req.body.name,
           "addonCategory.disabled": req.body.disabled,
-          "addonCategory.updatedAt": new Date(),
+          "addonCategory.updatedAt": moment.tz("africa/Johannesburg"),
           "addonCategory.updatedAuthor": {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -149,8 +147,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// create side category item
+//#region create side category item
 router.delete(
   "/delete-addon-category",
   checkJwt,

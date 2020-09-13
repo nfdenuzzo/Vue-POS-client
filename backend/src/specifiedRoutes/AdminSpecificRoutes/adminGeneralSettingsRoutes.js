@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -13,8 +14,7 @@ const {
   hasDeletePermission,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve admin general Settings
+//#region retrieve admin general Settings
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("generalSettings");
   const generalSettings = await collection.findOne({ _id: { $ne: null } });
@@ -23,8 +23,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// update platform Status
+//#region update platform Status
 router.put(
   "/update-platform-status",
   checkJwt,
@@ -50,7 +49,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           orderingActive: req.body.platformStatus,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -66,8 +65,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// update platform Status
+//#region update platform Status
 router.put(
   "/update-vatrate",
   checkJwt,
@@ -95,7 +93,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           vat: formatedVAT,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -110,8 +108,7 @@ router.put(
   }
 );
 
-//#region
-// update platform trading hours
+//#region update platform trading hours
 router.put(
   "/update-trading-hours",
   checkJwt,
@@ -146,7 +143,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           openingHours: req.body,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -162,8 +159,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// update platform Status
+//#region update platform Status
 router.put(
   "/update-delivery-area",
   checkJwt,
@@ -233,7 +229,7 @@ router.put(
       }
       const updateGeneralSetting = {
         $set: {
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -260,8 +256,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// delete side option item
+//#region delete side option item
 router.delete(
   "/delete-delivery-charge",
   checkJwt,
@@ -292,7 +287,7 @@ router.delete(
 
       const updateGeneralSetting = {
         $set: {
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,

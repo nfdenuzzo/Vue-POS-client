@@ -1,4 +1,5 @@
 import axios from "../httpClient/config.js";
+import { getStartOfMonth, helperStandardDateOnlyFormat } from "../utils/dateUtil.js"
 import { cachingTimeExpired } from "../utils/cachingCheck.js";
 
 const ordersUrl = "/order";
@@ -55,29 +56,46 @@ const menuSideItems = {
         console.log("updateSideItem -> ex", ex);
       }
     },
+    async updateOrderAssignTableNo(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        const result = await axios.axiosInstance.put(
+          `${ordersUrl}/update-order-assign-table-no`,
+          payload
+        );
+        if (result && result.status === 200) {
+          dispatch("retrieveActiveOrders", { forceRefresh: true });
+          return result;
+        }
+      } catch (ex) {
+        console.log("updateSideItem -> ex", ex);
+      }
+    },
     async retrieveActiveOrders(
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
-          (payload && payload.forceRefresh)
-        ) {
-          const result = await axios.axiosInstance.get(
-            `${ordersUrl}/active-orders`
+        //   if (
+        //     cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
+        //     (payload && payload.forceRefresh)
+        //   ) {
+        const result = await axios.axiosInstance.get(
+          `${ordersUrl}/active-orders`
+        );
+        if (result && result.status === 200) {
+          commit("setActiveOrders", result.data);
+          commit(
+            "setActiveOrdersRetrievedDate",
+            new Date().toLocaleString("en-ZA")
           );
-          if (result && result.status === 200) {
-            commit("setActiveOrders", result.data);
-            commit(
-              "setActiveOrdersRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
-            return true;
-          }
-        } else {
           return true;
         }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveActiveOrders -> ex", ex);
         return false;
@@ -93,8 +111,19 @@ const menuSideItems = {
         //   (payload && payload.forceRefresh)
         // ) {
         const page = payload && payload.page ? payload.page : 1;
+        const params = {
+          dateFrom: payload.dateRange
+            ? payload.dateRange.dateFrom
+            : getStartOfMonth(new Date()),
+          dateTo: payload.dateRange ? payload.dateRange.dateTo : helperStandardDateOnlyFormat(new Date())
+        };
         const result = await axios.axiosInstance.get(
-          `${ordersUrl}/order-history?page=${page}`
+          `${ordersUrl}/order-history?page=${page}`,
+          {
+            params: {
+              dateRange: params
+            }
+          }
         );
         if (result && result.status === 200) {
           commit("setOrderHistory", result.data);

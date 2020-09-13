@@ -1,9 +1,14 @@
 <template>
   <div class="text-color">
     <q-card-section class="row items-center q-pb-none">
-      <div class="col-xs-12 col-sm-12 col-md-12">
+      <div :class="orderSpecifications.tableNo ? 'col-xs-6' : 'col-xs-12'">
         <div class="text-weight-bolder q-pb-xs text-center text-subtitle1">
           Order No. {{ orderSpecifications.uniqueOrderId }}
+        </div>
+      </div>
+      <div class="col-xs-6" v-if="orderSpecifications.tableNo">
+        <div class="text-weight-bolder q-pb-xs text-center text-subtitle1">
+          Table No. {{ orderSpecifications.tableNo }}
         </div>
       </div>
     </q-card-section>
@@ -15,7 +20,7 @@
     <div class="text-color row items-center text-center q-pb-none">
       <div class="col-xs-11 text-weight-bold">
         Order place at:
-        {{ new Date(orderSpecifications.createdAt).toLocaleString() }}
+        {{ getCorrectTimeFormat(orderSpecifications.createdAt) }}
       </div>
     </div>
     <div class="text-color row text-center q-pt-sm q-pb-md">
@@ -82,6 +87,7 @@
 
 <script>
 import _ from "lodash";
+import { helperStandardDateTimeFormat } from "../../utils//dateUtil.js"
 export default {
   components: {},
   mixins: [],
@@ -104,7 +110,11 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    getCorrectTimeFormat(createdAt) {
+      return helperStandardDateTimeFormat(createdAt)
+    }
+  }
 };
 </script>
 <style></style>

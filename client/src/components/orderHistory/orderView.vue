@@ -66,7 +66,7 @@
     <div class="text-color row items-center text-center q-pb-none">
       <div class="col-xs-11 text-weight-bold">
         Order place at:
-        {{ new Date(orderSpecifications.createdAt).toLocaleString() }}
+        {{ getCorrectTimeFormat(orderSpecifications.createdAt) }}
       </div>
     </div>
     <div class="text-color row text-center q-pt-sm">
@@ -104,6 +104,13 @@
           <div class="col-xs-12">
             <span class="text-weight-bold">Order for </span>
             {{ orderSpecifications.orderType }}
+          </div>
+          <div class="col-xs-12" v-if="orderSpecifications.paymentType === 'Pay now'">
+            <span class="text-weight-bold">Payment Made</span>
+
+          </div>
+          <div class="col-xs-12" v-else>
+            <span class="text-weight-bold">Pay on collection</span>
           </div>
         </div>
 
@@ -211,6 +218,7 @@
 
 <script>
 import _ from "lodash";
+import { helperStandardDateTimeFormat } from "../../utils/dateUtil.js"
 export default {
   components: {
     "order-item-display": () => import("../Basket/menuItemOrderDisplay.vue")
@@ -274,6 +282,9 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    getCorrectTimeFormat(createdAt) {
+      return helperStandardDateTimeFormat(createdAt)
+    },
     closeDialog() {
       this.confirmationCancelOrder = false;
       this.selectedOrderId = null;
@@ -281,7 +292,6 @@ export default {
       this.selectedStatus = null;
     },
     confirmOrderStatusUpdate(val, uniqueOrderId, _id) {
-      console.log("confirmOrderStatusUpdate -> val", val);
       this.selectedOrderId = _id;
       this.selectedOrderUniqueOrderId = uniqueOrderId;
       this.selectedStatus = val;
@@ -302,7 +312,6 @@ export default {
       const result = await this.$store.dispatch("updateOrderStatus", dto);
       if (result && result.status === 200) {
         this.$emit("closeOrderDetailsDialog");
-        this.$emit("refreshCurrentOrders");
       }
       this.selectedOrderId = null;
       this.selectedOrderUniqueOrderId = null;

@@ -222,18 +222,17 @@ export default {
       let options = [];
       options.push({ name: "Menu", action: "/menu-options" });
       if (this.$store.getters.getAuth) {
-        // to change
-        // if (this.hasRightToViewCurrentOrders) {
-        //   options.push({
-        //     name: "View Current Orders",
-        //     action: "/current-orders"
-        //   });
-        // } else {
+        if (this.hasRightToViewCurrentOrders) {
+          options.push({
+            name: "View Current Orders",
+            action: "/current-orders"
+          });
+        } else {
           options.push({
             name: "View Active Orders",
             action: "/view-my-active-orders"
           });
-        // }
+        }
         options.push({ name: "Sign out", action: "signout" });
       } else {
         options.push({ name: "Login / Sign-up", action: "signin" });

@@ -72,7 +72,13 @@ export default {
             routeLink: "/general-settings",
             icon: "fas fa-cogs",
             routeName: "generalSettings"
-          }
+          },
+          {
+            name: "System Stats",
+            routeLink: "/system-statistics",
+            icon: "fas fa-info-circle",
+            routeName: "systemStats"
+          },
         ];
       } else {
         return [];

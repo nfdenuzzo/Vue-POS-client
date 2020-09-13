@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const {
   loadSpecificCollection,
   authClient,
@@ -7,8 +8,7 @@ const {
 } = require("../../../utils/dbUtils.js");
 const { hasReadPermission } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve current users
+//#region retrieve current users
 router.get("/current-users", checkJwt, hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("users");
   const availableUsers = await collection.find({}).toArray();
@@ -17,8 +17,7 @@ router.get("/current-users", checkJwt, hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create user record if no matching email found else update record
+//#region create user record if no matching email found else update record
 router.get("/", checkJwt, async (req, res) => {
   const collection = await loadSpecificCollection("users");
 
@@ -38,7 +37,7 @@ router.get("/", checkJwt, async (req, res) => {
       await collection.insertOne({
         userEmail: userInfo.email,
         lastLoginDate: userInfo.updated_at,
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         name: userInfo.nickname,
         emailVerified: userInfo.email_verified,
         address: null,

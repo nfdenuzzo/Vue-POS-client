@@ -1,6 +1,7 @@
 const jwtDecode = require("jwt-decode");
 
 module.exports = {
+  hasSuperAdminRights,
   hasReadPermission,
   hasUpdatePermission,
   hasDeletePermission,

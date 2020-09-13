@@ -1,7 +1,63 @@
 <template>
   <div class="text-color">
-    <div class="text-weight-bolder q-pb-xs  q-pt-md text-center text-subtitle1">
+    <div class="text-weight-bolder q-pb-xs q-pt-md text-center text-subtitle1">
       Order History {{ hasCorrectPermissions ? "" : "(Last 5)" }}
+    </div>
+    <div class="row justify-center">
+      <div class="col-xs-5 col-sm-5 col-md-3 col-lg-2 q-pa-md">
+        <q-input
+          outlined
+          dense
+          v-model="dateFrom"
+          mask="date"
+          :rules="['date']"
+        >
+          <template v-slot:append>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                ref="qDateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date
+                  v-model="dateFrom"
+                  :options="optionsDateFromFn"
+                  color="positive"
+                  text-color="white"
+                >
+                  <div class="row justify-center">
+                    <q-btn label="Close" v-close-popup color="negative" />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+      </div>
+      <div class="col-xs-5 col-sm-5 col-md-3 col-lg-2 q-pa-md">
+        <q-input outlined dense v-model="dateTo" mask="date" :rules="['date']">
+          <template v-slot:append>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                ref="qDateProxy"
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date
+                  v-model="dateTo"
+                  :options="optionsDateToFn"
+                  color="positive"
+                  text-color="white"
+                >
+                  <div class="row justify-center">
+                    <q-btn label="Close" v-close-popup color="negative" />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+      </div>
     </div>
     <div class="q-pa-md row justify-center">
       <div
@@ -17,8 +73,14 @@
         class="text-weight-bold q-pb-xs  q-pt-md text-center text-subtitle1"
         v-if="getMyOrderHistory.length === 0"
       >
-        <q-icon name="fas fa-exclamation-triangle" class="text-logoRed" style="font-size: 2rem;" /> 
-        <span class="q-pl-md">There is currently no order history available</span>
+        <q-icon
+          name="fas fa-exclamation-triangle"
+          class="text-logoRed"
+          style="font-size: 2rem;"
+        />
+        <span class="q-pl-md"
+          >There is currently no order history available</span
+        >
       </div>
     </div>
     <div
@@ -42,6 +104,7 @@
 </template>
 
 <script>
+import { getStartOfMonth, helperStandardDateOnlyFormat } from "../../utils/dateUtil.js"
 export default {
   components: {
     "view-order": () => import("../../components/orderHistory/orderView.vue")
@@ -51,7 +114,9 @@ export default {
   data() {
     return {
       current: 1,
-      page: 1
+      page: 1,
+      dateFrom: getStartOfMonth(new Date()),
+      dateTo: helperStandardDateOnlyFormat(new Date())
     };
   },
   computed: {
@@ -70,6 +135,16 @@ export default {
     }
   },
   watch: {
+    dateFrom() {
+      if (moment(this.dateFrom).isValid() && this.dateFrom.length === 10) {
+        this.fetchPage();
+      }
+    },
+    dateTo() {
+      if (moment(this.dateTo).isValid() && this.dateFrom.length === 10) {
+        this.fetchPage();
+      }
+    },
     current(to, from) {
       if (to > from) {
         this.nextPage();
@@ -86,6 +161,12 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    optionsDateToFn(date) {
+      return date <= helperStandardDateOnlyFormat(new Date) && date >= this.dateFrom;
+    },
+    optionsDateFromFn(date) {
+      return date <= helperStandardDateOnlyFormat(new Date);
+    },
     nextPage() {
       this.page += 1;
       this.fetchPage();
@@ -99,7 +180,8 @@ export default {
     fetchPage() {
       this.$store.dispatch("retrieveOrderHistory", {
         forceRefresh: true,
-        page: this.page
+        page: this.page,
+        dateRange: { dateFrom: this.dateFrom,  dateTo: this.dateTo }
       });
     }
   }

@@ -9,8 +9,7 @@ const {
 
 
 
-//#region
-// retrieve my profile
+//#region retrieve my profile
 router.get("/", checkJwt, async (req, res) => {
   const token = await createToken(req);
 
@@ -43,8 +42,7 @@ router.get("/", checkJwt, async (req, res) => {
 });
 //#endregion
 
-//#region
-// update my profile details
+//#region update my profile details
 router.put(
   "/update-profile",
   checkJwt,

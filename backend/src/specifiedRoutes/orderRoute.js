@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const moment = require("moment");
+const momentTZ = require("moment-timezone");
 
 const {
   loadSpecificCollection,
@@ -16,11 +16,12 @@ const {
   hasUpdatePermission,
 } = require("../../utils/getPermissions.js");
 
-//#region
-// retrieve last 5 orders
+//#region retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
+  const isSuperAdmin = await hasSuperAdminRights(req);
+  const dateRange = JSON.parse(req.query.dateRange)
   const page = hasSuperAdminRights ? parseInt(req.query.page) : 1;
-  const PAGE_SIZE = hasSuperAdminRights ? 20 : 5;
+  const PAGE_SIZE = isSuperAdmin ? 20 : 5;
   const skip = (page - 1) * PAGE_SIZE;
 
   const token = await createToken(req);
@@ -40,6 +41,7 @@ router.get("/order-history", checkJwt, async (req, res) => {
         {
           $and: [
             { userEmail: userInfo.email },
+            { createdAt: { $gte: new Date(dateRange.dateFrom), $lt: new Date(dateRange.dateTo) } },
             { $or: [
               { orderStatus: { $eq: "COMPLETE" } },
               { orderStatus: { $eq: "CANCELLED" } },
@@ -64,10 +66,10 @@ router.get("/order-history", checkJwt, async (req, res) => {
 });
 //#endregion
 
-//#region
-// retrieve my active orders
+//#region retrieve my active orders
 router.get("/active-orders", checkJwt, async (req, res) => {
   const token = await createToken(req);
+  const isSuperAdmin = await hasSuperAdminRights(req);
 
   authClient.getProfile(token, async (err, userInfo) => {
     if (userInfo && userInfo.hasOwnProperty("error")) {
@@ -76,16 +78,16 @@ router.get("/active-orders", checkJwt, async (req, res) => {
       return res.status(500).send(err);
     }
     // used to get only active orders from today
-    const startDate = moment().startOf("day"); // set to 12:00 am today
-    const endDate = moment().endOf("day"); // set to 23:59 pm today
+    const startDate = momentTZ.tz("africa/Johannesburg").startOf('day').utc(); // set to 12:00 am today
+    const endDate = momentTZ.tz("africa/Johannesburg").endOf('day').utc(); // set to 23:59 pm today
 
     const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
     const activeOrders = await collection
       .find(
+        { userEmail: isSuperAdmin ? { $ne: null } : userInfo.email },
         {
           $and: [
-            { userEmail: hasSuperAdminRights ? { $ne: null } : userInfo.email },
             { orderStatus: { $ne: "CANCELLED" } },
             { orderStatus: { $ne: "COMPLETE" } },
             { createdAt: { $gte: startDate, $lt: endDate } },
@@ -101,8 +103,7 @@ router.get("/active-orders", checkJwt, async (req, res) => {
 });
 //#endregion
 
-//#region
-// update order
+//#region update order
 router.put(
   "/update-order-status",
   checkJwt,
@@ -146,7 +147,7 @@ router.put(
       const newUpdatedValues = {
         $set: {
           orderStatus: req.body.orderStatus,
-          updatedAt: new Date(),
+          updatedAt: momentTZ.tz("africa/Johannesburg").format("YYYY-MM-DDTHH:mm:ssZ"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -156,7 +157,7 @@ router.put(
 
       await collection.updateOne(myQuery, newUpdatedValues);
 
-      if (specificOrder.subscribeNotifications) {
+      if (specificOrder.subscribeNotifications && req.body.orderStatus !== "CANCELLED") {
         await sendPushNotification(
           specificOrder.subscriptionObject,
           req.body.orderStatus
@@ -169,8 +170,56 @@ router.put(
 );
 //#endregion
 
-//#region
-// create order
+
+//#region update order assign table no
+router.put(
+  "/update-order-assign-table-no",
+  checkJwt,
+  hasUpdatePermission,
+  [
+    body("_id").not().isEmpty().trim().withMessage("Order Id is required"),
+    body("tableNo").not().isEmpty().trim().withMessage("Table No. is required"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const collection = await loadSpecificCollection("orders");
+
+    const token = await createToken(req);
+
+    authClient.getProfile(token, async (err, userInfo) => {
+      if (userInfo && userInfo.hasOwnProperty("error")) {
+        return res.status(401).send(userInfo.error);
+      } else if (err) {
+        return res.status(500).send(err);
+      }
+
+      const myQuery = {
+        _id: ObjectId(req.body._id),
+      };
+
+      const newUpdatedValues = {
+        $set: {
+          tableNo: req.body.tableNo,
+          updatedAt: momentTZ.tz("africa/Johannesburg").format("YYYY-MM-DDTHH:mm:ssZ"),
+          updatedAuthor: {
+            sub: userInfo.sub,
+            name: userInfo.name,
+          },
+        },
+      };
+
+      await collection.updateOne(myQuery, newUpdatedValues);
+
+      res.status(200).send();
+    });
+  }
+);
+//#endregion
+
+//#region create order
 router.post(
   "/place-order",
   checkJwt,
@@ -186,6 +235,11 @@ router.post(
       .isEmpty()
       .trim()
       .withMessage("Contact Number is required"),
+      body("paymentType")
+      .not()
+      .isEmpty()
+      .trim()
+      .withMessage("Payment type is Required!"),
     body("orderType")
       .not()
       .isEmpty()
@@ -315,14 +369,16 @@ router.post(
       );
 
       const basketTotal = await getBasketTotal(verifiedOrderItemsAndSideItems);
+      const orderStatus = "PROCESSING";
 
       await ordersCollection.insertOne({
         uniqueOrderId: generateUUID(),
-        createdAt: new Date(),
+        createdAt: momentTZ.tz("africa/Johannesburg").format("YYYY-MM-DDTHH:mm:ssZ"),
         userId: myProfile._id,
         userEmail: myProfile.userEmail,
         orderDetails: verifiedOrderItemsAndSideItems,
         contactNumber: req.body.contactNumber,
+        paymentType:  req.body.paymentType,
         name: req.body.name,
         orderType: req.body.orderType,
         deliveryArea: deliveryCharges ? deliveryCharges : null,
@@ -332,7 +388,7 @@ router.post(
         subscriptionObject: req.body.subscribeNotifications
           ? req.body.subscriptionObject
           : null,
-        orderStatus: "PROCESSING",
+        orderStatus: orderStatus,
         vat: vat,
         vatRate: generalSettings.vat * 100,
         itemsInOrder: itemsInOrder,
@@ -344,7 +400,7 @@ router.post(
       if (req.body.subscribeNotifications) {
         await sendPushNotification(
           req.body.subscriptionObject,
-          req.body.orderStatus
+          orderStatus
         );
       }
 

@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const moment = require("moment-timezone");
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -15,8 +16,7 @@ const {
   isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest menu items
+//#region retrieve latest menu items
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("menuItems");
   const allMenuItems = await collection.find({}).toArray();
@@ -25,8 +25,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create menu item
+//#region create menu item
 router.post(
   "/create-menu-item",
   checkJwt,
@@ -94,7 +93,7 @@ router.post(
         chosenSauceOptions: req.body.chosenSauceOptions,
         hasSideOptions: req.body.hasSideOptions,
         chosenSideOptions: req.body.chosenSideOptions,
-        createdAt: new Date(),
+        createdAt: moment.tz("africa/Johannesburg"),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -106,8 +105,7 @@ router.post(
 );
 //#endregion
 
-//#region
-// update menu item
+//#region update menu item
 router.put(
   "/update-menu-item",
   checkJwt,
@@ -176,7 +174,7 @@ router.put(
           chosenSauceOptions: req.body.chosenSauceOptions,
           hasSideOptions: req.body.hasSideOptions,
           chosenSideOptions: req.body.chosenSideOptions,
-          updatedAt: new Date(),
+          updatedAt: moment.tz("africa/Johannesburg"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -192,8 +190,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// delete menu item
+//#region delete menu item
 router.delete(
   "/delete-menu-item",
   checkJwt,
