@@ -5,8 +5,7 @@ const { loadSpecificCollection } = require("../../../utils/dbUtils.js");
 const ObjectId = require("mongodb").ObjectID;
 const { hasReadPermission } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest side option items
+//#region retrieve latest side option items
 router.get("/", hasReadPermission, async (req, res) => {
   const ordersCollection = await loadSpecificCollection("orders");
   const returnFieldsOrders = {
@@ -38,13 +37,17 @@ router.get("/", hasReadPermission, async (req, res) => {
 
   const monthlyDaySales = await getMonthlyDaySales(retrievedOrders);
 
+  const topFiveUsers = await getUserOccurences(retrievedOrders)
+
   const stats = {
-    averageBill: totalofOrders / retrievedOrders.length,
+    averageMonthBill: totalMonthlySales / retrievedOrders.length,
+    averageBillTotal: totalofOrders / retrievedOrders.length,
     totalSales: totalofOrders,
     totalSalesMonth: totalMonthlySales,
     topFiveItems: topFiveItems,
     orderTypeCounts: orderTypeCounts,
     monthlyDaySales: monthlyDaySales,
+    topFiveUsers: topFiveUsers
   };
 
   res.send(stats);
@@ -134,6 +137,19 @@ function getDailySaleTotals(groups) {
       };
     })
   );
+}
+
+async function getUserOccurences(orders) {
+    let counts = orders.reduce((map, order) => {
+        map[order.userEmail] = (map[order.userEmail] || 0) + 1;
+        return map;
+    }, {});
+    const userCountArray = []
+    Object.keys(counts).forEach(function (key) {
+        userCountArray.push({ user: key, count: counts[key]})
+    });
+    let sortedData = _.orderBy(userCountArray, ["count"], ["desc"]);
+    return sortedData.slice(0, 5)
 }
 
 module.exports = router;

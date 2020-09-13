@@ -9,8 +9,7 @@ const {
 } = require("../../utils/dbUtils.js");
 const { body, validationResult } = require("express-validator");
 
-//#region
-// retrieve my platform status
+//#region retrieve my platform status
 router.post("/createSubscription", checkJwt, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

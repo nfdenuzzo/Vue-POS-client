@@ -16,12 +16,12 @@ const {
   hasUpdatePermission,
 } = require("../../utils/getPermissions.js");
 
-//#region
-// retrieve last 5 orders
+//#region retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
+  const isSuperAdmin = await hasSuperAdminRights(req);
   const dateRange = JSON.parse(req.query.dateRange)
   const page = hasSuperAdminRights ? parseInt(req.query.page) : 1;
-  const PAGE_SIZE = hasSuperAdminRights ? 20 : 5;
+  const PAGE_SIZE = isSuperAdmin ? 20 : 5;
   const skip = (page - 1) * PAGE_SIZE;
 
   const token = await createToken(req);
@@ -66,10 +66,10 @@ router.get("/order-history", checkJwt, async (req, res) => {
 });
 //#endregion
 
-//#region
-// retrieve my active orders
+//#region retrieve my active orders
 router.get("/active-orders", checkJwt, async (req, res) => {
   const token = await createToken(req);
+  const isSuperAdmin = await hasSuperAdminRights(req);
 
   authClient.getProfile(token, async (err, userInfo) => {
     if (userInfo && userInfo.hasOwnProperty("error")) {
@@ -85,7 +85,7 @@ router.get("/active-orders", checkJwt, async (req, res) => {
     const collection = await loadSpecificCollection("orders");
     const activeOrders = await collection
       .find(
-        { userEmail: hasSuperAdminRights ? { $ne: null } : userInfo.email },
+        { userEmail: isSuperAdmin ? { $ne: null } : userInfo.email },
         {
           $and: [
             { orderStatus: { $ne: "CANCELLED" } },
@@ -103,8 +103,7 @@ router.get("/active-orders", checkJwt, async (req, res) => {
 });
 //#endregion
 
-//#region
-// update order
+//#region update order
 router.put(
   "/update-order-status",
   checkJwt,
@@ -172,8 +171,7 @@ router.put(
 //#endregion
 
 
-//#region
-// update order assign table no
+//#region update order assign table no
 router.put(
   "/update-order-assign-table-no",
   checkJwt,
@@ -221,8 +219,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// create order
+//#region create order
 router.post(
   "/place-order",
   checkJwt,
@@ -376,7 +373,7 @@ router.post(
 
       await ordersCollection.insertOne({
         uniqueOrderId: generateUUID(),
-        createdAt: moment.tz("africa/Johannesburg"),
+        createdAt: momentTZ.tz("africa/Johannesburg"),
         userId: myProfile._id,
         userEmail: myProfile.userEmail,
         orderDetails: verifiedOrderItemsAndSideItems,

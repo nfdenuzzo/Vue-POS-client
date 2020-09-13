@@ -16,8 +16,7 @@ const {
   isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest side category items
+//#region retrieve latest side category items
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("addonCategories");
   const allAddonCategories = await collection.find({}).toArray();
@@ -26,8 +25,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create side category item
+//#region create side category item
 router.post(
   "/create-addon-category",
   checkJwt,
@@ -72,8 +70,7 @@ router.post(
 );
 //#endregion
 
-//#region
-// update side category item
+//#region update side category item
 router.put(
   "/update-addon-category",
   checkJwt,
@@ -150,8 +147,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// create side category item
+//#region create side category item
 router.delete(
   "/delete-addon-category",
   checkJwt,

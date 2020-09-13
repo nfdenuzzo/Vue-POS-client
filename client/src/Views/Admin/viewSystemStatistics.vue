@@ -1,25 +1,113 @@
 <template>
   <div class="text-color">
     <div class="text-weight-bolder q-pb-xs  q-pt-md text-center text-h6">
-      Stats
+      Interesting Statistics
     </div>
     <div class="q-pa-md row justify-center">
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color">
-        <q-card> Average Bill {{ getAverageBill }} </q-card>
+      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+        <q-card>
+          <div
+            class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
+          >
+            Monthly Sales
+          </div>
+          <div class="row justify-center q-pa-md">
+            R {{ getTotalSalesMonth }}
+          </div>
+        </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color">
-        <q-card> Total Sales {{ getTotalSales }} </q-card>
+      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+        <q-card>
+          <div
+            class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
+          >
+            Average Bill (Current Month)
+          </div>
+          <div class="row justify-center q-pa-md">
+            R {{ getAverageMonthBill }}
+          </div>
+        </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color">
-        <q-card> Monthly Sales {{ getTotalSalesMonth }} </q-card>
+      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+        <q-card>
+          <div
+            class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
+          >
+            All Time Sales
+          </div>
+          <div class="row justify-center q-pa-md">R {{ getTotalSales }}</div>
+        </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color">
-        <q-card> Top 5 Items Sold {{ getTopFiveItems }} </q-card>
+      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+        <q-card>
+          <div
+            class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
+          >
+            Average Bill Total
+          </div>
+          <div class="row justify-center q-pa-md">
+            R {{ getAverageBillTotal }}
+          </div>
+        </q-card>
       </div>
-
-      <pieChart style="max-height:250px;"></pieChart>
-
-      <lineChart style="max-height:250px;"></lineChart>
+      <div class="col-xs-11 col-sm-11 col-md-4 text-color q-pa-md">
+        <q-card>
+          <div
+            class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
+          >
+            Top 5 Users
+          </div>
+          <div
+            class="row justify-center q-px-md q-py-sm"
+            v-for="(user, index) in getTopFiveUsers"
+            :key="index"
+          >
+            <div class="row">
+              <div class="col-xs-12">
+                <span class="text-weight-bolder"> {{ index + 1 }}.</span>
+                {{ user.user }},
+                <span class="text-weight-bolder">Orders: </span>
+                {{ user.count }}
+              </div>
+            </div>
+          </div>
+          <br />
+        </q-card>
+      </div>
+      <div class="col-xs-11 col-sm-11 col-md-4 text-color q-pa-md">
+        <q-card>
+          <div
+            class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
+          >
+            Top 5 Items Sold
+          </div>
+          <div
+            class="row justify-center q-px-md q-py-sm"
+            v-for="(item, index) in getTopFiveItems"
+            :key="index"
+          >
+            <div class="row">
+              <div class="col-xs-12">
+                <span class="text-weight-bolder"> {{ index + 1 }}. Item:</span>
+                {{ item.name }},
+                <span class="text-weight-bolder">Quantity Sold: </span>
+                {{ item.totalItemCount }}
+              </div>
+            </div>
+          </div>
+          <br />
+        </q-card>
+      </div>
+    </div>
+    <div class="row justify-center text-color">
+      <div class="col-xs-11 col-sm-11 col-md-4 text-color q-pa-md">
+        <pieChart style="max-height:250px;" />
+      </div>
+      <div class="col-xs-11 col-sm-11 col-md-6 text-color q-pa-md">
+        <q-card class="q-pa-md">
+          <lineChart style="max-height:250px;" />
+        </q-card>
+      </div>
     </div>
   </div>
 </template>
@@ -41,9 +129,16 @@ export default {
     getStats() {
       return this.$store.getters.getSystemStatistics;
     },
-    getAverageBill() {
-      if (this.getStats.averageBill) {
-        return this.getStats.averageBill;
+    getAverageMonthBill() {
+      if (this.getStats.averageMonthBill) {
+        return this.getStats.averageMonthBill;
+      } else {
+        return 0;
+      }
+    },
+    getAverageBillTotal() {
+      if (this.getStats.averageBillTotal) {
+        return this.getStats.averageBillTotal;
       } else {
         return 0;
       }
@@ -56,8 +151,8 @@ export default {
       }
     },
     getTotalSalesMonth() {
-      if (this.getStats.TotalSalesMonth) {
-        return this.getStats.TotalSalesMonth;
+      if (this.getStats.totalSalesMonth) {
+        return this.getStats.totalSalesMonth;
       } else {
         return 0;
       }
@@ -66,7 +161,14 @@ export default {
       if (this.getStats.topFiveItems) {
         return this.getStats.topFiveItems;
       } else {
-        return 0;
+        return [];
+      }
+    },
+    getTopFiveUsers() {
+      if (this.getStats.topFiveUsers) {
+        return this.getStats.topFiveUsers;
+      } else {
+        return [];
       }
     }
   },

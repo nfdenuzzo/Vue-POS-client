@@ -16,8 +16,7 @@ const {
   isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest menu items
+//#region retrieve latest menu items
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("menuItems");
   const allMenuItems = await collection.find({}).toArray();
@@ -26,8 +25,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create menu item
+//#region create menu item
 router.post(
   "/create-menu-item",
   checkJwt,
@@ -107,8 +105,7 @@ router.post(
 );
 //#endregion
 
-//#region
-// update menu item
+//#region update menu item
 router.put(
   "/update-menu-item",
   checkJwt,
@@ -193,8 +190,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// delete menu item
+//#region delete menu item
 router.delete(
   "/delete-menu-item",
   checkJwt,

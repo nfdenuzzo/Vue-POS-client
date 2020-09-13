@@ -16,8 +16,7 @@ const {
   isSuperAdmin,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve latest side option items
+//#region retrieve latest side option items
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("sideItems");
   const availableSideItems = await collection.find({}).toArray();
@@ -26,8 +25,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create side option item
+//#region create side option item
 router.post(
   "/create-side-item",
   checkJwt,
@@ -71,8 +69,7 @@ router.post(
 );
 //#endregion
 
-//#region
-// update side option items
+//#region update side option items
 router.put(
   "/update-side-item",
   checkJwt,
@@ -123,8 +120,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// delete side option item
+//#region delete side option item
 router.delete(
   "/delete-side-item",
   checkJwt,

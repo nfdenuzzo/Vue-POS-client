@@ -14,8 +14,7 @@ const {
   hasDeletePermission,
 } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve admin general Settings
+//#region retrieve admin general Settings
 router.get("/", hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("generalSettings");
   const generalSettings = await collection.findOne({ _id: { $ne: null } });
@@ -24,8 +23,7 @@ router.get("/", hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// update platform Status
+//#region update platform Status
 router.put(
   "/update-platform-status",
   checkJwt,
@@ -67,8 +65,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// update platform Status
+//#region update platform Status
 router.put(
   "/update-vatrate",
   checkJwt,
@@ -111,8 +108,7 @@ router.put(
   }
 );
 
-//#region
-// update platform trading hours
+//#region update platform trading hours
 router.put(
   "/update-trading-hours",
   checkJwt,
@@ -163,8 +159,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// update platform Status
+//#region update platform Status
 router.put(
   "/update-delivery-area",
   checkJwt,
@@ -261,8 +256,7 @@ router.put(
 );
 //#endregion
 
-//#region
-// delete side option item
+//#region delete side option item
 router.delete(
   "/delete-delivery-charge",
   checkJwt,

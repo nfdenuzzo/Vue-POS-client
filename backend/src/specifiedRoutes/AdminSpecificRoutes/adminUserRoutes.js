@@ -8,8 +8,7 @@ const {
 } = require("../../../utils/dbUtils.js");
 const { hasReadPermission } = require("../../../utils/getPermissions.js");
 
-//#region
-// retrieve current users
+//#region retrieve current users
 router.get("/current-users", checkJwt, hasReadPermission, async (req, res) => {
   const collection = await loadSpecificCollection("users");
   const availableUsers = await collection.find({}).toArray();
@@ -18,8 +17,7 @@ router.get("/current-users", checkJwt, hasReadPermission, async (req, res) => {
 });
 //#endregion
 
-//#region
-// create user record if no matching email found else update record
+//#region create user record if no matching email found else update record
 router.get("/", checkJwt, async (req, res) => {
   const collection = await loadSpecificCollection("users");
 
