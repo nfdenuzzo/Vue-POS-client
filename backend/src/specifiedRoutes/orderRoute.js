@@ -147,7 +147,7 @@ router.put(
       const newUpdatedValues = {
         $set: {
           orderStatus: req.body.orderStatus,
-          updatedAt: momentTZ.tz("africa/Johannesburg"),
+          updatedAt: momentTZ.tz("africa/Johannesburg").format("YYYY-MM-DDTHH:mm:ssZ"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -157,7 +157,7 @@ router.put(
 
       await collection.updateOne(myQuery, newUpdatedValues);
 
-      if (specificOrder.subscribeNotifications) {
+      if (specificOrder.subscribeNotifications && req.body.orderStatus !== "CANCELLED") {
         await sendPushNotification(
           specificOrder.subscriptionObject,
           req.body.orderStatus
@@ -203,7 +203,7 @@ router.put(
       const newUpdatedValues = {
         $set: {
           tableNo: req.body.tableNo,
-          updatedAt: momentTZ.tz("africa/Johannesburg"),
+          updatedAt: momentTZ.tz("africa/Johannesburg").format("YYYY-MM-DDTHH:mm:ssZ"),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -373,7 +373,7 @@ router.post(
 
       await ordersCollection.insertOne({
         uniqueOrderId: generateUUID(),
-        createdAt: momentTZ.tz("africa/Johannesburg"),
+        createdAt: momentTZ.tz("africa/Johannesburg").format("YYYY-MM-DDTHH:mm:ssZ"),
         userId: myProfile._id,
         userEmail: myProfile.userEmail,
         orderDetails: verifiedOrderItemsAndSideItems,

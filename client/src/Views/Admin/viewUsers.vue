@@ -150,6 +150,7 @@
 </template>
 <script>
 import _ from "lodash";
+import { helperStandardDateTimeFormat } from "../../utils/dateUtil.js"
 export default {
   components: {},
   mixins: [],
@@ -216,7 +217,7 @@ export default {
           label: "Created",
           align: "left",
           field: row => {
-            return new Date(row.createdAt).toLocaleString();
+            return this.getCorrectTimeFormat(row.createdAt)
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -251,7 +252,11 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    getCorrectTimeFormat(createdAt) {
+      return helperStandardDateTimeFormat(createdAt)
+    },
+  }
 };
 </script>
 <style lang="scss">

@@ -20,7 +20,7 @@
     <div class="text-color row items-center text-center q-pb-none">
       <div class="col-xs-11 text-weight-bold">
         Order place at:
-        {{ new Date(orderSpecifications.createdAt).toLocaleString() }}
+        {{ getCorrectTimeFormat(orderSpecifications.createdAt) }}
       </div>
     </div>
     <div class="text-color row text-center q-pt-sm q-pb-md">
@@ -87,6 +87,7 @@
 
 <script>
 import _ from "lodash";
+import { helperStandardDateTimeFormat } from "../../utils//dateUtil.js"
 export default {
   components: {},
   mixins: [],
@@ -109,7 +110,11 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    getCorrectTimeFormat(createdAt) {
+      return helperStandardDateTimeFormat(createdAt)
+    }
+  }
 };
 </script>
 <style></style>

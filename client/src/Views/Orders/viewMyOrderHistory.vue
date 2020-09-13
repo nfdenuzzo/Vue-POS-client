@@ -104,8 +104,7 @@
 </template>
 
 <script>
-import moment from "moment";
-import momentTZ from "moment-timezone";
+import { getStartOfMonth, helperStandardDateOnlyFormat } from "../../utils/dateUtil.js"
 export default {
   components: {
     "view-order": () => import("../../components/orderHistory/orderView.vue")
@@ -116,8 +115,8 @@ export default {
     return {
       current: 1,
       page: 1,
-      dateFrom: momentTZ.tz("africa/Johannesburg").startOf('month').utc().format("YYYY/MM/DD"),
-      dateTo: momentTZ.tz("africa/Johannesburg").format("YYYY/MM/DD")
+      dateFrom: getStartOfMonth(new Date()),
+      dateTo: helperStandardDateOnlyFormat(new Date())
     };
   },
   computed: {
@@ -163,10 +162,10 @@ export default {
   beforeDestroy() {},
   methods: {
     optionsDateToFn(date) {
-      return date <= momentTZ.tz("africa/Johannesburg").format("YYYY/MM/DD") && date >= this.dateFrom;
+      return date <= helperStandardDateOnlyFormat(new Date) && date >= this.dateFrom;
     },
     optionsDateFromFn(date) {
-      return date <= momentTZ.tz("africa/Johannesburg").format("YYYY/MM/DD");
+      return date <= helperStandardDateOnlyFormat(new Date);
     },
     nextPage() {
       this.page += 1;

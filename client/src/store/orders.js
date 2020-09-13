@@ -1,6 +1,5 @@
 import axios from "../httpClient/config.js";
-import moment from "moment";
-import momentTZ from "moment-timezone";
+import { getStartOfMonth, helperStandardDateOnlyFormat } from "../utils/dateUtil.js"
 import { cachingTimeExpired } from "../utils/cachingCheck.js";
 
 const ordersUrl = "/order";
@@ -115,8 +114,8 @@ const menuSideItems = {
         const params = {
           dateFrom: payload.dateRange
             ? payload.dateRange.dateFrom
-            : momentTZ.tz("africa/Johannesburg").startOf('month').utc(),
-          dateTo: payload.dateRange ? payload.dateRange.dateTo : momentTZ.tz("africa/Johannesburg")
+            : getStartOfMonth(new Date()),
+          dateTo: payload.dateRange ? payload.dateRange.dateTo : helperStandardDateOnlyFormat(new Date())
         };
         const result = await axios.axiosInstance.get(
           `${ordersUrl}/order-history?page=${page}`,

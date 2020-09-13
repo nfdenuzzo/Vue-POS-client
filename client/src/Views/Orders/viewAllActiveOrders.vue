@@ -189,7 +189,11 @@ export default {
   },
   watch: {},
   beforeCreate() {},
-  created() {},
+  created() {
+    window.setInterval(() => {
+        this.$store.dispatch("retrieveActiveOrders", { forceRefresh: true });
+    }, 120000)
+  },
   beforeMount() {},
   mounted() {},
   beforeUpdate() {},
@@ -280,7 +284,7 @@ export default {
 .app-custom-list {
   min-width: 10rem;
   line-height: normal;
-  height: 90vh;
+  height: 90% !important;
   margin-top: 0 !important;
 }
 
