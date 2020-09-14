@@ -1,5 +1,5 @@
 const { formatToTimeZone } = require("date-fns-timezone");
-const startOfMonth = require('date-fns/startOfMonth');
+const { startOfMonth } = require('date-fns');
 const startOfDay = require("date-fns/startOfDay");
 const endOfDay = require("date-fns/endOfDay");
 const timeZone = { timeZone: "Africa/Johannesburg" };

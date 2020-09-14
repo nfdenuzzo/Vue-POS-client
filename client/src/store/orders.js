@@ -32,7 +32,7 @@ const menuSideItems = {
         payload
       );
       if (result && result.status === 200) {
-        // commit("updateBasket", []);
+        commit("updateBasket", []);
         dispatch("retrieveActiveOrders", { forceRefresh: true });
         return true;
       } else {

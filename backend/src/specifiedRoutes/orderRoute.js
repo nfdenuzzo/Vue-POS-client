@@ -337,10 +337,10 @@ router.post(
         const platformClosed = isPlatformClosed(tradingHours, tradingHours[0].closed)
         
         if (platformClosed) {
-          res.status(499).send();
+          return res.status(499).send();
         }
       } else {
-        res.status(499).send();
+        return res.status(499).send();
       }
 
       const returnFieldsMenuItem = { menuItemImage: 0 };

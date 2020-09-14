@@ -1,5 +1,5 @@
 const { formatToTimeZone } = require("date-fns-timezone");
-const { startOfMonth } = require('date-fns/startOfMonth');
+const { startOfMonth } = require('date-fns');
 const timeZone = { timeZone: "Africa/Johannesburg" };
 
 // Returns date time in the following format: 2018-01-01 14:00:00

@@ -28,6 +28,7 @@
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
     "date-fns-timezone": "^0.1.4",
+    "@types/date-fns": "^2.6.0",
     "dotenv": "^8.2.0",
     "idb": "^5.0.4",
     "jwt-decode": "^2.2.0",

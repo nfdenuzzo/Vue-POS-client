@@ -61,7 +61,7 @@
     </div>
     <div class="q-pa-md row justify-center">
       <div
-        class="col-xs-12 col-sm-12 col-md-5 q-pa-md"
+        class="col-xs-12 col-sm-12 col-md-6 col-xl-4 q-pa-md"
         v-for="(order, index) in getMyOrderHistory"
         :key="index"
       >
