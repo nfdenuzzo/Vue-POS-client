@@ -36,7 +36,7 @@
           <div class="row q-pb-sm q-pa-sm">
             <div class="col-xs-12 q-px-md q-py-xs q-pb-md">
               <div class="col-xs-12 text-weight-bold text-right">
-                SubTotal: R {{ orderTotal }}
+                SubTotal (Items + Extras): R {{ orderTotal }}
               </div>
               <div class="col-xs-12 text-weight-bold text-right">
                 VAT (Already Included): R {{ vatTotal }}

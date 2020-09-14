@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const momentTZ = require("moment-timezone");
-
+import { getWeekDay } from "../specifiedRoutes/generalSettingsRoute.js"
 const {
   loadSpecificCollection,
   authClient,
@@ -309,6 +309,7 @@ router.post(
       const myProfile = await collection.findOne(myQuery);
 
       const returnFieldsGeneralSettings = {
+        orderingActive: 1,
         deliveryCharges: 1,
         vat: 1,
         _id: 0,
@@ -320,6 +321,20 @@ router.post(
         { _id: { $ne: null } },
         { projection: returnFieldsGeneralSettings }
       );
+
+      // check if platform is active
+      if (generalSettings.orderingActive) {
+        const dayOfTheWeek = getWeekDay(new Date());
+        const tradingHours = generalSettings.openingHours.filter(
+          (week) => week.day === dayOfTheWeek
+        );
+
+        if (isPlatformClosed(tradingHours, tradingHours.closed)) {
+          res.status(499).send();
+        }
+      } else {
+        res.status(499).send();
+      }
 
       const returnFieldsMenuItem = { menuItemImage: 0 };
       const menuItemsCollection = await loadSpecificCollection("menuItems");

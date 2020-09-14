@@ -48,7 +48,7 @@ registerRoute(({ url }) => url.pathname.startsWith("/api"), new NetworkFirst());
 
 registerRoute(
   ({ url }) => url.href.startsWith("http"),
-  new StaleWhileRevalidate()
+  new NetworkFirst()
 );
 
 /*
