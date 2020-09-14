@@ -15,7 +15,7 @@
         <div class="col-xs-10 col-sm-6 col-md-6">
           <div class="row justify-center">
             <div
-              class="col-xs-4 col-sm-4 col-md-4 col-lg-4"
+              class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
               :class="[
                 { 'text-center': $q.screen.xs },
                 { 'text-center': $q.screen.sm },
@@ -26,8 +26,8 @@
                 {{ item.day }}
               </span>
             </div>
-            <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4" v-if="item.time">
-              <span v-if="!item.closed">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-if="item.time">
+              <span v-if="!item.closed" class="no-wrap">
                 {{ item.time.start.hours }}:{{ item.time.start.min }} -
                 {{ item.time.end.hours }}:{{ item.time.end.min }}
               </span>

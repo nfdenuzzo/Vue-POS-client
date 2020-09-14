@@ -27,7 +27,7 @@
       <div
         class="col-xs-12 text-subtitle2 text-color text-weight-bolder text-center"
       >
-        Steak House and Pizzaria
+        Steak House and Pizzeria
       </div>
     </div>
 

@@ -29,7 +29,7 @@
             class="col-xs-7"
             :class="menuItemDetails.menuItemImage ? 'col-xs-7' : 'col-xs-10'"
           >
-            <div class="row text-caption">
+            <div class="row text-caption q-pb-xl">
               {{ menuItemDetails.description }}
             </div>
           </div>
@@ -45,7 +45,7 @@
 
         <q-form
           ref="myForm"
-          :style="!$q.platform.is.mobile ? 'margin-top: -40px' : ''"
+          :style="!$q.platform.is.mobile && menuItemDetails.menuItemImage ? 'margin-top: -40px' : ''"
           @submit="onSubmit"
           :greedy="true"
         >

@@ -107,6 +107,13 @@ axiosInstance.interceptors.response.use(
           color: "logoRed"
         });
         return error.response;
+      case 499:
+          Notify.create({
+            type: "negative",
+            message: "Sorry, the platform is closed to new orders.",
+            color: "logoRed"
+          });
+          return error.response;
       // Internal server error
       case 500:
         Notify.create({

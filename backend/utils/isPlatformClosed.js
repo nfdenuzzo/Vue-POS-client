@@ -1,4 +1,5 @@
-const moment = require("moment-timezone");
+const { helperStandardDateTimeFormat } = require("../utils/dateUtil.js")
+const moment = require("moment")
 
 module.exports = {
   isPlatformClosed,
@@ -6,7 +7,7 @@ module.exports = {
 
 function isPlatformClosed(tradingHours, isClosed) {
   // Is Date on a monday?
-  const today = moment.tz("africa/Johannesburg");
+  const today =  moment(helperStandardDateTimeFormat(new Date()));
   const openTime = moment(
     `${tradingHours[0].time.start.hours}:${tradingHours[0].time.start.mins}`,
     "hh:mm"

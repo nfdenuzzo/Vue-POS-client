@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const moment = require("moment-timezone");
+const { helperStandardDateTimeFormat } = require("../../../utils/dateUtil.js")
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -49,7 +49,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           orderingActive: req.body.platformStatus,
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -93,7 +93,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           vat: formatedVAT,
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -143,7 +143,7 @@ router.put(
       const updateGeneralSetting = {
         $set: {
           openingHours: req.body,
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -229,7 +229,7 @@ router.put(
       }
       const updateGeneralSetting = {
         $set: {
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -287,7 +287,7 @@ router.delete(
 
       const updateGeneralSetting = {
         $set: {
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,

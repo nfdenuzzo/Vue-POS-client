@@ -1,5 +1,5 @@
 const { formatToTimeZone } = require("date-fns-timezone");
-import { startOfMonth } from 'date-fns'
+const { startOfMonth } = require('date-fns/startOfMonth');
 const timeZone = { timeZone: "Africa/Johannesburg" };
 
 // Returns date time in the following format: 2018-01-01 14:00:00
@@ -40,7 +40,7 @@ export function helperGetDayNameWording(dateToFormat) {
 }
 
 // Returns date time in the following format: 2018-01-01 14:00:00
-export async function getStartOfMonth(dateToFormat) {
-    const startOfMonthValue = await startOfMonth(dateToFormat)
-    return helperStandardDateOnlyFormat(startOfMonthValue, "YYYY-MM-DD HH:mm:ss", timeZone);
+export function getStartOfMonth(dateToFormat) {
+    const startOfMonthValue = startOfMonth(dateToFormat)
+    return helperStandardDateOnlyFormat(startOfMonthValue);
   }
