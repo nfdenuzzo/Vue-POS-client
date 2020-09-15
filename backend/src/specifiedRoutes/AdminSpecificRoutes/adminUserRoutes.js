@@ -36,7 +36,7 @@ router.get("/", checkJwt, async (req, res) => {
     if (findExistingUserResult == null) {
       await collection.insertOne({
         userEmail: userInfo.email,
-        lastLoginDate: userInfo.updated_at,
+        lastLoginDate: helperStandardDateTimeFormat(new Date()),
         createdAt: helperStandardDateTimeFormat(new Date()),
         name: userInfo.nickname,
         emailVerified: userInfo.email_verified,
@@ -49,7 +49,7 @@ router.get("/", checkJwt, async (req, res) => {
     } else {
       const updateMatchingUser = {
         $set: {
-          lastLoginDate: userInfo.updated_at,
+          lastLoginDate: helperStandardDateTimeFormat(new Date()),
           emailVerified: userInfo.email_verified,
         },
       };

@@ -205,7 +205,7 @@ export default {
           label: "Last Login Date",
           align: "left",
           field: row => {
-            return new Date(row.lastLoginDate).toLocaleString();
+            return row.lastLoginDate;
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -217,7 +217,7 @@ export default {
           label: "Created",
           align: "left",
           field: row => {
-            return this.getCorrectTimeFormat(row.createdAt)
+            return row.createdAt
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -253,9 +253,6 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
-    getCorrectTimeFormat(createdAt) {
-      return helperStandardDateTimeFormat(createdAt)
-    },
   }
 };
 </script>

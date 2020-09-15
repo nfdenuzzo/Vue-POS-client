@@ -10,6 +10,11 @@ export function helperStandardDateTimeFormat(dateToFormat) {
 export function helperStandardDateOnlyFormat(dateToFormat) {
   return formatToTimeZone(dateToFormat, "YYYY-MM-DD", timeZone);
 }
+
+export function helperStandardDateOnlyFormatCalendar(dateToFormat) {
+  return formatToTimeZone(dateToFormat, "YYYY/MM/DD", timeZone);
+}
+
 // Returns ONLY the TIME in the following format: 14:00:00
 export function helperStandardTimeOnlyFormat(dateToFormat) {
   return formatToTimeZone(dateToFormat, "HH:mm:ss", timeZone);
@@ -42,5 +47,5 @@ export function helperGetDayNameWording(dateToFormat) {
 // Returns date time in the following format: 2018-01-01 14:00:00
 export function getStartOfMonth(dateToFormat) {
     const startOfMonthValue = startOfMonth(dateToFormat)
-    return helperStandardDateOnlyFormat(startOfMonthValue);
+    return helperStandardDateOnlyFormatCalendar(startOfMonthValue);
   }
