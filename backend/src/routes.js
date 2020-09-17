@@ -21,5 +21,6 @@ router.use(
 );
 
 router.use("/notifications", require("./specifiedRoutes/notificationRoute.js"));
+router.use("/response", require("./specifiedRoutes/paymentResponseRoute.js"));
 
 module.exports = router;

@@ -18,6 +18,7 @@
           no-data-label="No current users"
           no-results-label="The filter didn't uncover any results"
           :visible-columns="visibleColumns"
+          :rows-per-page-options="[10, 20]"
         >
           <template v-slot:loading>
             <q-inner-loading showing color="logoRed" />
@@ -39,6 +40,7 @@
                 </div>
                 <div class="col-xs-5 col-md-4 col-lg-2">
                   <q-select
+                    color="positive"
                     v-model="visibleColumns"
                     multiple
                     outlined
@@ -49,7 +51,6 @@
                     map-options
                     :options="columnsOptions"
                     option-value="value"
-                    options-cover
                   />
                 </div>
               </div>

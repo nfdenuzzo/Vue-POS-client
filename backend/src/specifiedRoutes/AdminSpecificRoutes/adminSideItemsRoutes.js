@@ -146,7 +146,7 @@ router.delete(
       const queryFindMatchingSideItem = {
         _id: ObjectId(req.body._id),
       };
-      await collection.remove(queryFindMatchingSideItem);
+      await collection.deleteOne(queryFindMatchingSideItem);
       res.status(200).send();
     });
   }

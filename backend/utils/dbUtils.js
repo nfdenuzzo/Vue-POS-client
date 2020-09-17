@@ -12,7 +12,10 @@ async function createToken(req) {
 
 //#region LoadSpecificCollection
 async function loadSpecificCollection(collectionName) {
-  const client = await MongoClient.connect(MONGODB_URL);
+  const client = await MongoClient.connect(MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   return client.db(DB_NAME).collection(collectionName);
 }
 //#endregion
@@ -41,8 +44,8 @@ const checkJwt = jwt({
 
 //
 module.exports = {
-    loadSpecificCollection,
-    authClient,
-    checkJwt,
-    createToken,
-  };
+  loadSpecificCollection,
+  authClient,
+  checkJwt,
+  createToken,
+};

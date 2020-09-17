@@ -216,7 +216,7 @@ router.delete(
       const queryFindMatchingMenuItem = {
         _id: ObjectId(req.body._id),
       };
-      await collection.remove(queryFindMatchingMenuItem);
+      await collection.deleteOne(queryFindMatchingMenuItem);
       res.status(200).send();
     });
   }

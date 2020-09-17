@@ -1,6 +1,8 @@
 import axios from "../httpClient/config.js";
-import { getStartOfMonth, helperStandardDateOnlyFormat } from "../utils/dateUtil.js"
-import { cachingTimeExpired } from "../utils/cachingCheck.js";
+import {
+  getStartOfMonth,
+  helperStandardDateOnlyFormat
+} from "../utils/dateUtil.js";
 
 const ordersUrl = "/order";
 
@@ -32,8 +34,17 @@ const menuSideItems = {
         payload
       );
       if (result && result.status === 200) {
-        commit("updateBasket", []);
+        console.log(
+          "we have place the order and here is the result we got placeOrder -> result",
+          result
+        );
         dispatch("retrieveActiveOrders", { forceRefresh: true });
+        if (result.data && result.data.externalUrl) {
+          commit("setTranId", result.data.transactionId);
+          window.location.href = result.data.externalUrl;
+        } else {
+          commit("updateBasket", []);
+        }
         return true;
       } else {
         return false;
@@ -78,10 +89,6 @@ const menuSideItems = {
       payload
     ) {
       try {
-        //   if (
-        //     cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
-        //     (payload && payload.forceRefresh)
-        //   ) {
         const result = await axios.axiosInstance.get(
           `${ordersUrl}/active-orders`
         );
@@ -93,9 +100,6 @@ const menuSideItems = {
           );
           return true;
         }
-        // } else {
-        //   return true;
-        // }
       } catch (ex) {
         console.log("retrieveActiveOrders -> ex", ex);
         return false;
@@ -106,16 +110,14 @@ const menuSideItems = {
       payload
     ) {
       try {
-        // if (
-        //   cachingTimeExpired(rootGetters.getActiveOrdersRetrievedDate) ||
-        //   (payload && payload.forceRefresh)
-        // ) {
         const page = payload && payload.page ? payload.page : 1;
         const params = {
           dateFrom: payload.dateRange
             ? payload.dateRange.dateFrom
             : getStartOfMonth(new Date()),
-          dateTo: payload.dateRange ? payload.dateRange.dateTo : helperStandardDateOnlyFormat(new Date())
+          dateTo: payload.dateRange
+            ? payload.dateRange.dateTo
+            : helperStandardDateOnlyFormat(new Date())
         };
         const result = await axios.axiosInstance.get(
           `${ordersUrl}/order-history?page=${page}`,
@@ -133,9 +135,6 @@ const menuSideItems = {
           );
           return true;
         }
-        // } else {
-        //   return true;
-        // }
       } catch (ex) {
         console.log("retrieveOrderHistory -> ex", ex);
         return false;

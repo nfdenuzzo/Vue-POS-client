@@ -345,6 +345,11 @@ export default {
     this.$store.dispatch("retrievePlatformStatus");
   },
   async mounted() {
+    // check if user has pressed back from payment gateway
+    if (this.$store.getters.getTranId) {
+      console.log("mounted we check to see if tranId exists then make dispatch call", this.$store.getters.getTranId)
+      this.$store.dispatch("updateOutstandingTransaction")
+    }
     let neverShowAppInstallBanner = this.$q.localStorage.getItem(
       "neverShowAppInstallBanner"
     );
@@ -392,6 +397,7 @@ export default {
           this.neverShowAppInstallBanner();
         } else {
           console.log("User dismissed the install prompt");
+          this.showAppInstallBanner = false;
         }
       });
     },

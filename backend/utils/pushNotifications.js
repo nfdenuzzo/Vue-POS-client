@@ -50,5 +50,7 @@ function getNotificationBodyWording(status) {
       return "Your order is ready for collection!";
     case "COMPLETE":
       return "Thank you for your continued support!";
+    case "FAILED":
+        return "Your order payment was unsuccessful, please try again!";
   }
 }

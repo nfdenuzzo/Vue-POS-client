@@ -1,7 +1,12 @@
 const router = require("express").Router();
-const { helperStandardDateTimeFormat, getStartOfDay, getEndOfDay } = require("../../utils/dateUtil.js")
+const {
+  helperStandardDateTimeFormat,
+  getStartOfDay,
+  getEndOfDay,
+} = require("../../utils/dateUtil.js");
+const { createPayment } = require("../../utils/paymentUtil.js");
 const { isPlatformClosed } = require("../../utils/isPlatformClosed.js");
-const { getWeekDay } = require("../../utils/helpers.js")
+const { getWeekDay } = require("../../utils/helpers.js");
 const {
   loadSpecificCollection,
   authClient,
@@ -16,11 +21,12 @@ const {
   hasSuperAdminRights,
   hasUpdatePermission,
 } = require("../../utils/getPermissions.js");
+const { result } = require("lodash");
 
 //#region retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
   const isSuperAdmin = await hasSuperAdminRights(req);
-  const dateRange = JSON.parse(req.query.dateRange)
+  const dateRange = JSON.parse(req.query.dateRange);
   const page = hasSuperAdminRights ? parseInt(req.query.page) : 1;
   const PAGE_SIZE = isSuperAdmin ? 20 : 5;
   const skip = (page - 1) * PAGE_SIZE;
@@ -37,9 +43,8 @@ router.get("/order-history", checkJwt, async (req, res) => {
     const collection = await loadSpecificCollection("orders");
     const count = await collection.countDocuments();
 
-    
     const startDate = getStartOfDay(new Date(dateRange.dateFrom)); // set to 12:00 am today
-    const endDate = getEndOfDay(new Date(dateRange.dateTo));; // set to 23:59 pm today
+    const endDate = getEndOfDay(new Date(dateRange.dateTo)); // set to 23:59 pm today
 
     const allOrders = await collection
       .find(
@@ -47,10 +52,12 @@ router.get("/order-history", checkJwt, async (req, res) => {
           $and: [
             { userEmail: userInfo.email },
             { createdAt: { $gte: startDate, $lt: endDate } },
-            { $or: [
-              { orderStatus: { $eq: "COMPLETE" } },
-              { orderStatus: { $eq: "CANCELLED" } },
-            ]}
+            {
+              $or: [
+                { orderStatus: { $eq: "COMPLETE" } },
+                { orderStatus: { $eq: "CANCELLED" } },
+              ],
+            },
           ],
         },
         { projection: returnFieldsOrders }
@@ -83,7 +90,7 @@ router.get("/active-orders", checkJwt, async (req, res) => {
     }
     // used to get only active orders from today
     const startDate = getStartOfDay(new Date()); // set to 12:00 am today
-    const endDate = getEndOfDay(new Date());; // set to 23:59 pm today
+    const endDate = getEndOfDay(new Date()); // set to 23:59 pm today
 
     const returnFieldsOrders = { subscriptionObject: 0 };
     const collection = await loadSpecificCollection("orders");
@@ -94,6 +101,8 @@ router.get("/active-orders", checkJwt, async (req, res) => {
           $and: [
             { orderStatus: { $ne: "CANCELLED" } },
             { orderStatus: { $ne: "COMPLETE" } },
+            { orderStatus: { $ne: "PENDING" } },
+            { orderStatus: { $ne: "FAILED" } },
             { createdAt: { $gte: startDate, $lt: endDate } },
           ],
         },
@@ -161,7 +170,10 @@ router.put(
 
       await collection.updateOne(myQuery, newUpdatedValues);
 
-      if (specificOrder.subscribeNotifications && req.body.orderStatus !== "CANCELLED") {
+      if (
+        specificOrder.subscribeNotifications &&
+        req.body.orderStatus !== "CANCELLED"
+      ) {
         await sendPushNotification(
           specificOrder.subscriptionObject,
           req.body.orderStatus
@@ -173,7 +185,6 @@ router.put(
   }
 );
 //#endregion
-
 
 //#region update order assign table no
 router.put(
@@ -239,7 +250,7 @@ router.post(
       .isEmpty()
       .trim()
       .withMessage("Contact Number is required"),
-      body("paymentType")
+    body("paymentType")
       .not()
       .isEmpty()
       .trim()
@@ -296,6 +307,9 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    let externalUrl = null;
+    let transactionId = null;
+
     const ordersCollection = await loadSpecificCollection("orders");
 
     const token = await createToken(req);
@@ -308,6 +322,8 @@ router.post(
       }
 
       const myQuery = { userEmail: userInfo.email };
+
+      const paymentCollection = await loadSpecificCollection("payments");
 
       const collection = await loadSpecificCollection("users");
       const myProfile = await collection.findOne(myQuery);
@@ -334,8 +350,11 @@ router.post(
           (week) => week.day === dayOfTheWeek
         );
 
-        const platformClosed = isPlatformClosed(tradingHours, tradingHours[0].closed)
-        
+        const platformClosed = isPlatformClosed(
+          tradingHours,
+          tradingHours[0].closed
+        );
+
         if (platformClosed) {
           return res.status(499).send();
         }
@@ -391,16 +410,19 @@ router.post(
       );
 
       const basketTotal = await getBasketTotal(verifiedOrderItemsAndSideItems);
-      const orderStatus = "PROCESSING";
+      const orderStatus =
+        req.body.paymentType === "Pay now" ? "PENDING" : "PROCESSING";
+
+      const uniqueOrderId = generateUUID();
 
       await ordersCollection.insertOne({
-        uniqueOrderId: generateUUID(),
+        uniqueOrderId: uniqueOrderId,
         createdAt: helperStandardDateTimeFormat(new Date()),
         userId: myProfile._id,
         userEmail: myProfile.userEmail,
         orderDetails: verifiedOrderItemsAndSideItems,
         contactNumber: req.body.contactNumber,
-        paymentType:  req.body.paymentType,
+        paymentType: req.body.paymentType,
         name: req.body.name,
         orderType: req.body.orderType,
         deliveryArea: deliveryCharges ? deliveryCharges : null,
@@ -417,20 +439,60 @@ router.post(
         itemTotal: basketItemsTotal,
         orderExtrasCost: basketExtrasCost,
         orderTotal: basketTotal,
+        transaction_id: null,
       });
 
-      if (req.body.subscribeNotifications) {
-        await sendPushNotification(
-          req.body.subscriptionObject,
-          orderStatus
-        );
+      if (req.body.subscribeNotifications && req.body.paymentType !== "Pay now") {
+        await sendPushNotification(req.body.subscriptionObject, orderStatus);
       }
 
-      res.status(200).send();
+      if (req.body.paymentType === "Pay now") {
+        const dto = {
+          orderId: uniqueOrderId,
+          email: myProfile.userEmail,
+          contactNumber: req.body.contactNumber,
+          name: req.body.name,
+          total: basketTotal,
+          shippingEnabled: req.body.orderType === "Delivery",
+        };
+        const result = await createPayment(dto);
+
+        await updateOrderTransactionId(
+          uniqueOrderId,
+          myProfile._id,
+          result.transaction_id
+        );
+
+        await paymentCollection.insertOne(result);
+
+        externalUrl = result.long_url;
+        transactionId = result.transaction_id
+      }
+
+      res.status(200).send(externalUrl ? { externalUrl:externalUrl, transactionId: transactionId } : null);
     });
   }
 );
 //#endregion
+
+async function updateOrderTransactionId(uniqueOrderId, userId, transaction_id) {
+  const ordersCollection = await loadSpecificCollection("orders");
+
+  const myOrderQuery = {
+    uniqueOrderId: uniqueOrderId,
+    userId: userId,
+  };
+
+  const updateOrderTransactionId = {
+    $set: {
+      transaction_id: transaction_id,
+    },
+  };
+
+  await ordersCollection.updateOne(myOrderQuery, updateOrderTransactionId);
+
+  return;
+}
 
 async function getItemsInOrder(orderItems) {
   return orderItems.reduce((a, b) => +a + +b.quantity, 0);

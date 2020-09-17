@@ -16,6 +16,7 @@
           row-key="_id"
           :pagination="pagination"
           no-data-label="No current menu categories available"
+          :rows-per-page-options="[10, 20]"
         >
           <template v-slot:loading>
             <q-inner-loading showing color="logoRed" />
@@ -108,8 +109,7 @@ export default {
       pagination: {
         sortBy: "asc",
         descending: false,
-        page: 1,
-        rowsPerPage: 20
+        page: 1
       },
       loading: false,
       columns: [
