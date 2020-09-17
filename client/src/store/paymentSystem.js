@@ -17,14 +17,12 @@ const paymentSystem = {
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
-      console.log("we make dispatch call updateOutstandingTransaction");
       try {
         const result = await axios.axiosInstance.put(
           `${paymentSystemUrl}/update-payment-status`,
           { tranId: rootGetters.getTranId }
         );
         if (result && result.status === 200) {
-          console.log("updateOutstandingTransaction result", result);
           if (result.data === "CANCELLED") {
             Notify.create({
               type: "negative",
@@ -38,7 +36,22 @@ const paymentSystem = {
       } catch (ex) {
         console.log("retrieveDefaultSettings -> ex", ex);
       }
-    }
+    },
+    async queryTransactionResult(
+        { commit, dispatch, rootState, rootGetters },
+        payload
+      ) {
+        try {
+          const result = await axios.axiosInstance.get(
+            `${paymentSystemUrl}/query-payment-status/${payload}`
+          );
+          if (result && result.status === 200) {
+            return result.data
+          }
+        } catch (ex) {
+          console.log("retrieveDefaultSettings -> ex", ex);
+        }
+      }
   },
   mutations: {
     setTranId(state, payload) {

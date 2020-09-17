@@ -34,10 +34,6 @@ const menuSideItems = {
         payload
       );
       if (result && result.status === 200) {
-        console.log(
-          "we have place the order and here is the result we got placeOrder -> result",
-          result
-        );
         dispatch("retrieveActiveOrders", { forceRefresh: true });
         if (result.data && result.data.externalUrl) {
           commit("setTranId", result.data.transactionId);

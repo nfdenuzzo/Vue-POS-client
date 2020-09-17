@@ -1,5 +1,4 @@
 const axios = require("axios");
-const { helperStandardDateTimeFormat } = require("./dateUtil.js");
 require("dotenv").config();
 
 const { mobiToken, mobiPaymentURL } = process.env;
@@ -24,9 +23,9 @@ async function createPayment(dto) {
     customer_salutation: "",
     customer_first_name: dto.name,
     customer_last_name: "",
-    redirect_url: "http://localhost:8080",
-    response_url: "http://b50bb4d3bff2.ngrok.io/api/response/",
-    cancel_url: `http://localhost:8080/cancelled/?orderId=${dto.orderId}`,
+    redirect_url: `http://localhost:8080/?tr=${dto.orderId}`,
+    response_url: "http://e8ac5cc74505.ngrok.io/api/response",
+    cancel_url: `http://localhost:8080`,
     fixed_amount: true,
     currency: "ZAR",
     amount: dto.total,
@@ -46,7 +45,7 @@ async function createPayment(dto) {
   };
   const result = await axios.post(`${mobiPaymentURL}`, payload, config);
   if (result && result.status === 200) {
-    return result.data;
+      return result.data;
   }
 }
 
@@ -60,3 +59,4 @@ function formateContactNo(contactNo) {
   let formatedContactNo = "+27" + noBrackets.slice(1, noBrackets.length);
   return formatedContactNo;
 }
+

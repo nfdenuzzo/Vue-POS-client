@@ -239,12 +239,6 @@ router.post(
   "/place-order",
   checkJwt,
   [
-    body("name").not().isEmpty().trim().withMessage("name is required"),
-    body("userEmail")
-      .not()
-      .isEmpty()
-      .trim()
-      .withMessage("user email is required"),
     body("contactNumber")
       .not()
       .isEmpty()
@@ -423,7 +417,7 @@ router.post(
         orderDetails: verifiedOrderItemsAndSideItems,
         contactNumber: req.body.contactNumber,
         paymentType: req.body.paymentType,
-        name: req.body.name,
+        name: myProfile.name,
         orderType: req.body.orderType,
         deliveryArea: deliveryCharges ? deliveryCharges : null,
         address: req.body.address ? req.body.address : null,
@@ -439,7 +433,7 @@ router.post(
         itemTotal: basketItemsTotal,
         orderExtrasCost: basketExtrasCost,
         orderTotal: basketTotal,
-        transaction_id: null,
+        transaction_id: null
       });
 
       if (req.body.subscribeNotifications && req.body.paymentType !== "Pay now") {

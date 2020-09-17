@@ -176,7 +176,10 @@
           enter-active-class="animated fadeIn"
           leave-active-class="animated fadeOut"
         >
-          <div v-if="showNotificationsBanner && pushNotificationsSupported" class="banner-container bg-positive">
+          <div
+            v-if="showNotificationsBanner && pushNotificationsSupported"
+            class="banner-container bg-positive"
+          >
             <div class="constrain">
               <q-banner class="bg-positive text-white" inline-actions dense>
                 <template v-slot:avatar>
@@ -227,6 +230,20 @@
           <purchaseProcess
             v-if="viewPurchaseProcess"
             :viewPurchaseProcess.sync="viewPurchaseProcess"
+          />
+        </q-dialog>
+        <q-dialog
+          v-model="viewPaymentStatusDialog"
+          persistent
+          :full-width="$q.platform.is.mobile ? true : false"
+          :full-height="$q.platform.is.mobile ? true : false"
+          transition-show="slide-up"
+          transition-hide="slide-down"
+        >
+          <payment-result
+            v-if="viewPaymentStatusDialog"
+            :viewPaymentStatusDialog.sync="viewPaymentStatusDialog"
+            :paymentResultSuccessful.sync="paymentResultSuccessful"
           />
         </q-dialog>
       </q-page-container>
@@ -285,8 +302,8 @@ import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 import adminMenu from "../../mixins/adminMenu.js";
 import userMenu from "../../mixins/userMenu.js";
 import { logout } from "../../utils/auth.js";
-import { urlBase64ToUint8Array } from "../../utils/webpushUtil.js"
-const qs = require('qs')
+import { urlBase64ToUint8Array } from "../../utils/webpushUtil.js";
+const qs = require("qs");
 
 let deferredPrompt;
 export default {
@@ -296,6 +313,7 @@ export default {
     purchaseProcess: () =>
       import("../../components/PurchaseProcess/purchaseProcessSteps.vue"),
     "delivery-charges": () => import("../../components/deliveryCharges.vue"),
+    "payment-result": () => import("../../components/paymentResult.vue"),
     "trading-Hours": () => import("../../components/tradingHours.vue"),
     "cooking-time-info": () => import("../../components/cookingTimeInfo.vue"),
     "mobile-tab-menu-options": () =>
@@ -337,6 +355,8 @@ export default {
       viewPurchaseProcess: false,
       showAppInstallBanner: false,
       showNotificationsBanner: false,
+      viewPaymentStatusDialog: false,
+      paymentResultSuccessful: false,
       menuDrawerOpen: false
     };
   },
@@ -345,10 +365,24 @@ export default {
     this.$store.dispatch("retrievePlatformStatus");
   },
   async mounted() {
+    // payment -> the response form payment gateway redirect sends us here with a query in the url
+    /// the tr query is the orderId we will use to query the payment status when we return to this page
+    if (this.$route.query && this.$route.query.tr) {
+      const result = await this.$store.dispatch(
+        "queryTransactionResult",
+        this.$route.query.tr
+      );
+      if (result) {
+        // if the  transaction was successfuly we can then clear the basket
+        this.$store.commit("updateBasket");
+      }
+      this.viewPaymentStatusDialog = true;
+      this.paymentResultSuccessful = result;
+      this.$store.commit("setTranId", null);
+    }
     // check if user has pressed back from payment gateway
     if (this.$store.getters.getTranId) {
-      console.log("mounted we check to see if tranId exists then make dispatch call", this.$store.getters.getTranId)
-      this.$store.dispatch("updateOutstandingTransaction")
+      this.$store.dispatch("updateOutstandingTransaction");
     }
     let neverShowAppInstallBanner = this.$q.localStorage.getItem(
       "neverShowAppInstallBanner"
@@ -436,17 +470,19 @@ export default {
     checkForExistingPushSubscription() {
       if (this.serviceWorkerSupported && this.pushNotificationsSupported) {
         let reg;
-        navigator.serviceWorker.ready.then(swreg => {
+        navigator.serviceWorker.ready
+          .then(swreg => {
             reg = swreg;
             return swreg.pushManager.getSubscription();
           })
           .then(sub => {
-              this.createPushSubscription(reg);
+            this.createPushSubscription(reg);
           });
       }
     },
     async createPushSubscription(reg) {
-      const vapidPublicKey = "BJeT3WbOLmulqq1RNixIGxdtDcO7oxIZ2XYzZtk5MV0ucrbMrGIq-JLW26x53JTh33hBeoI_aOu31XM8Z3Mq2kE";
+      const vapidPublicKey =
+        "BJeT3WbOLmulqq1RNixIGxdtDcO7oxIZ2XYzZtk5MV0ucrbMrGIq-JLW26x53JTh33hBeoI_aOu31XM8Z3Mq2kE";
       const vapidPublicKeyConverted = urlBase64ToUint8Array(vapidPublicKey);
       reg.pushManager
         .subscribe({
@@ -456,10 +492,13 @@ export default {
         .then(async newSub => {
           const newSubData = newSub.toJSON(),
             newSubDataQS = qs.stringify(newSubData);
-            let result = await this.$store.dispatch("subscribeNotifications", newSubDataQS)
-            if (result) {
-              this.displayGrantedNotification();
-            }
+          let result = await this.$store.dispatch(
+            "subscribeNotifications",
+            newSubDataQS
+          );
+          if (result) {
+            this.displayGrantedNotification();
+          }
         })
         .catch(err => {
           console.log("err: ", err);

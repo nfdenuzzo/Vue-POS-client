@@ -28,7 +28,6 @@ const systemStatistics = {
         // ) {
           const result = await axios.axiosInstance.get(`${systemStatisticsAdminUrl}`);
           if (result && result.status === 200) {
-            console.log("result", result)
             commit("setSystemStatistics", result.data);
             commit(
               "setSystemStatisticsRetrievedDate",
