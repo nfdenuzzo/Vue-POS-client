@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const _ = require("lodash");
-const momentTZ = require("moment-timezone");
+const { getStartOfMonthStartOfDay, getEndOfMonthEndOfDay } = require("../../../utils/dateUtil.js")
 const { loadSpecificCollection } = require("../../../utils/dbUtils.js");
-const ObjectId = require("mongodb").ObjectID;
 const { hasReadPermission } = require("../../../utils/getPermissions.js");
 
 //#region retrieve latest side option items
@@ -77,8 +76,8 @@ async function getTotalItemCount(orders) {
 }
 
 async function getTotalMonthlySales(orders) {
-  const startDate = momentTZ.tz("africa/Johannesburg").startOf("month").utc();
-  const endDate = momentTZ.tz("africa/Johannesburg").endOf("day").utc();
+  const startDate = getStartOfMonthStartOfDay(new Date()); // set to 12:00 am today
+  const endDate = getEndOfMonthEndOfDay(new Date()); // set to 23:59 pm today
 
   let data = orders.filter((order) => {
     return (
@@ -105,8 +104,8 @@ async function getOrderTypeCounts(orders) {
 }
 
 async function getMonthlyDaySales(orders) {
-  const startDate = momentTZ.tz("africa/Johannesburg").startOf("month").utc();
-  const endDate = momentTZ.tz("africa/Johannesburg").endOf("day").utc();
+  const startDate = getStartOfMonthStartOfDay(new Date()); // set to 12:00 am today
+  const endDate = getEndOfMonthEndOfDay(new Date()); // set to 23:59 pm today
 
   let data = orders.filter((order) => {
     return (
@@ -116,7 +115,7 @@ async function getMonthlyDaySales(orders) {
   });
   // this gives an object with dates as keys
   const groups = data.reduce((groups, order) => {
-    const date = order.createdAt.toISOString().split("T")[0];
+    const date = order.createdAt.substring(0, 10);
     if (!groups[date]) {
       groups[date] = [];
     }

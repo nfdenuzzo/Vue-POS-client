@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const moment = require("moment-timezone");
+const { helperStandardDateTimeFormat } = require("../../../utils/dateUtil.js")
 const {
   loadSpecificCollection,
   authClient,
@@ -36,8 +36,8 @@ router.get("/", checkJwt, async (req, res) => {
     if (findExistingUserResult == null) {
       await collection.insertOne({
         userEmail: userInfo.email,
-        lastLoginDate: userInfo.updated_at,
-        createdAt: moment.tz("africa/Johannesburg"),
+        lastLoginDate: helperStandardDateTimeFormat(new Date()),
+        createdAt: helperStandardDateTimeFormat(new Date()),
         name: userInfo.nickname,
         emailVerified: userInfo.email_verified,
         address: null,
@@ -49,7 +49,7 @@ router.get("/", checkJwt, async (req, res) => {
     } else {
       const updateMatchingUser = {
         $set: {
-          lastLoginDate: userInfo.updated_at,
+          lastLoginDate: helperStandardDateTimeFormat(new Date()),
           emailVerified: userInfo.email_verified,
         },
       };

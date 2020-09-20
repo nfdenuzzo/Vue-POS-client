@@ -15,6 +15,7 @@ import orders from "./orders";
 import basket from "./basket";
 import notifications from "./notifications";
 import systemStatistics from "./adminSystemStatistics";
+import paymentSystem from "./paymentSystem";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -42,7 +43,8 @@ export default new Vuex.Store({
         "menuItems",
         "menuSideItems",
         "menuCategories",
-        "basket"
+        "basket",
+        "paymentSystem"
       ]
     })
   ],
@@ -65,9 +67,8 @@ export default new Vuex.Store({
     basket,
     orders,
     notifications,
-    systemStatistics
+    systemStatistics,
+    paymentSystem
   }
 });
 
-//   return store
-// }

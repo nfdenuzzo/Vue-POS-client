@@ -12,7 +12,7 @@
             Monthly Sales
           </div>
           <div class="row justify-center q-pa-md">
-            R {{ getTotalSalesMonth }}
+            R {{ getTotalSalesMonth.toFixed(2) }}
           </div>
         </q-card>
       </div>
@@ -24,7 +24,7 @@
             Average Bill (Current Month)
           </div>
           <div class="row justify-center q-pa-md">
-            R {{ getAverageMonthBill }}
+            R {{ getAverageMonthBill.toFixed(2) }}
           </div>
         </q-card>
       </div>
@@ -35,7 +35,7 @@
           >
             All Time Sales
           </div>
-          <div class="row justify-center q-pa-md">R {{ getTotalSales }}</div>
+          <div class="row justify-center q-pa-md">R {{ getTotalSales.toFixed(2) }}</div>
         </q-card>
       </div>
       <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
@@ -46,7 +46,7 @@
             Average Bill Total
           </div>
           <div class="row justify-center q-pa-md">
-            R {{ getAverageBillTotal }}
+            R {{ getAverageBillTotal.toFixed(2) }}
           </div>
         </q-card>
       </div>

@@ -1,8 +1,3 @@
-import axios from "../httpClient/config.js";
-import { cachingTimeExpired } from "../utils/cachingCheck.js";
-
-const generalBasketUrl = "/general-settings";
-
 const basket = {
   state: {
     basket: [],

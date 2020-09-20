@@ -18,6 +18,7 @@
           no-data-label="No current users"
           no-results-label="The filter didn't uncover any results"
           :visible-columns="visibleColumns"
+          :rows-per-page-options="[10, 20]"
         >
           <template v-slot:loading>
             <q-inner-loading showing color="logoRed" />
@@ -39,6 +40,7 @@
                 </div>
                 <div class="col-xs-5 col-md-4 col-lg-2">
                   <q-select
+                    color="positive"
                     v-model="visibleColumns"
                     multiple
                     outlined
@@ -49,7 +51,6 @@
                     map-options
                     :options="columnsOptions"
                     option-value="value"
-                    options-cover
                   />
                 </div>
               </div>
@@ -205,7 +206,7 @@ export default {
           label: "Last Login Date",
           align: "left",
           field: row => {
-            return new Date(row.lastLoginDate).toLocaleString();
+            return row.lastLoginDate;
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -217,7 +218,7 @@ export default {
           label: "Created",
           align: "left",
           field: row => {
-            return this.getCorrectTimeFormat(row.createdAt)
+            return row.createdAt
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -253,9 +254,6 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
-    getCorrectTimeFormat(createdAt) {
-      return helperStandardDateTimeFormat(createdAt)
-    },
   }
 };
 </script>

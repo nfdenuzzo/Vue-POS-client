@@ -58,10 +58,18 @@
           </template>
         </q-input>
       </div>
+      <div class="col-xs-5 col-sm-5 col-md-3 col-lg-1 q-pa-md">
+        <q-btn
+          label="Reset"
+          color="warning"
+          class="q-mr-lg text-capitalize"
+          @click="resetCalender"
+        />
+      </div>
     </div>
     <div class="q-pa-md row justify-center">
       <div
-        class="col-xs-12 col-sm-12 col-md-5 q-pa-md"
+        class="col-xs-12 col-sm-12 col-md-6 col-xl-4 q-pa-md"
         v-for="(order, index) in getMyOrderHistory"
         :key="index"
       >
@@ -104,7 +112,9 @@
 </template>
 
 <script>
-import { getStartOfMonth, helperStandardDateOnlyFormat } from "../../utils/dateUtil.js"
+import { getStartOfMonth, helperStandardDateOnlyFormatCalendar } from "../../utils/dateUtil.js"
+import isValid from 'date-fns/isValid'
+import parseISO from 'date-fns/parseISO'
 export default {
   components: {
     "view-order": () => import("../../components/orderHistory/orderView.vue")
@@ -113,10 +123,11 @@ export default {
   props: {},
   data() {
     return {
+      resettingCalender: false,
       current: 1,
       page: 1,
       dateFrom: getStartOfMonth(new Date()),
-      dateTo: helperStandardDateOnlyFormat(new Date())
+      dateTo: helperStandardDateOnlyFormatCalendar(new Date())
     };
   },
   computed: {
@@ -136,12 +147,12 @@ export default {
   },
   watch: {
     dateFrom() {
-      if (moment(this.dateFrom).isValid() && this.dateFrom.length === 10) {
+      if (isValid(parseISO(this.dateFrom)) && this.dateFrom.length === 10 && !this.resettingCalender) {
         this.fetchPage();
       }
     },
     dateTo() {
-      if (moment(this.dateTo).isValid() && this.dateFrom.length === 10) {
+      if (isValid(parseISO(this.dateTo)) && this.dateFrom.length === 10 && !this.resettingCalender) {
         this.fetchPage();
       }
     },
@@ -161,11 +172,18 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    resetCalender() {
+      this.resettingCalender = true;
+      this.dateFrom = getStartOfMonth(new Date()),
+      this.dateTo = helperStandardDateOnlyFormatCalendar(new Date())
+      this.resettingCalender = false;
+      this.fetchPage();
+    },
     optionsDateToFn(date) {
-      return date <= helperStandardDateOnlyFormat(new Date) && date >= this.dateFrom;
+      return date <= helperStandardDateOnlyFormatCalendar(new Date()) && date >= helperStandardDateOnlyFormatCalendar(this.dateFrom);
     },
     optionsDateFromFn(date) {
-      return date <= helperStandardDateOnlyFormat(new Date);
+      return date <= helperStandardDateOnlyFormatCalendar(new Date());
     },
     nextPage() {
       this.page += 1;

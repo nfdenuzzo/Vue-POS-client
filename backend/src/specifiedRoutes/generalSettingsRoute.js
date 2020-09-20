@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { loadSpecificCollection } = require("../../utils/dbUtils.js");
 const { isPlatformClosed } = require("../../utils/isPlatformClosed.js");
+const { getWeekDay } = require("../../utils/helpers.js")
 
 //#region retrieve my general Settings
 router.get("/", async (req, res) => {
@@ -31,7 +32,7 @@ router.get("/platform-status", async (req, res) => {
       (week) => week.day === dayOfTheWeek
     );
 
-    if (isPlatformClosed(tradingHours, tradingHours.closed)) {
+    if (isPlatformClosed(tradingHours, tradingHours[0].closed)) {
       platformStatus.orderingActive = false;
     } else {
       platformStatus.orderingActive = true;
@@ -43,22 +44,5 @@ router.get("/platform-status", async (req, res) => {
   res.send(platformStatus.orderingActive);
 });
 //#endregion
-
-function getWeekDay(date) {
-  //Create an array containing each day, starting with Sunday.
-  const weekdays = new Array(
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  );
-  //Use the getDay() method to get the day.
-  const day = date.getDay();
-  //Return the element that corresponds to that index.
-  return weekdays[day];
-}
 
 module.exports = router;

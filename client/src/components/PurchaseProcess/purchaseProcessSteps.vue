@@ -89,7 +89,6 @@
                   color="positive"
                   class="text-capitalize"
                   :disabled="!$store.getters.getAuth"
-                  :loading="placingOrder"
                 />
               </div>
             </q-stepper-navigation>
@@ -104,6 +103,7 @@
 import basket from "../Basket/Basket.vue";
 import orderDetails from "../orderDetails/orderDetails.vue";
 import purchaseSummary from "./purchaseSummary.vue";
+import { QSpinnerHourglass } from "quasar";
 
 const md5 = require("md5");
 const params = new URLSearchParams({
@@ -144,7 +144,6 @@ export default {
     return {
       step: 1,
       orderDetails: {},
-      placingOrder: false,
       orderTotal: 0,
       orderDeliveryCharge: 0
     };
@@ -189,9 +188,14 @@ export default {
       this.orderDetails.paymentType = paymentType;
       const orderSpecs = this.orderDetails;
       orderSpecs.orderDetails = this.$store.getters.getBasket;
-      this.placingOrder = true;
+      this.$q.loading.show({
+        spinner: QSpinnerHourglass,
+        spinnerColor: "positive",
+        backgroundColor: "darkgrey",
+        message: "Processing Order...."
+      });
       const result = await this.$store.dispatch("placeOrder", orderSpecs);
-      this.placingOrder = false;
+      this.$q.loading.hide();
       if (result) {
         if (orderSpecs.orderDetails.orderType !== "Delivery")
           this.$q.notify({

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const moment = require("moment-timezone");
+const { helperStandardDateTimeFormat } = require("../../../utils/dateUtil.js")
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -58,7 +58,7 @@ router.post(
       await collection.insertOne({
         name: req.body.name,
         disabled: req.body.disabled,
-        createdAt: moment.tz("africa/Johannesburg"),
+        createdAt: helperStandardDateTimeFormat(new Date()),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -103,7 +103,7 @@ router.put(
         $set: {
           name: req.body.name,
           disabled: req.body.disabled,
-          updatedAt: moment.tz("africa/Johannesburg"),
+          createdAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -128,7 +128,7 @@ router.put(
         $set: {
           "addonCategory.name": req.body.name,
           "addonCategory.disabled": req.body.disabled,
-          "addonCategory.updatedAt": moment.tz("africa/Johannesburg"),
+          "addonCategory.updatedAt": helperStandardDateTimeFormat(new Date()),
           "addonCategory.updatedAuthor": {
             sub: userInfo.sub,
             name: userInfo.name,

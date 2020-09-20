@@ -137,7 +137,7 @@
       <div class="col-xs-12" v-if="hasItemsInOrder">
         <div class="row justify-center">
           <div
-            class="col-xs-12 col-sm-12 col-md-6 q-px-sm q-py-sm"
+            class="col-xs-12 col-sm-12 col-md-10 col-lg-8 q-px-sm q-py-sm"
             v-for="(item, index) in showItemsInOrder"
             :key="index"
           >

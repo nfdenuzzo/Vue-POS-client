@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const moment = require("moment-timezone");
+const { helperStandardDateTimeFormat } = require("../../../utils/dateUtil.js")
 const { body, validationResult } = require("express-validator");
 const {
   loadSpecificCollection,
@@ -57,7 +57,7 @@ router.post(
         price: req.body.price,
         addonCategory: req.body.addonCategory,
         disabled: req.body.disabled,
-        createdAt: moment.tz("africa/Johannesburg"),
+        createdAt: helperStandardDateTimeFormat(new Date()),
         createdAuthor: {
           sub: userInfo.sub,
           name: userInfo.name,
@@ -105,7 +105,7 @@ router.put(
           price: req.body.price,
           addonCategory: req.body.addonCategory,
           disabled: req.body.disabled,
-          updatedAt: moment.tz("africa/Johannesburg"),
+          updatedAt: helperStandardDateTimeFormat(new Date()),
           updatedAuthor: {
             sub: userInfo.sub,
             name: userInfo.name,
@@ -146,7 +146,7 @@ router.delete(
       const queryFindMatchingSideItem = {
         _id: ObjectId(req.body._id),
       };
-      await collection.remove(queryFindMatchingSideItem);
+      await collection.deleteOne(queryFindMatchingSideItem);
       res.status(200).send();
     });
   }

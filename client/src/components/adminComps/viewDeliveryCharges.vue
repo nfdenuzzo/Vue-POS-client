@@ -69,6 +69,7 @@
             row-key="_id"
             no-data-label="No current delivery areas specified"
             no-results-label="The filter didn't uncover any results"
+            :rows-per-page-options="[10, 20]"
           >
             <template v-slot:loading>
               <q-inner-loading showing color="logoRed" />

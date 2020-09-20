@@ -18,7 +18,7 @@
           outlined
           dense
           v-model.number="updateMenuItemObj.calzonePrice"
-          label="Item Price"
+          label="Calzone Add-on Price"
           lazy-rules
           mask="#####.##"
           color="positive"

@@ -7,7 +7,7 @@ const CLIENT_ID = process.env.AUTH0_CLIENT_ID;
 const CLIENT_DOMAIN = process.env.AUTH0_DOMAIN;
 const REDIRECT = process.env.AUTH0_CALLBACK_URL;
 const SCOPE = "openid email profile role";
-const AUDIENCE = "https://bfgrill-pwa";
+const AUDIENCE = process.env.AUTH0_AUDIENCE;
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
