@@ -35,6 +35,8 @@
     "mongodb": "^3.5.9",
     "morgan": "^1.9.1",
     "nanoid": "^2.0.3",
+    "serverless-dotenv-plugin": "^3.0.0",
+    "serverless-http": "^2.6.0",
     "web-push": "^3.4.4"
   },
   "devDependencies": {

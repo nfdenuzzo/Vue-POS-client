@@ -21,7 +21,6 @@ const {
   hasSuperAdminRights,
   hasUpdatePermission,
 } = require("../../utils/getPermissions.js");
-const { result } = require("lodash");
 
 //#region retrieve last 5 orders
 router.get("/order-history", checkJwt, async (req, res) => {
@@ -323,6 +322,7 @@ router.post(
       const myProfile = await collection.findOne(myQuery);
 
       const returnFieldsGeneralSettings = {
+        apiUrl: 1,
         orderingActive: 1,
         deliveryCharges: 1,
         openingHours: 1,
@@ -448,6 +448,7 @@ router.post(
           name: req.body.name,
           total: basketTotal,
           shippingEnabled: req.body.orderType === "Delivery",
+          apiUrl: generalSettings.apiUrl
         };
         const result = await createPayment(dto);
 

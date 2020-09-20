@@ -1,11 +1,12 @@
 //import dependencies
-const express = require("express");
+const express = require('express')
+const serverless = require('serverless-http')
 const Sentry = require("@sentry/node");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const routes = require("./routes");
+const routes = require("./routes.js");
 
 // define the Express app
 const app = express();
@@ -35,4 +36,6 @@ app.use("/api", routes);
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
 
-module.exports = app;
+
+// module.exports = app;
+module.exports.handler = serverless(app, { callbackWaitsForEmptyEventLoop: false });

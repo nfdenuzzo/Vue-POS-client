@@ -6,9 +6,7 @@ import { Notify } from "quasar";
 
 let axiosInstance = Axios.create({
   baseURL: url,
-  headers: {
-    Pragma: "no-cache"
-  }
+  headers: {}
 });
 
 // this ensures we get the right token for authroization

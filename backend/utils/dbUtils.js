@@ -2,7 +2,7 @@ const MongoClient = require("mongodb").MongoClient;
 require("dotenv").config();
 const auth0 = require("auth0");
 
-const { MONGODB_URL, DB_NAME, AUTH0_CLIENT_ID, AUTH0_DOMAIN } = process.env;
+const { MONGODB_URL, DB_NAME, AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_AUDIENCE } = process.env;
 
 async function createToken(req) {
   return req.headers.authorization
@@ -37,7 +37,7 @@ const checkJwt = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: "https://bfgrill-pwa",
+  audience: `${AUTH0_AUDIENCE}`,
   issuer: `https://${AUTH0_DOMAIN}/`,
   algorithms: ["RS256"],
 });

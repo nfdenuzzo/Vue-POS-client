@@ -1,7 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const { mobiToken, mobiPaymentURL } = process.env;
+const { mobiToken, mobiPaymentURL, APP_URL } = process.env;
 
 const config = {
   headers: { Authorization: `Bearer ${mobiToken}` },
@@ -23,9 +23,9 @@ async function createPayment(dto) {
     customer_salutation: "",
     customer_first_name: dto.name,
     customer_last_name: "",
-    redirect_url: `http://localhost:8080/?tr=${dto.orderId}`,
-    response_url: "http://e8ac5cc74505.ngrok.io/api/response",
-    cancel_url: `http://localhost:8080`,
+    redirect_url: `https://${APP_URL}/?tr=${dto.orderId}`,
+    response_url: `https://${dto.apiUrl}/response`,
+    cancel_url: `https://${APP_URL}/`,
     fixed_amount: true,
     currency: "ZAR",
     amount: dto.total,

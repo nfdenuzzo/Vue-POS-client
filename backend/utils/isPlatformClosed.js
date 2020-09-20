@@ -6,7 +6,6 @@ module.exports = {
 };
 
 function isPlatformClosed(tradingHours, isClosed) {
-  return false
   // Is Date on a monday?
   const today =  moment(helperStandardDateTimeFormat(new Date()));
   const openTime = moment(

@@ -173,7 +173,6 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
     const collection = await loadSpecificCollection("generalSettings");
-    const usersCollection = await loadSpecificCollection("users");
 
     const token = await createToken(req);
 
@@ -184,7 +183,6 @@ router.put(
         return res.status(500).send(err);
       }
       const generalSettings = await collection.findOne({ _id: { $ne: null } });
-      const userDeliveryArea = await usersCollection.find();
 
       let deliveryCharges = generalSettings.deliveryCharges
         ? generalSettings.deliveryCharges

@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const _ = require("lodash");
-const { helperStandardDateTimeFormat, getStartOfDay, getEndOfDay, getStartOfMonthStartOfDay, getEndOfMonthEndOfDay } = require("../../../utils/dateUtil.js")
+const { getStartOfMonthStartOfDay, getEndOfMonthEndOfDay } = require("../../../utils/dateUtil.js")
 const { loadSpecificCollection } = require("../../../utils/dbUtils.js");
-const ObjectId = require("mongodb").ObjectID;
 const { hasReadPermission } = require("../../../utils/getPermissions.js");
 
 //#region retrieve latest side option items

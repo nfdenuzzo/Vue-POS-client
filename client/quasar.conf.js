@@ -49,16 +49,12 @@ module.exports = function (ctx) {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
         NODE_ENV: ctx.dev ? 'development' : 'production',
-        // BACKEND_URL: ctx.dev ? 'http://192.168.0.24:8081/api/' : 'http://192.168.0.24:8081/api/',
-        BACKEND_URL: ctx.dev ? 'http://localhost:8081/api/' : 'http://localhost:8081/api/',
-        AUTH0_CLIENT_ID: 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8',
-        AUTH0_DOMAIN: 'dev-o3-zte9e.eu.auth0.com',
-        // AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:4000/` : `http://localhost:4000/`,
-        // AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:4000/callback` : `http://localhost:4000/callback`
-        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `http://localhost:8080/`,
-        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `http://localhost:8080/callback`
-        // AUTH0_LOGOUT_URL: ctx.dev ? `http://192.168.0.24:8080/` : `http://192.168.0.24:8080/`,
-        // AUTH0_CALLBACK_URL: ctx.dev ? `http://192.168.0.24:8080/callback` : `http://192.168.0.24:8080/callback`
+        BACKEND_URL: ctx.dev ? 'http://localhost:8081/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
+        AUTH0_CLIENT_ID: ctx.dev ? 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8' : "9JkQg4SO38tx9phxatHw8ei0KxGqX5q6",
+        AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
+        AUTH0_AUDIENCE: ctx.dev ? 'https://bfgrill-pwa' : 'pwa1-api',
+        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://ndcdemos.com`,
+        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://ndcdemos.com/callback`
       },
     
       // transpile: false,
