@@ -36,6 +36,4 @@ app.use("/api", routes);
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
 
-
-// module.exports = app;
 module.exports.handler = serverless(app, { callbackWaitsForEmptyEventLoop: false });
