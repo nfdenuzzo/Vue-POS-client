@@ -368,15 +368,11 @@ const routes = [
       }
     ]
   },
-  {
-    path: "/callback",
-    name: "Callback",
-    component: Callback
-  },
   // Always leave this as last one,
   // but you can also remove it
   {
     path: "*",
+    name: "404",
     component: () => import("pages/Error404.vue")
   }
 ];

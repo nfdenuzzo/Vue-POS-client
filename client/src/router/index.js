@@ -27,8 +27,8 @@ export default function({ store } /* ssrContext } */) {
   });
 
   Router.beforeEach((to, from, next) => {
-    if (!to.name) {
-      next("/");
+    if(to.name == 'Callback') { // check if "to"-route is "callback" and allow access
+      next()
     } else {
       const closestTitle = to.matched.find(r => r.meta && r.meta.title);
       const authRequired = to.meta.auth;
