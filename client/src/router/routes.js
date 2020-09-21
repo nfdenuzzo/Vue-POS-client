@@ -1,4 +1,4 @@
-import Callback from "../components/Callback";
+import Callback from "../../src/Callback";
 import MenuOptions from "../views/menuSelectionView";
 
 import { requireAuth } from "../utils/auth";
