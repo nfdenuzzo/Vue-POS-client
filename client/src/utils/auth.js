@@ -31,7 +31,10 @@ export function logout() {
   clearAccessToken();
   store.dispatch("updateAuthStatus", false);
   // this is required to log a user out as it saves a user
-  auth.logout();
+  auth.logout({
+    returnTo: `${window.location.origin}`,
+    clientID: CLIENT_ID
+  });
   router.push("/").catch(() => {});
 }
 
