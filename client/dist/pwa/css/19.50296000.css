@@ -1,0 +1,1 @@
+.app-custom-list{min-width:10rem;line-height:normal;height:90%!important;margin-top:0!important}.app-custom-item[aria-grabbed=true]{background:#019247;color:#fff}@keyframes nodeInserted{0%{opacity:0.2}to{opacity:0.8}}.item-dropzone-area{height:2rem;background:#746745;opacity:0.8;animation-duration:0.5s;animation-name:nodeInserted;margin-left:0.6rem;margin-right:0.6rem}
