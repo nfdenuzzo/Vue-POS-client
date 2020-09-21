@@ -5,7 +5,6 @@ import jwtDecode from "jwt-decode";
 
 const CLIENT_ID = process.env.AUTH0_CLIENT_ID;
 const CLIENT_DOMAIN = process.env.AUTH0_DOMAIN;
-const REDIRECT = window.location.origin;
 const SCOPE = "openid email profile role";
 const AUDIENCE = process.env.AUTH0_AUDIENCE;
 
@@ -17,7 +16,7 @@ var auth = new auth0.WebAuth({
 export function login() {
   auth.authorize({
     responseType: "token id_token",
-    redirectUri: REDIRECT,
+    redirectUri: `${window.location.origin}/callback`,
     audience: AUDIENCE,
     scope: SCOPE
   });
