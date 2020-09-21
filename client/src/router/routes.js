@@ -361,14 +361,18 @@ const routes = [
         component: () => import("../views/Admin/viewSystemStatistics.vue"),
         beforeEnter: requireAuth
       },
-      {
-        path: "/callback",
-        name: "Callback",
-        component: Callback
-      }
+      // {
+      //   path: "/callback",
+      //   name: "Callback",
+      //   component: Callback
+      // }
     ]
   },
-
+  {
+    path: "/callback",
+    name: "Callback",
+    component: Callback
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

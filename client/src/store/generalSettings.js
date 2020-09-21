@@ -20,9 +20,7 @@ const generalSettings = {
       return state.deliveryCharges;
     },
     getOrderingActive: state => {
-      // TODO : switch this on when going live
-      return true;
-      // return state.orderingActive;
+      return state.orderingActive;
     },
     getTradingHours: state => {
       return state.openingTimes;
