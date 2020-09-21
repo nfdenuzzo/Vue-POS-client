@@ -1,5 +1,5 @@
-import Callback from "../../src/Callback";
-import MenuOptions from "../views/menuSelectionView";
+import Callback from "../components/Callback.vue";
+import MenuOptions from "../views/menuSelectionView.vue";
 
 import { requireAuth } from "../utils/auth";
 

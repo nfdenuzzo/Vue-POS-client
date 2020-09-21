@@ -1,5 +1,5 @@
 <script>
-import { setIdToken, setAccessToken, isLoggedIn } from "../src/utils/auth.js";
+import { setIdToken, setAccessToken, isLoggedIn } from "../utils/auth.js";
 
 export default {
   name: "CallBack",
