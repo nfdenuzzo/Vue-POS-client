@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode";
 
 const CLIENT_ID = process.env.AUTH0_CLIENT_ID;
 const CLIENT_DOMAIN = process.env.AUTH0_DOMAIN;
-const REDIRECT = process.env.AUTH0_CALLBACK_URL;
+const REDIRECT = window.location.origin;
 const SCOPE = "openid email profile role";
 const AUDIENCE = process.env.AUTH0_AUDIENCE;
 
