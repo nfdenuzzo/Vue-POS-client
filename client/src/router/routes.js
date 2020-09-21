@@ -365,6 +365,11 @@ const routes = [
         path: "/callback",
         name: "Callback",
         component: Callback
+      },
+      {
+        path: "*",
+        name: "404",
+        component: () => import("pages/Error404.vue")
       }
     ]
   },
