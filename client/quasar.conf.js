@@ -53,8 +53,8 @@ module.exports = function (ctx) {
         AUTH0_CLIENT_ID: ctx.dev ? 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8' : "9JkQg4SO38tx9phxatHw8ei0KxGqX5q6",
         AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
         AUTH0_AUDIENCE: ctx.dev ? 'https://bfgrill-pwa' : 'pwa1-api',
-        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://ndcdemos.com`,
-        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://ndcdemos.com/callback`
+        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://trusting-kilby-b32d22.netlify.app/`,
+        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://trusting-kilby-b32d22.netlify.app/callback`
       },
     
       // transpile: false,
