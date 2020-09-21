@@ -37,12 +37,12 @@
           </div>
           <div class="col-xs-12">
             <span class="text-weight-bold">Contact Number:</span>
-            <br>
+            <br />
             {{ orderSpecifications.contactNumber }}
           </div>
           <div class="col-xs-12">
             <span class="text-weight-bold"> Email Address:</span>
-            <br>
+            <br />
             {{ orderSpecifications.userEmail }}
           </div>
         </div>
@@ -76,10 +76,10 @@
             >{{ orderSpecifications.deliveryArea.area }}
           </div>
         </div>
-          <div class="col-xs-12">
-            <span class="text-weight-bold">Notify Status change:</span>
-            {{ orderSpecifications.subscribeNotifications ? "Yes" : "No" }}
-          </div>
+        <div class="col-xs-12">
+          <span class="text-weight-bold">Notify Status change:</span>
+          {{ orderSpecifications.subscribeNotifications ? "Yes" : "No" }}
+        </div>
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@
 
 <script>
 import _ from "lodash";
-import { helperStandardDateTimeFormat } from "../../utils//dateUtil.js"
+import { helperStandardDateTimeFormat } from "../../utils//dateUtil.js";
 export default {
   components: {},
   mixins: [],
@@ -112,7 +112,7 @@ export default {
   beforeDestroy() {},
   methods: {
     getCorrectTimeFormat(createdAt) {
-      return helperStandardDateTimeFormat(createdAt)
+      return helperStandardDateTimeFormat(createdAt);
     }
   }
 };

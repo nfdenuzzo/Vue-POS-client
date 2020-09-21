@@ -79,7 +79,7 @@ export default {
     closeDialog() {
       this.$emit("update:viewPaymentStatusDialog", false);
       this.$emit("update:paymentResultSuccessful", false);
-      this.$router.push("/")
+      this.$router.push("/");
     }
   }
 };

@@ -45,7 +45,11 @@
 
         <q-form
           ref="myForm"
-          :style="!$q.platform.is.mobile && menuItemDetails.menuItemImage ? 'margin-top: -40px' : ''"
+          :style="
+            !$q.platform.is.mobile && menuItemDetails.menuItemImage
+              ? 'margin-top: -40px'
+              : ''
+          "
           @submit="onSubmit"
           :greedy="true"
         >

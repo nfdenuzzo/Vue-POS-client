@@ -105,9 +105,11 @@
             <span class="text-weight-bold">Order for </span>
             {{ orderSpecifications.orderType }}
           </div>
-          <div class="col-xs-12" v-if="orderSpecifications.paymentType === 'Pay now'">
+          <div
+            class="col-xs-12"
+            v-if="orderSpecifications.paymentType === 'Pay now'"
+          >
             <span class="text-weight-bold">Payment Made</span>
-
           </div>
           <div class="col-xs-12" v-else>
             <span class="text-weight-bold">Pay on collection</span>
@@ -193,7 +195,8 @@
             Cancel Order?
           </div>
           <span class="q-pt-md text-center"
-            >Are you sure you would like to cancel this order?, once you cancel it you will not be able to undo this action.</span
+            >Are you sure you would like to cancel this order?, once you cancel
+            it you will not be able to undo this action.</span
           >
         </q-card-section>
 
@@ -218,7 +221,7 @@
 
 <script>
 import _ from "lodash";
-import { helperStandardDateTimeFormat } from "../../utils/dateUtil.js"
+import { helperStandardDateTimeFormat } from "../../utils/dateUtil.js";
 export default {
   components: {
     "order-item-display": () => import("../Basket/menuItemOrderDisplay.vue")
@@ -283,7 +286,7 @@ export default {
   beforeDestroy() {},
   methods: {
     getCorrectTimeFormat(createdAt) {
-      return helperStandardDateTimeFormat(createdAt)
+      return helperStandardDateTimeFormat(createdAt);
     },
     closeDialog() {
       this.confirmationCancelOrder = false;
