@@ -38,20 +38,20 @@ const paymentSystem = {
       }
     },
     async queryTransactionResult(
-        { commit, dispatch, rootState, rootGetters },
-        payload
-      ) {
-        try {
-          const result = await axios.axiosInstance.get(
-            `${paymentSystemUrl}/query-payment-status/${payload}`
-          );
-          if (result && result.status === 200) {
-            return result.data
-          }
-        } catch (ex) {
-          console.log("retrieveDefaultSettings -> ex", ex);
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        const result = await axios.axiosInstance.get(
+          `${paymentSystemUrl}/query-payment-status/${payload}`
+        );
+        if (result && result.status === 200) {
+          return result.data;
         }
+      } catch (ex) {
+        console.log("retrieveDefaultSettings -> ex", ex);
       }
+    }
   },
   mutations: {
     setTranId(state, payload) {

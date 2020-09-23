@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -85,18 +85,18 @@ export default {
     resetFields() {
       this.updateMenuItemObj.chosenBastingStyleOptions = [];
       this.updateMenuItemObj.hasBastingStyleOptions = false;
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
     filterFnBastingStyleOptions(val, update) {
       if (val === "") {
         update(() => {
-          this.bastingOptionOptions = _.sortBy(
+          this.bastingOptionOptions = sortBy(
             this.$store.getters.getAdminSideItems.filter(item =>
               item.addonCategory.name.includes("basting-options")
             ),
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
         });
@@ -109,8 +109,8 @@ export default {
           this.$store.getters.getAdminSideItems.filter(item =>
             item.addonCategory.name.includes("basting-options")
           ),
-          function(user) {
-            return user.name.toLowerCase();
+          function(x) {
+            return x.name.toLowerCase();
           }
         ).filter(v => v.name.toLowerCase().indexOf(needle) > -1);
       });

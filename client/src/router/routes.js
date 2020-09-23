@@ -362,6 +362,17 @@ const routes = [
         beforeEnter: requireAuth
       },
       {
+        path: "/campaigns",
+        name: "campaigns",
+        meta: {
+          title: "Black Forest Grill - Admin Campaigns",
+          dispatchMethod: { name: "", payload: "" },
+          auth: true
+        },
+        component: () => import("../views/Admin/viewSpecialsCampaign.vue"),
+        beforeEnter: requireAuth
+      },
+      {
         path: "/callback",
         name: "Callback",
         component: Callback

@@ -150,8 +150,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
-import { helperStandardDateTimeFormat } from "../../utils/dateUtil.js"
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -240,7 +239,7 @@ export default {
   },
   computed: {
     currentUsers() {
-      return _.sortBy(this.$store.getters.getUserList, function(user) {
+      return sortBy(this.$store.getters.getUserList, function(user) {
         return user.name.toLowerCase();
       });
     }

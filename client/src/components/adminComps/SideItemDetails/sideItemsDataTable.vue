@@ -237,7 +237,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {
     "update-side-items": () =>
@@ -325,7 +325,7 @@ export default {
   },
   computed: {
     currentSideItems() {
-      return _.sortBy(
+      return sortBy(
         this.$store.getters.getAdminSideItems.map(item => {
           return {
             _id: item._id,
@@ -335,8 +335,8 @@ export default {
             addonCategory: item.addonCategory
           };
         }),
-        function(user) {
-          return user.name.toLowerCase();
+        function(x) {
+          return x.name.toLowerCase();
         }
       );
     }

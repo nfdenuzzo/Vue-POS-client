@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../utils/auth.js";
+const getIsLoggedIn = () => import('../utils/auth.js')
 export default {
   components: {},
   mixins: [],
@@ -7,7 +7,8 @@ export default {
     return {};
   },
   computed: {
-    hasAccessToken() {
+    async hasAccessToken() {
+      const isLoggedIn = await getIsLoggedIn().then(resp => resp.isLoggedIn);
       return this.$store.getters.getAuth && isLoggedIn();
     },
     hasNoPermissions() {

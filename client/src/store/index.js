@@ -16,6 +16,7 @@ import basket from "./basket";
 import notifications from "./notifications";
 import systemStatistics from "./adminSystemStatistics";
 import paymentSystem from "./paymentSystem";
+import specialRules from "./specialRules";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -68,7 +69,7 @@ export default new Vuex.Store({
     orders,
     notifications,
     systemStatistics,
-    paymentSystem
+    paymentSystem,
+    specialRules
   }
 });
-

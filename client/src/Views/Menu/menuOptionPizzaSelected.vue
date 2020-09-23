@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
   name: "pizza-option-selected",
@@ -68,33 +68,33 @@ export default {
     getPizzaList() {
       switch (this.$route.name) {
         case "signature-pizzas":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getSignaturePizzasMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         case "classic-pizzas":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getClassicPizzasMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         case "pizza-breads":
-          return _.sortBy(this.$store.getters.getPizzaBreadsMenuItems, function(
-            user
+          return sortBy(this.$store.getters.getPizzaBreadsMenuItems, function(
+            x
           ) {
-            return user.name.toLowerCase();
+            return x.name.toLowerCase();
           });
           break;
         default:
-          return _.sortBy(this.$store.getters.getSignaturePizzas, function(
-            user
+          return sortBy(this.$store.getters.getSignaturePizzas, function(
+            x
           ) {
-            return user.name.toLowerCase();
+            return x.name.toLowerCase();
           });
       }
     }

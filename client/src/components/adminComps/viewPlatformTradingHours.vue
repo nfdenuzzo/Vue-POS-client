@@ -139,7 +139,7 @@ export default {
       this.openingHours = JSON.parse(
         JSON.stringify(this.$store.getters.getAdminTradingHours)
       );
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
     },
     async onSubmit() {
       this.updateBtnLoading = true;

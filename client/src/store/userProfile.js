@@ -25,10 +25,7 @@ const myProfile = {
         const result = await axios.axiosInstance.get(`${myProfileUrl}`);
         if (result && result.status === 200) {
           commit("setMyProfile", result.data);
-          commit(
-            "setMyProfileRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setMyProfileRetrievedDate", new Date());
           return true;
         }
       } catch (ex) {

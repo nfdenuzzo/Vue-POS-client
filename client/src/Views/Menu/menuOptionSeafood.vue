@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
   name: "seafood",
@@ -75,8 +75,8 @@ export default {
   },
   computed: {
     getSeafoodList() {
-      return _.sortBy(this.$store.getters.getSeafoodMenuItems, function(user) {
-        return user.name.toLowerCase();
+      return sortBy(this.$store.getters.getSeafoodMenuItems, function(x) {
+        return x.name.toLowerCase();
       });
     }
   },

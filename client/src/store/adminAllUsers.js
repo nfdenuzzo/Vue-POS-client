@@ -24,17 +24,14 @@ const adminAllUsers = {
       try {
         if (
           cachingTimeExpired(rootGetters.getUserListRetrievedDate) ||
-          (payload && payload.forceRefresh)
+          (payload && payload.forceRefresh) || (rootGetters.getUserList.length === 0) 
         ) {
           const result = await axios.axiosInstance.get(
             `${usersAdminUrl}/current-users`
           );
           if (result && result.status === 200) {
             commit("setUserList", result.data);
-            commit(
-              "setUserListRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
+            commit("setUserListRetrievedDate", new Date());
             return true;
           }
         } else {

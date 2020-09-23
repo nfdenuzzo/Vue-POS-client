@@ -9,7 +9,6 @@
           <q-form
             ref="myForm"
             @submit="onSubmit"
-            @reset="onReset"
             v-if="updateProfileObj"
           >
             <div class="row justify-center">
@@ -102,7 +101,7 @@
             <div class="row justify-center q-pb-md">
               <q-btn
                 label="Reset"
-                type="reset"
+                @click="onReset"
                 color="logoRed"
                 class="q-mr-lg text-capitalize"
               />
@@ -173,7 +172,7 @@ export default {
     },
     async onReset() {
       await this.assignData();
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
     },
     filterFn(val, update, abort) {
       update(() => {

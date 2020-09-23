@@ -40,16 +40,12 @@ const generalSettings = {
       try {
         if (
           cachingTimeExpired(rootGetters.getSettingsRetrievedDate) ||
-          (payload && payload.forceRefresh) ||
-          rootGetters.getTradingHours.length === 0
+          (payload && payload.forceRefresh) || (rootGetters.getTradingHours.length === 0)
         ) {
           const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
           if (result && result.status === 200) {
             commit("setTradingHours", result.data.openingHours);
-            commit(
-              "setSettingsRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
+            commit("setSettingsRetrievedDate", new Date());
             commit("setVatRate", result.data.vat);
             commit("setDeliveryCharges", result.data.deliveryCharges);
             return true;

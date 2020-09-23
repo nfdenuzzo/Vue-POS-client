@@ -22,22 +22,21 @@ const systemStatistics = {
       payload
     ) {
       try {
-        // if (
-        //   cachingTimeExpired(rootGetters.getSystemStatisticsRetrievedDate) ||
-        //   (payload && payload.forceRefresh)
-        // ) {
-          const result = await axios.axiosInstance.get(`${systemStatisticsAdminUrl}`);
+        if (
+          cachingTimeExpired(rootGetters.getSystemStatisticsRetrievedDate) ||
+          (payload && payload.forceRefresh) || (rootGetters.getSystemStatistics.length === 0) 
+        ) {
+          const result = await axios.axiosInstance.get(
+            `${systemStatisticsAdminUrl}`
+          );
           if (result && result.status === 200) {
             commit("setSystemStatistics", result.data);
-            commit(
-              "setSystemStatisticsRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
+            commit("setSystemStatisticsRetrievedDate", new Date());
             return true;
           }
-        // } else {
-        //   return true;
-        // }
+        } else {
+          return true;
+        }
       } catch (ex) {
         console.log("retrieveSystemStatistics -> ex", ex);
         return false;

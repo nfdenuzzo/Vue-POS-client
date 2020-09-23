@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -85,18 +85,18 @@ export default {
     resetFields() {
       this.updateMenuItemObj.chosenBurgerToppings = [];
       this.updateMenuItemObj.hasBurgerToppings = false;
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
     filterFnToppings(val, update) {
       if (val === "") {
         update(() => {
-          this.burgerToppingOptions = _.sortBy(
+          this.burgerToppingOptions = sortBy(
             this.$store.getters.getAdminSideItems.filter(item =>
               item.addonCategory.name.includes("burger-toppings")
             ),
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
         });
@@ -105,12 +105,12 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase();
-        this.burgerToppingOptions = _.sortBy(
+        this.burgerToppingOptions = sortBy(
           this.$store.getters.getAdminSideItems.filter(item =>
             item.addonCategory.name.includes("burger-toppings")
           ),
-          function(user) {
-            return user.name.toLowerCase();
+          function(x) {
+            return x.name.toLowerCase();
           }
         ).filter(v => v.name.toLowerCase().indexOf(needle) > -1);
       });

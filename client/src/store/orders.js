@@ -90,10 +90,7 @@ const menuSideItems = {
         );
         if (result && result.status === 200) {
           commit("setActiveOrders", result.data);
-          commit(
-            "setActiveOrdersRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setActiveOrdersRetrievedDate", new Date());
           return true;
         }
       } catch (ex) {
@@ -125,10 +122,7 @@ const menuSideItems = {
         );
         if (result && result.status === 200) {
           commit("setOrderHistory", result.data);
-          commit(
-            "setOrderHistoryRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setOrderHistoryRetrievedDate", new Date());
           return true;
         }
       } catch (ex) {

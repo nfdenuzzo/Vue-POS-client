@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -86,18 +86,18 @@ export default {
     resetFields() {
       this.updateMenuItemObj.chosenEggStyleOptions = [];
       this.updateMenuItemObj.hasEggStyleOptions = false;
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
     filterFnEggStyleOptions(val, update) {
       if (val === "") {
         update(() => {
-          this.eggOptionOptions = _.sortBy(
+          this.eggOptionOptions = sortBy(
             this.$store.getters.getAdminSideItems.filter(item =>
               item.addonCategory.name.includes("egg-style-options")
             ),
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
         });
@@ -106,12 +106,12 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase();
-        this.eggOptionOptions = _.sortBy(
+        this.eggOptionOptions = sortBy(
           this.$store.getters.getAdminSideItems.filter(item =>
             item.addonCategory.name.includes("egg-style-options")
           ),
-          function(user) {
-            return user.name.toLowerCase();
+          function(x) {
+            return x.name.toLowerCase();
           }
         ).filter(v => v.name.toLowerCase().indexOf(needle) > -1);
       });
