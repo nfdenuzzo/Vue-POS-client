@@ -234,7 +234,7 @@
                     :options="getMenuItemOptions"
                     label="Selected Menu Items"
                     color="positive"
-                    @remove="option => removeGettItemOption(option)"
+                    @remove="option => removeGetItemOption(option)"
                     dense
                     multiple
                     use-chips
