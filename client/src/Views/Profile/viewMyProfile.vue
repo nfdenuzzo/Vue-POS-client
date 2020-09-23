@@ -6,11 +6,7 @@
     <div class="row justify-center">
       <div class="col-xs-12 col-sm-12 col-md-8">
         <q-card class="q-pa-md">
-          <q-form
-            ref="myForm"
-            @submit="onSubmit"
-            v-if="updateProfileObj"
-          >
+          <q-form ref="myForm" @submit="onSubmit" v-if="updateProfileObj">
             <div class="row justify-center">
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
@@ -98,6 +94,20 @@
                 />
               </div>
             </div>
+            <div class="row justify-center">
+              <div class="col-xs-10">
+                <div class="row">
+                  <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
+                    <q-checkbox
+                      left-label
+                      v-model="updateProfileObj.notificationsEnabled"
+                      label="Subscribe to Notifications"
+                      color="positive"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="row justify-center q-pb-md">
               <q-btn
                 label="Reset"
@@ -123,6 +133,7 @@
   </div>
 </template>
 <script>
+import { webPushCreateSub } from "../../utils/webpushUtil.js";
 export default {
   components: {},
   mixins: [],
@@ -157,6 +168,9 @@ export default {
     },
     async onSubmit() {
       this.updateBtnLoading = true;
+      if (this.updateProfileObj.notificationsEnabled) {
+        this.updateProfileObj.subscriptionObject = await webPushCreateSub();
+      }
       const result = await this.$store.dispatch(
         "updateUserProfile",
         this.updateProfileObj

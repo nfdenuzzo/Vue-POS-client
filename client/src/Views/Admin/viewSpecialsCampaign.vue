@@ -2,7 +2,7 @@
   <div>
     <create-campaign-rule />
 
-    <!-- <current-side-items /> -->
+    <current-campaign-rules />
   </div>
 </template>
 
@@ -11,12 +11,12 @@ export default {
   components: {
     "create-campaign-rule": () =>
       import(
-        "../../components/adminComps/SpecialRules/specialRules.vue"
+        "../../components/adminComps/SpecialRules/createUpdateSpecialRules.vue"
       ),
-    // "current-side-items": () =>
-    //   import(
-    //     "../../components/adminComps/SideItemDetails/sideItemsDataTable.vue"
-    //   )
+    "current-campaign-rules": () =>
+      import(
+        "../../components/adminComps/SpecialRules/specialRulesDataTable.vue"
+      )
   },
   mixins: [],
   props: {},

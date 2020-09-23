@@ -46,7 +46,7 @@ const routes = [
         name: "MenuOptionPizza",
         meta: {
           title: "Black Forest Grill - Pizza Menu",
-          //  dispatchMethod: { name:  "retrieveMenuItems", payload: "" },
+          dispatchMethod: { name:  "retrieveMenuItems", payload: "" },
           auth: false
         },
         component: () => import("../views/Menu/menuOptionPizza.vue"),
@@ -113,7 +113,7 @@ const routes = [
         name: "MenuOptionChefSpecial",
         meta: {
           title: "Black Forest Grill - Chef Specials Menu",
-          //  dispatchMethod: { name:  "retrieveMenuItems", payload: "" },
+          dispatchMethod: { name:  "retrieveMenuItems", payload: "" },
           auth: false
         },
         component: () => import("../views/Menu/menuOptionChefSpecials.vue"),
