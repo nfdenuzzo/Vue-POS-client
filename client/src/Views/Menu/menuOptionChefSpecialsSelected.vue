@@ -99,7 +99,7 @@ export default {
             }
           );
           break;
-        case "burger":
+        case "burgers":
           return sortBy(
             this.$store.getters.getChefSpecialBurgerMenuItems,
             function(x) {

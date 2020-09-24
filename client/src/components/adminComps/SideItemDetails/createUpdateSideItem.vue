@@ -143,6 +143,7 @@
   </div>
 </template>
 <script>
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -177,8 +178,11 @@ export default {
   },
   computed: {
     getAddonCategoriesExcludingDisabled() {
-      return this.$store.getters.getAdminAddonCategories.filter(
-        x => !x.disabled
+      return sortBy(
+        this.$store.getters.getAdminAddonCategories.filter(x => !x.disabled),
+        function(x) {
+          return x.name.toLowerCase();
+        }
       );
     }
   },

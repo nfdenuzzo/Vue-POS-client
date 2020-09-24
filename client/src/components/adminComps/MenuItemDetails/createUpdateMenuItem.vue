@@ -196,6 +196,21 @@
           </div>
 
           <div class="row justify-center">
+            <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
+              <hasDessertTopping
+                :menuItemObj.sync="menuItemObj"
+                ref="hasDessertToppings"
+              />
+            </div>
+            <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
+              <hasSaladTopping
+                :menuItemObj.sync="menuItemObj"
+                ref="hasSaladToppings"
+              />
+            </div>
+          </div>
+
+          <div class="row justify-center">
             <hasExtrasOffered
               :menuItemObj.sync="menuItemObj"
               ref="hasExtrasOffered"
@@ -243,6 +258,8 @@ import hasMeatStyleOption from "../menuItemOptions/itemHasMeatStyleOption.vue";
 import hasFishStyleOption from "../menuItemOptions/itemHasFishStyleOption.vue";
 import hasEggStyleOption from "../menuItemOptions/itemHasEggStyleOption.vue";
 import hasBastingStyleOption from "../menuItemOptions/itemHasBastingStyleOption.vue";
+import hasDessertTopping from "../menuItemOptions/itemHasDessertTopping.vue";
+import hasSaladTopping from "../menuItemOptions/itemHasSaladTopping.vue";
 import hasExtrasOffered from "../menuItemOptions/itemHasExtrasOffered.vue";
 import imagePage from "../../imagePage.vue";
 import sortBy from "lodash/sortBy";
@@ -261,6 +278,8 @@ export default {
     hasEggStyleOption,
     hasExtrasOffered,
     hasBastingStyleOption,
+    hasDessertTopping,
+    hasSaladTopping,
     imagePage
   },
   mixins: [],
@@ -285,45 +304,7 @@ export default {
     return {
       dataLoaded: false,
       createUpdateBtnLoading: false,
-      menuItemObj: {
-        name: null,
-        description: null,
-        price: false,
-        menuItemImage: null,
-        menuCategory: null,
-        disabled: false,
-        calzonePrice: null,
-        calzoneOffered: false,
-        hasBastingStyleOptions: false,
-        chosenBastingStyleOptions: [],
-        hasEggStyleOptions: false,
-        chosenEggStyleOptions: [],
-        offerExtraPizzaToppings: false,
-        offerExtraDessertToppings: false,
-        offerExtraSaladToppings: false,
-        offerExtraBurgerToppings: false,
-        offerExtraPastaToppings: false,
-        offerExtraSuaces: false,
-        offerExtraMainOptions: false,
-        hasFishStyleOptions: false,
-        chosenFishStyleOptions: [],
-        hasMainToppings: false,
-        chosenMainToppings: [],
-        hasMeatStyleOptions: false,
-        chosenMeatStyleOptions: [],
-        hasPastaOptions: false,
-        chosenPastaOptions: [],
-        hasPastaToppings: false,
-        chosenPastaToppings: [],
-        hasPizzaToppings: false,
-        chosenPizzaToppings: [],
-        hasSauceOptions: false,
-        chosenSauceOptions: [],
-        hasSideOptions: false,
-        chosenSideOptions: [],
-        hasBurgerToppings: false,
-        chosenBurgerToppings: []
-      }
+      menuItemObj: this.defaultMenuItemObject(),
     };
   },
   computed: {
@@ -353,8 +334,8 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
-    closeDialog() {
-      this.menuItemObj = {
+    defaultMenuItemObject() {
+      return {
         name: null,
         description: null,
         price: false,
@@ -388,11 +369,18 @@ export default {
         chosenPizzaToppings: [],
         hasSauceOptions: false,
         chosenSauceOptions: [],
+        hasDessertToppings: false,
+        chosenDessertToppings: [],
+        hasSaladToppings: false,
+        chosenSaladToppings: [],
         hasSideOptions: false,
         chosenSideOptions: [],
         hasBurgerToppings: false,
         chosenBurgerToppings: []
       };
+    },
+    closeDialog() {
+      this.menuItemObj = this.defaultMenuItemObject();
       this.$emit("update:viewUpdateDialog", false);
     },
     async assignData() {
@@ -424,6 +412,8 @@ export default {
       this.$refs.hasPastaOptions.resetFields();
       this.$refs.hasPastaToppings.resetFields();
       this.$refs.hasSauceOptions.resetFields();
+      this.$refs.hasDessertToppings.resetFields();
+      this.$refs.hasSaladToppings.resetFields();
       this.$refs.hasMainToppings.resetFields();
       this.$refs.hasSideOptions.resetFields();
       this.$refs.hasMeatStyleOptions.resetFields();
@@ -434,43 +424,7 @@ export default {
       this.$refs.hasBastingStyleOption.resetFields();
       this.$refs.imagePage.resetFields();
       this.$refs.myForm.reset();
-      this.menuItemObj = {
-        name: null,
-        description: null,
-        price: false,
-        menuItemImage: null,
-        menuCategory: null,
-        disabled: false,
-        calzonePrice: null,
-        calzoneOffered: false,
-        hasBastingStyleOptions: false,
-        chosenBastingStyleOptions: [],
-        hasEggStyleOptions: false,
-        chosenEggStyleOptions: [],
-        offerExtraPizzaToppings: false,
-        offerExtraDessertToppings: false,
-        offerExtraSaladToppings: false,
-        offerExtraBurgerToppings: false,
-        offerExtraPastaToppings: false,
-        offerExtraSuaces: false,
-        offerExtraMainOptions: false,
-        hasFishStyleOptions: false,
-        chosenFishStyleOptions: [],
-        hasMainToppings: false,
-        chosenMainToppings: [],
-        hasMeatStyleOptions: false,
-        chosenMeatStyleOptions: [],
-        hasPastaOptions: false,
-        chosenPastaOptions: [],
-        hasPastaToppings: false,
-        chosenPastaToppings: [],
-        hasPizzaToppings: false,
-        chosenPizzaToppings: [],
-        hasSauceOptions: false,
-        chosenSauceOptions: [],
-        hasSideOptions: false,
-        chosenSideOptions: []
-      };
+      this.menuItemObj = this.defaultMenuItemObject();
     }
   }
 };
