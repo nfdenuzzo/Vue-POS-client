@@ -88,7 +88,15 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    viewDetails(menuObject) {
+      this.viewMenuItemsDetails = true;
+      this.menuItemDetails = menuObject;
+    },
+    closeMenuItemsDetails() {
+      this.viewMenuItemsDetails = false;
+    }
+  }
 };
 </script>
 <style></style>

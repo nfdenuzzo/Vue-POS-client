@@ -57,7 +57,11 @@ import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
   name: "kids-menu",
-  components: {},
+  components: {
+    "menu-item": () => import("../../components/MenuItem/menuItem.vue"),
+    "menu-item-details": () =>
+      import("../../components/MenuItem/menuItemDetails.vue")
+  },
   beforeRouteLeave(to, from, next) {
     if (this.viewMenuItemsDetails) {
       this.viewMenuItemsDetails = false;
@@ -88,7 +92,16 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+    viewDetails(menuObject) {
+      this.viewMenuItemsDetails = true;
+      this.menuItemDetails = menuObject;
+    },
+    closeMenuItemsDetails() {
+      this.viewMenuItemsDetails = false;
+    }
+  }
 };
 </script>
 <style></style>
+
