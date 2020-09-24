@@ -4,7 +4,7 @@
     :style="
       $q.platform.is.mobile
         ? 'min-width: 320px !important;'
-        : 'min-width: 400px !important;'
+        : 'min-width: 360px !important;'
     "
   >
     <router-view />

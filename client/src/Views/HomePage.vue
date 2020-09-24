@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
     <div class="row q-pt-md justify-center">
       <span class="text-h6 text-color text-weight-bolder">
@@ -10,7 +11,7 @@
       <div class="col-12 no-wrap text-center">
         <span
           class="text-color text-weight-bolder"
-          :class="$q.screen.height > 480 ? 'text-h4' : 'text-h5'"
+          :class="$q.screen.height > 480 && $q.screen.width > 800 ? 'text-h4' : 'text-h5'"
         >
           Black Forest Grill
         </span>
@@ -21,7 +22,7 @@
       class="row q-pt-sm justify-center"
       :class="{
         'q-pb-sm':
-          $q.screen.height > 800 && getPlatformOpen && !$store.getters.getAuth
+          $q.screen.height > 767 && getPlatformOpen && !$store.getters.getAuth
       }"
     >
       <div
@@ -35,7 +36,7 @@
       v-if="$store.getters.getAuth && $store.getters.getProfile.name"
       :class="{
         'q-pb-md':
-          $q.screen.height > 800 && getPlatformOpen && $store.getters.getAuth
+          $q.screen.height > 767 && getPlatformOpen && $store.getters.getAuth
       }"
     >
       <div class="row q-pt-md justify-center">
@@ -70,10 +71,12 @@
         @click="handler(button.action)"
       />
     </div>
+  </div>
+  <div>
     <div class="bg-transparent fixed-bottom absolute-bottom">
       <div
         class="row q-pa-sm text-color text-weight-bold"
-        v-if="$q.screen.height > 900"
+        v-if="$q.screen.height > 767 && $q.screen.width > 700"
       >
         <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
           <trading-Hours />
@@ -177,6 +180,7 @@
       <br />
     </div>
   </div>
+</div>
 </template>
 
 <script>

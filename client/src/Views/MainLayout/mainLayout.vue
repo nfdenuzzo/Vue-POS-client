@@ -153,17 +153,17 @@
             </div>
             <cooking-time-info
               class="q-pt-lg q-pb-sm"
-              v-if="$q.screen.height <= 800"
+              v-if="$q.screen.height <= 750"
               :drawer="true"
             />
             <trading-Hours
               class="q-pt-md q-pb-md"
-              v-if="$q.screen.height <= 800"
+              v-if="$q.screen.height <= 750"
               :drawer="true"
             />
             <delivery-charges
               class="q-pt-md q-pb-md"
-              v-if="$q.screen.height <= 800"
+              v-if="$q.screen.height <= 750"
             />
             <terms-and-conditions />
           </q-list>
