@@ -18,7 +18,7 @@
         <q-checkbox
           left-label
           v-model="updateMenuItemObj.offerExtraPastaToppings"
-          label="Product can have extra pizza toppings?"
+          label="Product can have extra pasta toppings?"
           color="positive"
         />
       </div>

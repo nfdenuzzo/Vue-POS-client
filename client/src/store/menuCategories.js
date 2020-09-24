@@ -22,19 +22,19 @@ const menuCategories = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getMenuCategoriesRetrievedDate) ||
-          (payload && payload.forceRefresh) || (rootGetters.getMenuCategories.length === 0)
-        ) {
+        // if (
+        //   cachingTimeExpired(rootGetters.getMenuCategoriesRetrievedDate) ||
+        //   (payload && payload.forceRefresh) || (rootGetters.getMenuCategories.length === 0)
+        // ) {
           const result = await axios.axiosInstance.get(categoriesOptionUrl);
           if (result && result.status === 200) {
             commit("setMenuCategories", result.data);
             commit("setMenuCategoriesRetrievedDate", new Date());
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveMenuCategories -> ex", ex);
         return false;

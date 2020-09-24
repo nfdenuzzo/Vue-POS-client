@@ -73,19 +73,19 @@ const adminSideItems = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getAdminSideItemsRetrievedDate) ||
-          (payload && payload.forceRefresh) || (rootGetters.getAdminSideItems.length === 0) 
-        ) {
+        // if (
+        //   cachingTimeExpired(rootGetters.getAdminSideItemsRetrievedDate) ||
+        //   (payload && payload.forceRefresh) || (rootGetters.getAdminSideItems.length === 0) 
+        // ) {
           const result = await axios.axiosInstance.get(`${sideItemAdminUrl}`);
           if (result && result.status === 200) {
             commit("setAdminSideItems", result.data);
             commit("setAdminSideItemsRetrievedDate", new Date());
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveAdminSideItem -> ex", ex);
         return false;

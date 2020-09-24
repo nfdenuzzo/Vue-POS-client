@@ -73,22 +73,22 @@ const adminAddonCategories = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(
-            rootGetters.getAdminAddonCategoriesRetrievedDate
-          ) ||
-          (payload && payload.forceRefresh) ||
-          rootGetters.getAdminAddonCategories.length === 0
-        ) {
+        // if (
+        //   cachingTimeExpired(
+        //     rootGetters.getAdminAddonCategoriesRetrievedDate
+        //   ) ||
+        //   (payload && payload.forceRefresh) ||
+        //   rootGetters.getAdminAddonCategories.length === 0
+        // ) {
           const result = await axios.axiosInstance.get(addonCategoriesAdminUrl);
           if (result && result.status === 200) {
             commit("setAdminAddonCategories", result.data);
             commit("setAdminAddonCategoriesRetrievedDate", new Date());
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveAdminAddonCategories -> ex", ex);
         return false;

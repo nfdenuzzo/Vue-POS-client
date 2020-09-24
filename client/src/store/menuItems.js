@@ -134,10 +134,10 @@ const menuItems = {
         );
         const category = payload.value;
         const categoryLength = await dispatch("getDifferentMenuItemsLength", category);
-        if (
-          cachingTimeExpired(retrievedDate) ||
-          (payload && payload.forceRefresh) || (categoryLength === 0)
-        ) {
+        // if (
+        //   cachingTimeExpired(retrievedDate) ||
+        //   (payload && payload.forceRefresh) || (categoryLength === 0)
+        // ) {
           const result = await axios.axiosInstance.get(
             `${menuItemsUrl}/${category}`
           );
@@ -149,9 +149,9 @@ const menuItems = {
             });
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveMenuItems -> ex", ex);
         return false;

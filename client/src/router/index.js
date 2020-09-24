@@ -34,7 +34,7 @@ export default function({ store } /* ssrContext } */) {
       const closestTitle = to.matched.find(r => r.meta && r.meta.title);
       const authRequired = to.meta.auth;
       const dispatchMethod = to.matched.find(
-        r => r.meta && r.meta.dispatchMethod && r.meta.dispatchMethod.name
+        r => r.name === to.name
       );
       if (closestTitle) {
         document.title = closestTitle.meta.title;

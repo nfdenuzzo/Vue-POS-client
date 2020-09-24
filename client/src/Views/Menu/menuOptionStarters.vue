@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     getStartersList() {
-      return sortBy(this.$store.getters.getStarters, function(x) {
+      return sortBy(this.$store.getters.getStartersMenuItems, function(x) {
         return x.name.toLowerCase();
       });
     }

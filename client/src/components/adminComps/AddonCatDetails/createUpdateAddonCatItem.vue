@@ -13,7 +13,7 @@
       >
         {{ isEditing ? "Update" : "Create" }} Add-on Category
       </div>
-      <div clas="q-pa-md" v-if="dataLoaded" :key="rerenderKey">
+      <div clas="q-pa-md" v-if="dataLoaded">
         <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center q-pb-md">
             <div
@@ -117,7 +117,6 @@ export default {
   },
   data() {
     return {
-      rerenderKey: 0,
       createUpdateBtnLoading: false,
       addonCatObj: {
         name: null,

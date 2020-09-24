@@ -14,7 +14,7 @@
         {{ isEditing ? "Update" : "Create" }} Menu Item
       </div>
 
-      <div clas="q-pa-md" v-if="dataLoaded" :key="rerenderKey">
+      <div clas="q-pa-md" v-if="dataLoaded">
         <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center q-pb-sm">
             <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
@@ -283,7 +283,6 @@ export default {
   },
   data() {
     return {
-      rerenderKey: 0,
       dataLoaded: false,
       createUpdateBtnLoading: false,
       menuItemObj: {

@@ -38,10 +38,10 @@ const generalSettings = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getSettingsRetrievedDate) ||
-          (payload && payload.forceRefresh) || (rootGetters.getTradingHours.length === 0)
-        ) {
+        // if (
+        //   cachingTimeExpired(rootGetters.getSettingsRetrievedDate) ||
+        //   (payload && payload.forceRefresh) || (rootGetters.getTradingHours.length === 0)
+        // ) {
           const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
           if (result && result.status === 200) {
             commit("setTradingHours", result.data.openingHours);
@@ -50,9 +50,9 @@ const generalSettings = {
             commit("setDeliveryCharges", result.data.deliveryCharges);
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveDefaultSettings -> ex", ex);
         return false;

@@ -22,19 +22,19 @@ const menuSideItems = {
       payload
     ) {
       try {
-        if (
-          cachingTimeExpired(rootGetters.getSideItemsRetrievedDate) ||
-          (payload && payload.forceRefresh) || (rootGetters.getSideItems.length === 0) 
-        ) {
+        // if (
+        //   cachingTimeExpired(rootGetters.getSideItemsRetrievedDate) ||
+        //   (payload && payload.forceRefresh) || (rootGetters.getSideItems.length === 0) 
+        // ) {
           const result = await axios.axiosInstance.get(`${sideItemUrl}`);
           if (result && result.status === 200) {
             commit("setSideItems", result.data);
             commit("setSideItemsRetrievedDate", new Date());
             return true;
           }
-        } else {
-          return true;
-        }
+        // } else {
+        //   return true;
+        // }
       } catch (ex) {
         console.log("retrieveSideItem -> ex", ex);
         return false;
