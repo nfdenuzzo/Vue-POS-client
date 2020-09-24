@@ -645,7 +645,7 @@
   </q-card>
 </template>
 <script>
-import _ from "lodash";
+import lodashKeys from "lodash/keys";
 export default {
   components: {},
   mixins: [],
@@ -719,7 +719,7 @@ export default {
       ) {
         price = price + this.menuItemDetails.calzonePrice;
       }
-      const keys = _.keys(this.selectedMenuItemDetails.extras);
+      const keys = lodashKeys(this.selectedMenuItemDetails.extras);
       keys.forEach(key => {
         if (this.selectedMenuItemDetails.extras[key].length > 0) {
           price = price + this.calculateExtrasSelectedCost(key);

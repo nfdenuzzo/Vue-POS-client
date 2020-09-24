@@ -83,7 +83,6 @@
   </q-form>
 </template>
 <script>
-import _ from "lodash";
 export default {
   components: {},
   mixins: [],
@@ -117,7 +116,7 @@ export default {
       this.updateMenuItemObj.offerExtraSaladToppings = false;
       this.updateMenuItemObj.offerExtraBurgerToppings = false;
       this.updateMenuItemObj.offerExtraPastaToppings = false;
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
     updateMenuItemObject() {

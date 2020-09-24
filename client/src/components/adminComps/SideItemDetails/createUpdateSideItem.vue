@@ -13,8 +13,8 @@
       >
         {{ isEditing ? "Update" : "Create" }} Side Item
       </div>
-      <div clas="q-pa-md" v-if="dataLoaded" :key="rerenderKey">
-        <q-form ref="myForm" @submit="onSubmit" @reset="onReset">
+      <div clas="q-pa-md" v-if="dataLoaded">
+        <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center q-pb-md">
             <div
               :class="
@@ -125,7 +125,7 @@
             <q-btn
               v-if="!isEditing"
               label="Reset"
-              type="reset"
+              @click="onReset"
               color="logoRed"
               class="q-mr-lg text-capitalize"
             />
@@ -165,7 +165,6 @@ export default {
   },
   data() {
     return {
-      rerenderKey: 0,
       createUpdateBtnLoading: false,
       sideItemObj: {
         name: null,
@@ -239,7 +238,7 @@ export default {
         disabled: false,
         addonCategory: null
       };
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
     }
   }
 };

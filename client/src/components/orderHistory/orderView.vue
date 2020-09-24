@@ -66,7 +66,7 @@
     <div class="text-color row items-center text-center q-pb-none">
       <div class="col-xs-11 text-weight-bold">
         Order place at:
-        {{ getCorrectTimeFormat(orderSpecifications.createdAt) }}
+        {{ orderSpecifications.createdAt }}
       </div>
     </div>
     <div class="text-color row text-center q-pt-sm">
@@ -220,8 +220,7 @@
 </template>
 
 <script>
-import _ from "lodash";
-import { helperStandardDateTimeFormat } from "../../utils/dateUtil.js";
+import sortBy from "lodash/sortBy";
 export default {
   components: {
     "order-item-display": () => import("../Basket/menuItemOrderDisplay.vue")
@@ -261,7 +260,7 @@ export default {
       return this.orderSpecifications.itemsInOrder > 0;
     },
     showItemsInOrder() {
-      return _.sortBy(this.orderSpecifications.orderDetails, "createdAt");
+      return sortBy(this.orderSpecifications.orderDetails, "createdAt");
     },
     deliveryCharge() {
       if (
@@ -285,9 +284,6 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
-    getCorrectTimeFormat(createdAt) {
-      return helperStandardDateTimeFormat(createdAt);
-    },
     closeDialog() {
       this.confirmationCancelOrder = false;
       this.selectedOrderId = null;

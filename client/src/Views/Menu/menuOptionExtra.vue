@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
   name: "extra",
@@ -75,8 +75,8 @@ export default {
   },
   computed: {
     getExtrasList() {
-      return _.sortBy(this.$store.getters.getExtraMenuItems, function(user) {
-        return user.name.toLowerCase();
+      return sortBy(this.$store.getters.getExtraMenuItems, function(x) {
+        return x.name.toLowerCase();
       });
     }
   },

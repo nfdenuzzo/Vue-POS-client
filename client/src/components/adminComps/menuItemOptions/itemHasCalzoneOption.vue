@@ -59,7 +59,7 @@ export default {
     resetFields() {
       this.updateMenuItemObj.calzonePrice = null;
       this.updateMenuItemObj.calzoneOffered = false;
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
     updateMenuItemObject() {

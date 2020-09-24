@@ -301,9 +301,8 @@
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 import adminMenu from "../../mixins/adminMenu.js";
 import userMenu from "../../mixins/userMenu.js";
-import { logout } from "../../utils/auth.js";
-import { urlBase64ToUint8Array } from "../../utils/webpushUtil.js";
-const qs = require("qs");
+const getLogout = () => import('../../utils/auth.js')
+const getUrlBase64ToUint8Array = () => import('../../utils/webpushUtil.js')
 
 let deferredPrompt;
 export default {
@@ -403,8 +402,7 @@ export default {
   watch: {
     "$store.getters.getAuth"() {
       if (this.$store.getters.getAuth) {
-        // TODO : when we set up a way to show specials or new additions
-        // this.initNotificationsBanner();
+        this.initNotificationsBanner();
       }
     },
     viewPurchaseProcess() {
@@ -439,7 +437,8 @@ export default {
       this.showAppInstallBanner = false;
       this.$q.localStorage.set("neverShowAppInstallBanner", true);
     },
-    handleLogout() {
+    async handleLogout() {
+      const logout = await getLogout().then(resp => resp.logout);
       logout();
     },
     proceedToLink(link) {
@@ -483,6 +482,7 @@ export default {
     async createPushSubscription(reg) {
       const vapidPublicKey =
         "BJeT3WbOLmulqq1RNixIGxdtDcO7oxIZ2XYzZtk5MV0ucrbMrGIq-JLW26x53JTh33hBeoI_aOu31XM8Z3Mq2kE";
+      const urlBase64ToUint8Array = await getUrlBase64ToUint8Array().then(resp => resp.urlBase64ToUint8Array);
       const vapidPublicKeyConverted = urlBase64ToUint8Array(vapidPublicKey);
       reg.pushManager
         .subscribe({
@@ -490,6 +490,7 @@ export default {
           userVisibleOnly: true
         })
         .then(async newSub => {
+          const qs = require("qs");
           const newSubData = newSub.toJSON(),
             newSubDataQS = qs.stringify(newSubData);
           let result = await this.$store.dispatch(

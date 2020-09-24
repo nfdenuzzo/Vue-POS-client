@@ -75,15 +75,12 @@ const adminMenuItems = {
       try {
         if (
           cachingTimeExpired(rootGetters.getAdminMenuItemsRetrievedDate) ||
-          (payload && payload.forceRefresh)
+          (payload && payload.forceRefresh) || (rootGetters.getAdminMenuItems.length === 0) 
         ) {
           const result = await axios.axiosInstance.get(menuItemsAdminUrl);
           if (result && result.status === 200) {
             commit("setAdminMenuItems", result.data);
-            commit(
-              "setAdminMenuItemsRetrievedDate",
-              new Date().toLocaleString("en-ZA")
-            );
+            commit("setAdminMenuItemsRetrievedDate", new Date());
             return true;
           }
         } else {

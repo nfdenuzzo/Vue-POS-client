@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
   name: "starters",
@@ -80,8 +80,8 @@ export default {
   },
   computed: {
     getStartersList() {
-      return _.sortBy(this.$store.getters.getStarters, function(user) {
-        return user.name.toLowerCase();
+      return sortBy(this.$store.getters.getStarters, function(x) {
+        return x.name.toLowerCase();
       });
     }
   },

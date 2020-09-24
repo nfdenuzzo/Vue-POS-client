@@ -112,9 +112,12 @@
 </template>
 
 <script>
-import { getStartOfMonth, helperStandardDateOnlyFormatCalendar } from "../../utils/dateUtil.js"
-import isValid from 'date-fns/isValid'
-import parseISO from 'date-fns/parseISO'
+import {
+  getStartOfMonth,
+  helperStandardDateOnlyFormat
+} from "../../utils/dateUtil.js";
+import isValid from "date-fns/isValid";
+import parseISO from "date-fns/parseISO";
 export default {
   components: {
     "view-order": () => import("../../components/orderHistory/orderView.vue")
@@ -127,7 +130,7 @@ export default {
       current: 1,
       page: 1,
       dateFrom: getStartOfMonth(new Date()),
-      dateTo: helperStandardDateOnlyFormatCalendar(new Date())
+      dateTo: helperStandardDateOnlyFormat(new Date())
     };
   },
   computed: {
@@ -147,12 +150,20 @@ export default {
   },
   watch: {
     dateFrom() {
-      if (isValid(parseISO(this.dateFrom)) && this.dateFrom.length === 10 && !this.resettingCalender) {
+      if (
+        isValid(parseISO(this.dateFrom)) &&
+        this.dateFrom.length === 10 &&
+        !this.resettingCalender
+      ) {
         this.fetchPage();
       }
     },
     dateTo() {
-      if (isValid(parseISO(this.dateTo)) && this.dateFrom.length === 10 && !this.resettingCalender) {
+      if (
+        isValid(parseISO(this.dateTo)) &&
+        this.dateFrom.length === 10 &&
+        !this.resettingCalender
+      ) {
         this.fetchPage();
       }
     },
@@ -174,16 +185,19 @@ export default {
   methods: {
     resetCalender() {
       this.resettingCalender = true;
-      this.dateFrom = getStartOfMonth(new Date()),
-      this.dateTo = helperStandardDateOnlyFormatCalendar(new Date())
+      this.dateFrom = getStartOfMonth(new Date());
+      this.dateTo = helperStandardDateOnlyFormat(new Date());
       this.resettingCalender = false;
       this.fetchPage();
     },
     optionsDateToFn(date) {
-      return date <= helperStandardDateOnlyFormatCalendar(new Date()) && date >= helperStandardDateOnlyFormatCalendar(this.dateFrom);
+      return (
+        new Date(date) <= new Date() &&
+        new Date(date) >=  new Date(this.dateFrom)
+      );
     },
     optionsDateFromFn(date) {
-      return date <= helperStandardDateOnlyFormatCalendar(new Date());
+      return new Date(date) <= new Date();
     },
     nextPage() {
       this.page += 1;
@@ -199,7 +213,7 @@ export default {
       this.$store.dispatch("retrieveOrderHistory", {
         forceRefresh: true,
         page: this.page,
-        dateRange: { dateFrom: this.dateFrom,  dateTo: this.dateTo }
+        dateRange: { dateFrom: this.dateFrom, dateTo: this.dateTo }
       });
     }
   }

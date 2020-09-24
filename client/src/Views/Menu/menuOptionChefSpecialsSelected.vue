@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
   name: "chef-specials-option-selected",
@@ -68,50 +68,50 @@ export default {
     getChefSpecialsList() {
       switch (this.$route.name) {
         case "meat-dishes":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getChefSpecialMeatMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         case "chicken-dishes":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getChefSpecialChickenMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         case "pork-dishes":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getChefSpecialPorkMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         case "other-dishes":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getChefSpecialOtherMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         case "burger":
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getChefSpecialBurgerMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
           break;
         default:
-          return _.sortBy(
+          return sortBy(
             this.$store.getters.getChefSpecialMeatMenuItems,
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
       }

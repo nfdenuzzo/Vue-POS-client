@@ -237,7 +237,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {
     "update-addon-categories": () =>
@@ -299,7 +299,7 @@ export default {
   },
   computed: {
     currentAddonCategoryOptions() {
-      return _.sortBy(
+      return sortBy(
         this.$store.getters.getAdminAddonCategories.map(item => {
           return {
             _id: item._id,
@@ -307,8 +307,8 @@ export default {
             disabled: item.disabled
           };
         }),
-        function(user) {
-          return user.name.toLowerCase();
+        function(x) {
+          return x.name.toLowerCase();
         }
       );
     }

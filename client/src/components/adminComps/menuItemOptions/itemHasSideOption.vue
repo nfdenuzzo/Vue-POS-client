@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -85,18 +85,18 @@ export default {
     resetFields() {
       this.updateMenuItemObj.chosenSideOptions = [];
       this.updateMenuItemObj.hasSideOptions = false;
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
     filterFnSideOptions(val, update) {
       if (val === "") {
         update(() => {
-          this.sideOptionOptions = _.sortBy(
+          this.sideOptionOptions = sortBy(
             this.$store.getters.getAdminSideItems.filter(item =>
               item.addonCategory.name.includes("side-options")
             ),
-            function(user) {
-              return user.name.toLowerCase();
+            function(x) {
+              return x.name.toLowerCase();
             }
           );
         });
@@ -105,12 +105,12 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase();
-        this.sideOptionOptions = _.sortBy(
+        this.sideOptionOptions = sortBy(
           this.$store.getters.getAdminSideItems.filter(item =>
             item.addonCategory.name.includes("side-options")
           ),
-          function(user) {
-            return user.name.toLowerCase();
+          function(x) {
+            return x.name.toLowerCase();
           }
         ).filter(v => v.name.toLowerCase().indexOf(needle) > -1);
       });

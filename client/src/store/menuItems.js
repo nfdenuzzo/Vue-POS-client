@@ -133,9 +133,10 @@ const menuItems = {
           payload.value
         );
         const category = payload.value;
+        const categoryLength = await dispatch("getDifferentMenuItemsLength", category);
         if (
           cachingTimeExpired(retrievedDate) ||
-          (payload && payload.forceRefresh)
+          (payload && payload.forceRefresh) || (categoryLength === 0)
         ) {
           const result = await axios.axiosInstance.get(
             `${menuItemsUrl}/${category}`
@@ -199,101 +200,59 @@ const menuItems = {
       switch (payload.value) {
         case "starters":
           commit("setStartersMenuItems", payload.data);
-          commit(
-            "setStartersMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setStartersMenuItemRetrievedDate", new Date());
           return;
         case "classic-pizzas":
           commit("setClassicPizzasMenuItems", payload.data);
-          commit(
-            "setClassicPizzasMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setClassicPizzasMenuItemRetrievedDate", new Date());
           return;
         case "pizza-breads":
           commit("setPizzaBreadsMenuItems", payload.data);
-          commit(
-            "setPizzaBreadsMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setPizzaBreadsMenuItemRetrievedDate", new Date());
           return;
         case "signature-pizzas":
           commit("setSignaturePizzasMenuItems", payload.data);
-          commit(
-            "setSignaturePizzasMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setSignaturePizzasMenuItemRetrievedDate", new Date());
           return;
         case "pasta":
           commit("setPastaMenuItems", payload.data);
-          commit(
-            "setPastaMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setPastaMenuItemRetrievedDate", new Date());
           return;
         case "seafood":
           commit("setSeafoodMenuItems", payload.data);
-          commit(
-            "setSeafoodMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setSeafoodMenuItemRetrievedDate", new Date());
           return;
         case "desserts":
           commit("setDessertMenuItems", payload.data);
-          commit(
-            "setDessertMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setDessertMenuItemRetrievedDate", new Date());
           return;
         case "chef-special-meat":
           commit("setChefSpecialMeatMenuItems", payload.data);
-          commit(
-            "setChefSpecialMeatMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setChefSpecialMeatMenuItemRetrievedDate", new Date());
           return;
         case "chef-special-chicken":
           commit("setChefSpecialChickenMenuItems", payload.data);
-          commit(
-            "setChefSpecialChickenMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setChefSpecialChickenMenuItemRetrievedDate", new Date());
           return;
         case "chef-special-pork":
           commit("setChefSpecialPorkMenuItems", payload.data);
-          commit(
-            "setChefSpecialPorkMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setChefSpecialPorkMenuItemRetrievedDate", new Date());
           return;
         case "chef-special-burgers":
           commit("setChefSpecialBurgerMenuItems", payload.data);
-          commit(
-            "setChefSpecialBurgerMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setChefSpecialBurgerMenuItemRetrievedDate", new Date());
           return;
         case "chef-special-other":
           commit("setChefSpecialOtherMenuItems", payload.data);
-          commit(
-            "setChefSpecialOtherMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setChefSpecialOtherMenuItemRetrievedDate", new Date());
           return;
         case "kids-menu":
           commit("setKidsMenuItems", payload.data);
-          commit(
-            "setKidsMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setKidsMenuItemRetrievedDate", new Date());
           return;
         case "extras":
           commit("setExtraMenuItems", payload.data);
-          commit(
-            "setExtraMenuItemRetrievedDate",
-            new Date().toLocaleString("en-ZA")
-          );
+          commit("setExtraMenuItemRetrievedDate", new Date());
           return;
         default:
         // code block
@@ -362,7 +321,43 @@ const menuItems = {
           return;
         default:
       }
-    }
+    },
+    async getDifferentMenuItemsLength(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      switch (payload) {
+        case "starters":
+          return rootGetters.getStartersMenuItems.length;
+        case "classic-pizzas":
+          return rootGetters.getClassicPizzasMenuItems.length;
+        case "pizza-breads":
+          return rootGetters.getPizzaBreadsMenuItems.length;
+        case "signature-pizzas":
+          return rootGetters.getSignaturePizzasMenuItems.length;
+        case "pasta":
+          return rootGetters.getPastaMenuItems.length;
+        case "seafood":
+          return rootGetters.getSeafoodMenuItems.length;
+        case "desserts":
+          return rootGetters.getDessertMenuItems.length;
+        case "chef-special-meat":
+          return rootGetters.getChefSpecialMeatMenuItems.length;
+        case "chef-special-chicken":
+          return rootGetters.getChefSpecialChickenMenuItems.length;
+        case "chef-special-pork":
+          return rootGetters.getChefSpecialPorkMenuItems.length;
+        case "chef-special-burgers":
+          return rootGetters.getChefSpecialBurgerMenuItems.length;
+        case "chef-special-other":
+          return rootGetters.getChefSpecialOtherMenuItems.length;
+        case "kids-menu":
+          return rootGetters.getKidsMenuItems.length;
+        case "extras":
+          return rootGetters.getExtraMenuItems.length;
+        default:
+      }
+    },
   },
   mutations: {
     setExtraMenuItems(state, payload) {

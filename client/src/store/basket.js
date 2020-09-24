@@ -1,5 +1,6 @@
 const basket = {
   state: {
+    basketCreateTime: null,
     basket: [],
     orderDetails: null
   },
@@ -9,11 +10,18 @@ const basket = {
     },
     getOrderDetails: state => {
       return state.orderDetails;
+    },
+    getBasketCreateTime: state => {
+      return state.basketCreateTime;
     }
   },
   actions: {
     async addToBasket({ commit, dispatch, rootState, rootGetters }, payload) {
+      if (rootGetters.getBasket.length === 0) {
+        commit("setBasketCreateTime", new Date());
+      }
       commit("setNewBasketItem", payload);
+      
     },
     async removeFromBasket(
       { commit, dispatch, rootState, rootGetters },
@@ -25,10 +33,14 @@ const basket = {
           item => item.id !== existingItem.id
         );
         commit("updateBasket", results);
+        if (rootGetters.getBasket.length === 0) {
+          dispatch("clearBasket");
+        }
       }
     },
     async clearBasket({ commit, dispatch, rootState, rootGetters }, payload) {
       commit("updateBasket", []);
+      commit("setBasketCreateTime", null);
     },
     async updateOrderItemCount(
       { commit, dispatch, rootState, rootGetters },
@@ -55,6 +67,9 @@ const basket = {
     }
   },
   mutations: {
+    setBasketCreateTime(state, payload) {
+      state.basketCreateTime = payload;
+    },
     setNewBasketItem(state, payload) {
       state.basket.push(payload);
     },

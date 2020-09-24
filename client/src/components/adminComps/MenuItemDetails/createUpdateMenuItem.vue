@@ -15,7 +15,7 @@
       </div>
 
       <div clas="q-pa-md" v-if="dataLoaded" :key="rerenderKey">
-        <q-form ref="myForm" @submit="onSubmit" @reset="onReset">
+        <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center q-pb-sm">
             <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
               <q-input
@@ -213,7 +213,7 @@
             <q-btn
               v-if="!isEditing"
               label="Reset"
-              type="reset"
+              @click="onReset"
               color="logoRed"
               class="q-mr-lg text-capitalize"
             />
@@ -245,7 +245,7 @@ import hasEggStyleOption from "../menuItemOptions/itemHasEggStyleOption.vue";
 import hasBastingStyleOption from "../menuItemOptions/itemHasBastingStyleOption.vue";
 import hasExtrasOffered from "../menuItemOptions/itemHasExtrasOffered.vue";
 import imagePage from "../../imagePage.vue";
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {
     hasPizzaTopping,
@@ -329,18 +329,9 @@ export default {
   },
   computed: {
     getMenuCategories() {
-      if (this.filterMenuCategories) {
-        return _.sortBy(
-          this.$store.getters.getMenuCategories.filter(item =>
-            item.name.includes(this.filterMenuCategories)
-          ),
-          "name"
-        );
-      } else {
-        return _.sortBy(this.$store.getters.getMenuCategories, function(user) {
-          return user.name.toLowerCase();
-        });
-      }
+      return sortBy(this.$store.getters.getMenuCategories, function(item) {
+        return item.name.toLowerCase();
+      });
     }
   },
   watch: {},
@@ -443,7 +434,7 @@ export default {
       this.$refs.hasExtrasOffered.resetFields();
       this.$refs.hasBastingStyleOption.resetFields();
       this.$refs.imagePage.resetFields();
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
       this.menuItemObj = {
         name: null,
         description: null,

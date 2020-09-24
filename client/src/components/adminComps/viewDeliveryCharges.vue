@@ -7,7 +7,7 @@
       <div class="col-xs-12 col-sm-12 col-md-11">
         <q-card>
           <div class="col-xs-12 col-sm-12 col-md-11 text-color text-center">
-            <q-form ref="myForm" @submit="onSubmit" @reset="onReset">
+            <q-form ref="myForm" @submit="onSubmit">
               <div class="row justify-center q-pb-md">
                 <div class="col-xs-11 col-md-5 q-pa-md">
                   <q-input
@@ -44,7 +44,7 @@
               <div class="row justify-center q-pb-md">
                 <q-btn
                   label="Reset"
-                  type="reset"
+                  @click="onReset"
                   color="logoRed"
                   class="q-mr-lg text-capitalize"
                 />
@@ -255,7 +255,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {
     "update-delivery-charge": () => import("./updateDeliveryCharge.vue"),
@@ -314,7 +314,7 @@ export default {
   },
   computed: {
     getDeliveryCharges() {
-      return _.sortBy(this.$store.getters.getAdminDeliveryCharges, function(
+      return sortBy(this.$store.getters.getAdminDeliveryCharges, function(
         item
       ) {
         return item.area.toLowerCase();
@@ -372,7 +372,7 @@ export default {
         area: null,
         price: false
       };
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
     }
   }
 };

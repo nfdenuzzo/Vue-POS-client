@@ -99,7 +99,7 @@
   </div>
 </template>
 <script>
-import _ from "lodash";
+import sortBy from "lodash/sortBy";
 export default {
   components: {},
   mixins: [],
@@ -130,8 +130,8 @@ export default {
   },
   computed: {
     currentMenuCategories() {
-      return _.sortBy(this.$store.getters.getMenuCategories, function(user) {
-        return user.name.toLowerCase();
+      return sortBy(this.$store.getters.getMenuCategories, function(item) {
+        return item.name.toLowerCase();
       });
     }
   },

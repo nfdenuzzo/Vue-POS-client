@@ -14,7 +14,7 @@
         {{ isEditing ? "Update" : "Create" }} Add-on Category
       </div>
       <div clas="q-pa-md" v-if="dataLoaded" :key="rerenderKey">
-        <q-form ref="myForm" @submit="onSubmit" @reset="onReset">
+        <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center q-pb-md">
             <div
               :class="
@@ -77,7 +77,7 @@
             <q-btn
               v-if="!isEditing"
               label="Reset"
-              type="reset"
+              @click="onReset"
               color="logoRed"
               class="q-mr-lg text-capitalize"
             />
@@ -180,7 +180,7 @@ export default {
         name: null,
         disabled: false
       };
-      this.$refs.myForm.resetValidation();
+      this.$refs.myForm.reset();
     }
   }
 };
