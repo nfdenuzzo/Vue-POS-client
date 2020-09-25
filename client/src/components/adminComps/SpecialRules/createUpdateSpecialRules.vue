@@ -80,6 +80,7 @@
                     :rules="[
                       val =>
                         (val != null && val.length > 0) ||
+                        ruleObject.buyItems.length > 0 ||
                         'Please select a few categories!'
                     ]"
                   >
@@ -139,7 +140,8 @@
                     :rules="[
                       val =>
                         (val != null && val.length > 0) ||
-                        'Please select a few menu items!'
+                        ruleObject.buyCategories.length > 0 ||
+                        'Please select a few menu items1!'
                     ]"
                   >
                   </q-select>
@@ -191,6 +193,7 @@
                     :rules="[
                       val =>
                         (val != null && val.length > 0) ||
+                        ruleObject.getItems.length > 0 ||
                         'Please select a few categories!'
                     ]"
                   >
@@ -244,6 +247,7 @@
                     :rules="[
                       val =>
                         (val != null && val.length > 0) ||
+                        ruleObject.getCategories.length > 0 ||
                         'Please select a few menu items!'
                     ]"
                   >
@@ -324,13 +328,21 @@
 
           <div class="row justify-center q-pb-md q-pt-lg">
             <q-btn
+              v-if="isEditing"
+              label="Cancel"
+              @click="closeDialog"
+              color="negative"
+              class="q-mr-lg text-capitalize"
+            />
+            <q-btn
+              v-if="!isEditing"
               label="Reset"
               @click="onReset"
               color="logoRed"
               class="q-mr-lg text-capitalize"
             />
             <q-btn
-              label="Create"
+              :label="isEditing ? 'Update' : 'Create'"
               type="submit"
               color="positive"
               class="text-capitalize"
@@ -425,7 +437,12 @@ export default {
     this.$store.dispatch("retrieveAdminMenuItems");
   },
   async mounted() {
-    this.dataLoaded = true;
+    if (this.isEditing) {
+      await this.assignData();
+      this.dataLoaded = true;
+    } else {
+      this.dataLoaded = true;
+    }
   },
   beforeUpdate() {},
   updated() {},
@@ -517,28 +534,28 @@ export default {
       });
     },
     async onSubmit() {
+      const method = this.isEditing
+        ? "updateSpecialCampaignRule"
+        : "createSpecialCampaignRule";
       this.createUpdateBtnLoading = true;
-      console.log("onSubmit -> this.ruleObject", this.ruleObject);
-      // const result = await this.$store.dispatch(
-      //   "createAddonCatOption",
-      //   this.ruleObject
-      // );
-      // if (result && result.status === 200) {
-      //   this.$q.notify({
-      //     type: "positive",
-      //     message: "Campaign created successfully.",
-      //     color: "positive"
-      //   });
-      //
-      // if (this.isEditing) {
-      //   this.closeDialog();
-      // } else {
-      //   this.onReset();
-      // }
-      // }
+      const result = await this.$store.dispatch(method, this.ruleObject);
+      if (result && result.status === 200) {
+        this.$q.notify({
+          type: "positive",
+          message: "Campaign Rule created successfully.",
+          color: "positive"
+        });
+
+        if (this.isEditing) {
+          this.closeDialog();
+        } else {
+          this.onReset();
+        }
+      }
       this.createUpdateBtnLoading = false;
     },
-    onReset() {
+    async onReset() {
+      await this.$refs.myForm.reset();
       this.ruleObject = {
         ruleStructure: null,
         buyCategories: [],
@@ -554,7 +571,6 @@ export default {
           to: helperStandardDateOnlyFormat(new Date())
         }
       };
-      this.$refs.myForm.reset();
     }
   }
 };

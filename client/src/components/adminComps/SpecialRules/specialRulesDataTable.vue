@@ -77,11 +77,20 @@
                           <div class="col-6 text-right">
                             <div
                               class="text-color"
-                              v-if="col.name !== 'actions' && col.id !== 4"
+                              v-if="
+                                col.name !== 'actions' &&
+                                  col.id !== 6 &&
+                                  col.id !== 7 &&
+                                  col.id !== 9
+                              "
                             >
                               {{ col.value }}
                             </div>
-                            <div v-else-if="col.id === 4">
+                            <div
+                              v-else-if="
+                                col.id === 6 || col.id === 7 || col.id === 9
+                              "
+                            >
                               <q-badge
                                 outline
                                 :color="col.value ? 'logoRed' : 'positive'"
@@ -175,10 +184,13 @@
                     </div>
                   </template>
                   <template v-else>
-                    <div class="row no-wrap text-color" v-if="col.id != 4">
+                    <div
+                      class="row no-wrap text-color"
+                      v-if="col.id !== 6 && col.id !== 7 && col.id !== 9"
+                    >
                       {{ col.value }}
                     </div>
-                    <div v-else>
+                    <div v-if="col.id === 6 || col.id === 7 || col.id === 9">
                       <q-badge
                         outline
                         :color="col.value ? 'logoRed' : 'positive'"
@@ -234,7 +246,7 @@ export default {
   data() {
     return {
       filter: "",
-      deleteFunction: "deleteSpecialRule",
+      deleteFunction: "deleteSpecialCampaignRule",
       selectedRuleObj: {},
       viewUpdateDialog: false,
       viewDeleteDialog: false,
@@ -259,7 +271,9 @@ export default {
           label: "Buy Categories",
           align: "left",
           field: row => {
-            return row.buyCategories;
+            return row.buyCategories.length > 0
+              ? row.buyCategories.map(x => x.name).join(", ")
+              : "";
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -271,7 +285,9 @@ export default {
           label: "Buy Items",
           align: "left",
           field: row => {
-            return row.buyItems;
+            return row.buyItems.length > 0
+              ? row.buyItems.map(x => x.name).join(", ")
+              : "";
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -283,7 +299,9 @@ export default {
           label: "Get Categories",
           align: "left",
           field: row => {
-            return row.getCategories;
+            return row.getCategories.length > 0
+              ? row.getCategories.map(x => x.name).join(", ")
+              : "";
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -292,10 +310,12 @@ export default {
           id: 5,
           name: "getItems",
           required: true,
-          label: "Menu Category",
+          label: "Get Items",
           align: "left",
           field: row => {
-            return row.getItems;
+            return row.getItems.length > 0
+              ? row.getItems.map(x => x.name).join(", ")
+              : "";
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -330,7 +350,7 @@ export default {
           label: "Repeat on Days",
           align: "left",
           field: row => {
-            return row.repeatDays;
+            return row.repeatDays.join(", ");
           },
           sortable: false,
           required: true,
@@ -354,7 +374,9 @@ export default {
           label: "Specific Date Range",
           align: "left",
           field: row => {
-            return row.dateRange;
+            return row.specificRange
+              ? `From: ${row.dateRange.from} - To: ${row.dateRange.to}`
+              : "";
           },
           sortable: false,
           required: true,
@@ -374,7 +396,7 @@ export default {
   },
   computed: {
     getCampaignSpecials() {
-      return [];
+      return this.$store.getters.getRules;
     }
   },
   watch: {},

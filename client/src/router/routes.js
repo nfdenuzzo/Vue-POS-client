@@ -358,7 +358,7 @@ const routes = [
         name: "campaigns",
         meta: {
           title: "Black Forest Grill - Admin Campaigns",
-          dispatchMethod: { name: "", payload: "" },
+          dispatchMethod: { name: "retrieveRules", payload: "" },
           auth: true
         },
         component: () => import("../views/Admin/viewSpecialsCampaign.vue"),
