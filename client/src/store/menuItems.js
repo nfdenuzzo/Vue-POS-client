@@ -358,6 +358,42 @@ const menuItems = {
         default:
       }
     },
+    retrieveRequiredListName(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      switch (payload) {
+        case "MenuOptionStarters":
+          return "getStartersMenuItems";
+        case "classic-pizzas":
+          return "getClassicPizzasMenuItems"
+        case "pizza-breads":
+          return "getPizzaBreadsMenuItems"
+        case "signature-pizzas":
+          return "getSignaturePizzasMenuItems"
+        case "MenuOptionPasta":
+          return "getPastaMenuItems"
+        case "MenuOptionSeafood":
+          return "getSeafoodMenuItems"
+        case "MenuOptionDesserts":
+          return "getDessertMenuItems"
+        case "meat-dishest":
+          return "getChefSpecialMeatMenuItems"
+        case "chicken-dishes":
+          return "getChefSpecialChickenMenuItems"
+        case "pork-dishes":
+          return "getChefSpecialPorkMenuItems"
+        case "burgers":
+          return "getChefSpecialBurgerMenuItems"
+        case "other-dishes":
+          return "getChefSpecialOtherMenuItems"
+        case "kids-menu":
+          return "MenuOptionKids"
+        case "extras":
+          return "MenuOptionExtra"
+        default:
+      }
+    },
   },
   mutations: {
     setExtraMenuItems(state, payload) {

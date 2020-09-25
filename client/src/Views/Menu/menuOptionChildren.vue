@@ -6,17 +6,16 @@
       </div>
     </div>
     <div>
-      <pizza-options />
+      <children-tab-options />
     </div>
   </div>
 </template>
 <script>
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
-  name: "Pasta",
   components: {
-    "pizza-options": () =>
-      import("../../components/Footers/pizzaOptionsFooter.vue")
+    "children-tab-options": () =>
+      import("../../components/Footers/childrenFooterTabs.vue")
   },
   beforeRouteLeave(to, from, next) {
     if (this.viewMenuItemsDetails) {

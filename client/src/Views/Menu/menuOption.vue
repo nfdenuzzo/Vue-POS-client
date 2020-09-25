@@ -1,23 +1,17 @@
 <template>
   <div class="text-color">
-    <div
-      class="text-subtitle1 text-weight-bolder q-pt-md text-center"
-      v-if="!mixin_tabMenuDisplay"
-    >
-      Extras
-    </div>
     <div class="row q-pt-md justify-center">
       <div class="col-xs-12 col-sm-12 col-md-10">
         <div class="row justify-center">
           <div
             class="col-xs-12 col-sm-12 col-md-4 q-pt-md"
-            v-for="extra in getExtrasList"
-            :key="extra._id"
+            v-for="menuItem in getItemsList"
+            :key="menuItem._id"
           >
             <menu-item
               @viewDetails="viewDetails"
-              :item="kidsItem"
-              v-if="extra._id"
+              :item="menuItem"
+              v-if="menuItem._id"
             />
           </div>
         </div>
@@ -56,7 +50,6 @@
 import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
-  name: "extras",
   components: {
     "menu-item": () => import("../../components/MenuItem/menuItem.vue"),
     "menu-item-details": () =>
@@ -74,21 +67,42 @@ export default {
   props: {},
   data() {
     return {
-      viewMenuItemsDetails: false
+      viewMenuItemsDetails: false,
+      menuItemDetails: null,
+      requiredListName: null
     };
   },
   computed: {
-    getExtrasList() {
-      return sortBy(this.$store.getters.getExtraMenuItems, function(x) {
-        return x.name.toLowerCase();
-      });
+    getItemsList() {
+      if (this.requiredListName) {
+        return sortBy(this.$store.getters[this.requiredListName], function(x) {
+          return x.name.toLowerCase();
+        });
+      } else {
+        return [];
+      }
     }
   },
-  watch: {},
+  watch: {
+    $route() {
+      this.$store
+        .dispatch("retrieveRequiredListName", this.$route.name)
+        .then(resp => {
+          this.requiredListName = resp;
+        });
+    }
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {},
+  mounted() {
+    // children routes will use the watcher main routes will use the mounted
+    this.$store
+      .dispatch("retrieveRequiredListName", this.$route.name)
+      .then(resp => {
+        this.requiredListName = resp;
+      });
+  },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},

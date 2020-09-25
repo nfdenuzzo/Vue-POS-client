@@ -4,26 +4,26 @@
       <div class="col-xs-11 col-md-5 q-pa-md text-color text-weight-bold">
         <q-checkbox
           left-label
-          v-model="updateMenuItemObj.hasDessertToppings"
-          label="Product has Dessert Toppings?"
+          v-model="updateMenuItemObj.hasDessertOptions"
+          label="Product has Dessert Options?"
           color="positive"
         />
       </div>
 
       <div
         class="col-xs-11 col-md-5 q-pa-md"
-        v-if="updateMenuItemObj.hasDessertToppings"
+        v-if="updateMenuItemObj.hasDessertOptions"
       >
         <q-select
           outlined
-          v-model="updateMenuItemObj.chosenDessertToppings"
-          :options="dessertToppingOptions"
-          label="Select Dessert Toppings"
+          v-model="updateMenuItemObj.chosenDessertOptions"
+          :options="dessertOptions"
+          label="Select Dessert Option"
           color="positive"
           dense
           multiple
           use-chips
-          @filter="filterFnDessertToppings"
+          @filter="filterFnDessertOptions"
           use-input
           input-debounce="0"
           option-value="_id"
@@ -60,15 +60,15 @@ export default {
   },
   data() {
     return {
-      dessertToppingOptions: [],
+      dessertOptions: [],
       updateMenuItemObj: null
     };
   },
   computed: {},
   watch: {
-    "updateMenuItemObj.hasDessertToppings"() {
-      if (!this.updateMenuItemObj.hasDessertToppings) {
-        this.updateMenuItemObj.chosenDessertToppings = [];
+    "updateMenuItemObj.hasDessertOptions"() {
+      if (!this.updateMenuItemObj.hasDessertOptions) {
+        this.updateMenuItemObj.chosenDessertOptions = [];
       }
     }
   },
@@ -76,10 +76,6 @@ export default {
   created() {},
   beforeMount() {},
   mounted() {
-    let test = this.$store.getters.getAdminSideItems.filter(item =>
-      item.addonCategory.name.includes("dessert-toppings")
-    )
-    console.log("mounted -> test", test)
     this.updateMenuItemObj = this.menuItemObj;
   },
   beforeUpdate() {},
@@ -87,15 +83,15 @@ export default {
   beforeDestroy() {},
   methods: {
     resetFields() {
-      this.updateMenuItemObj.chosenDessertToppings = [];
-      this.updateMenuItemObj.hasDessertToppings = false;
+      this.updateMenuItemObj.chosenDessertOptions = [];
+      this.updateMenuItemObj.hasDessertOptions = false;
       this.$refs.myForm.reset();
       this.$emit("update:menuItemObj", this.updateMenuItemObj);
     },
-    filterFnDessertToppings(val, update) {
+    filterFnDessertOptions(val, update) {
       if (val === "") {
         update(() => {
-          this.dessertToppingOptions = sortBy(
+          this.dessertOptions = sortBy(
             this.$store.getters.getAdminSideItems.filter(item =>
               item.addonCategory.name.includes("dessert-toppings")
             ),
@@ -109,7 +105,7 @@ export default {
 
       update(() => {
         const needle = val.toLowerCase();
-        this.dessertToppingOptions = sortBy(
+        this.dessertOptions = sortBy(
           this.$store.getters.getAdminSideItems.filter(item =>
             item.addonCategory.name.includes("dessert-toppings")
           ),

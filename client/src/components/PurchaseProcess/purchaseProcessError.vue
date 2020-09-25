@@ -78,7 +78,8 @@ export default {
     async UpdateMenuItems() {
       for (var i = 0; i < this.invalidCategories.length; i++) {
         await this.$store.dispatch("retrieveMenuItems", {
-          forceRefresh: true, value: this.invalidCategories[i]
+          forceRefresh: true,
+          value: this.invalidCategories[i]
         });
       }
     }

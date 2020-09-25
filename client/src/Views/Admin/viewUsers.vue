@@ -217,7 +217,7 @@ export default {
           label: "Created",
           align: "left",
           field: row => {
-            return row.createdAt
+            return row.createdAt;
           },
           sortable: true,
           headerStyle: "font-size:14px;"
@@ -252,8 +252,7 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {
-  }
+  methods: {}
 };
 </script>
 <style lang="scss">

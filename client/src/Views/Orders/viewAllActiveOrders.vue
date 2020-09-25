@@ -43,7 +43,10 @@
           >
             <q-item-section @dblclick="viewOrderDetailsDialog(item)">
               <q-card class="row justify-center" dark>
-                <div class="row justify-between q-px-md q-pt-md" v-if="group.status === 'New'">
+                <div
+                  class="row justify-between q-px-md q-pt-md"
+                  v-if="group.status === 'New'"
+                >
                   <div class="col-xs-6">
                     <q-input
                       stack-label
@@ -58,7 +61,7 @@
                   </div>
                   <div class="col-xs-5">
                     <q-btn
-                      :disabled='!orderTableNo[index]'
+                      :disabled="!orderTableNo[index]"
                       label="Assign table no."
                       type="submit"
                       color="positive"
@@ -191,8 +194,8 @@ export default {
   beforeCreate() {},
   created() {
     window.setInterval(() => {
-        this.$store.dispatch("retrieveActiveOrders", { forceRefresh: true });
-    }, 120000)
+      this.$store.dispatch("retrieveActiveOrders", { forceRefresh: true });
+    }, 120000);
   },
   beforeMount() {},
   mounted() {},
@@ -201,9 +204,12 @@ export default {
   beforeDestroy() {},
   methods: {
     async updateOrderAssignTableNo(index, orderId) {
-      this.orderbtnLoadingNo.push(index)
+      this.orderbtnLoadingNo.push(index);
       const tableNo = this.orderTableNo[index];
-      const result = await this.$store.dispatch("updateOrderAssignTableNo", { tableNo: tableNo, _id: orderId });
+      const result = await this.$store.dispatch("updateOrderAssignTableNo", {
+        tableNo: tableNo,
+        _id: orderId
+      });
       if (result && result.status === 200) {
         this.orderTableNo = [];
       }

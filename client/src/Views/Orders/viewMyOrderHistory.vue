@@ -193,7 +193,7 @@ export default {
     optionsDateToFn(date) {
       return (
         new Date(date) <= new Date() &&
-        new Date(date) >=  new Date(this.dateFrom)
+        new Date(date) >= new Date(this.dateFrom)
       );
     },
     optionsDateFromFn(date) {

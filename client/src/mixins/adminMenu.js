@@ -1,4 +1,4 @@
-const getIsLoggedIn = () => import('../utils/auth.js')
+const getIsLoggedIn = () => import("../utils/auth.js");
 export default {
   components: {},
   mixins: [],
@@ -85,7 +85,7 @@ export default {
             routeLink: "/campaigns",
             icon: "fas fa-calendar-week",
             routeName: "campaigns"
-          },
+          }
         ];
       } else {
         return [];

@@ -21,7 +21,7 @@ function checkBasketExpiry() {
     // Check if a date is 24 hours old
     const result = now - basketCreateTime > six_hour_expiry;
     if (result) {
-      store.dispatch("clearBasket")
+      store.dispatch("clearBasket");
     }
   }
 }

@@ -1,186 +1,190 @@
 <template>
-<div>
   <div>
-    <div class="row q-pt-md justify-center">
-      <span class="text-h6 text-color text-weight-bolder">
-        Welcome to
-      </span>
-    </div>
-
-    <div class="row">
-      <div class="col-12 no-wrap text-center">
-        <span
-          class="text-color text-weight-bolder"
-          :class="$q.screen.height > 480 && $q.screen.width > 800 ? 'text-h4' : 'text-h5'"
-        >
-          Black Forest Grill
+    <div>
+      <div class="row q-pt-md justify-center">
+        <span class="text-h6 text-color text-weight-bolder">
+          Welcome to
         </span>
       </div>
-    </div>
 
-    <div
-      class="row q-pt-sm justify-center"
-      :class="{
-        'q-pb-sm':
-          $q.screen.height > 767 && getPlatformOpen && !$store.getters.getAuth
-      }"
-    >
-      <div
-        class="col-xs-12 text-subtitle2 text-color text-weight-bolder text-center"
-      >
-        Steak House and Pizzeria
-      </div>
-    </div>
-
-    <div
-      v-if="$store.getters.getAuth && $store.getters.getProfile.name"
-      :class="{
-        'q-pb-md':
-          $q.screen.height > 767 && getPlatformOpen && $store.getters.getAuth
-      }"
-    >
-      <div class="row q-pt-md justify-center">
-        <div class="text-h6 text-color text-weight-bolder">
-          Welcome {{ $store.getters.getProfile.name }}
+      <div class="row">
+        <div class="col-12 no-wrap text-center">
+          <span
+            class="text-color text-weight-bolder"
+            :class="
+              $q.screen.height > 480 && $q.screen.width > 800
+                ? 'text-h4'
+                : 'text-h5'
+            "
+          >
+            Black Forest Grill
+          </span>
         </div>
       </div>
-    </div>
 
-    <div class="row justify-center q-pt-md" v-if="!getPlatformOpen">
-      <q-banner
-        class="bg-logoRed text-white"
-        style="border-radius: 5px 5px 5px 5px"
+      <div
+        class="row q-pt-sm justify-center"
+        :class="{
+          'q-pb-sm':
+            $q.screen.height > 767 && getPlatformOpen && !$store.getters.getAuth
+        }"
       >
-        <q-icon size="19px" name="fas fa-lock" class="q-mr-sm q-mb-xs" />
-        Sorry, we are currently closed for takeaways.
-      </q-banner>
-    </div>
+        <div
+          class="col-xs-12 text-subtitle2 text-color text-weight-bolder text-center"
+        >
+          Steak House and Pizzeria
+        </div>
+      </div>
 
-    <div
-      class="row q-pt-lg justify-center"
-      v-for="(button, index) in getButtonOptions"
-      :key="index"
-    >
-      <q-btn
-        push
-        class="text-capitalize"
-        color="positive"
-        :label="button.name"
-        style="min-width: 200px;"
-        size="md"
-        @click="handler(button.action)"
-      />
+      <div
+        v-if="$store.getters.getAuth && $store.getters.getProfile.name"
+        :class="{
+          'q-pb-md':
+            $q.screen.height > 767 && getPlatformOpen && $store.getters.getAuth
+        }"
+      >
+        <div class="row q-pt-md justify-center">
+          <div class="text-h6 text-color text-weight-bolder">
+            Welcome {{ $store.getters.getProfile.name }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-center q-pt-md" v-if="!getPlatformOpen">
+        <q-banner
+          class="bg-logoRed text-white"
+          style="border-radius: 5px 5px 5px 5px"
+        >
+          <q-icon size="19px" name="fas fa-lock" class="q-mr-sm q-mb-xs" />
+          Sorry, we are currently closed for takeaways.
+        </q-banner>
+      </div>
+
+      <div
+        class="row q-pt-lg justify-center"
+        v-for="(button, index) in getButtonOptions"
+        :key="index"
+      >
+        <q-btn
+          push
+          class="text-capitalize"
+          color="positive"
+          :label="button.name"
+          style="min-width: 200px;"
+          size="md"
+          @click="handler(button.action)"
+        />
+      </div>
+    </div>
+    <div>
+      <div class="bg-transparent fixed-bottom absolute-bottom">
+        <div
+          class="row q-pa-sm text-color text-weight-bold"
+          v-if="$q.screen.height > 767 && $q.screen.width > 700"
+        >
+          <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
+            <trading-Hours />
+          </div>
+          <div v-if="!$q.platform.is.mobile" class="col-xs-4 q-mt-xl">
+            <privacy-policy-and-terms-and-conditions />
+          </div>
+          <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
+            <div class="text-subtitle1 text-weight-bolder q-pb-sm text-center">
+              Contact us
+            </div>
+            <div class="text-body2 text-weight-bold text-center">
+              <q-icon size="19px" name="fas fa-phone" class="q-mr-sm q-mb-xs" />
+              <a
+                href="tel:0169323195"
+                style="text-decoration: none;"
+                class="text-color"
+                >016 932 3195
+              </a>
+            </div>
+            <div class="text-body2 text-weight-bold q-pt-lg text-center">
+              <q-icon
+                size="16px"
+                name="fas fa-map-marker-alt"
+                class="q-mr-sm q-mb-xs"
+              />
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=blackforestgrill"
+                style="text-decoration: none;"
+                class="text-color"
+              >
+                Frikkie Meyer Blvd,<br />
+                Vanderbijlpark, 1911,<br />
+                South Africa
+              </a>
+            </div>
+            <delivery-charges class="q-pt-md" />
+          </div>
+        </div>
+        <div class="row justify-center">
+          <div class="text-body2 text-center q-mt-md">
+            <span class="q-pa-xs q-pr-sm">
+              <q-btn
+                aria-label="google-link"
+                round
+                color="red"
+                icon="fab fa-google"
+                :ripple="false"
+                size="md"
+                @click="goToUrl('google')"
+              />
+            </span>
+            <span class="q-pa-xs q-pr-sm">
+              <q-btn
+                aria-label="facebook-link"
+                round
+                color="blue"
+                icon="fab fa-facebook"
+                :ripple="false"
+                size="md"
+                @click="goToUrl('facebook')"
+              />
+            </span>
+            <span class="q-pa-xs q-pl-sm">
+              <q-btn
+                aria-label="tripadvisor-link"
+                round
+                color="green"
+                icon="fab fa-tripadvisor"
+                :ripple="false"
+                size="md"
+                @click="goToUrl('tripadvisor')"
+              />
+            </span>
+            <span class="q-pa-xs q-pl-sm">
+              <q-btn
+                round
+                aria-label="instagram-link"
+                style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)"
+                icon="fab fa-instagram"
+                text-color="white"
+                :ripple="false"
+                size="md"
+                @click="goToUrl('instagram')"
+              />
+            </span>
+            <span class="q-pa-xs q-pl-sm">
+              <q-btn
+                aria-label="phone-link"
+                round
+                color="primary"
+                icon="fas fa-phone"
+                :ripple="false"
+                size="md"
+                @click="goToUrl('phoneLink')"
+              />
+              <a id="phone-link" href="tel:0169323195" v-show="false" />
+            </span>
+          </div>
+        </div>
+        <br />
+      </div>
     </div>
   </div>
-  <div>
-    <div class="bg-transparent fixed-bottom absolute-bottom">
-      <div
-        class="row q-pa-sm text-color text-weight-bold"
-        v-if="$q.screen.height > 767 && $q.screen.width > 700"
-      >
-        <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
-          <trading-Hours />
-        </div>
-        <div v-if="!$q.platform.is.mobile" class="col-xs-4 q-mt-xl">
-          <privacy-policy-and-terms-and-conditions />
-        </div>
-        <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
-          <div class="text-subtitle1 text-weight-bolder q-pb-sm text-center">
-            Contact us
-          </div>
-          <div class="text-body2 text-weight-bold text-center">
-            <q-icon size="19px" name="fas fa-phone" class="q-mr-sm q-mb-xs" />
-            <a
-              href="tel:0169323195"
-              style="text-decoration: none;"
-              class="text-color"
-              >016 932 3195
-            </a>
-          </div>
-          <div class="text-body2 text-weight-bold q-pt-lg text-center">
-            <q-icon
-              size="16px"
-              name="fas fa-map-marker-alt"
-              class="q-mr-sm q-mb-xs"
-            />
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=blackforestgrill"
-              style="text-decoration: none;"
-              class="text-color"
-            >
-              Frikkie Meyer Blvd,<br />
-              Vanderbijlpark, 1911,<br />
-              South Africa
-            </a>
-          </div>
-          <delivery-charges class="q-pt-md" />
-        </div>
-      </div>
-      <div class="row justify-center">
-        <div class="text-body2 text-center q-mt-md">
-          <span class="q-pa-xs q-pr-sm">
-            <q-btn
-              aria-label="google-link"
-              round
-              color="red"
-              icon="fab fa-google"
-              :ripple="false"
-              size="md"
-              @click="goToUrl('google')"
-            />
-          </span>
-          <span class="q-pa-xs q-pr-sm">
-            <q-btn
-              aria-label="facebook-link"
-              round
-              color="blue"
-              icon="fab fa-facebook"
-              :ripple="false"
-              size="md"
-              @click="goToUrl('facebook')"
-            />
-          </span>
-          <span class="q-pa-xs q-pl-sm">
-            <q-btn
-              aria-label="tripadvisor-link"
-              round
-              color="green"
-              icon="fab fa-tripadvisor"
-              :ripple="false"
-              size="md"
-              @click="goToUrl('tripadvisor')"
-            />
-          </span>
-          <span class="q-pa-xs q-pl-sm">
-            <q-btn
-              round
-              aria-label="instagram-link"
-              style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)"
-              icon="fab fa-instagram"
-              text-color="white"
-              :ripple="false"
-              size="md"
-              @click="goToUrl('instagram')"
-            />
-          </span>
-          <span class="q-pa-xs q-pl-sm">
-            <q-btn
-              aria-label="phone-link"
-              round
-              color="primary"
-              icon="fas fa-phone"
-              :ripple="false"
-              size="md"
-              @click="goToUrl('phoneLink')"
-            />
-            <a id="phone-link" href="tel:0169323195" v-show="false" />
-          </span>
-        </div>
-      </div>
-      <br />
-    </div>
-  </div>
-</div>
 </template>
 
 <script>

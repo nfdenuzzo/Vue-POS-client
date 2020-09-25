@@ -39,23 +39,22 @@ const routes = [
           },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionStarters.vue")
+        component: () => import("../views/Menu/menuOption.vue")
       },
       {
         path: "/menu-option-pizza",
         name: "MenuOptionPizza",
         meta: {
           title: "Black Forest Grill - Pizza Menu",
-          dispatchMethod: { name:  "retrieveMenuItems", payload: "" },
+          dispatchMethod: { name: "retrieveMenuItems", payload: "" },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionPizza.vue"),
+        component: () => import("../views/Menu/menuOptionChildren.vue"),
         children: [
           {
             path: "/",
             name: "signature-pizzas",
-            component: () =>
-              import("../views/Menu/menuOptionPizzaSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Signature Pizza Menu",
               dispatchMethod: {
@@ -68,8 +67,7 @@ const routes = [
           {
             path: "classic-pizzas",
             name: "classic-pizzas",
-            component: () =>
-              import("../views/Menu/menuOptionPizzaSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Classic Pizza Menu",
               dispatchMethod: {
@@ -82,8 +80,7 @@ const routes = [
           {
             path: "pizza-breads",
             name: "pizza-breads",
-            component: () =>
-              import("../views/Menu/menuOptionPizzaSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Pizza Bread Menu",
               dispatchMethod: {
@@ -106,23 +103,22 @@ const routes = [
           },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionPasta.vue")
+        component: () => import("../views/Menu/menuOption.vue")
       },
       {
         path: "/menu-option-chef-specials",
         name: "MenuOptionChefSpecial",
         meta: {
           title: "Black Forest Grill - Chef Specials Menu",
-          dispatchMethod: { name:  "retrieveMenuItems", payload: "" },
+          dispatchMethod: { name: "retrieveMenuItems", payload: "" },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionChefSpecials.vue"),
+        component: () => import("../views/Menu/menuOptionChildren.vue"),
         children: [
           {
             path: "/",
             name: "meat-dishes",
-            component: () =>
-              import("../views/Menu/menuOptionChefSpecialsSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Meat Dishes Menu",
               dispatchMethod: {
@@ -135,8 +131,7 @@ const routes = [
           {
             path: "chicken-dishes",
             name: "chicken-dishes",
-            component: () =>
-              import("../views/Menu/menuOptionChefSpecialsSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Chicken Dishes Menu",
               dispatchMethod: {
@@ -149,8 +144,7 @@ const routes = [
           {
             path: "pork-dishes",
             name: "pork-dishes",
-            component: () =>
-              import("../views/Menu/menuOptionChefSpecialsSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Pork Dishes Menu",
               dispatchMethod: {
@@ -163,8 +157,7 @@ const routes = [
           {
             path: "other-dishes",
             name: "other-dishes",
-            component: () =>
-              import("../views/Menu/menuOptionChefSpecialsSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Other Dishes Menu",
               dispatchMethod: {
@@ -177,8 +170,7 @@ const routes = [
           {
             path: "burgers",
             name: "burgers",
-            component: () =>
-              import("../views/Menu/menuOptionChefSpecialsSelected.vue"),
+            component: () => import("../views/Menu/menuOption.vue"),
             meta: {
               title: "Black Forest Grill - Burgers Menu",
               dispatchMethod: {
@@ -201,7 +193,7 @@ const routes = [
           },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionSeafood.vue")
+        component: () => import("../views/Menu/menuOption.vue")
       },
       {
         path: "/menu-option-kids-menu",
@@ -214,7 +206,7 @@ const routes = [
           },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionKids.vue")
+        component: () => import("../views/Menu/menuOption.vue")
       },
       {
         path: "/menu-option-desserts",
@@ -227,7 +219,7 @@ const routes = [
           },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionDesserts.vue")
+        component: () => import("../views/Menu/menuOption.vue")
       },
       {
         path: "/menu-option-extras",
@@ -240,7 +232,7 @@ const routes = [
           },
           auth: false
         },
-        component: () => import("../views/Menu/menuOptionExtra.vue")
+        component: () => import("../views/Menu/menuOption.vue")
       },
       {
         path: "/view-menu-categories",

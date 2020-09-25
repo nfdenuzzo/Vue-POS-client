@@ -12,7 +12,7 @@
         <q-route-tab
           :to="option.path"
           :label="option.name"
-          v-for="(option, index) in pizzaTypes"
+          v-for="(option, index) in childrenTabOptions"
           :key="index"
           exact
           class="text-capitalize"
@@ -29,15 +29,29 @@ export default {
   props: {},
   data() {
     return {
-      tab: "Signature Pizzas",
       pizzaTypes: [
         { name: "Signature Pizzas", path: "/menu-option-pizza" },
         { name: "Classic Pizzas", path: "/menu-option-pizza/classic-pizzas" },
         { name: "Pizza Breads", path: "/menu-option-pizza/pizza-breads" }
+      ],
+      chefSpecialTypes: [
+        { name: "Meat", path: "/menu-option-chef-specials" },
+        { name: "Chicken", path: "/menu-option-chef-specials/chicken-dishes" },
+        { name: "Pork", path: "/menu-option-chef-specials/pork-dishes" },
+        { name: "Other", path: "/menu-option-chef-specials/other-dishes" },
+        { name: "Burgers", path: "/menu-option-chef-specials/burgers" }
       ]
     };
   },
-  computed: {},
+  computed: {
+    childrenTabOptions() {
+      if (this.$route.path.includes("/menu-option-pizza/")) {
+        return this.pizzaTypes;
+      } else {
+        return this.chefSpecialTypes;
+      }
+    }
+  },
   watch: {},
   beforeCreate() {},
   created() {},

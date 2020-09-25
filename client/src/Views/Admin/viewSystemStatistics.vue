@@ -35,7 +35,9 @@
           >
             All Time Sales
           </div>
-          <div class="row justify-center q-pa-md">R {{ getTotalSales.toFixed(2) }}</div>
+          <div class="row justify-center q-pa-md">
+            R {{ getTotalSales.toFixed(2) }}
+          </div>
         </q-card>
       </div>
       <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">

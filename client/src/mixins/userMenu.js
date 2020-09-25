@@ -1,4 +1,4 @@
-const getIsLoggedIn = () => import('../utils/auth.js')
+const getIsLoggedIn = () => import("../utils/auth.js");
 export default {
   components: {},
   mixins: [],
