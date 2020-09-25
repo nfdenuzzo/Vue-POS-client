@@ -77,12 +77,7 @@ axiosInstance.interceptors.response.use(
       case 400:
         Notify.create({
           type: "negative",
-          message:
-            error.response &&
-            error.response.data &&
-            error.response.data.errors.length > 0
-              ? error.response.data.errors[0].msg
-              : "There were either outstanding required data or the data was not in the correct format.",
+          message: error.response.data,
           color: "logoRed"
         });
         return error.response;
