@@ -1,4 +1,8 @@
 import axios from "../httpClient/config.js";
+import {
+  Loading,
+  QSpinnerGears
+} from 'quasar'
 
 const adminGeneralSettingsUrl = "/admin-options/general-settings";
 
@@ -66,16 +70,24 @@ const adminGeneralSettings = {
       payload
     ) {
       try {
+        Loading.show({
+          spinner: QSpinnerGears,
+          spinnerColor: payload ? "positive" : "logoRed",
+          backgroundColor: "darkgrey",
+          message: "Processing."
+        });
         const result = await axios.axiosInstance.put(
           `${adminGeneralSettingsUrl}/update-platform-status`,
           { platformStatus: payload }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
+          Loading.hide()
           return result;
         }
       } catch (ex) {
         console.log("updatePlatformStatus -> ex", ex);
+        Loading.hide()
       }
     },
     async updateVATRate({ commit, dispatch, rootState, rootGetters }, payload) {

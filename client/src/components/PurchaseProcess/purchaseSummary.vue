@@ -82,7 +82,6 @@
         </q-form>
       </div>
     </div>
-    <!-- <form action="https://www.payfast.co.za/eng/process" method="POST"> -->
   </div>
 </template>
 
@@ -140,9 +139,6 @@ export default {
       await this.$refs.myForm.validate().then(async success => {
         if (success) {
           this.$emit("placeOrder", this.paymentType);
-        } else {
-          // oh no, user has filled in
-          // at least one invalid value
         }
       });
     }

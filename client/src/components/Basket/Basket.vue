@@ -61,13 +61,7 @@ export default {
     "order-item-display": () => import("./menuItemOrderDisplay.vue")
   },
   mixins: [],
-  props: {
-    viewPurchaseProcess: {
-      type: Boolean,
-      default: false,
-      required: true
-    }
-  },
+  props: {},
   data() {
     return {};
   },
@@ -161,7 +155,7 @@ export default {
   watch: {
     hasItemsInOrder() {
       if (!this.hasItemsInOrder) {
-        this.$emit("update:viewPurchaseProcess", false);
+        this.$emit("closeViewPurchaseProcess");
       }
     }
   },

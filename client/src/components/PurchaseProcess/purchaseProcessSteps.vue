@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-xs-12">
             <basket
-              :viewPurchaseProcess="viewPurchaseProcess"
+              @closeViewPurchaseProcess="closeDialog"
               ref="basket"
               v-if="step === 1"
             />
@@ -62,28 +62,35 @@
           @placeOrder="placeOrder"
         />
       </q-step>
-
       <template v-slot:navigation>
         <div clas="q-pa-md">
+          <purchaseProcessError v-if="step === 4" :invalidNames="invalidNames" :invalidIds="invalidIds" :invalidCategories="invalidCategories"></purchaseProcessError>
           <div class="row justify-center q-pb-md">
             <q-stepper-navigation>
               <div class="row justify-center q-pb-md q-pt-sm">
                 <q-btn
-                  v-if="step > 1"
+                  v-if="step > 1 && step !== 4"
                   color="logoRed"
                   @click="$refs.stepper.previous()"
                   label="Back"
                   class="q-mr-lg text-capitalize"
                 />
                 <q-btn
-                  v-else
+                  v-if="step === 1"
                   label="Order more"
                   @click="closeDialog"
                   color="logoRed"
                   class="q-mr-lg text-capitalize"
                 />
                 <q-btn
-                  v-if="hasItemsInOrder"
+                  v-if="step === 4"
+                  label="Close"
+                  @click="closeDialog"
+                  color="logoRed"
+                  class="q-mr-lg text-capitalize"
+                />
+                <q-btn
+                  v-if="hasItemsInOrder && step !== 4"
                   :label="getLabel"
                   @click="proceed"
                   color="positive"
@@ -103,34 +110,15 @@
 import basket from "../Basket/Basket.vue";
 import orderDetails from "../orderDetails/orderDetails.vue";
 import purchaseSummary from "./purchaseSummary.vue";
+import purchaseProcessError from "./purchaseProcessError.vue";
 import { QSpinnerHourglass } from "quasar";
 
-const md5 = require("md5");
-const params = new URLSearchParams({
-  merchant_id: "10000100",
-  merchant_key: "46f0cd694581a",
-  return_url: "http://localhost:8080/",
-  cancel_url: "http://localhost:8080/cancel",
-  notify_url: "http://localhost:8080/success",
-  name_first: "name_first",
-  email_address: "email_address",
-  m_payment_id: "unique_id_for_user",
-  amount: "amount",
-  item_name: "payment_name",
-  item_description: "description_if_any",
-  custom_int1: "custome_integer_value_if_any",
-  custom_str1: "custome_string_value_if_any",
-  custom_str2: "custome_string_value_if_any",
-  passphrase: "passphrase_set_in_payfast_account"
-});
-
-// // Create an MD5 signature of it.
-const MD5Signature = md5(params.toString());
 export default {
   components: {
     basket,
     orderDetails,
-    purchaseSummary
+    purchaseSummary,
+    purchaseProcessError
   },
   mixins: [],
   props: {
@@ -145,7 +133,10 @@ export default {
       step: 1,
       orderDetails: {},
       orderTotal: 0,
-      orderDeliveryCharge: 0
+      orderDeliveryCharge: 0,
+      invalidNames: [],
+      invalidIds: [],
+      invalidCategories: []
     };
   },
   computed: {
@@ -196,7 +187,7 @@ export default {
       });
       const result = await this.$store.dispatch("placeOrder", orderSpecs);
       this.$q.loading.hide();
-      if (result) {
+      if (result && result.success != null && result.success) {
         if (orderSpecs.orderDetails.orderType !== "Delivery")
           this.$q.notify({
             type: "positive",
@@ -204,6 +195,11 @@ export default {
             color: "positive"
           });
         this.closeDialog();
+      } else if (result && result.success == null) {
+        this.invalidNames = result.invalidNames;
+        this.invalidIds = result.invalidIds;
+        this.invalidCategories = result.invalidCategories;
+        this.step++;
       }
     },
     async proceed() {
@@ -214,6 +210,8 @@ export default {
         this.$refs.orderDetail.onSubmit();
       } else if (this.step === 3) {
         this.$refs.purchaseSummary.onSubmit();
+      } else if (this.step === 4) {
+        this.closeDialog();
       }
     }
   }

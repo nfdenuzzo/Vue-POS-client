@@ -94,9 +94,6 @@ axiosInstance.interceptors.response.use(
           color: "logoRed"
         });
         break;
-      case 406:
-        console.log("Sorry, error 406");
-        return error.response;
       // Backend-controller action was not found.
       case 404:
         Notify.create({
@@ -104,6 +101,8 @@ axiosInstance.interceptors.response.use(
           message: "Sorry, the resource was not found on the server.",
           color: "logoRed"
         });
+        return error.response;
+      case 406:
         return error.response;
       case 499:
         Notify.create({

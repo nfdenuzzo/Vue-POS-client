@@ -41,9 +41,9 @@ const menuSideItems = {
         } else {
           commit("updateBasket", []);
         }
-        return true;
-      } else {
-        return false;
+        return { success: true };
+      } else if (result && result.status === 406) {
+        return result.data
       }
     },
     async updateOrderStatus(

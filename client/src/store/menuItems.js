@@ -142,7 +142,6 @@ const menuItems = {
             `${menuItemsUrl}/${category}`
           );
           if (result && result.status === 200) {
-            console.log("result", result)
             await dispatch("updateSpecificCategoryMenuItems", payload.value);
             await dispatch("sortAndSetDifferentMenuItems", {
               data: result.data,

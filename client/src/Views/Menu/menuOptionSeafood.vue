@@ -56,8 +56,12 @@
 import sortBy from "lodash/sortBy";
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 export default {
-  name: "seafood",
-  components: {},
+  name: "starters",
+  components: {
+    "menu-item": () => import("../../components/MenuItem/menuItem.vue"),
+    "menu-item-details": () =>
+      import("../../components/MenuItem/menuItemDetails.vue")
+  },
   beforeRouteLeave(to, from, next) {
     if (this.viewMenuItemsDetails) {
       this.viewMenuItemsDetails = false;

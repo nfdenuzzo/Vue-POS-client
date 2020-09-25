@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     getPastasList() {
-      return sortBy(this.$store.getters.getPastas, function(x) {
+      return sortBy(this.$store.getters.getPastaMenuItems, function(x) {
         return x.name.toLowerCase();
       });
     }

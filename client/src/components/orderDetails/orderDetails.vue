@@ -265,9 +265,6 @@ export default {
             dto: dto,
             deliveryCost: this.getDeliveryCost
           });
-        } else {
-          // oh no, user has filled in
-          // at least one invalid value
         }
       });
     },
@@ -276,7 +273,7 @@ export default {
       if (this.updateOrderDetailsObj.subscribeNotifications) {
         this.updateOrderDetailsObj.subscriptionObject = await webPushCreateSub();
       }
-      const dto = JSON.parse(JSON.stringify(this.updateOrderDetailsObj));
+      const dto = Object.assign({}, this.updateOrderDetailsObj);
       dto.orderType = this.deliveryType;
       if (this.deliveryType !== "Delivery") {
         delete dto.deliveryArea;

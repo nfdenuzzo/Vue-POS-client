@@ -23,21 +23,6 @@ const basket = {
       commit("setNewBasketItem", payload);
       
     },
-    async removeFromBasket(
-      { commit, dispatch, rootState, rootGetters },
-      payload
-    ) {
-      const existingItem = rootGetters.getBasket.find(x => x.id === payload.id);
-      if (existingItem) {
-        const results = rootState.basket.filter(
-          item => item.id !== existingItem.id
-        );
-        commit("updateBasket", results);
-        if (rootGetters.getBasket.length === 0) {
-          dispatch("clearBasket");
-        }
-      }
-    },
     async clearBasket({ commit, dispatch, rootState, rootGetters }, payload) {
       commit("updateBasket", []);
       commit("setBasketCreateTime", null);
@@ -64,6 +49,13 @@ const basket = {
         obj => obj.id === payload.id
       );
       commit("removeSpecifiedBasketItem", { index: objIndex });
+    },
+    async filteroutBasketItem(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      const newBasket = rootGetters.getBasket.filter(item => item.id !== payload)
+      commit("updateBasket", newBasket)
     }
   },
   mutations: {
