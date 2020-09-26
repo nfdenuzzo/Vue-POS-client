@@ -301,8 +301,8 @@
 import computedFunctionsMixin from "../../mixins/computedFunctionsMixin.js";
 import adminMenu from "../../mixins/adminMenu.js";
 import userMenu from "../../mixins/userMenu.js";
-const getLogout = () => import('../../utils/auth.js')
-const getUrlBase64ToUint8Array = () => import('../../utils/webpushUtil.js')
+const getLogout = () => import("../../utils/auth.js");
+const getUrlBase64ToUint8Array = () => import("../../utils/webpushUtil.js");
 
 let deferredPrompt;
 export default {
@@ -482,7 +482,9 @@ export default {
     async createPushSubscription(reg) {
       const vapidPublicKey =
         "BJeT3WbOLmulqq1RNixIGxdtDcO7oxIZ2XYzZtk5MV0ucrbMrGIq-JLW26x53JTh33hBeoI_aOu31XM8Z3Mq2kE";
-      const urlBase64ToUint8Array = await getUrlBase64ToUint8Array().then(resp => resp.urlBase64ToUint8Array);
+      const urlBase64ToUint8Array = await getUrlBase64ToUint8Array().then(
+        resp => resp.urlBase64ToUint8Array
+      );
       const vapidPublicKeyConverted = urlBase64ToUint8Array(vapidPublicKey);
       reg.pushManager
         .subscribe({

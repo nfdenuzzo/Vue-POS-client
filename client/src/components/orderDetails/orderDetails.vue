@@ -51,7 +51,7 @@
                           <q-option-group
                             inline
                             v-model="deliveryType"
-                            :options="options"
+                            :options="getOptions"
                             color="positive"
                           />
                         </div>
@@ -172,10 +172,6 @@ export default {
   props: {},
   data() {
     return {
-      options: [
-        { label: "Collection", value: "Collection" },
-        { label: "Delivery", value: "Delivery" }
-      ],
       updateOrderDetailsObj: null,
       useExistingAddress: false,
       useExistingContactNumber: false,
@@ -187,6 +183,17 @@ export default {
     };
   },
   computed: {
+    getOptions() {
+      const options = [];
+      if (this.$store.getters.getDeliveryServiceAvailable) {
+        options.push({ label: "Collection", value: "Collection" });
+        options.push({ label: "Delivery", value: "Delivery" });
+        return options;
+      } else {
+        options.push({ label: "Collection", value: "Collection" });
+        return options;
+      }
+    },
     getCurrentProfile() {
       return this.$store.getters.getMyProfile;
     },

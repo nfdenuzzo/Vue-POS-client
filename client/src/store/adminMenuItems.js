@@ -1,5 +1,4 @@
 import axios from "../httpClient/config.js";
-import { cachingTimeExpired } from "../utils/cachingCheck.js";
 
 const menuItemsAdminUrl = "/admin-options/menu-items";
 
@@ -75,14 +74,14 @@ const adminMenuItems = {
       try {
         // if (
         //   cachingTimeExpired(rootGetters.getAdminMenuItemsRetrievedDate) ||
-        //   (payload && payload.forceRefresh) || (rootGetters.getAdminMenuItems.length === 0) 
+        //   (payload && payload.forceRefresh) || (rootGetters.getAdminMenuItems.length === 0)
         // ) {
-          const result = await axios.axiosInstance.get(menuItemsAdminUrl);
-          if (result && result.status === 200) {
-            commit("setAdminMenuItems", result.data);
-            commit("setAdminMenuItemsRetrievedDate", new Date());
-            return true;
-          }
+        const result = await axios.axiosInstance.get(menuItemsAdminUrl);
+        if (result && result.status === 200) {
+          commit("setAdminMenuItems", result.data);
+          commit("setAdminMenuItemsRetrievedDate", new Date());
+          return true;
+        }
         // } else {
         //   return true;
         // }

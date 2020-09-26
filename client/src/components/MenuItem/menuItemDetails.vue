@@ -134,31 +134,25 @@
               </q-field>
             </div>
           </div>
-
-          <div class="q-py-sm" v-if="menuItemDetails.hasDessertToppings">
+          <div class="q-py-sm" v-if="menuItemDetails.hasDessertOptions">
             <div class="row text-weight-bold">
-              Dessert toppings already included -
+              Please select a dessert option:
             </div>
             <div class="row text-caption text-weight-bold">
               <q-field
                 dense
                 borderless
-                :value="selectedMenuItemDetails.selectedDessertToppings"
-                :rules="[
-                  val =>
-                    (val != null && val.length > 0) ||
-                    'Please select atleast 1 topping!'
-                ]"
+                :value="selectedMenuItemDetails.selectedDessertOption"
+                :rules="[val => val != null || 'Please select a option!']"
               >
                 <template v-slot:control>
                   <q-option-group
                     dense
-                    v-model="selectedMenuItemDetails.selectedDessertToppings"
+                    v-model="selectedMenuItemDetails.selectedDessertOption"
                     :options="
-                      getDropDownObject(menuItemDetails.chosenDessertToppings)
+                      getDropDownObject(menuItemDetails.chosenDessertOptions)
                     "
                     color="positive"
-                    type="checkbox"
                     inline
                     :disable="!$store.getters.getOrderingActive"
                   />
@@ -751,7 +745,7 @@ export default {
         makeCalzone: false,
         selectedPizzaToppings: [],
         selectedSaladToppings: [],
-        selectedDessertToppings: [],
+        selectedDessertOption: null,
         selectedSauceOption: null,
         selectedSideOption: null,
         selectedPastaOption: null,
@@ -887,6 +881,7 @@ export default {
         chosenPastaOption: this.selectedMenuItemDetails.selectedPastaOption,
         chosenSauceOption: this.selectedMenuItemDetails.selectedSauceOption,
         chosenSideOption: this.selectedMenuItemDetails.selectedSideOption,
+        chosenDessertOption: this.selectedMenuItemDetails.selectedDessertOption,
         chosenBastingStyleOption: this.selectedMenuItemDetails
           .selectedBastingOption,
         chosenEggStyleOption: this.selectedMenuItemDetails
@@ -912,17 +907,11 @@ export default {
           "chosenSaladToppings",
           "selectedSaladToppings"
         ),
-        removedDessertToppings: this.getRemovedToppings(
-          "chosenDessertToppings",
-          "selectedDessertToppings"
-        ),
         //selected items
         selectedPizzaToppings: this.selectedMenuItemDetails
           .selectedPizzaToppings,
         selectedSaladToppings: this.selectedMenuItemDetails
           .selectedSaladToppings,
-        selectedDessertToppings: this.selectedMenuItemDetails
-          .selectedDessertToppings,
         selectedMainToppingOptions: this.selectedMenuItemDetails
           .selectedMainToppingOptions,
         selectedPastaToppings: this.selectedMenuItemDetails
@@ -998,13 +987,6 @@ export default {
       if (this.menuItemDetails.hasSaladToppings) {
         this.selectedMenuItemDetails.selectedSaladToppings = this.getDropDownObject(
           this.menuItemDetails.chosenSaladToppings
-        ).map(itemName => {
-          return itemName.value;
-        });
-      }
-      if (this.menuItemDetails.hasDessertToppings) {
-        this.selectedMenuItemDetails.selectedDessertToppings = this.getDropDownObject(
-          this.menuItemDetails.chosenDessertToppings
         ).map(itemName => {
           return itemName.value;
         });

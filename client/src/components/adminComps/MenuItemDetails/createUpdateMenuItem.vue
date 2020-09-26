@@ -197,9 +197,9 @@
 
           <div class="row justify-center">
             <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
-              <hasDessertTopping
+              <hasDessertOption
                 :menuItemObj.sync="menuItemObj"
-                ref="hasDessertToppings"
+                ref="hasDessertOption"
               />
             </div>
             <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
@@ -258,7 +258,7 @@ import hasMeatStyleOption from "../menuItemOptions/itemHasMeatStyleOption.vue";
 import hasFishStyleOption from "../menuItemOptions/itemHasFishStyleOption.vue";
 import hasEggStyleOption from "../menuItemOptions/itemHasEggStyleOption.vue";
 import hasBastingStyleOption from "../menuItemOptions/itemHasBastingStyleOption.vue";
-import hasDessertTopping from "../menuItemOptions/itemHasDessertTopping.vue";
+import hasDessertOption from "../menuItemOptions/itemHasDessertOption.vue";
 import hasSaladTopping from "../menuItemOptions/itemHasSaladTopping.vue";
 import hasExtrasOffered from "../menuItemOptions/itemHasExtrasOffered.vue";
 import imagePage from "../../imagePage.vue";
@@ -278,7 +278,7 @@ export default {
     hasEggStyleOption,
     hasExtrasOffered,
     hasBastingStyleOption,
-    hasDessertTopping,
+    hasDessertOption,
     hasSaladTopping,
     imagePage
   },
@@ -304,7 +304,7 @@ export default {
     return {
       dataLoaded: false,
       createUpdateBtnLoading: false,
-      menuItemObj: this.defaultMenuItemObject(),
+      menuItemObj: this.defaultMenuItemObject()
     };
   },
   computed: {
@@ -369,8 +369,8 @@ export default {
         chosenPizzaToppings: [],
         hasSauceOptions: false,
         chosenSauceOptions: [],
-        hasDessertToppings: false,
-        chosenDessertToppings: [],
+        hasDessertOptions: false,
+        chosenDessertOptions: [],
         hasSaladToppings: false,
         chosenSaladToppings: [],
         hasSideOptions: false,
@@ -412,7 +412,7 @@ export default {
       this.$refs.hasPastaOptions.resetFields();
       this.$refs.hasPastaToppings.resetFields();
       this.$refs.hasSauceOptions.resetFields();
-      this.$refs.hasDessertToppings.resetFields();
+      this.$refs.hasDessertOption.resetFields();
       this.$refs.hasSaladToppings.resetFields();
       this.$refs.hasMainToppings.resetFields();
       this.$refs.hasSideOptions.resetFields();

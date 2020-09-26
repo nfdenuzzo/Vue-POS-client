@@ -20,7 +20,8 @@
               v-for="(item, index) in invalidNames"
               :key="index"
             >
-              <span class="text-weight-bold">{{ index + 1 }}) {{ item }} </span>
+              <span class="text-weight-bold q-pa-xs">{{ index + 1 }}) {{ item }} </span>
+              <br>
             </div>
             <div class="row q-pa-sm text-center">
               They have been automatically removed from your basket, we
@@ -78,7 +79,8 @@ export default {
     async UpdateMenuItems() {
       for (var i = 0; i < this.invalidCategories.length; i++) {
         await this.$store.dispatch("retrieveMenuItems", {
-          forceRefresh: true, value: this.invalidCategories[i]
+          forceRefresh: true,
+          value: this.invalidCategories[i]
         });
       }
     }

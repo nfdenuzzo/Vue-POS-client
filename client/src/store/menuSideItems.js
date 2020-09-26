@@ -24,14 +24,14 @@ const menuSideItems = {
       try {
         // if (
         //   cachingTimeExpired(rootGetters.getSideItemsRetrievedDate) ||
-        //   (payload && payload.forceRefresh) || (rootGetters.getSideItems.length === 0) 
+        //   (payload && payload.forceRefresh) || (rootGetters.getSideItems.length === 0)
         // ) {
-          const result = await axios.axiosInstance.get(`${sideItemUrl}`);
-          if (result && result.status === 200) {
-            commit("setSideItems", result.data);
-            commit("setSideItemsRetrievedDate", new Date());
-            return true;
-          }
+        const result = await axios.axiosInstance.get(`${sideItemUrl}`);
+        if (result && result.status === 200) {
+          commit("setSideItems", result.data);
+          commit("setSideItemsRetrievedDate", new Date());
+          return true;
+        }
         // } else {
         //   return true;
         // }

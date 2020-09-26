@@ -21,7 +21,6 @@ const basket = {
         commit("setBasketCreateTime", new Date());
       }
       commit("setNewBasketItem", payload);
-      
     },
     async clearBasket({ commit, dispatch, rootState, rootGetters }, payload) {
       commit("updateBasket", []);
@@ -54,8 +53,10 @@ const basket = {
       { commit, dispatch, rootState, rootGetters },
       payload
     ) {
-      const newBasket = rootGetters.getBasket.filter(item => item.id !== payload)
-      commit("updateBasket", newBasket)
+      const newBasket = rootGetters.getBasket.filter(
+        item => item.id !== payload
+      );
+      commit("updateBasket", newBasket);
     }
   },
   mutations: {

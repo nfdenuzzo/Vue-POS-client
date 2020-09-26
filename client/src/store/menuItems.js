@@ -133,22 +133,25 @@ const menuItems = {
           payload.value
         );
         const category = payload.value;
-        const categoryLength = await dispatch("getDifferentMenuItemsLength", category);
+        const categoryLength = await dispatch(
+          "getDifferentMenuItemsLength",
+          category
+        );
         // if (
         //   cachingTimeExpired(retrievedDate) ||
         //   (payload && payload.forceRefresh) || (categoryLength === 0)
         // ) {
-          const result = await axios.axiosInstance.get(
-            `${menuItemsUrl}/${category}`
-          );
-          if (result && result.status === 200) {
-            await dispatch("updateSpecificCategoryMenuItems", payload.value);
-            await dispatch("sortAndSetDifferentMenuItems", {
-              data: result.data,
-              value: payload.value
-            });
-            return true;
-          }
+        const result = await axios.axiosInstance.get(
+          `${menuItemsUrl}/${category}`
+        );
+        if (result && result.status === 200) {
+          await dispatch("updateSpecificCategoryMenuItems", payload.value);
+          await dispatch("sortAndSetDifferentMenuItems", {
+            data: result.data,
+            value: payload.value
+          });
+          return true;
+        }
         // } else {
         //   return true;
         // }
@@ -358,6 +361,42 @@ const menuItems = {
         default:
       }
     },
+    retrieveRequiredListName(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      switch (payload) {
+        case "MenuOptionStarters":
+          return "getStartersMenuItems";
+        case "classic-pizzas":
+          return "getClassicPizzasMenuItems";
+        case "pizza-breads":
+          return "getPizzaBreadsMenuItems";
+        case "signature-pizzas":
+          return "getSignaturePizzasMenuItems";
+        case "MenuOptionPasta":
+          return "getPastaMenuItems";
+        case "MenuOptionSeafood":
+          return "getSeafoodMenuItems";
+        case "MenuOptionDesserts":
+          return "getDessertMenuItems";
+        case "meat-dishest":
+          return "getChefSpecialMeatMenuItems";
+        case "chicken-dishes":
+          return "getChefSpecialChickenMenuItems";
+        case "pork-dishes":
+          return "getChefSpecialPorkMenuItems";
+        case "burgers":
+          return "getChefSpecialBurgerMenuItems";
+        case "other-dishes":
+          return "getChefSpecialOtherMenuItems";
+        case "kids-menu":
+          return "MenuOptionKids";
+        case "extras":
+          return "MenuOptionExtra";
+        default:
+      }
+    }
   },
   mutations: {
     setExtraMenuItems(state, payload) {

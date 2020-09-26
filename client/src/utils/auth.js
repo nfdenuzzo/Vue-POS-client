@@ -38,7 +38,6 @@ export function logout() {
   router.push("/").catch(() => {});
 }
 
-
 function hasCorrectPermissions() {
   return store.getters.getUserPermissions.includes("read:systemData");
 }

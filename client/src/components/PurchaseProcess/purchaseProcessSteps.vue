@@ -58,13 +58,19 @@
           v-if="step === 3"
           :orderTotal="orderTotal"
           ref="purchaseSummary"
+          :deliveryOrCollection="orderDetails.orderType"
           :orderDeliveryCharge="orderDeliveryCharge"
           @placeOrder="placeOrder"
         />
       </q-step>
       <template v-slot:navigation>
         <div clas="q-pa-md">
-          <purchaseProcessError v-if="step === 4" :invalidNames="invalidNames" :invalidIds="invalidIds" :invalidCategories="invalidCategories"></purchaseProcessError>
+          <purchaseProcessError
+            v-if="step === 4"
+            :invalidNames="invalidNames"
+            :invalidIds="invalidIds"
+            :invalidCategories="invalidCategories"
+          ></purchaseProcessError>
           <div class="row justify-center q-pb-md">
             <q-stepper-navigation>
               <div class="row justify-center q-pb-md q-pt-sm">

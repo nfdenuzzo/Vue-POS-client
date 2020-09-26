@@ -24,7 +24,8 @@ const adminAllUsers = {
       try {
         if (
           cachingTimeExpired(rootGetters.getUserListRetrievedDate) ||
-          (payload && payload.forceRefresh) || (rootGetters.getUserList.length === 0) 
+          (payload && payload.forceRefresh) ||
+          rootGetters.getUserList.length === 0
         ) {
           const result = await axios.axiosInstance.get(
             `${usersAdminUrl}/current-users`

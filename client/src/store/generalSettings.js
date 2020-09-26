@@ -10,7 +10,9 @@ const generalSettings = {
     openingTimes: [],
     settingsRetrievedDate: null,
     deliveryCharges: [],
-    viewingPurchaseProcess: false
+    viewingPurchaseProcess: false,
+    payNowStatus: false,
+    deliveryServiceAvailable: true
   },
   getters: {
     getViewingPurchaseProcess: state => {
@@ -30,6 +32,12 @@ const generalSettings = {
     },
     getSettingsRetrievedDate: state => {
       return state.settingsRetrievedDate;
+    },
+    getPayNowStatus: state => {
+      return state.payNowStatus;
+    },
+    getDeliveryServiceAvailable: state => {
+      return state.deliveryServiceAvailable;
     }
   },
   actions: {
@@ -42,14 +50,20 @@ const generalSettings = {
         //   cachingTimeExpired(rootGetters.getSettingsRetrievedDate) ||
         //   (payload && payload.forceRefresh) || (rootGetters.getTradingHours.length === 0)
         // ) {
-          const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
-          if (result && result.status === 200) {
-            commit("setTradingHours", result.data.openingHours);
-            commit("setSettingsRetrievedDate", new Date());
-            commit("setVatRate", result.data.vat);
-            commit("setDeliveryCharges", result.data.deliveryCharges);
-            return true;
-          }
+        const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
+        if (result && result.status === 200) {
+          console.log("result", result)
+          commit("setTradingHours", result.data.openingHours);
+          commit("setSettingsRetrievedDate", new Date());
+          commit("setVatRate", result.data.vat);
+          commit("setDeliveryCharges", result.data.deliveryCharges);
+          commit("setPayNowStatus", result.data.payNowStatus);
+          commit(
+            "setDeliveryServiceAvailable",
+            result.data.deliveryServiceStatus
+          );
+          return true;
+        }
         // } else {
         //   return true;
         // }
@@ -92,6 +106,12 @@ const generalSettings = {
     },
     setViewingPurchaseProcess(state, payload) {
       state.viewingPurchaseProcess = payload;
+    },
+    setPayNowStatus(state, payload) {
+      state.payNowStatus = payload;
+    },
+    setDeliveryServiceAvailable(state, payload) {
+      state.deliveryServiceAvailable = payload;
     }
   }
 };
