@@ -259,7 +259,7 @@ import sortBy from "lodash/sortBy";
 export default {
   components: {
     "update-delivery-charge": () => import("./updateDeliveryCharge.vue"),
-    "query-delete-request": () => import("./queryDeleteRequest.vue")
+    "query-delete-request": () => import("../queryDeleteRequest.vue")
   },
   mixins: [],
   props: {},

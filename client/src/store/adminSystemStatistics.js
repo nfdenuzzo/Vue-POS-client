@@ -24,7 +24,8 @@ const systemStatistics = {
       try {
         if (
           cachingTimeExpired(rootGetters.getSystemStatisticsRetrievedDate) ||
-          (payload && payload.forceRefresh) || (rootGetters.getSystemStatistics.length === 0) 
+          (payload && payload.forceRefresh) ||
+          rootGetters.getSystemStatistics.length === 0
         ) {
           const result = await axios.axiosInstance.get(
             `${systemStatisticsAdminUrl}`

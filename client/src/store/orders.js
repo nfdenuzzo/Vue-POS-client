@@ -43,7 +43,7 @@ const menuSideItems = {
         }
         return { success: true };
       } else if (result && result.status === 406) {
-        return result.data
+        return result.data;
       }
     },
     async updateOrderStatus(

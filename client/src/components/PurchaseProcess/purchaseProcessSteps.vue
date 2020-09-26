@@ -58,6 +58,7 @@
           v-if="step === 3"
           :orderTotal="orderTotal"
           ref="purchaseSummary"
+          :deliveryOrCollection="orderDetails.orderType"
           :orderDeliveryCharge="orderDeliveryCharge"
           @placeOrder="placeOrder"
         />

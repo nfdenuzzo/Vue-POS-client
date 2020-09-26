@@ -26,12 +26,12 @@ const menuCategories = {
         //   cachingTimeExpired(rootGetters.getMenuCategoriesRetrievedDate) ||
         //   (payload && payload.forceRefresh) || (rootGetters.getMenuCategories.length === 0)
         // ) {
-          const result = await axios.axiosInstance.get(categoriesOptionUrl);
-          if (result && result.status === 200) {
-            commit("setMenuCategories", result.data);
-            commit("setMenuCategoriesRetrievedDate", new Date());
-            return true;
-          }
+        const result = await axios.axiosInstance.get(categoriesOptionUrl);
+        if (result && result.status === 200) {
+          commit("setMenuCategories", result.data);
+          commit("setMenuCategoriesRetrievedDate", new Date());
+          return true;
+        }
         // } else {
         //   return true;
         // }

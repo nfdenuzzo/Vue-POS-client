@@ -73,7 +73,7 @@
                 <q-option-group
                   inline
                   v-model="paymentType"
-                  :options="options"
+                  :options="getOptions"
                   color="positive"
                 />
               </div>
@@ -90,6 +90,11 @@ export default {
   components: {},
   mixins: [],
   props: {
+    deliveryOrCollection: {
+      type: String,
+      default: "",
+      required: true
+    },
     orderTotal: {
       type: Number,
       default: 0,
@@ -103,14 +108,18 @@ export default {
   },
   data() {
     return {
-      paymentType: null,
-      options: [
-        { label: "Pay now", value: "Pay now" },
-        { label: "Pay on Collection", value: "Pay on Collection" }
-      ]
+      paymentType: null
     };
   },
   computed: {
+    getOptions() {
+      const options = [];
+      if (this.$store.getters.getPayNowStatus) {
+        options.push({ label: "Pay now", value: "Pay now" })
+      }
+      options.push({ label: `Pay on ${this.deliveryOrCollection}`, value: `Pay on ${this.deliveryOrCollection}` })
+      return options;
+    },
     showItemsInOrder() {
       return this.$store.getters.getBasket;
     },
@@ -130,7 +139,9 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {},
+  mounted() {
+    console.log("this.deliveryOrCollection", this.deliveryOrCollection)
+  },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},

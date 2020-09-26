@@ -1,8 +1,5 @@
 import axios from "../httpClient/config.js";
-import {
-  Loading,
-  QSpinnerGears
-} from 'quasar'
+import { Loading, QSpinnerGears } from "quasar";
 
 const adminGeneralSettingsUrl = "/admin-options/general-settings";
 
@@ -11,9 +8,17 @@ const adminGeneralSettings = {
     adminCurentVATRate: null,
     adminOpeningTimes: [],
     adminPlatformStatus: null,
-    adminDeliveryCharges: []
+    adminDeliveryCharges: [],
+    adminPayNowStatus: false,
+    adminDeliveryServiceAvailable: true
   },
   getters: {
+    getAdminDeliveryServiceAvailable: state => {
+      return state.adminDeliveryServiceAvailable;
+    },
+    getAdminPayNowStatus: state => {
+      return state.adminPayNowStatus;
+    },
     getAdminDeliveryCharges: state => {
       return state.adminDeliveryCharges;
     },
@@ -41,6 +46,11 @@ const adminGeneralSettings = {
           commit("setAdminTradingHours", result.data.openingHours);
           commit("setAdminVatRate", result.data.vat);
           commit("setAdminDeliveryCharges", result.data.deliveryCharges);
+          commit(
+            "setAdminDeliveryServiceAvailable",
+            result.data.deliveryServiceStatus
+          );
+          commit("setAdminPayNowStatus", result.data.payNowStatus);
           return true;
         }
       } catch (ex) {
@@ -82,12 +92,12 @@ const adminGeneralSettings = {
         );
         if (result && result.status === 200) {
           await dispatch("retrieveAdminGeneralSettings");
-          Loading.hide()
+          Loading.hide();
           return result;
         }
       } catch (ex) {
         console.log("updatePlatformStatus -> ex", ex);
-        Loading.hide()
+        Loading.hide();
       }
     },
     async updateVATRate({ commit, dispatch, rootState, rootGetters }, payload) {
@@ -102,6 +112,56 @@ const adminGeneralSettings = {
         }
       } catch (ex) {
         console.log("updateVATRate -> ex", ex);
+      }
+    },
+    async updateDeliveryServiceAvailability(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        Loading.show({
+          spinner: QSpinnerGears,
+          spinnerColor: payload ? "positive" : "logoRed",
+          backgroundColor: "darkgrey",
+          message: "Processing."
+        });
+        const result = await axios.axiosInstance.put(
+          `${adminGeneralSettingsUrl}/update-delivery-serivce-status`,
+          { deliveryServiceStatus: payload }
+        );
+        if (result && result.status === 200) {
+          await dispatch("retrieveAdminGeneralSettings");
+          Loading.hide();
+          return result;
+        }
+      } catch (ex) {
+        console.log("updateDeliveryServiceAvailability -> ex", ex);
+        Loading.hide();
+      }
+    },
+    async updatePayNowOption(
+      { commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        Loading.show({
+          spinner: QSpinnerGears,
+          spinnerColor: payload ? "positive" : "logoRed",
+          backgroundColor: "darkgrey",
+          message: "Processing."
+        });
+        const result = await axios.axiosInstance.put(
+          `${adminGeneralSettingsUrl}/update-paynow-service`,
+          { paynowServiceStatus: payload }
+        );
+        if (result && result.status === 200) {
+          await dispatch("retrieveAdminGeneralSettings");
+          Loading.hide();
+          return result;
+        }
+      } catch (ex) {
+        console.log("updatePayNowOption -> ex", ex);
+        Loading.hide();
       }
     },
     async updateDeliveryCharge(
@@ -149,8 +209,14 @@ const adminGeneralSettings = {
     setAdminVatRate(state, payload) {
       state.adminCurentVATRate = payload;
     },
+    setAdminPayNowStatus(state, payload) {
+      state.adminPayNowStatus = payload;
+    },
     setAdminDeliveryCharges(state, payload) {
       state.adminDeliveryCharges = payload;
+    },
+    setAdminDeliveryServiceAvailable(state, payload) {
+      state.adminDeliveryServiceAvailable = payload;
     }
   }
 };

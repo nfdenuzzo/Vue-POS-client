@@ -80,12 +80,12 @@ const adminAddonCategories = {
         //   (payload && payload.forceRefresh) ||
         //   rootGetters.getAdminAddonCategories.length === 0
         // ) {
-          const result = await axios.axiosInstance.get(addonCategoriesAdminUrl);
-          if (result && result.status === 200) {
-            commit("setAdminAddonCategories", result.data);
-            commit("setAdminAddonCategoriesRetrievedDate", new Date());
-            return true;
-          }
+        const result = await axios.axiosInstance.get(addonCategoriesAdminUrl);
+        if (result && result.status === 200) {
+          commit("setAdminAddonCategories", result.data);
+          commit("setAdminAddonCategoriesRetrievedDate", new Date());
+          return true;
+        }
         // } else {
         //   return true;
         // }
