@@ -71,8 +71,8 @@ export default {
         reader.onload = event => {
           var img = new Image();
           img.onload = () => {
-            let width = 280;
-            let height = 200;
+            let width = 360;
+            let height = 280;
             if (img.height > img.width) {
               width = Math.floor(height * (img.width / img.height));
             } else {

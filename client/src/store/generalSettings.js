@@ -12,9 +12,13 @@ const generalSettings = {
     deliveryCharges: [],
     viewingPurchaseProcess: false,
     payNowStatus: false,
-    deliveryServiceAvailable: true
+    deliveryServiceAvailable: true,
+    currentCampaignSpecials: []
   },
   getters: {
+    getCurrentCampaignSpecials: state => {
+      return state.currentCampaignSpecials
+    },
     getViewingPurchaseProcess: state => {
       return state.viewingPurchaseProcess;
     },
@@ -51,8 +55,8 @@ const generalSettings = {
         //   (payload && payload.forceRefresh) || (rootGetters.getTradingHours.length === 0)
         // ) {
         const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
+        console.log("result", result)
         if (result && result.status === 200) {
-          console.log("result", result)
           commit("setTradingHours", result.data.openingHours);
           commit("setSettingsRetrievedDate", new Date());
           commit("setVatRate", result.data.vat);
@@ -61,6 +65,10 @@ const generalSettings = {
           commit(
             "setDeliveryServiceAvailable",
             result.data.deliveryServiceStatus
+          );
+          commit(
+            "setCurrentCampaignSpecials",
+            result.data.campaignSpecials
           );
           return true;
         }
@@ -112,6 +120,9 @@ const generalSettings = {
     },
     setDeliveryServiceAvailable(state, payload) {
       state.deliveryServiceAvailable = payload;
+    },
+    setCurrentCampaignSpecials(state, payload) {
+      state.currentCampaignSpecials = payload
     }
   }
 };

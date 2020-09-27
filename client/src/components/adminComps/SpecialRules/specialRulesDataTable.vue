@@ -125,6 +125,21 @@
                                   Delete Rule
                                 </q-tooltip>
                               </q-btn>
+                              <span class="q-pl-sm">
+                                <q-btn
+                                  round
+                                  class="text-capitalize"
+                                  :loading="notifyBtnLoading"
+                                  color="primary"
+                                  icon="fas fa-bell"
+                                  size="sm"
+                                  @click="NotifyUsers(props.row._id)"
+                                >
+                                  <q-tooltip anchor="top middle">
+                                    Notify All Users
+                                  </q-tooltip>
+                                </q-btn>
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -181,6 +196,20 @@
                           Delete Rule
                         </q-tooltip>
                       </q-btn>
+                      <span class="q-pl-sm">
+                        <q-btn
+                          round
+                          class="text-capitalize"
+                          color="primary"
+                          icon="fas fa-bell"
+                          size="md"
+                          @click="confirmNotifyUsers(props.row._id)"
+                        >
+                          <q-tooltip anchor="top middle">
+                            Notify All Users
+                          </q-tooltip>
+                        </q-btn>
+                      </span>
                     </div>
                   </template>
                   <template v-else>
@@ -232,11 +261,23 @@
         @closeDeleteDialog="closeDeleteDialog"
       />
     </q-dialog>
+    <q-dialog
+      v-model="viewNotifyUsers"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <notify-users
+        :viewNotifyUsers.sync="viewNotifyUsers"
+        @notifyUsers="notifyUsers"
+        :notifyId="notifyId"
+      />
+    </q-dialog>
   </div>
 </template>
 <script>
 export default {
   components: {
+    "notify-users": () => import("../../dialogs/notifyUsersDialog.vue"),
     "update-rule": () => import("./createUpdateSpecialRules.vue"),
     "query-delete-request": () =>
       import("../../adminComps/queryDeleteRequest.vue")
@@ -250,6 +291,8 @@ export default {
       selectedRuleObj: {},
       viewUpdateDialog: false,
       viewDeleteDialog: false,
+      viewNotifyUsers: false,
+      notifyId: null,
       loading: false,
       columns: [
         {
@@ -399,7 +442,13 @@ export default {
       return this.$store.getters.getRules;
     }
   },
-  watch: {},
+  watch: {
+    viewNotifyUsers() {
+      if (!this.viewNotifyUsers) {
+        this.notifyId = null;
+      } 
+    }
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {},
@@ -415,6 +464,10 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    confirmNotifyUsers(campaignId) {
+      this.notifyId = campaignId;
+      this.viewNotifyUsers = true;
+    },
     closeDeleteDialog() {
       this.viewDeleteDialog = false;
       this.selectedRuleObj = {};

@@ -288,16 +288,21 @@
               />
               <q-select
                 v-if="ruleObject.repetitive"
-                outlined
                 v-model="ruleObject.repeatDays"
                 :options="DayOptions"
                 label="Week Days"
                 color="positive"
                 dense
+                outlined
                 multiple
                 use-chips
+                input-debounce="0"
                 lazy-rules
-                :rules="[val => val != null || 'Please select a Day!']"
+                :rules="[
+                  val =>
+                    (val != null && val.length > 0) ||
+                    'Please select a few days!'
+                ]"
               >
                 <template v-slot:no-option>
                   <q-item>
@@ -317,6 +322,28 @@
                 label="Run Specific Date Range"
                 color="positive"
               />
+              <div
+                v-if="
+                  isEditing &&
+                    ruleObject.dateRange &&
+                    ruleObject.dateRange.from &&
+                    ruleObject.dateRange.to
+                "
+              >
+                {{ `Current Date Range:` }}
+              </div>
+              <div
+                v-if="
+                  isEditing &&
+                    ruleObject.dateRange &&
+                    ruleObject.dateRange.from &&
+                    ruleObject.dateRange.to
+                "
+              >
+                {{
+                  `From: ${ruleObject.dateRange.from} - To: ${ruleObject.dateRange.to}`
+                }}
+              </div>
               <q-date
                 :range="true"
                 v-if="ruleObject.specificRange"
@@ -403,7 +430,6 @@ export default {
       ],
       buyMenuItemOptions: [],
       getMenuItemOptions: [],
-      rerender: 0,
       ruleObject: {
         ruleStructure: null,
         buyCategories: [],
@@ -429,7 +455,13 @@ export default {
       });
     }
   },
-  watch: {},
+  watch: {
+    "ruleObject.specificRange"() {
+      if (!this.ruleObject.specificRange) {
+        this.ruleObject.dateRange = null;
+      }
+    }
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {
@@ -467,21 +499,6 @@ export default {
       this.ruleObject.getItems.push(option[0]);
     },
     closeDialog() {
-      this.ruleObject = {
-        ruleStructure: null,
-        buyCategories: [],
-        getCategories: [],
-        buyItems: [],
-        getItems: [],
-        disabled: false,
-        repetitive: false,
-        repeatDays: [],
-        specificRange: false,
-        dateRange: {
-          from: helperStandardDateOnlyFormat(new Date()),
-          to: helperStandardDateOnlyFormat(new Date())
-        }
-      };
       this.$emit("update:viewUpdateDialog", false);
     },
     async assignData() {
