@@ -868,6 +868,8 @@ export default {
         name: this.menuItemDetails.name,
         description: this.menuItemDetails.description,
         quantity: this.items,
+        categoryId: this.menuItemDetails.menuCategory._id,
+        categoryName: this.menuItemDetails.menuCategory.name,
         calzoneOffered: this.menuItemDetails.calzoneOffered,
         makeCalzone: this.selectedMenuItemDetails.makeCalzone,
         calzonePrice: this.selectedMenuItemDetails.makeCalzone

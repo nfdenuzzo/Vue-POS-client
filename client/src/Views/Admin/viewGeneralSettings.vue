@@ -4,7 +4,7 @@
       General Settings
     </div>
     <div class="q-pa-md row justify-center">
-      <div class="col-xs-11 col-sm-11 col-md-10 text-color">
+      <div class="col-xs-12 col-sm-12 col-md-10 text-color">
         <q-card>
 
           <div class="row justify-center">
@@ -33,7 +33,7 @@
               <platform-trading-hours></platform-trading-hours>
             </div>
           </div>
-          
+
         </q-card>
       </div>
     </div>

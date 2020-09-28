@@ -78,7 +78,7 @@ export default {
             name: "System Stats",
             routeLink: "/system-statistics",
             icon: "fas fa-info-circle",
-            routeName: "systemStats"
+            routeName: "systemStatistics"
           },
           {
             name: "Campaigns",

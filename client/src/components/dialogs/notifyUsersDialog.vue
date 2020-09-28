@@ -67,7 +67,7 @@ export default {
   methods: {
     async confirmNotify() {
       this.notifyBtnLoading = true;
-      const result = await this.$store.dispatch("notifyUsers", this.notifyId)
+      const result = await this.$store.dispatch("notifyUsers", this.notifyId);
       if (result && result.status === 200) {
         this.$q.notify({
           type: "positive",

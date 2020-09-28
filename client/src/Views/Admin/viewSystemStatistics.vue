@@ -4,7 +4,7 @@
       Interesting Statistics
     </div>
     <div class="q-pa-md row justify-center">
-      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-3 text-color q-pa-md">
         <q-card>
           <div
             class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
@@ -16,7 +16,7 @@
           </div>
         </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-3 text-color q-pa-md">
         <q-card>
           <div
             class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
@@ -28,7 +28,7 @@
           </div>
         </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-3 text-color q-pa-md">
         <q-card>
           <div
             class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
@@ -40,7 +40,7 @@
           </div>
         </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-3 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-3 text-color q-pa-md">
         <q-card>
           <div
             class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
@@ -52,7 +52,7 @@
           </div>
         </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-4 text-color q-pa-md">
         <q-card>
           <div
             class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
@@ -76,7 +76,7 @@
           <br />
         </q-card>
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-4 text-color q-pa-md">
         <q-card>
           <div
             class="row justify-center q-pa-md text-weight-bolder text-subtitle2"
@@ -92,7 +92,7 @@
               <div class="col-xs-12">
                 <span class="text-weight-bolder"> {{ index + 1 }}. Item:</span>
                 {{ item.name }},
-                <span class="text-weight-bolder">Quantity Sold: </span>
+                <span class="text-weight-bolder">Sold: </span>
                 {{ item.totalItemCount }}
               </div>
             </div>
@@ -102,10 +102,10 @@
       </div>
     </div>
     <div class="row justify-center text-color">
-      <div class="col-xs-11 col-sm-11 col-md-4 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-4 text-color q-pa-md">
         <pieChart style="max-height:250px;" />
       </div>
-      <div class="col-xs-11 col-sm-11 col-md-6 text-color q-pa-md">
+      <div class="col-xs-12 col-sm-12 col-md-6 text-color q-pa-md">
         <q-card class="q-pa-md">
           <lineChart style="max-height:250px;" />
         </q-card>

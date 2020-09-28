@@ -5,7 +5,7 @@
         Current Special Campaign Rules
       </div>
       <div class="q-pa-md row justify-center">
-        <div class="col-xs-11 col-sm-11 col-md-12 text-color">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-color">
           <q-table
             dense
             separator="cell"
@@ -446,7 +446,7 @@ export default {
     viewNotifyUsers() {
       if (!this.viewNotifyUsers) {
         this.notifyId = null;
-      } 
+      }
     }
   },
   beforeCreate() {},
