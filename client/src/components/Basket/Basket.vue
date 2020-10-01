@@ -56,16 +56,18 @@
 </template>
 
 <script>
-import groupBy from "lodash/groupBy";
-import uniqBy from "lodash/uniqBy";
+import promo from "../../mixins/promo.js"
 export default {
   components: {
     "order-item-display": () => import("./menuItemOrderDisplay.vue")
   },
-  mixins: [],
+  mixins: [promo],
   props: {},
   data() {
-    return {};
+    return {
+      discountPrice: 0,
+      discountedItems: []
+    };
   },
   computed: {
     hasItemsInOrder() {
@@ -86,7 +88,8 @@ export default {
       ).toFixed(2);
     },
     basketTotal() {
-      this.applyPromo;
+      console.log("basketTotal -> this.discountedItems", this.discountedItems)
+      console.log("basketTotal ->  this.discountPrice",  this.discountPrice)
       return this.itemTotal + this.basketExtrasCost;
     },
     itemTotal() {
@@ -154,152 +157,19 @@ export default {
       });
       return extrasCost;
     },
-    applyPromo() {
-      let simplifiedItems = [];
-      this.showItemsInOrder.forEach(item => {
-        for (var i = 0; i < item.quantity; i++) {
-          simplifiedItems.push({
-            itemId: item.id,
-            itemName: item.name,
-            categoryId: item.categoryId,
-            categoryName: item.categoryName,
-            price: item.price
-          });
-        }
-      });
-      console.log("applyPromo -> simplifiedItems", simplifiedItems);
-      let discountItems = [];
-      let promo = this.$store.getters.getCurrentCampaignSpecials;
-      if (promo && promo.length > 0) {
-        promo.forEach(element => {
-          let repeatLoop = true;
-          let queryItemsObj = JSON.parse(JSON.stringify(simplifiedItems));
-          do {
-          let count = [];
-          // lets see how many "conditons" we need to satisfy
-          if (element.buyCategories.length > 0) {
-            let validIndex = [];
-            let uniqueCategories = uniqBy(element.buyCategories, function (e) {
-              return e._id;
-            });
-            uniqueCategories.forEach(cat => {
-              queryItemsObj.forEach((qObj, index) => {
-                if (cat._id === qObj.categoryId) {
-                  validIndex.push(index);
-                }
-              });
-            });
-
-            if (validIndex.length >= element.buyCategories.length) {
-              count.push({ index: 0, value: true });
-              validIndex.sort().length = element.buyCategories.length;
-            }
-            
-            validIndex.sort().reverse().forEach(i => {
-              queryItemsObj.splice(i, 1);
-            });
-          } else if (element.buyCategories.length === 0) {
-            count.push({ index: 0, value: true });
-          }
-          ///////////////////////////////////
-
-          if (element.buyItems.length > 0) {
-            let validIndex = [];
-            let uniqueItems = uniqBy(element.buyItems, function (e) {
-              return e._id;
-            });
-            uniqueItems.forEach(item => {
-              queryItemsObj.forEach((qObj, index) => {
-                if (item._id === qObj.itemId) {
-                  validIndex.push(index);
-                }
-              });
-            });
-            if (validIndex.length >= element.buyItems.length) {
-              count.push({ index: 0, value: true });
-              validIndex = validIndex.sort().slice(element.buyItems.length);
-            }
-            
-            validIndex.sort().reverse().forEach(i => {
-              queryItemsObj.splice(i, 1);
-            });
-          } else if (element.buyItems.length === 0) {
-            count.push({ index: 1, value: true });
-          }
-          ///////////////////////////////////
-          
-          if (element.getCategories.length > 0) {
-            let validIndex = [];
-            let uniqueCategories = uniqBy(element.getCategories, function (e) {
-              return e._id;
-            });
-            uniqueCategories.forEach(cat => {
-              queryItemsObj.forEach((qObj, index) => {
-                if (cat._id === qObj.categoryId) {
-                  validIndex.push(index);
-                }
-              });
-            });
-
-            if (validIndex.length >= element.getCategories.length) {
-              count.push({ index: 0, value: true });
-              validIndex.sort().length = element.getCategories.length;
-            }
-            
-            validIndex.sort().reverse().forEach(i => {
-              discountItems.push(queryItemsObj[i]);
-            });
-            validIndex.sort().reverse().forEach(i => {
-              queryItemsObj.splice(i, 1);
-            });
-          } else if (element.getCategories.length === 0) {
-            count.push({ index: 2, value: true });
-          }
-          //////////////////////////////////////////////////////
-
-          if (element.getItems.length > 0) {
-            let validIndex = [];
-            let uniqueItems = uniqBy(element.getItems, function (e) {
-              return e._id;
-            });
-            uniqueItems.forEach(item => {
-              queryItemsObj.forEach((qObj, index) => {
-                if (item._id === qObj.itemId) {
-                  validIndex.push(index);
-                }
-              });
-            });
-            if (validIndex.length >= element.getItems.length) {
-              count.push({ index: 0, value: true });
-              validIndex = validIndex.sort().slice(element.getItems.length);
-            }
-
-            validIndex.sort().reverse().forEach(i => {
-              discountItems.push(queryItemsObj[i]);
-            });
-            validIndex.sort().reverse().forEach(i => {
-              queryItemsObj.splice(i, 1);
-            });
-          } else if (element.getItems.length === 0) {
-            count.push({ index: 3, value: true });
-          }
-
-          if (count.length === 4) {
-            repeatLoop = true
-          } else {
-            repeatLoop = false
-          }
-          console.log("applyPromo -> queryItemsObj", queryItemsObj)
-
-          console.log("applyPromo -> count", count);
-          console.log("discountItems", discountItems);
-          } while (repeatLoop);
-        });
-      }
-      return 0;
-    }
   },
   watch: {
+    discountedItems() {
+       this.discountPrice = 0;
+       if (this.discountedItems && this.discountedItems.length > 0) {
+        for (let i = 0; i < this.discountedItems.length; i++) {
+          this.discountPrice = this.discountPrice + this.discountedItems[i].price
+        };
+      }
+    },
+    async basketTotal() {
+      this.discountedItems = await this.applyPromo()
+    },
     hasItemsInOrder() {
       if (!this.hasItemsInOrder) {
         this.$emit("closeViewPurchaseProcess");
@@ -309,11 +179,14 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {},
+  async mounted() {
+    this.discountedItems = await this.applyPromo()
+  },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+  }
 };
 </script>
 <style></style>
