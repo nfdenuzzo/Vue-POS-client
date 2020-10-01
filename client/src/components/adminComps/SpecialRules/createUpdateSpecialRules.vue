@@ -20,7 +20,7 @@
       <div clas="q-pa-md" v-if="dataLoaded">
         <q-form ref="myForm" @submit="onSubmit" v-if="ruleObject.ruleStructure">
           <div class="row justify-center q-pb-md">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
               <q-input
                 outlined
                 dense
@@ -39,7 +39,7 @@
           <div class="row justify-center q-pb-md">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="row justify-center">
-                <div class="col-xs-1">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h6"> BUY </span>
                 </div>
 
@@ -65,7 +65,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.buyCategories"
@@ -94,10 +94,10 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-1 text-center">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h4"> / </span>
                 </div>
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     :value="[]"
@@ -123,7 +123,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.buyItems"
@@ -152,11 +152,11 @@
           <div class="row justify-center q-pb-md">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="row justify-center">
-                <div class="col-xs-1">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h6"> GET </span>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     :options="getMenuCategories"
@@ -178,7 +178,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.getCategories"
@@ -200,11 +200,11 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-1 text-center">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h4"> / </span>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     :value="[]"
@@ -230,7 +230,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.getItems"

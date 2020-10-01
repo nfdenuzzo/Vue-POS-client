@@ -139,9 +139,7 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {
-    console.log("this.deliveryOrCollection", this.deliveryOrCollection)
-  },
+  mounted() {},
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},

@@ -133,7 +133,7 @@
                                   color="primary"
                                   icon="fas fa-bell"
                                   size="sm"
-                                  @click="NotifyUsers(props.row._id)"
+                                  @click="confirmNotifyUsers(props.row._id)"
                                 >
                                   <q-tooltip anchor="top middle">
                                     Notify All Users
@@ -268,7 +268,6 @@
     >
       <notify-users
         :viewNotifyUsers.sync="viewNotifyUsers"
-        @notifyUsers="notifyUsers"
         :notifyId="notifyId"
       />
     </q-dialog>
