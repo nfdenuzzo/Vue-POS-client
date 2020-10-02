@@ -19,6 +19,9 @@ import paymentSystem from "./paymentSystem";
 import specialRules from "./specialRules";
 
 import createPersistedState from "vuex-persistedstate";
+import createPlugin from 'logrocket-vuex';
+import LogRocket from 'logrocket';
+const logrocketPlugin = createPlugin(LogRocket);
 
 Vue.use(Vuex);
 
@@ -30,9 +33,9 @@ Vue.use(Vuex);
  * async/await or return a Promise which resolves
  * with the Store instance.
  */
-
 export default new Vuex.Store({
   plugins: [
+    logrocketPlugin,
     createPersistedState({
       storage: window.localStorage,
       paths: [
