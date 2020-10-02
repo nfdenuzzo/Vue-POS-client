@@ -1,5 +1,4 @@
 import axios from "../httpClient/config.js";
-import LogRocket from 'logrocket';
 
 const myProfileUrl = "/my-profile";
 

@@ -20,7 +20,6 @@ import specialRules from "./specialRules";
 
 import createPersistedState from "vuex-persistedstate";
 import createPlugin from 'logrocket-vuex';
-import LogRocket from 'logrocket';
 const logrocketPlugin = createPlugin(LogRocket);
 
 Vue.use(Vuex);
