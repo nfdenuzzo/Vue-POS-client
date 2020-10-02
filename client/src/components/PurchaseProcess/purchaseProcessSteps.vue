@@ -61,6 +61,8 @@
           :deliveryOrCollection="orderDetails.orderType"
           :orderDeliveryCharge="orderDeliveryCharge"
           @placeOrder="placeOrder"
+          :promoDiscounts="$refs.basket._data.simplifiedDiscountPromo"
+          :totalPromoDiscounts="$refs.basket._data.totalPromoDiscounts"
         />
       </q-step>
       <template v-slot:navigation>
@@ -210,7 +212,7 @@ export default {
     },
     async proceed() {
       if (this.step === 1) {
-        this.orderTotal = this.$refs.basket.basketTotal;
+        this.orderTotal = this.$refs.basket.totalItemsCost;
         this.step++;
       } else if (this.step === 2) {
         this.$refs.orderDetail.onSubmit();

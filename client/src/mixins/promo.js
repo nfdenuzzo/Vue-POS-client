@@ -144,7 +144,7 @@ export default {
             }
             count = null;
           } while (repeatLoop);
-        //    check if discount items is valid for currentt promo then we need tot add the promo name
+          //    check if discount items is valid for currentt promo then we need tot add the promo name
           if (discountItems.items && discountItems.items.length > 0) {
             discountItems.promoName = element.name;
             discountItems.type = element.type;
@@ -152,9 +152,38 @@ export default {
             promoDiscounts.push(discountItems);
           }
         });
-        return promoDiscounts; 
+        return promoDiscounts;
       } else {
-        return promoDiscounts; 
+        return promoDiscounts;
+      }
+    },
+    applyApplicablePromos() {
+      this.totalPromoDiscounts = [];
+      this.simplifiedDiscountPromo = [];
+      this.totalPromoDiscounts = 0;
+      if (
+        this.getDiscountedPromoItems &&
+        this.getDiscountedPromoItems.length > 0
+      ) {
+        for (let i = 0; i < this.getDiscountedPromoItems.length; i++) {
+          let discountPrice = 0;
+          for (
+            let k = 0;
+            k < this.getDiscountedPromoItems[i].items.length;
+            k++
+          ) {
+            discountPrice =
+              discountPrice + this.getDiscountedPromoItems[i].items[k].price;
+            if (this.getDiscountedPromoItems[i].type === "HP01") {
+              discountPrice = discountPrice / 2;
+            }
+          }
+          this.simplifiedDiscountPromo.push({
+            name: this.getDiscountedPromoItems[i].promoName,
+            discountPrice: discountPrice
+          });
+          this.totalPromoDiscounts = this.totalPromoDiscounts + discountPrice;
+        }
       }
     }
   }

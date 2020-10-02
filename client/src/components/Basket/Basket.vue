@@ -46,7 +46,9 @@
 
         <div
           class="row q-px-lg q-pt-sm"
-          v-if="getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0"
+          v-if="
+            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
+          "
         >
           <div class="col-xs-12 text-center text-weight-bolder text-body2">
             Current Promos Applied:
@@ -54,7 +56,9 @@
         </div>
         <div
           class="row q-px-lg"
-          v-if="getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0"
+          v-if="
+            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
+          "
         >
           <div
             class="col-xs-12 text-center text-weight-bolder text-caption"
@@ -66,7 +70,9 @@
         </div>
         <div
           class="q-py-xs"
-          v-if="getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0"
+          v-if="
+            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
+          "
         />
 
         <div class="row q-px-lg">
@@ -119,7 +125,14 @@ export default {
       ).toFixed(2);
     },
     basketTotal() {
-      return this.itemTotal + this.basketExtrasCost - this.getTotalPromoDiscounts;
+      return (
+        this.itemTotal + this.basketExtrasCost - this.getTotalPromoDiscounts
+      );
+    },
+    totalItemsCost() {
+       return (
+        this.itemTotal + this.basketExtrasCost
+      );
     },
     itemTotal() {
       return this.$store.getters.getBasket.reduce(
@@ -220,30 +233,7 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {
-    applyApplicablePromos() {
-      this.totalPromoDiscounts = [];
-      this.simplifiedDiscountPromo = [];
-      this.totalPromoDiscounts = 0;
-      if (this.getDiscountedPromoItems && this.getDiscountedPromoItems.length > 0) {
-        for (let i = 0; i < this.getDiscountedPromoItems.length; i++) {
-          let discountPrice = 0;
-          for (let k = 0; k < this.getDiscountedPromoItems[i].items.length; k++) {
-            discountPrice =
-              discountPrice + this.getDiscountedPromoItems[i].items[k].price;
-            if (this.getDiscountedPromoItems[i].type === "HP01") {
-              discountPrice = discountPrice / 2;
-            }
-          }
-          this.simplifiedDiscountPromo.push({
-            name: this.getDiscountedPromoItems[i].promoName,
-            discountPrice: discountPrice
-          });
-          this.totalPromoDiscounts = this.totalPromoDiscounts + discountPrice;
-        }
-      }
-    }
-  }
+  methods: {}
 };
 </script>
 <style></style>

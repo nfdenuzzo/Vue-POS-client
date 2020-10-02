@@ -35,10 +35,10 @@
 
           <div class="row q-pb-sm q-pa-sm">
             <div class="col-xs-12 q-px-md q-py-xs q-pb-md">
-              <div class="col-xs-12 text-weight-bold text-right">
+              <div class="col-xs-12 text-weight-bolder text-right text-caption">
                 SubTotal (Items + Extras): R {{ orderTotal }}
               </div>
-              <div class="col-xs-12 text-weight-bold text-right">
+              <div class="col-xs-12 text-weight-bolder text-right text-caption">
                 VAT (Already Included): R {{ vatTotal }}
               </div>
               <div
@@ -47,8 +47,36 @@
               >
                 Delivery fee: R {{ orderDeliveryCharge }}
               </div>
+
+              <div
+                class="row q-px-lg q-pt-sm"
+                v-if="promoDiscounts && promoDiscounts.length > 0"
+              >
+                <div
+                  class="col-xs-12 text-center text-weight-bolder text-body2"
+                >
+                  Current Promos Applied:
+                </div>
+              </div>
+              <div
+                class="row q-px-lg"
+                v-if="promoDiscounts && promoDiscounts.length > 0"
+              >
+                <div
+                  class="col-xs-12 text-center text-weight-bolder text-caption"
+                  v-for="(promo, index) in promoDiscounts"
+                  :key="index"
+                >
+                  {{ promo.name }}: R - {{ promo.discountPrice }}
+                </div>
+              </div>
+              <div
+                class="q-py-xs"
+                v-if="promoDiscounts && promoDiscounts.length > 0"
+              />
               <div class="col-xs-12 text-weight-bolder text-right">
-                Total Due: R {{ orderTotal + orderDeliveryCharge }}
+                Total Due: R
+                {{ orderTotal + orderDeliveryCharge - totalPromoDiscounts }}
               </div>
             </div>
           </div>
@@ -86,9 +114,10 @@
 </template>
 
 <script>
+import promo from "../../mixins/promo.js";
 export default {
   components: {},
-  mixins: [],
+  mixins: [promo],
   props: {
     deliveryOrCollection: {
       type: String,
@@ -104,6 +133,16 @@ export default {
       type: Number,
       default: 0,
       required: true
+    },
+    promoDiscounts: {
+      type: Array,
+      default: () => [],
+      required: false
+    },
+    totalPromoDiscounts: {
+      type: Number,
+      default: 0,
+      required: false
     }
   },
   data() {
@@ -115,9 +154,12 @@ export default {
     getOptions() {
       const options = [];
       if (this.$store.getters.getPayNowStatus) {
-        options.push({ label: "Pay now", value: "Pay now" })
+        options.push({ label: "Pay now", value: "Pay now" });
       }
-      options.push({ label: `Pay on ${this.deliveryOrCollection}`, value: `Pay on ${this.deliveryOrCollection}` })
+      options.push({
+        label: `Pay on ${this.deliveryOrCollection}`,
+        value: `Pay on ${this.deliveryOrCollection}`
+      });
       return options;
     },
     showItemsInOrder() {
