@@ -36,12 +36,39 @@
             Extra's Total: R {{ basketExtrasCost }}
           </div>
         </div>
+
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-caption">
             VAT {{ ($store.getters.getVATRate * 100).toFixed(2) }}% (Already
             Included): R {{ vatTotal }}
           </div>
         </div>
+
+        <div
+          class="row q-px-lg q-pt-sm"
+          v-if="getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0"
+        >
+          <div class="col-xs-12 text-center text-weight-bolder text-body2">
+            Current Promos Applied:
+          </div>
+        </div>
+        <div
+          class="row q-px-lg"
+          v-if="getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0"
+        >
+          <div
+            class="col-xs-12 text-center text-weight-bolder text-caption"
+            v-for="(promo, index) in getSimplifiedDiscountPromo"
+            :key="index"
+          >
+            {{ promo.name }}: R - {{ promo.discountPrice }}
+          </div>
+        </div>
+        <div
+          class="q-py-xs"
+          v-if="getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0"
+        />
+
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-subtitle1">
             Order Total: R {{ basketTotal }}
@@ -56,7 +83,7 @@
 </template>
 
 <script>
-import promo from "../../mixins/promo.js"
+import promo from "../../mixins/promo.js";
 export default {
   components: {
     "order-item-display": () => import("./menuItemOrderDisplay.vue")
@@ -65,13 +92,17 @@ export default {
   props: {},
   data() {
     return {
-      discountPrice: 0,
-      discountedItems: []
+      totalPromoDiscounts: 0,
+      discountedPromoItems: [],
+      simplifiedDiscountPromo: []
     };
   },
   computed: {
     hasItemsInOrder() {
       return this.$store.getters.getBasket.length > 0;
+    },
+    basketLength() {
+      return this.$store.getters.getBasket.length;
     },
     showItemsInOrder() {
       return this.$store.getters.getBasket;
@@ -88,9 +119,7 @@ export default {
       ).toFixed(2);
     },
     basketTotal() {
-      console.log("basketTotal -> this.discountedItems", this.discountedItems)
-      console.log("basketTotal ->  this.discountPrice",  this.discountPrice)
-      return this.itemTotal + this.basketExtrasCost;
+      return this.itemTotal + this.basketExtrasCost - this.getTotalPromoDiscounts;
     },
     itemTotal() {
       return this.$store.getters.getBasket.reduce(
@@ -157,18 +186,24 @@ export default {
       });
       return extrasCost;
     },
+    getTotalPromoDiscounts() {
+      return this.totalPromoDiscounts;
+    },
+    getSimplifiedDiscountPromo() {
+      return this.simplifiedDiscountPromo;
+    },
+    getDiscountedPromoItems() {
+      return this.discountedPromoItems;
+    }
   },
   watch: {
-    discountedItems() {
-       this.discountPrice = 0;
-       if (this.discountedItems && this.discountedItems.length > 0) {
-        for (let i = 0; i < this.discountedItems.length; i++) {
-          this.discountPrice = this.discountPrice + this.discountedItems[i].price
-        };
-      }
+    async itemsInOrder() {
+      // we need to apply the promo rule if there are any when ever we add or remove items from the basket
+      this.discountedPromoItems = await this.applyPromo();
     },
-    async basketTotal() {
-      this.discountedItems = await this.applyPromo()
+    discountedPromoItems() {
+      // since we update the discountedPromoItems variable above, we need to then calculate the new savings that could have occured
+      this.applyApplicablePromos();
     },
     hasItemsInOrder() {
       if (!this.hasItemsInOrder) {
@@ -180,12 +215,34 @@ export default {
   created() {},
   beforeMount() {},
   async mounted() {
-    this.discountedItems = await this.applyPromo()
+    this.discountedPromoItems = await this.applyPromo();
   },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   methods: {
+    applyApplicablePromos() {
+      this.totalPromoDiscounts = [];
+      this.simplifiedDiscountPromo = [];
+      this.totalPromoDiscounts = 0;
+      if (this.getDiscountedPromoItems && this.getDiscountedPromoItems.length > 0) {
+        for (let i = 0; i < this.getDiscountedPromoItems.length; i++) {
+          let discountPrice = 0;
+          for (let k = 0; k < this.getDiscountedPromoItems[i].items.length; k++) {
+            discountPrice =
+              discountPrice + this.getDiscountedPromoItems[i].items[k].price;
+            if (this.getDiscountedPromoItems[i].type === "HP01") {
+              discountPrice = discountPrice / 2;
+            }
+          }
+          this.simplifiedDiscountPromo.push({
+            name: this.getDiscountedPromoItems[i].promoName,
+            discountPrice: discountPrice
+          });
+          this.totalPromoDiscounts = this.totalPromoDiscounts + discountPrice;
+        }
+      }
+    }
   }
 };
 </script>

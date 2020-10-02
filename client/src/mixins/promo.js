@@ -1,5 +1,4 @@
 import uniqBy from "lodash/uniqBy";
-import sortBy from "lodash/sortBy";
 export default {
   methods: {
     async applyPromo() {
@@ -15,15 +14,16 @@ export default {
           });
         }
       });
-      let discountItems = [];
+      let promoDiscounts = [];
       let promo = this.$store.getters.getCurrentCampaignSpecials;
       if (promo && promo.length > 0) {
         await promo.forEach(async element => {
+          let discountItems = { type: "", promoName: "", items: [] };
           let repeatLoop = true;
           let queryItemsObj = await JSON.parse(JSON.stringify(simplifiedItems));
-          queryItemsObj = await sortBy(queryItemsObj, async function(item) {
-            return item.price;
-          }).reverse();
+          queryItemsObj.sort(function(a, b) {
+            return a["categoryId"] - b["categoryId"] || a["price"] - b["price"];
+          });
           do {
             let count = [];
             // lets see how many "conditons" we need to satisfy
@@ -82,10 +82,7 @@ export default {
             } else if (element.buyItems.length === 0) {
               count.push({ index: 1, value: true });
             }
-            /////////////////////////////////
-            queryItemsObj = await sortBy(queryItemsObj, async function(item) {
-                return item.price;
-            });
+            // /////////////////////////////////
             if (element.getCategories.length > 0 && count.length === 2) {
               let validIndex = [];
               let uniqueCategories = uniqBy(element.getCategories, function(e) {
@@ -103,22 +100,17 @@ export default {
                 count.push({ index: 2, value: true });
                 validIndex.sort().length = element.getCategories.length;
               }
-
-              validIndex
-                .sort()
-                .forEach(i => {
-                  discountItems.push(queryItemsObj[i]);
-                });
-              validIndex
-                .sort()
-                .forEach(i => {
-                  queryItemsObj.splice(i, 1);
-                });
+              validIndex.sort().forEach(i => {
+                discountItems.items.push(queryItemsObj[i]);
+              });
+              validIndex.sort().forEach(i => {
+                queryItemsObj.splice(i, 1);
+              });
             } else if (element.getCategories.length === 0) {
               count.push({ index: 2, value: true });
             }
-            //////////////////////////////////////////////////////
-
+            // //////////////////////////////////////////////////////
+            // in order to get items free/half price we need to ensure that  all the previous checks have been made
             if (element.getItems.length > 0 && count.length === 3) {
               let validIndex = [];
               let uniqueItems = uniqBy(element.getItems, function(e) {
@@ -135,17 +127,12 @@ export default {
                 count.push({ index: 3, value: true });
                 validIndex = validIndex.sort().slice(element.getItems.length);
               }
-
-              validIndex
-                .sort()
-                .forEach(i => {
-                  discountItems.push(queryItemsObj[i]);
-                });
-              validIndex
-                .sort()
-                .forEach(i => {
-                  queryItemsObj.splice(i, 1);
-                });
+              validIndex.sort().forEach(i => {
+                discountItems.items.push(queryItemsObj[i]);
+              });
+              validIndex.sort().forEach(i => {
+                queryItemsObj.splice(i, 1);
+              });
             } else if (element.getItems.length === 0) {
               count.push({ index: 3, value: true });
             }
@@ -157,9 +144,18 @@ export default {
             }
             count = null;
           } while (repeatLoop);
+        //    check if discount items is valid for currentt promo then we need tot add the promo name
+          if (discountItems.items && discountItems.items.length > 0) {
+            discountItems.promoName = element.name;
+            discountItems.type = element.type;
+
+            promoDiscounts.push(discountItems);
+          }
         });
+        return promoDiscounts; 
+      } else {
+        return promoDiscounts; 
       }
-      return discountItems;
     }
   }
 };

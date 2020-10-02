@@ -17,7 +17,7 @@ const generalSettings = {
   },
   getters: {
     getCurrentCampaignSpecials: state => {
-      return state.currentCampaignSpecials
+      return state.currentCampaignSpecials;
     },
     getViewingPurchaseProcess: state => {
       return state.viewingPurchaseProcess;
@@ -52,26 +52,23 @@ const generalSettings = {
       try {
         // if (
         //   cachingTimeExpired(rootGetters.getSettingsRetrievedDate) ||
-        //   (payload && payload.forceRefresh) || (rootGetters.getTradingHours.length === 0)
+        //   (payload && payload.forceRefresh) ||
+        //   rootGetters.getTradingHours.length === 0
         // ) {
-        const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
-        console.log("result", result)
-        if (result && result.status === 200) {
-          commit("setTradingHours", result.data.openingHours);
-          commit("setSettingsRetrievedDate", new Date());
-          commit("setVatRate", result.data.vat);
-          commit("setDeliveryCharges", result.data.deliveryCharges);
-          commit("setPayNowStatus", result.data.payNowStatus);
-          commit(
-            "setDeliveryServiceAvailable",
-            result.data.deliveryServiceStatus
-          );
-          commit(
-            "setCurrentCampaignSpecials",
-            result.data.campaignSpecials
-          );
-          return true;
-        }
+          const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
+          if (result && result.status === 200) {
+            commit("setTradingHours", result.data.openingHours);
+            commit("setSettingsRetrievedDate", new Date());
+            commit("setVatRate", result.data.vat);
+            commit("setDeliveryCharges", result.data.deliveryCharges);
+            commit("setPayNowStatus", result.data.payNowStatus);
+            commit(
+              "setDeliveryServiceAvailable",
+              result.data.deliveryServiceStatus
+            );
+            commit("setCurrentCampaignSpecials", result.data.campaignSpecials);
+            return true;
+          }
         // } else {
         //   return true;
         // }
@@ -122,7 +119,7 @@ const generalSettings = {
       state.deliveryServiceAvailable = payload;
     },
     setCurrentCampaignSpecials(state, payload) {
-      state.currentCampaignSpecials = payload
+      state.currentCampaignSpecials = payload;
     }
   }
 };
