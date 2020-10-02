@@ -1,5 +1,4 @@
 import axios from "../httpClient/config.js";
-import LogRocket from 'logrocket';
 
 const myProfileUrl = "/my-profile";
 
@@ -25,7 +24,6 @@ const myProfile = {
         const result = await axios.axiosInstance.get(`${myProfileUrl}`);
         if (result && result.status === 200) {
           commit("setMyProfile", result.data);
-          console.log("result.data", result.data)
           commit("setMyProfileRetrievedDate", new Date());
           LogRocket.identify(result.data.userEmail, {
             name: result.data.name,
