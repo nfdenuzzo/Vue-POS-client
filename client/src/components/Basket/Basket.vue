@@ -44,36 +44,7 @@
           </div>
         </div>
 
-        <div
-          class="row q-px-lg q-pt-sm"
-          v-if="
-            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
-          "
-        >
-          <div class="col-xs-12 text-center text-weight-bolder text-body2">
-            Current Promos Applied:
-          </div>
-        </div>
-        <div
-          class="row q-px-lg"
-          v-if="
-            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
-          "
-        >
-          <div
-            class="col-xs-12 text-center text-weight-bolder text-caption"
-            v-for="(promo, index) in getSimplifiedDiscountPromo"
-            :key="index"
-          >
-            {{ promo.name }}: R - {{ promo.discountPrice }}
-          </div>
-        </div>
-        <div
-          class="q-py-xs"
-          v-if="
-            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
-          "
-        />
+        <applied-promo-view :getSimplifiedDiscountPromo="getSimplifiedDiscountPromo" />
 
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-subtitle1">
@@ -92,7 +63,8 @@
 import promo from "../../mixins/promo.js";
 export default {
   components: {
-    "order-item-display": () => import("./menuItemOrderDisplay.vue")
+    "order-item-display": () => import("./menuItemOrderDisplay.vue"),
+    "applied-promo-view": () => import("../appliedPromoView.vue")
   },
   mixins: [promo],
   props: {},

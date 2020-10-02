@@ -171,6 +171,9 @@
             {{ orderSpecifications.vat }}
           </div>
         </div>
+
+        <applied-promo-view :getSimplifiedDiscountPromo="getSimplifiedDiscountPromo" />
+
         <div
           class="row q-px-lg"
           v-if="orderSpecifications.orderType === 'Delivery'"
@@ -223,13 +226,14 @@
 import sortBy from "lodash/sortBy";
 export default {
   components: {
-    "order-item-display": () => import("../Basket/menuItemOrderDisplay.vue")
+    "order-item-display": () => import("../Basket/menuItemOrderDisplay.vue"),
+    "applied-promo-view": () => import("../appliedPromoView.vue")
   },
   mixins: [],
   props: {
     orderSpecifications: {
       type: Object,
-      default: () => [],
+      default: () => {},
       required: true
     },
     adminView: {
@@ -256,6 +260,9 @@ export default {
     };
   },
   computed: {
+    getSimplifiedDiscountPromo() {
+      return this.orderSpecifications.simplifiedAppliedPromos
+    },
     hasItemsInOrder() {
       return this.orderSpecifications.itemsInOrder > 0;
     },
