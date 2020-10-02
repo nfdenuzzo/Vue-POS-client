@@ -20,7 +20,7 @@
       <div clas="q-pa-md" v-if="dataLoaded">
         <q-form ref="myForm" @submit="onSubmit" v-if="ruleObject.ruleStructure">
           <div class="row justify-center q-pb-md">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
               <q-input
                 outlined
                 dense
@@ -39,7 +39,7 @@
           <div class="row justify-center q-pb-md">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="row justify-center">
-                <div class="col-xs-1">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h6"> BUY </span>
                 </div>
 
@@ -65,7 +65,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.buyCategories"
@@ -94,10 +94,10 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-1 text-center">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h4"> / </span>
                 </div>
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     :value="[]"
@@ -123,7 +123,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.buyItems"
@@ -152,11 +152,11 @@
           <div class="row justify-center q-pb-md">
             <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
               <div class="row justify-center">
-                <div class="col-xs-1">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h6"> GET </span>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     :options="getMenuCategories"
@@ -178,7 +178,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.getCategories"
@@ -200,11 +200,11 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-1 text-center">
+                <div class="col-xs-12 col-sm-12 col-md-1 text-center">
                   <span class="text-weight-bolder text-h4"> / </span>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     :value="[]"
@@ -230,7 +230,7 @@
                   </q-select>
                 </div>
 
-                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md">
+                <div class="col-xs-11 col-sm-4 col-md-2 q-px-md q-py-sm">
                   <q-select
                     outlined
                     v-model="ruleObject.getItems"
@@ -288,16 +288,21 @@
               />
               <q-select
                 v-if="ruleObject.repetitive"
-                outlined
                 v-model="ruleObject.repeatDays"
                 :options="DayOptions"
                 label="Week Days"
                 color="positive"
                 dense
+                outlined
                 multiple
                 use-chips
+                input-debounce="0"
                 lazy-rules
-                :rules="[val => val != null || 'Please select a Day!']"
+                :rules="[
+                  val =>
+                    (val != null && val.length > 0) ||
+                    'Please select a few days!'
+                ]"
               >
                 <template v-slot:no-option>
                   <q-item>
@@ -317,6 +322,28 @@
                 label="Run Specific Date Range"
                 color="positive"
               />
+              <div
+                v-if="
+                  isEditing &&
+                    ruleObject.dateRange &&
+                    ruleObject.dateRange.from &&
+                    ruleObject.dateRange.to
+                "
+              >
+                {{ `Current Date Range:` }}
+              </div>
+              <div
+                v-if="
+                  isEditing &&
+                    ruleObject.dateRange &&
+                    ruleObject.dateRange.from &&
+                    ruleObject.dateRange.to
+                "
+              >
+                {{
+                  `From: ${ruleObject.dateRange.from} - To: ${ruleObject.dateRange.to}`
+                }}
+              </div>
               <q-date
                 :range="true"
                 v-if="ruleObject.specificRange"
@@ -403,7 +430,6 @@ export default {
       ],
       buyMenuItemOptions: [],
       getMenuItemOptions: [],
-      rerender: 0,
       ruleObject: {
         ruleStructure: null,
         buyCategories: [],
@@ -429,7 +455,13 @@ export default {
       });
     }
   },
-  watch: {},
+  watch: {
+    "ruleObject.specificRange"() {
+      if (!this.ruleObject.specificRange) {
+        this.ruleObject.dateRange = null;
+      }
+    }
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {
@@ -467,21 +499,6 @@ export default {
       this.ruleObject.getItems.push(option[0]);
     },
     closeDialog() {
-      this.ruleObject = {
-        ruleStructure: null,
-        buyCategories: [],
-        getCategories: [],
-        buyItems: [],
-        getItems: [],
-        disabled: false,
-        repetitive: false,
-        repeatDays: [],
-        specificRange: false,
-        dateRange: {
-          from: helperStandardDateOnlyFormat(new Date()),
-          to: helperStandardDateOnlyFormat(new Date())
-        }
-      };
       this.$emit("update:viewUpdateDialog", false);
     },
     async assignData() {

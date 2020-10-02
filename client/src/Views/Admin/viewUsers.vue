@@ -4,7 +4,7 @@
       Current Users
     </div>
     <div class="q-pa-md row justify-center">
-      <div class="col-xs-11 col-sm-11 col-md-7 text-color">
+      <div class="col-xs-12 col-sm-12 col-md-7 text-color">
         <q-table
           dense
           separator="cell"
@@ -90,7 +90,7 @@
                           >
                         </div>
                         <div class="col-6 text-right">
-                          <div class="text-color" v-if="col.id != 5">
+                          <div class="text-color breakWord" v-if="col.id != 5">
                             {{ col.value }}
                           </div>
                           <div v-else>

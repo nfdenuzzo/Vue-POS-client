@@ -4,7 +4,7 @@
       Order History {{ hasCorrectPermissions ? "" : "(Last 5)" }}
     </div>
     <div class="row justify-center">
-      <div class="col-xs-5 col-sm-5 col-md-3 col-lg-2 q-pa-md">
+      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 q-pa-md">
         <q-input
           outlined
           dense
@@ -34,7 +34,7 @@
           </template>
         </q-input>
       </div>
-      <div class="col-xs-5 col-sm-5 col-md-3 col-lg-2 q-pa-md">
+      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 q-pa-md">
         <q-input outlined dense v-model="dateTo" mask="date" :rules="['date']">
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
@@ -58,7 +58,7 @@
           </template>
         </q-input>
       </div>
-      <div class="col-xs-5 col-sm-5 col-md-3 col-lg-1 q-pa-md">
+      <div class="col-xs-3 col-sm-2 col-md-2 col-lg-1 q-pa-md">
         <q-btn
           label="Reset"
           color="warning"

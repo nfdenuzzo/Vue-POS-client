@@ -94,7 +94,8 @@
                 />
               </div>
             </div>
-            <div class="row justify-center">
+            <div class="row justify-center" 
+            v-if="!$q.platform.is.ios">
               <div class="col-xs-10">
                 <div class="row">
                   <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">

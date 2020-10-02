@@ -8,7 +8,7 @@ import router from './router'
 
 Sentry.init({
   dsn: 'https://2979e20cca9444e7b57794f0ea72db54@o220784.ingest.sentry.io/5374455',
-  integrations: [new VueIntegration({Vue, attachProps: true, logErrors: true})],
+  integrations: [new VueIntegration({Vue, attachProps: true})],
 });
 
 Vue.config.productionTip = false

@@ -5,7 +5,7 @@
         Current Add-on Categories
       </div>
       <div class="q-pa-md row justify-center">
-        <div class="col-xs-11 col-sm-11 col-md-7 text-color">
+        <div class="col-xs-12 col-sm-12 col-md-7 text-color">
           <q-table
             dense
             separator="cell"

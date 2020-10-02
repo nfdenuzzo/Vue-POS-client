@@ -39,18 +39,18 @@
       <div
         v-if="$store.getters.getAuth && $store.getters.getProfile.name"
         :class="{
-          'q-pb-md':
+          'q-pb-sm':
             $q.screen.height > 767 && getPlatformOpen && $store.getters.getAuth
         }"
       >
-        <div class="row q-pt-md justify-center">
+        <div class="row q-pt-sm justify-center">
           <div class="text-h6 text-color text-weight-bolder">
             Welcome {{ $store.getters.getProfile.name }}
           </div>
         </div>
       </div>
 
-      <div class="row justify-center q-pt-md" v-if="!getPlatformOpen">
+      <div class="row justify-center q-pt-sm" v-if="!getPlatformOpen">
         <q-banner
           class="bg-logoRed text-white"
           style="border-radius: 5px 5px 5px 5px"
@@ -61,7 +61,7 @@
       </div>
 
       <div
-        class="row q-pt-lg justify-center"
+        class="row q-pt-md justify-center"
         v-for="(button, index) in getButtonOptions"
         :key="index"
       >

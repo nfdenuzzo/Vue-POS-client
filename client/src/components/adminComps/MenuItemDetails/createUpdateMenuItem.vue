@@ -99,6 +99,7 @@
 
             <div class="col-xs-12 q-px-md">
               <imagePage
+                :isEditing="isEditing"
                 ref="imagePage"
                 :menuItemImage.sync="menuItemObj.menuItemImage"
               />

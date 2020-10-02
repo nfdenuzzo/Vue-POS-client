@@ -36,12 +36,45 @@
             Extra's Total: R {{ basketExtrasCost }}
           </div>
         </div>
+
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-caption">
             VAT {{ ($store.getters.getVATRate * 100).toFixed(2) }}% (Already
             Included): R {{ vatTotal }}
           </div>
         </div>
+
+        <div
+          class="row q-px-lg q-pt-sm"
+          v-if="
+            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
+          "
+        >
+          <div class="col-xs-12 text-center text-weight-bolder text-body2">
+            Current Promos Applied:
+          </div>
+        </div>
+        <div
+          class="row q-px-lg"
+          v-if="
+            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
+          "
+        >
+          <div
+            class="col-xs-12 text-center text-weight-bolder text-caption"
+            v-for="(promo, index) in getSimplifiedDiscountPromo"
+            :key="index"
+          >
+            {{ promo.name }}: R - {{ promo.discountPrice }}
+          </div>
+        </div>
+        <div
+          class="q-py-xs"
+          v-if="
+            getSimplifiedDiscountPromo && getSimplifiedDiscountPromo.length > 0
+          "
+        />
+
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-subtitle1">
             Order Total: R {{ basketTotal }}
@@ -56,18 +89,26 @@
 </template>
 
 <script>
+import promo from "../../mixins/promo.js";
 export default {
   components: {
     "order-item-display": () => import("./menuItemOrderDisplay.vue")
   },
-  mixins: [],
+  mixins: [promo],
   props: {},
   data() {
-    return {};
+    return {
+      totalPromoDiscounts: 0,
+      discountedPromoItems: [],
+      simplifiedDiscountPromo: []
+    };
   },
   computed: {
     hasItemsInOrder() {
       return this.$store.getters.getBasket.length > 0;
+    },
+    basketLength() {
+      return this.$store.getters.getBasket.length;
     },
     showItemsInOrder() {
       return this.$store.getters.getBasket;
@@ -84,7 +125,14 @@ export default {
       ).toFixed(2);
     },
     basketTotal() {
-      return this.itemTotal + this.basketExtrasCost;
+      return (
+        this.itemTotal + this.basketExtrasCost - this.getTotalPromoDiscounts
+      );
+    },
+    totalItemsCost() {
+       return (
+        this.itemTotal + this.basketExtrasCost
+      );
     },
     itemTotal() {
       return this.$store.getters.getBasket.reduce(
@@ -150,9 +198,26 @@ export default {
         }
       });
       return extrasCost;
+    },
+    getTotalPromoDiscounts() {
+      return this.totalPromoDiscounts;
+    },
+    getSimplifiedDiscountPromo() {
+      return this.simplifiedDiscountPromo;
+    },
+    getDiscountedPromoItems() {
+      return this.discountedPromoItems;
     }
   },
   watch: {
+    async itemsInOrder() {
+      // we need to apply the promo rule if there are any when ever we add or remove items from the basket
+      this.discountedPromoItems = await this.applyPromo();
+    },
+    discountedPromoItems() {
+      // since we update the discountedPromoItems variable above, we need to then calculate the new savings that could have occured
+      this.applyApplicablePromos();
+    },
     hasItemsInOrder() {
       if (!this.hasItemsInOrder) {
         this.$emit("closeViewPurchaseProcess");
@@ -162,7 +227,9 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {},
+  async mounted() {
+    this.discountedPromoItems = await this.applyPromo();
+  },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},

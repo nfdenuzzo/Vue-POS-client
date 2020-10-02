@@ -251,8 +251,6 @@
       <q-footer class="bg-white" bordered>
         <transition
           appear
-          enter-active-class="animated fadeIn"
-          leave-active-class="animated fadeOut"
         >
           <div v-if="showAppInstallBanner" class="banner-container bg-positive">
             <div class="constrain">
@@ -303,6 +301,7 @@ import adminMenu from "../../mixins/adminMenu.js";
 import userMenu from "../../mixins/userMenu.js";
 const getLogout = () => import("../../utils/auth.js");
 const getUrlBase64ToUint8Array = () => import("../../utils/webpushUtil.js");
+import { checkBasketExpiry } from "../../utils/checkBasket.js";
 
 let deferredPrompt;
 export default {
@@ -360,6 +359,7 @@ export default {
     };
   },
   beforeMount() {
+    checkBasketExpiry();
     this.$store.dispatch("retrieveDefaultSettings");
     this.$store.dispatch("retrievePlatformStatus");
   },
@@ -394,7 +394,11 @@ export default {
         deferredPrompt = e;
         // Update UI notify the user they can install the PWA
         setTimeout(() => {
-          this.showAppInstallBanner = true;
+          let showInstallBannerTest = this.$q.localStorage.getItem(
+            "neverShowAppInstallBanner"
+          );
+          if (!showInstallBannerTest)
+            this.showAppInstallBanner = true;
         }, 2000);
       });
     }
@@ -414,8 +418,11 @@ export default {
     }
   },
   methods: {
-    showPurchaseProcessDialog() {
-      this.viewPurchaseProcess = true;
+    async showPurchaseProcessDialog() {
+      let result = await checkBasketExpiry();
+      if (!result) {
+        this.viewPurchaseProcess = true;
+      }
     },
     installApp() {
       // Hide the app provided install promotion
@@ -434,8 +441,8 @@ export default {
       });
     },
     neverShowAppInstallBanner() {
-      this.showAppInstallBanner = false;
       this.$q.localStorage.set("neverShowAppInstallBanner", true);
+      this.showAppInstallBanner = false;
     },
     async handleLogout() {
       const logout = await getLogout().then(resp => resp.logout);

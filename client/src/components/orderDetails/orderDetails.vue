@@ -137,6 +137,7 @@
           </div>
           <div
             class="col-xs-6 text-center q-px-md q-pt-md text-color text-weight-bold"
+            v-if="!$q.platform.is.ios"
           >
             <q-checkbox
               left-label
@@ -146,6 +147,7 @@
             />
           </div>
           <div
+            v-if="!$q.platform.is.ios"
             class="col-xs-6 text-center text-caption text-color text-weight-bold q-pt-sm"
           >
             Notifications will be sent to you when - Your order has been
