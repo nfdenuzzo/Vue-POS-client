@@ -55,7 +55,7 @@
           style="border-radius: 5px 5px 5px 5px"
         >
           <q-icon size="19px" name="fas fa-lock" class="q-mr-sm q-mb-xs" />
-          Sorry, we are currently closed for takeaways.
+          Sorry, we are currently closed for takeaways. test
         </q-banner>
       </div>
 
