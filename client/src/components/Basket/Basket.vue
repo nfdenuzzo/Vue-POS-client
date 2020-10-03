@@ -44,7 +44,9 @@
           </div>
         </div>
 
-        <applied-promo-view :getSimplifiedDiscountPromo="getSimplifiedDiscountPromo" />
+        <applied-promo-view
+          :getSimplifiedDiscountPromo="getSimplifiedDiscountPromo"
+        />
 
         <div class="row q-px-lg">
           <div class="col-xs-12 text-right text-weight-bolder text-subtitle1">
@@ -102,9 +104,7 @@ export default {
       );
     },
     totalItemsCost() {
-       return (
-        this.itemTotal + this.basketExtrasCost
-      );
+      return this.itemTotal + this.basketExtrasCost;
     },
     itemTotal() {
       return this.$store.getters.getBasket.reduce(

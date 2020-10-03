@@ -172,7 +172,9 @@
           </div>
         </div>
 
-        <applied-promo-view :getSimplifiedDiscountPromo="getSimplifiedDiscountPromo" />
+        <applied-promo-view
+          :getSimplifiedDiscountPromo="getSimplifiedDiscountPromo"
+        />
 
         <div
           class="row q-px-lg"
@@ -261,7 +263,7 @@ export default {
   },
   computed: {
     getSimplifiedDiscountPromo() {
-      return this.orderSpecifications.simplifiedAppliedPromos
+      return this.orderSpecifications.simplifiedAppliedPromos;
     },
     hasItemsInOrder() {
       return this.orderSpecifications.itemsInOrder > 0;

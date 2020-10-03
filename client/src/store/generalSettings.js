@@ -55,20 +55,20 @@ const generalSettings = {
         //   (payload && payload.forceRefresh) ||
         //   rootGetters.getTradingHours.length === 0
         // ) {
-          const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
-          if (result && result.status === 200) {
-            commit("setTradingHours", result.data.openingHours);
-            commit("setSettingsRetrievedDate", new Date());
-            commit("setVatRate", result.data.vat);
-            commit("setDeliveryCharges", result.data.deliveryCharges);
-            commit("setPayNowStatus", result.data.payNowStatus);
-            commit(
-              "setDeliveryServiceAvailable",
-              result.data.deliveryServiceStatus
-            );
-            commit("setCurrentCampaignSpecials", result.data.campaignSpecials);
-            return true;
-          }
+        const result = await axios.axiosInstance.get(`${generalSettingsUrl}`);
+        if (result && result.status === 200) {
+          commit("setTradingHours", result.data.openingHours);
+          commit("setSettingsRetrievedDate", new Date());
+          commit("setVatRate", result.data.vat);
+          commit("setDeliveryCharges", result.data.deliveryCharges);
+          commit("setPayNowStatus", result.data.payNowStatus);
+          commit(
+            "setDeliveryServiceAvailable",
+            result.data.deliveryServiceStatus
+          );
+          commit("setCurrentCampaignSpecials", result.data.campaignSpecials);
+          return true;
+        }
         // } else {
         //   return true;
         // }
@@ -86,7 +86,6 @@ const generalSettings = {
           `${generalSettingsUrl}/platform-status`
         );
         if (result && result.status === 200) {
-          console.log("result", result)
           commit("setOrderingActive", result.data);
         }
       } catch (ex) {

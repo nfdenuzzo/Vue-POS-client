@@ -249,9 +249,7 @@
       </q-page-container>
 
       <q-footer class="bg-white" bordered>
-        <transition
-          appear
-        >
+        <transition appear>
           <div v-if="showAppInstallBanner" class="banner-container bg-positive">
             <div class="constrain">
               <q-banner class="bg-positive text-white" inline-actions dense>
@@ -397,8 +395,7 @@ export default {
           let showInstallBannerTest = this.$q.localStorage.getItem(
             "neverShowAppInstallBanner"
           );
-          if (!showInstallBannerTest)
-            this.showAppInstallBanner = true;
+          if (!showInstallBannerTest) this.showAppInstallBanner = true;
         }, 2000);
       });
     }
