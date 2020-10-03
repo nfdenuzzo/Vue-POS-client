@@ -74,7 +74,6 @@ clientsClaim();
 skipWaiting();
 
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
-suppressWarnings();
 precacheAndRoute(self.__precacheManifest, {});
 
 precacheAndRoute(self.__WB_MANIFEST);
