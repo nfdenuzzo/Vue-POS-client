@@ -46,6 +46,8 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      // this should solve the sock-js server error for local
+      publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
         NODE_ENV: ctx.dev ? 'development' : 'production',
@@ -88,6 +90,8 @@ module.exports = function (ctx) {
     devServer: {
       https: false,
       port: 8080,
+      // suppose to fix the sockjs node error front end
+      host: "localhost",
       open: true // opens browser window automatically
     },
 

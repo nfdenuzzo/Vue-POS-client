@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     childrenTabOptions() {
-      if (this.$route.path.includes("/menu-option-pizza/")) {
+      if (this.$route.path.includes("/menu-option-pizza")) {
         return this.pizzaTypes;
       } else {
         return this.chefSpecialTypes;
