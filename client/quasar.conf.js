@@ -51,6 +51,7 @@ module.exports = function (ctx) {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
         NODE_ENV: ctx.dev ? 'development' : 'production',
+        BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
         BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
         AUTH0_CLIENT_ID: ctx.dev ? 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8' : "9JkQg4SO38tx9phxatHw8ei0KxGqX5q6",
         AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
@@ -126,7 +127,9 @@ module.exports = function (ctx) {
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
       workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      workboxOptions: {
+        swSrc: './src-pwa/custom-service-worker.js',
+      },
       manifest: {
         name: `Black Forest Grill`,
         short_name: `Black Forest Grill App`,
