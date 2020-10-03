@@ -8,7 +8,7 @@
   dependencies
 */
 
-import { suppressWarnings, precacheAndRoute } from "workbox-precaching";
+import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { CacheFirst } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
@@ -72,9 +72,6 @@ self.addEventListener("activate", event => {
 
 clientsClaim();
 skipWaiting();
-
-self.__precacheManifest = [].concat(self.__precacheManifest || []);
-precacheAndRoute(self.__precacheManifest, {});
 
 precacheAndRoute(self.__WB_MANIFEST);
 
