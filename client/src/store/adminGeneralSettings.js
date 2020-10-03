@@ -198,10 +198,7 @@ const adminGeneralSettings = {
         console.log("deleteDeliveryCharge -> ex", ex);
       }
     },
-    async notifyUsers(
-      { commit, dispatch, rootState, rootGetters },
-      payload
-    ) {
+    async notifyUsers({ commit, dispatch, rootState, rootGetters }, payload) {
       try {
         const result = await axios.axiosInstance.put(
           `${adminGeneralSettingsUrl}/notify-users`,
@@ -213,7 +210,7 @@ const adminGeneralSettings = {
       } catch (ex) {
         console.log("notifyUsers -> ex", ex);
       }
-    },
+    }
   },
   mutations: {
     setAdminTradingHours(state, payload) {

@@ -6,7 +6,6 @@
     <div class="q-pa-md row justify-center">
       <div class="col-xs-12 col-sm-12 col-md-10 text-color">
         <q-card>
-
           <div class="row justify-center">
             <div class="col-xs-11 col-sm-11 col-md-5">
               <platform-status></platform-status>
@@ -33,7 +32,6 @@
               <platform-trading-hours></platform-trading-hours>
             </div>
           </div>
-
         </q-card>
       </div>
     </div>
@@ -43,17 +41,29 @@
 export default {
   components: {
     "platform-status": () =>
-      import("../../components/adminComps/adminGeneralSettings/viewPlatformStatus.vue"),
+      import(
+        "../../components/adminComps/adminGeneralSettings/viewPlatformStatus.vue"
+      ),
     "platform-vat-rate": () =>
-      import("../../components/adminComps/adminGeneralSettings/viewPlatformVatRate.vue"),
+      import(
+        "../../components/adminComps/adminGeneralSettings/viewPlatformVatRate.vue"
+      ),
     "platform-trading-hours": () =>
-      import("../../components/adminComps/adminGeneralSettings/viewPlatformTradingHours.vue"),
+      import(
+        "../../components/adminComps/adminGeneralSettings/viewPlatformTradingHours.vue"
+      ),
     "delivery-charges": () =>
-      import("../../components/adminComps/adminGeneralSettings/viewDeliveryCharges.vue"),
+      import(
+        "../../components/adminComps/adminGeneralSettings/viewDeliveryCharges.vue"
+      ),
     "delivery-service-status": () =>
-      import("../../components/adminComps/adminGeneralSettings/viewDeliveryServiceStatus.vue"),
+      import(
+        "../../components/adminComps/adminGeneralSettings/viewDeliveryServiceStatus.vue"
+      ),
     "paynow-service-status": () =>
-      import("../../components/adminComps/adminGeneralSettings/viewPayNowStatus.vue")
+      import(
+        "../../components/adminComps/adminGeneralSettings/viewPayNowStatus.vue"
+      )
   },
   mixins: [],
   props: {},

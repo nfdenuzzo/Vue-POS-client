@@ -11,9 +11,15 @@
               <span>
                 Delivery Status is set -
               </span>
-              <q-toggle v-model="deliveryServiceStatus" color="green" size="xl" />
+              <q-toggle
+                v-model="deliveryServiceStatus"
+                color="green"
+                size="xl"
+              />
               <strong
-                :class="deliveryServiceStatus ? 'text-positive' : 'text-logoRed'"
+                :class="
+                  deliveryServiceStatus ? 'text-positive' : 'text-logoRed'
+                "
               >
                 {{ deliveryServiceStatus ? "ON" : "OFF" }}
               </strong>
