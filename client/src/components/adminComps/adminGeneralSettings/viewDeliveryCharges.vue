@@ -29,10 +29,11 @@
                   <q-input
                     outlined
                     dense
-                    v-model.number="createDeliveryAreaObj.price"
+                    v-model="createDeliveryAreaObj.price"
+                    v-cleave="masks.TwoDecimals"
+                    @input.native="onInputCleaveFormatValue()"
                     label="Delivery charge"
                     lazy-rules
-                    mask="#####.##"
                     color="positive"
                     :rules="[
                       val => (val && val >= 0) || 'Delivery charge is required!'
@@ -256,6 +257,18 @@
 </template>
 <script>
 import sortBy from "lodash/sortBy";
+import Cleave from "cleave.js";
+const cleave = {
+  name: "cleave",
+  bind(el, binding) {
+    const input = el.querySelector("input");
+    input._vCleave = new Cleave(input, binding.value);
+  },
+  unbind(el) {
+    const input = el.querySelector("input");
+    input._vCleave.destroy();
+  }
+};
 export default {
   components: {
     "update-delivery-charge": () => import("./updateDeliveryCharge.vue"),
@@ -263,8 +276,18 @@ export default {
   },
   mixins: [],
   props: {},
+  directives: { cleave },
   data() {
     return {
+      masks: {
+        TwoDecimals: {
+          numeral: true,
+          numeralDecimalMark: ".",
+          delimiter: "",
+          numeralPositiveOnly: true,
+          numeralDecimalScale: 2
+        }
+      },
       viewUpdateDialog: false,
       viewDeleteDialog: false,
       createBtnLoading: false,
@@ -330,6 +353,9 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    onInputCleaveFormatValue() {
+      this.createDeliveryAreaObj.price = event.target._vCleave.getFormattedValue();
+    },
     closeUpdateDialog() {
       this.viewUpdateDialog = false;
       this.selectedDeliveryAreaObj = {};

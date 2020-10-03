@@ -29,10 +29,11 @@
               <q-input
                 outlined
                 dense
-                v-model.number="updateDeliveryAreaObj.price"
+                v-model="updateDeliveryAreaObj.price"
                 label="Delivery charge"
                 lazy-rules
-                mask="#####.##"
+                v-cleave="masks.TwoDecimals"
+                @input.native="onInputCleaveFormatValue()"
                 color="positive"
                 :rules="[
                   val => (val && val >= 0) || 'Delivery charge is required!'
@@ -62,9 +63,22 @@
   </q-card>
 </template>
 <script>
+import Cleave from "cleave.js";
+const cleave = {
+  name: "cleave",
+  bind(el, binding) {
+    const input = el.querySelector("input");
+    input._vCleave = new Cleave(input, binding.value);
+  },
+  unbind(el) {
+    const input = el.querySelector("input");
+    input._vCleave.destroy();
+  }
+};
 export default {
   components: {},
   mixins: [],
+  directives: { cleave },
   props: {
     selectedDeliveryAreaObj: {
       type: Object,
@@ -74,6 +88,15 @@ export default {
   },
   data() {
     return {
+      masks: {
+        TwoDecimals: {
+          numeral: true,
+          numeralDecimalMark: ".",
+          delimiter: "",
+          numeralPositiveOnly: true,
+          numeralDecimalScale: 2
+        }
+      },
       updateBtnLoading: false,
       updateDeliveryAreaObj: null,
       loadingData: true
@@ -92,6 +115,9 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    onInputCleaveFormatValue() {
+      this.updateDeliveryAreaObj.price = event.target._vCleave.getFormattedValue();
+    },
     assignData() {
       this.updateDeliveryAreaObj = JSON.parse(
         JSON.stringify(this.selectedDeliveryAreaObj)

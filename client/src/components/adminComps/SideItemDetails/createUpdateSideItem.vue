@@ -86,10 +86,11 @@
                   <q-input
                     outlined
                     dense
-                    v-model.number="sideItemObj.price"
+                    v-model="sideItemObj.price"
                     label="Item Price"
                     lazy-rules
-                    mask="#####.##"
+                    v-cleave="masks.TwoDecimals"
+                    @input.native="onInputCleaveFormatValue()"
                     color="positive"
                     :rules="[val => (val && val >= 0) || 'Price is required!']"
                   />
@@ -144,9 +145,22 @@
 </template>
 <script>
 import sortBy from "lodash/sortBy";
+import Cleave from "cleave.js";
+const cleave = {
+  name: "cleave",
+  bind(el, binding) {
+    const input = el.querySelector("input");
+    input._vCleave = new Cleave(input, binding.value);
+  },
+  unbind(el) {
+    const input = el.querySelector("input");
+    input._vCleave.destroy();
+  }
+};
 export default {
   components: {},
   mixins: [],
+  directives: { cleave },
   props: {
     selectedSideItem: {
       type: Object,
@@ -166,6 +180,15 @@ export default {
   },
   data() {
     return {
+      masks: {
+        TwoDecimals: {
+          numeral: true,
+          numeralDecimalMark: ".",
+          delimiter: "",
+          numeralPositiveOnly: true,
+          numeralDecimalScale: 2
+        }
+      },
       createUpdateBtnLoading: false,
       sideItemObj: {
         name: null,
@@ -204,13 +227,17 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    onInputCleaveFormatValue() {
+      this.sideItemObj.price = event.target._vCleave.getFormattedValue();
+    },
     closeDialog() {
-      (this.sideItemObj = {
+      this.sideItemObj = {
         name: null,
-        addonCategory: null,
-        disabled: false
-      }),
-        this.$emit("update:viewUpdateDialog", false);
+        price: null,
+        disabled: false,
+        addonCategory: null
+      };
+      this.$emit("update:viewUpdateDialog", false);
     },
     async assignData() {
       this.sideItemObj = JSON.parse(JSON.stringify(this.selectedSideItem));

@@ -37,10 +37,11 @@
               <q-input
                 outlined
                 dense
-                v-model.number="menuItemObj.price"
+                v-model="menuItemObj.price"
                 label="Item Price"
                 lazy-rules
-                mask="#####.##"
+                v-cleave="masks.TwoDecimals"
+                @input.native="onInputCleaveFormatValue()"
                 color="positive"
                 :rules="[val => (val && val >= 0) || 'Price of item required!']"
               />
@@ -50,7 +51,7 @@
               <q-input
                 outlined
                 dense
-                v-model.number="menuItemObj.description"
+                v-model="menuItemObj.description"
                 label="Item Description"
                 lazy-rules
                 autogrow
@@ -264,6 +265,18 @@ import hasSaladTopping from "../menuItemOptions/itemHasSaladTopping.vue";
 import hasExtrasOffered from "../menuItemOptions/itemHasExtrasOffered.vue";
 import imagePage from "../../imagePage.vue";
 import sortBy from "lodash/sortBy";
+import Cleave from "cleave.js";
+const cleave = {
+  name: "cleave",
+  bind(el, binding) {
+    const input = el.querySelector("input");
+    input._vCleave = new Cleave(input, binding.value);
+  },
+  unbind(el) {
+    const input = el.querySelector("input");
+    input._vCleave.destroy();
+  }
+};
 export default {
   components: {
     hasPizzaTopping,
@@ -283,6 +296,7 @@ export default {
     hasSaladTopping,
     imagePage
   },
+  directives: { cleave },
   mixins: [],
   props: {
     selectedMenuItem: {
@@ -303,6 +317,15 @@ export default {
   },
   data() {
     return {
+      masks: {
+        TwoDecimals: {
+          numeral: true,
+          numeralDecimalMark: ".",
+          delimiter: "",
+          numeralPositiveOnly: true,
+          numeralDecimalScale: 2
+        }
+      },
       dataLoaded: false,
       createUpdateBtnLoading: false,
       menuItemObj: this.defaultMenuItemObject()
@@ -335,11 +358,14 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    onInputCleaveFormatValue() {
+      this.menuItemObj.price = event.target._vCleave.getFormattedValue();
+    },
     defaultMenuItemObject() {
       return {
         name: null,
         description: null,
-        price: false,
+        price: null,
         menuItemImage: null,
         menuCategory: null,
         disabled: false,

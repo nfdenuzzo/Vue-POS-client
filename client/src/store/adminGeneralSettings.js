@@ -126,7 +126,7 @@ const adminGeneralSettings = {
           message: "Processing."
         });
         const result = await axios.axiosInstance.put(
-          `${adminGeneralSettingsUrl}/update-delivery-serivce-status`,
+          `${adminGeneralSettingsUrl}/update-delivery-service-status`,
           { deliveryServiceStatus: payload }
         );
         if (result && result.status === 200) {

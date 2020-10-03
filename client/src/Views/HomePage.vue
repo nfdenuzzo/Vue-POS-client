@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-
+    {{ !getPlatformOpen }}
       <div class="row justify-center q-pt-sm" v-if="!getPlatformOpen">
         <q-banner
           class="bg-logoRed text-white"
