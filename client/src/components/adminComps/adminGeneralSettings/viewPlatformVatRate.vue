@@ -12,7 +12,8 @@
                 <q-input
                   outlined
                   dense
-                  mask="##.##"
+                  v-cleave="masks.TwoDecimals"
+                  @input.native="onInputCleaveFormatValue()"
                   v-model="vat"
                   color="positive"
                   :rules="[
@@ -42,12 +43,34 @@
   </div>
 </template>
 <script>
+import Cleave from "cleave.js";
+const cleave = {
+  name: "cleave",
+  bind(el, binding) {
+    const input = el.querySelector("input");
+    input._vCleave = new Cleave(input, binding.value);
+  },
+  unbind(el) {
+    const input = el.querySelector("input");
+    input._vCleave.destroy();
+  }
+};
 export default {
   components: {},
   mixins: [],
+  directives: { cleave },
   props: {},
   data() {
     return {
+      masks: {
+        TwoDecimals: {
+          numeral: true,
+          numeralDecimalMark: ".",
+          delimiter: "",
+          numeralPositiveOnly: true,
+          numeralDecimalScale: 2
+        }
+      },
       vat: null,
       updateBtnLoading: false
     };
@@ -55,19 +78,22 @@ export default {
   computed: {},
   watch: {
     "$store.getters.getAdminVATRate"() {
-      this.vat = Number(this.$store.getters.getAdminVATRate) * 100;
+      this.vat = (Number(this.$store.getters.getAdminVATRate) * 100).toFixed(2);
     }
   },
   beforeCreate() {},
   created() {},
   beforeMount() {},
   mounted() {
-    this.vat = Number(this.$store.getters.getAdminVATRate) * 100;
+    this.vat = (Number(this.$store.getters.getAdminVATRate) * 100).toFixed(2);
   },
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   methods: {
+    onInputCleaveFormatValue() {
+      this.vat = event.target._vCleave.getFormattedValue();
+    },
     onSubmit() {
       this.updateBtnLoading = true;
       const result = this.$store.dispatch("updateVATRate", Number(this.vat));
