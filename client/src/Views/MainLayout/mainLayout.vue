@@ -292,13 +292,14 @@
             </div>
           </div>
         </transition>
-        <div class="row" v-if="!showAppInstallBanner">
+        <div class="row" v-if="!showAppInstallBanner && $route.name === 'HomePage'">
           <div class="col-xs-12 text-right q-pa-sm text-color no-wrap">
             <q-icon size="12px" name="fas fa-circle" :color="getOnlineStatus ? 'positive' : 'logoRed'" >
               <q-tooltip self="top middle" content-class="bg-white">
                 <span class="text-color">
                   {{ getOnlineStatus ? 'Server: Online' : 'Server: Offline' }}
                 </span>
+                
               </q-tooltip>
             </q-icon>
             <span> v{{ getLatestVersion }} </span>
