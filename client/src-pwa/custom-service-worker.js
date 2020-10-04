@@ -22,7 +22,7 @@ import { skipWaiting, clientsClaim, setCacheNameDetails } from "workbox-core";
 
 setCacheNameDetails({ prefix: "d4" });
 //Change this value every time before you build
-const LATEST_VERSION = "v1.6";
+const LATEST_VERSION = process.env.VUE_APP_APP_V;
 self.addEventListener("activate", event => {
   console.log(`%c ${LATEST_VERSION} `, "background: #ddd; color: #0000ff");
   if (caches) {

@@ -12,7 +12,7 @@
         <span>
           Confirming this will send out a notification to ALL subscribed users,
           please do not spam this function as users will be likely to
-          unsubscribe fi you do, we recommend to notify at most once a week
+          unsubscribe if you do, we recommend to notify at most once a week
         </span>
       </div>
 
