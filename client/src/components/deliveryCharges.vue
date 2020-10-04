@@ -11,12 +11,12 @@
       <div class="row q-pt-xs justify-center">
         <div class="col-xs-10 col-sm-6 col-md-6">
           <div class="row justify-center">
-            <div class="col-xs-4 text-center">
+            <div class="q-pl-sm col-xs-3 text-left">
               <span>
                 {{ item.area }}
               </span>
             </div>
-            <div class="col-xs-4 text-center">
+            <div class="col-xs-4 text-right">
               <span> R {{ item.price }} </span>
             </div>
           </div>

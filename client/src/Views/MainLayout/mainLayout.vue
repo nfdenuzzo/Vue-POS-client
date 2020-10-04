@@ -248,8 +248,12 @@
         </q-dialog>
       </q-page-container>
 
-      <q-footer class="bg-white" bordered>
-        <transition appear>
+      <q-footer class="bg-transparent">
+        <transition
+          appear
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated fadeOut"
+        >
           <div v-if="showAppInstallBanner" class="banner-container bg-positive">
             <div class="constrain">
               <q-banner class="bg-positive text-white" inline-actions dense>
@@ -288,6 +292,18 @@
             </div>
           </div>
         </transition>
+        <div class="row" v-if="!showAppInstallBanner">
+          <div class="col-xs-12 text-right q-pa-sm text-color no-wrap">
+            <q-icon size="12px" name="fas fa-circle" :color="getOnlineStatus ? 'positive' : 'logoRed'" >
+              <q-tooltip self="top middle" content-class="bg-white">
+                <span class="text-color">
+                  {{ getOnlineStatus ? 'Server: Online' : 'Server: Offline' }}
+                </span>
+              </q-tooltip>
+            </q-icon>
+            <span> v{{ getLatestVersion }} </span>
+          </div>
+        </div>
       </q-footer>
     </q-layout>
   </div>
@@ -300,7 +316,6 @@ import userMenu from "../../mixins/userMenu.js";
 const getLogout = () => import("../../utils/auth.js");
 const getUrlBase64ToUint8Array = () => import("../../utils/webpushUtil.js");
 import { checkBasketExpiry } from "../../utils/checkBasket.js";
-
 let deferredPrompt;
 export default {
   name: "MainLayout",
@@ -318,6 +333,9 @@ export default {
       import("../../components/TandCs/privacyPolicyAndTermsAndConditions.vue")
   },
   computed: {
+    getLatestVersion() {
+      return process.env.VUE_APP_APP_V;
+    },
     serviceWorkerSupported() {
       if ("serviceWorker" in navigator) return true;
       return false;
@@ -340,6 +358,9 @@ export default {
         (a, b) => +a + +b.quantity,
         0
       );
+    },
+    getOnlineStatus() {
+      return navigator.onLine
     }
   },
   data() {

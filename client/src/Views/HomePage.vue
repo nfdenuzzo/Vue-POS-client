@@ -82,16 +82,10 @@
           v-if="$q.screen.height > 767 && $q.screen.width > 700"
         >
           <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
-            <trading-Hours />
-          </div>
-          <div v-if="!$q.platform.is.mobile" class="col-xs-4 q-mt-xl">
-            <privacy-policy-and-terms-and-conditions />
-          </div>
-          <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
             <div class="text-subtitle1 text-weight-bolder q-pb-sm text-center">
               Contact us
             </div>
-            <div class="text-body2 text-weight-bold text-center">
+            <div class="text-body2 text-weight-bold text-center q-pb-sm">
               <q-icon size="19px" name="fas fa-phone" class="q-mr-sm q-mb-xs" />
               <a
                 href="tel:0169323195"
@@ -100,7 +94,13 @@
                 >016 932 3195
               </a>
             </div>
-            <div class="text-body2 text-weight-bold q-pt-lg text-center">
+            <trading-Hours />
+          </div>
+          <div v-if="!$q.platform.is.mobile" class="col-xs-4 q-mt-xl">
+            <privacy-policy-and-terms-and-conditions />
+          </div>
+          <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
+            <div class="text-body2 text-weight-bold text-center">
               <q-icon
                 size="16px"
                 name="fas fa-map-marker-alt"
@@ -116,7 +116,7 @@
                 South Africa
               </a>
             </div>
-            <delivery-charges class="q-pt-md" />
+            <delivery-charges class="q-pt-lg" />
           </div>
         </div>
         <div class="row justify-center">
