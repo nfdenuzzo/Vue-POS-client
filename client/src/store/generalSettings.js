@@ -87,9 +87,11 @@ const generalSettings = {
         );
         if (result && result.status === 200) {
           commit("setOrderingActive", result.data);
+          return true
         }
       } catch (ex) {
         console.log("retrieveDefaultSettings -> ex", ex);
+        return true
       }
     }
   },

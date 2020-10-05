@@ -16,7 +16,13 @@ const routes = [
       {
         path: "",
         name: "HomePage",
-        component: () => import("../Views/HomePage.vue")
+        component: () => import("../Views/HomePage.vue"),
+        meta: {
+          dispatchMethod: {
+            name: "retrievePlatformStatus",
+            payload: null
+          }
+        }
       },
       {
         path: "/menu-options",

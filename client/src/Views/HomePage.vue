@@ -69,7 +69,7 @@
           class="text-capitalize"
           color="positive"
           :label="button.name"
-          style="min-width: 200px;"
+          style="min-width: 200px; z-index: 1000;"
           size="md"
           @click="handler(button.action)"
         />

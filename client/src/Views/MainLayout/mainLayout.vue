@@ -218,7 +218,9 @@
           </div>
         </transition>
         <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
-        <router-view />
+        <transition name="component-fade" mode="out-in">
+          <router-view />
+        </transition>
         <q-dialog
           v-model="viewPurchaseProcess"
           persistent
@@ -293,7 +295,7 @@
           </div>
         </transition>
         <div class="row" v-if="!showAppInstallBanner && $route.name === 'HomePage'">
-          <div class="col-xs-12 text-right q-pa-sm text-color no-wrap">
+          <div class="col-xs-12 text-right q-pb-sm q-px-sm text-color no-wrap">
             <q-icon size="12px" name="fas fa-circle" :color="getOnlineStatus ? 'positive' : 'logoRed'" >
               <q-tooltip self="top middle" content-class="bg-white">
                 <span class="text-color">

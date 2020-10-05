@@ -9,14 +9,14 @@
       class="text-center text-caption text-weight-bold"
     >
       <div class="row q-pt-xs justify-center">
-        <div class="col-xs-10 col-sm-6 col-md-6">
+        <div class="col-xs-10 col-sm-8 col-md-6">
           <div class="row justify-center">
-            <div class="q-pl-sm col-xs-3 text-left">
+            <div class="q-pl-sm col-xs-7 col-sm-7 col-lg-3 text-left">
               <span>
                 {{ item.area }}
               </span>
             </div>
-            <div class="col-xs-4 text-right">
+            <div class="col-xs-5 col-sm-5 col-lg-3 text-right">
               <span> R {{ item.price }} </span>
             </div>
           </div>
