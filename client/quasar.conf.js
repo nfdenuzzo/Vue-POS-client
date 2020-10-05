@@ -50,7 +50,7 @@ module.exports = function (ctx) {
       publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "1.5",
+        VUE_APP_APP_V: "1.6",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
         BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
