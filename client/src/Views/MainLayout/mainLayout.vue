@@ -294,17 +294,52 @@
             </div>
           </div>
         </transition>
-        <div class="row" v-if="!showAppInstallBanner && $route.name === 'HomePage'">
+        <div
+          class="row"
+          v-if="!showAppInstallBanner && $route.name === 'HomePage'"
+        >
           <div class="col-xs-12 text-right q-pb-sm q-px-sm text-color no-wrap">
-            <q-icon size="12px" name="fas fa-circle" :color="getOnlineStatus ? 'positive' : 'logoRed'" >
+            <q-icon
+              size="12px"
+              name="fas fa-circle"
+              :color="getOnlineStatus ? 'positive' : 'logoRed'"
+            >
               <q-tooltip self="top middle" content-class="bg-white">
                 <span class="text-color">
-                  {{ getOnlineStatus ? 'Server: Online' : 'Server: Offline' }}
+                  {{ getOnlineStatus ? "Server: Online" : "Server: Offline" }}
                 </span>
-                
               </q-tooltip>
             </q-icon>
             <span> v{{ getLatestVersion }} </span>
+          </div>
+        </div>
+        <div v-if="$q.platform.is.ios && $q.platform.is.mobile">
+          <div class="row justify-center">
+            <div
+              class="col-xs-6 col-md-4 text-center bg-goldBrown"
+              style="max-height:45px; min-height:45px; border-radius: 15px;"
+            >
+              <div class="text-white q-mt-sm q-pt-xs">
+                Install this webapp on your iPhone:
+                <q-img
+                  class="q-mb-xs"
+                  height="22px"
+                  width="22px"
+                  :src="images.AppleShareIcon"
+                ></q-img>
+                tap and then add to homescreen
+              </div>
+            </div>
+          </div>
+          <div class="row justify-center">
+            <div
+              style="
+              width: 0; 
+              height: 0;
+              border-left: 20px solid transparent;
+              border-right: 20px solid transparent;
+              border-top: 20px solid #746745;"
+            ></div>
           </div>
         </div>
       </q-footer>
@@ -363,14 +398,15 @@ export default {
       );
     },
     getOnlineStatus() {
-      return navigator.onLine
+      return navigator.onLine;
     }
   },
   data() {
     return {
       images: {
         // eslint-disable-next-line no-undef
-        Logo: require("../../assets/logo-min.png")
+        Logo: require("../../assets/logo-min.png"),
+        AppleShareIcon: require("../../assets/shareIcon-min.png")
       },
       viewPurchaseProcess: false,
       showAppInstallBanner: false,
