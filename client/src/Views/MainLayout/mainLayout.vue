@@ -313,21 +313,28 @@
             <span> v{{ getLatestVersion }} </span>
           </div>
         </div>
-        <div v-if="$q.platform.is.ios && $q.platform.is.mobile">
+        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner">
           <div class="row justify-center">
             <div
-              class="col-xs-6 col-md-4 text-center bg-goldBrown"
-              style="max-height:45px; min-height:45px; border-radius: 15px;"
+              class="col-xs-12 col-md-4 text-center bg-goldBrown"
+              style="max-height:70px; min-height:70px; border-radius: 15px;"
             >
-              <div class="text-white q-mt-sm q-pt-xs">
-                Install this webapp on your iPhone:
+              <div class="row text-white">
+                <div class="col-xs-12 text-right q-pr-md q-pt-xs">
+                  <q-btn icon="close" flat round dense size="sm" @click="neverShowAppInstallBanner"/>
+                </div>
+              </div>
+              <div class="text-white" style="margin-top:-17px;">
+                Install this webapp on your iPhone,
+                <br /> 
+                Tap
                 <q-img
                   class="q-mb-xs"
                   height="22px"
                   width="22px"
                   :src="images.AppleShareIcon"
                 ></q-img>
-                tap and then add to homescreen
+                and then add to homescreen
               </div>
             </div>
           </div>
@@ -417,9 +424,11 @@ export default {
     };
   },
   beforeMount() {
-    checkBasketExpiry();
-    this.$store.dispatch("retrieveDefaultSettings");
-    this.$store.dispatch("retrievePlatformStatus");
+    if (this.$store.getters.getAuth) {
+      checkBasketExpiry();
+      this.$store.dispatch("retrieveDefaultSettings");
+      this.$store.dispatch("retrievePlatformStatus");
+    }
   },
   async mounted() {
     // payment -> the response form payment gateway redirect sends us here with a query in the url
@@ -458,6 +467,15 @@ export default {
           if (!showInstallBannerTest) this.showAppInstallBanner = true;
         }, 2000);
       });
+
+      if (this.$q.platform.is.ios && this.$q.platform.is.mobile) {
+        setTimeout(() => {
+          let showInstallBannerTest = this.$q.localStorage.getItem(
+            "neverShowAppInstallBanner"
+          );
+          if (!showInstallBannerTest) this.showAppInstallBanner = true;
+        }, 2000);
+      }
     }
   },
   watch: {

@@ -250,7 +250,11 @@ export default {
   watch: {},
   beforeCreate() {},
   created() {},
-  beforeMount() {},
+  beforeMount() {
+    checkBasketExpiry();
+    this.$store.dispatch("retrieveDefaultSettings");
+    this.$store.dispatch("retrievePlatformStatus");
+  },
   async mounted() {
     if (this.$route.params.checkDetails != null) {
       await this.handleUserLogin();
