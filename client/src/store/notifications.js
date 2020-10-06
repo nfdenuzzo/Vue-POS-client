@@ -11,7 +11,8 @@ const notifications = {
     ) {
       try {
         const result = await axios.axiosInstance.post(
-          `${notificationsUrl}/createSubscription?${payload}`
+          `${notificationsUrl}/createSubscription`,
+          { subscriptionObj: payload }
         );
         if (result && result.status === 200) {
           return true;
