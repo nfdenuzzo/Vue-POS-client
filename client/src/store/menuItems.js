@@ -380,7 +380,7 @@ const menuItems = {
           return "getSeafoodMenuItems";
         case "MenuOptionDesserts":
           return "getDessertMenuItems";
-        case "meat-dishest":
+        case "meat-dishes":
           return "getChefSpecialMeatMenuItems";
         case "chicken-dishes":
           return "getChefSpecialChickenMenuItems";
