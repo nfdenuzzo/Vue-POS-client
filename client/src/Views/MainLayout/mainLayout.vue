@@ -314,7 +314,7 @@
             <span> v{{ getLatestVersion }} </span>
           </div>
         </div>
-        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner">
+        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner && !isInStandaloneMode">
           <div class="row justify-center">
             <div
               class="col-xs-12 col-md-4 text-center bg-positive"
@@ -362,6 +362,7 @@ import userMenu from "../../mixins/userMenu.js";
 const getLogout = () => import("../../utils/auth.js");
 const getUrlBase64ToUint8Array = () => import("../../utils/webpushUtil.js");
 import { checkBasketExpiry } from "../../utils/checkBasket.js";
+const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 let deferredPrompt;
 export default {
   name: "MainLayout",
