@@ -314,7 +314,7 @@
             <span> v{{ getLatestVersion }} </span>
           </div>
         </div>
-        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner && !isInStandaloneMode">
+        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner && !getStandAloneStatus">
           <div class="row justify-center">
             <div
               class="col-xs-12 col-md-4 text-center bg-positive"
@@ -408,6 +408,9 @@ export default {
     },
     getOnlineStatus() {
       return navigator.onLine;
+    },
+    getStandAloneStatus() {
+      return isInStandaloneMode();
     }
   },
   data() {
