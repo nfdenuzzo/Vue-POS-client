@@ -8,6 +8,7 @@
         <q-input
           outlined
           dense
+          color="positive"
           v-model="dateFrom"
           mask="date"
           :rules="['date']"
@@ -35,7 +36,14 @@
         </q-input>
       </div>
       <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 q-pa-md">
-        <q-input outlined dense v-model="dateTo" mask="date" :rules="['date']">
+        <q-input
+          outlined
+          dense
+          v-model="dateTo"
+          mask="date"
+          :rules="['date']"
+          color="positive"
+        >
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy

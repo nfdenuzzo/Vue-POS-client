@@ -161,7 +161,7 @@
               <q-tr :props="props" :class="'cursor-pointer'">
                 <q-td v-for="col in props.cols" :key="col.name" :props="props">
                   <template v-if="col.name === 'actions'">
-                    <div class="text-color row justify-center">
+                    <div class="text-color row justify-center no-wrap">
                       <span class="q-pr-sm">
                         <q-btn
                           round

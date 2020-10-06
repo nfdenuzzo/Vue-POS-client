@@ -294,17 +294,59 @@
             </div>
           </div>
         </transition>
-        <div class="row" v-if="!showAppInstallBanner && $route.name === 'HomePage'">
+        <div
+          class="row"
+          v-if="!showAppInstallBanner && $route.name === 'HomePage'"
+        >
           <div class="col-xs-12 text-right q-pb-sm q-px-sm text-color no-wrap">
-            <q-icon size="12px" name="fas fa-circle" :color="getOnlineStatus ? 'positive' : 'logoRed'" >
+            <q-icon
+              size="12px"
+              name="fas fa-circle"
+              :color="getOnlineStatus ? 'positive' : 'logoRed'"
+            >
               <q-tooltip self="top middle" content-class="bg-white">
                 <span class="text-color">
-                  {{ getOnlineStatus ? 'Server: Online' : 'Server: Offline' }}
+                  {{ getOnlineStatus ? "Server: Online" : "Server: Offline" }}
                 </span>
-                
               </q-tooltip>
             </q-icon>
             <span> v{{ getLatestVersion }} </span>
+          </div>
+        </div>
+        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner">
+          <div class="row justify-center">
+            <div
+              class="col-xs-12 col-md-4 text-center bg-positive"
+              style="max-height:70px; min-height:70px; border-radius: 15px;"
+            >
+              <div class="row text-white">
+                <div class="col-xs-12 text-right q-pr-md q-pt-xs">
+                  <q-btn icon="close" flat round dense size="sm" @click="neverShowAppInstallBanner"/>
+                </div>
+              </div>
+              <div class="text-white" style="margin-top:-17px;">
+                Install this webapp on your iPhone,
+                <br /> 
+                Tap
+                <q-img
+                  class="q-mb-xs"
+                  height="22px"
+                  width="22px"
+                  :src="images.AppleShareIcon"
+                ></q-img>
+                and then add to homescreen
+              </div>
+            </div>
+          </div>
+          <div class="row justify-center">
+            <div
+              style="
+              width: 0; 
+              height: 0;
+              border-left: 20px solid transparent;
+              border-right: 20px solid transparent;
+              border-top: 20px solid #019247;"
+            ></div>
           </div>
         </div>
       </q-footer>
@@ -363,14 +405,15 @@ export default {
       );
     },
     getOnlineStatus() {
-      return navigator.onLine
+      return navigator.onLine;
     }
   },
   data() {
     return {
       images: {
         // eslint-disable-next-line no-undef
-        Logo: require("../../assets/logo-min.png")
+        Logo: require("../../assets/logo-min.png"),
+        AppleShareIcon: require("../../assets/shareIcon-min.png")
       },
       viewPurchaseProcess: false,
       showAppInstallBanner: false,
@@ -381,9 +424,11 @@ export default {
     };
   },
   beforeMount() {
-    checkBasketExpiry();
-    this.$store.dispatch("retrieveDefaultSettings");
-    this.$store.dispatch("retrievePlatformStatus");
+    if (this.$store.getters.getAuth) {
+      checkBasketExpiry();
+      this.$store.dispatch("retrieveDefaultSettings");
+      this.$store.dispatch("retrievePlatformStatus");
+    }
   },
   async mounted() {
     // payment -> the response form payment gateway redirect sends us here with a query in the url
@@ -422,6 +467,15 @@ export default {
           if (!showInstallBannerTest) this.showAppInstallBanner = true;
         }, 2000);
       });
+
+      if (this.$q.platform.is.ios && this.$q.platform.is.mobile) {
+        setTimeout(() => {
+          let showInstallBannerTest = this.$q.localStorage.getItem(
+            "neverShowAppInstallBanner"
+          );
+          if (!showInstallBannerTest) this.showAppInstallBanner = true;
+        }, 2000);
+      }
     }
   },
   watch: {

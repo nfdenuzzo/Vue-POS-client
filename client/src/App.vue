@@ -7,9 +7,7 @@
         : 'min-width: 360px !important;'
     "
   >
-    <transition name="component-fade" mode="out-in">
-      <router-view />
-    </transition>
+    <router-view />
   </div>
 </template>
 

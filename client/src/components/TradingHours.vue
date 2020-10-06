@@ -12,21 +12,14 @@
       class="text-center text-caption text-weight-bold"
     >
       <div class="row q-pt-xs justify-center">
-        <div class="col-xs-10 col-sm-6 col-md-6">
+        <div class="col-xs-10 col-md-8 col-lg-6">
           <div class="row justify-center">
-            <div
-              class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
-              :class="[
-                { 'text-center': $q.screen.xs },
-                { 'text-center': $q.screen.sm },
-                { 'text-left': $q.screen.gt.sm }
-              ]"
-            >
+            <div class="col-xs-7 col-sm-4 col-md-3 col-lg-3 col-xl-3 text-left">
               <span v-if="!item.closed">
                 {{ item.day }}
               </span>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-if="item.time">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-3 text-right" v-if="item.time">
               <span v-if="!item.closed" class="no-wrap">
                 {{ item.time.start.hours }}:{{ item.time.start.min }} -
                 {{ item.time.end.hours }}:{{ item.time.end.min }}
