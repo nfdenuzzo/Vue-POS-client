@@ -255,8 +255,9 @@
           appear
           enter-active-class="animated fadeIn"
           leave-active-class="animated fadeOut"
+          v-if="!$q.platform.is.ios && showAppInstallBanner"
         >
-          <div v-if="showAppInstallBanner" class="banner-container bg-positive">
+          <div class="banner-container bg-positive">
             <div class="constrain">
               <q-banner class="bg-positive text-white" inline-actions dense>
                 <template v-slot:avatar>
