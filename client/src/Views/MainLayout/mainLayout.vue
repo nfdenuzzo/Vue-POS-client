@@ -316,7 +316,7 @@
         <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner">
           <div class="row justify-center">
             <div
-              class="col-xs-12 col-md-4 text-center bg-goldBrown"
+              class="col-xs-12 col-md-4 text-center bg-positive"
               style="max-height:70px; min-height:70px; border-radius: 15px;"
             >
               <div class="row text-white">
@@ -345,7 +345,7 @@
               height: 0;
               border-left: 20px solid transparent;
               border-right: 20px solid transparent;
-              border-top: 20px solid #746745;"
+              border-top: 20px solid #019247;"
             ></div>
           </div>
         </div>

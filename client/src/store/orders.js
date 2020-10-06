@@ -1,4 +1,5 @@
 import axios from "../httpClient/config.js";
+import { Loading, QSpinnerHourglass } from "quasar";
 import {
   getStartOfMonth,
   helperStandardDateOnlyFormat
@@ -51,15 +52,23 @@ const menuSideItems = {
       payload
     ) {
       try {
+        Loading.show({
+          spinner: QSpinnerHourglass,
+          spinnerColor: payload ? "positive" : "logoRed",
+          backgroundColor: "darkgrey",
+          message: "Processing."
+        });
         const result = await axios.axiosInstance.put(
           `${ordersUrl}/update-order-status`,
           payload
         );
         if (result && result.status === 200) {
           dispatch("retrieveActiveOrders", { forceRefresh: true });
+          Loading.hide();
           return result;
         }
       } catch (ex) {
+        Loading.hide();
         console.log("updateSideItem -> ex", ex);
       }
     },

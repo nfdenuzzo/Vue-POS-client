@@ -96,8 +96,12 @@
             </div>
             <trading-Hours />
           </div>
-          <div v-if="!$q.platform.is.mobile" class="col-xs-4 q-mt-xl">
-            <privacy-policy-and-terms-and-conditions />
+          <div v-if="!$q.platform.is.mobile" class="col-xs-4">
+            <div class="column justify-end" :style="$q.screen.lt.sm && !$q.screen.gt.sm ? 'height: 100%' : $q.screen.lt.md && !$q.screen.gt.md ? 'height: 75%' : $q.screen.lt.lg && !$q.screen.gt.lg ? 'height: 70%' : 'height: 65%'">
+              <div class="col-4">
+                <privacy-policy-and-terms-and-conditions />
+              </div>
+            </div>
           </div>
           <div :class="!$q.platform.is.mobile ? 'col-xs-4' : 'col-xs-6'">
             <div class="text-body2 text-weight-bold text-center">
@@ -189,6 +193,7 @@
 <script>
 import { isLoggedIn, login, logout } from "../utils/auth.js";
 import adminMenu from "../mixins/adminMenu.js";
+import { checkBasketExpiry } from "../utils/checkBasket.js";
 export default {
   name: "homepage",
   components: {

@@ -4,8 +4,9 @@
       <div class="col-xs-5 col-md-4 col-lg-2">
         <q-input
           stack-label
-          label="Filter Ready Orders (Unique Order Id):"
+          label="Filter Orders (Unique Order Id):"
           outlined
+          color="positive"
           dense
           debounce="300"
           v-model="filter"
@@ -52,6 +53,7 @@
                       stack-label
                       label="Pilot Table No."
                       :key="item._id"
+                      color="positive"
                       outlined
                       dense
                       debounce="300"
