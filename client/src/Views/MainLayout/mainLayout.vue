@@ -217,7 +217,7 @@
             </div>
           </div>
         </transition>
-        <mobile-tab-menu-options v-if="mixin_tabMenuDisplay" />
+        <tab-menu-options v-if="mixin_tabMenuDisplay" />
         <transition name="component-fade" mode="out-in">
           <router-view />
         </transition>
@@ -374,8 +374,8 @@ export default {
     "payment-result": () => import("../../components/paymentResult.vue"),
     "trading-Hours": () => import("../../components/tradingHours.vue"),
     "cooking-time-info": () => import("../../components/cookingTimeInfo.vue"),
-    "mobile-tab-menu-options": () =>
-      import("../../components/mobileTabMenu/mobileTabMenuOptions.vue"),
+    "tab-menu-options": () =>
+      import("../../components/tabMenu/tabMenuOptions.vue"),
     "terms-and-conditions": () =>
       import("../../components/TandCs/privacyPolicyAndTermsAndConditions.vue")
   },

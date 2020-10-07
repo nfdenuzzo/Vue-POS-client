@@ -17,6 +17,7 @@ import notifications from "./notifications";
 import systemStatistics from "./adminSystemStatistics";
 import paymentSystem from "./paymentSystem";
 import specialRules from "./specialRules";
+import other from "./other";
 
 import createPersistedState from "vuex-persistedstate";
 import createPlugin from 'logrocket-vuex';
@@ -72,6 +73,7 @@ export default new Vuex.Store({
     notifications,
     systemStatistics,
     paymentSystem,
-    specialRules
+    specialRules,
+    other
   }
 });

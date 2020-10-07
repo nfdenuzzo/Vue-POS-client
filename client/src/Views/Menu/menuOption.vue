@@ -1,6 +1,9 @@
 <template>
   <div class="text-color">
-    <div class="row q-pt-md justify-center">
+    <div
+      class="row q-pt-md justify-center"
+      v-touch-swipe.mouse.left.right="handleSwipe"
+    >
       <div class="col-xs-12 col-sm-12 col-md-10">
         <div class="row justify-center">
           <div
@@ -107,6 +110,21 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    async handleSwipe({ evt, ...info }) {
+      if (info.direction === "left") {
+        const path = this.$route.path;
+        let result = await this.$store.dispatch("navigateNextTab", path);
+        if (result) {
+          this.$router.push(result);
+        }
+      } else if (info.direction === "right") {
+        const path = this.$route.path;
+        let result = await this.$store.dispatch("navigateTabBack", path);
+        if (result) {
+          this.$router.push(result);
+        }
+      }
+    },
     viewDetails(menuObject) {
       this.viewMenuItemsDetails = true;
       this.menuItemDetails = menuObject;
