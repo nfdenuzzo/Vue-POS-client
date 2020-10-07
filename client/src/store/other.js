@@ -22,7 +22,7 @@ const other = {
       payload
     ) {
       let currentIndex = rootGetters.getMenuOptions.findIndex(
-        x => x.path.includes(payload)
+        x => payload.includes(x.path)
       );
       if (currentIndex < 7) {
         return rootGetters.getMenuOptions[currentIndex + 1].path;
@@ -35,7 +35,7 @@ const other = {
       payload
     ) {
       let currentIndex = rootGetters.getMenuOptions.findIndex(
-        x => x.path.includes(payload)
+        x => payload.includes(x.path)
       );
       if (currentIndex > 0) {
         return rootGetters.getMenuOptions[currentIndex - 1].path;
