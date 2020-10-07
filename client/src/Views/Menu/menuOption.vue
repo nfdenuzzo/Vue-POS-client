@@ -1,13 +1,13 @@
 <template>
   <div class="text-color">
     <div
-      class="row q-pt-md justify-center"
+      class="row q-pt-md justify-center window-height"
       v-touch-swipe.mouse.left.right="handleSwipe"
     >
       <div class="col-xs-12 col-sm-12 col-md-10">
         <div class="row justify-center">
           <div
-            class="col-xs-12 col-sm-12 col-md-4 q-pt-md"
+            class="col-xs-12 col-sm-6 col-md-5 col-lg-4 q-pt-md"
             v-for="menuItem in getItemsList"
             :key="menuItem._id"
           >

@@ -10,7 +10,7 @@
 
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { CacheFirst } from "workbox-strategies";
+import { StaleWhileRevalidate, CacheFirst } from "workbox-strategies";
 import { ExpirationPlugin } from "workbox-expiration";
 import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { NetworkFirst } from "workbox-strategies";
@@ -97,9 +97,22 @@ registerRoute(
   })
 );
 
-registerRoute(({ url }) => url.pathname.startsWith("/api"), new NetworkFirst());
+registerRoute(/\.(?:js|css)$/,
+  new StaleWhileRevalidate({
+    cacheName: 'static-resources'
+  })
+);
 
-registerRoute(({ url }) => url.href.startsWith("http"), new NetworkFirst());
+registerRoute(({ url }) => url.pathname.startsWith("/api"),
+  new NetworkFirst({
+      cacheName: 'data-cache',
+      cacheExpiration: {
+          maxEntries: 20,
+          maxAgeSeconds: 300 // 2 minutes
+      },
+      cacheableResponse: {statuses: [0, 200]}
+  })
+);
 
 /*
   events - push

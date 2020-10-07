@@ -17,7 +17,7 @@
                   aria-label="Menu"
                   class="q-mt-md text-color"
                   @click="menuDrawerOpen = !menuDrawerOpen"
-                  v-if="$store.getters.getAuth || $q.platform.is.mobile"
+                  v-if="$store.getters.getAuth || !($q.screen.height > 767 && $q.screen.width > 700)"
                 />
               </div>
               <div class="col-xs-10 text-center">
@@ -49,7 +49,7 @@
           </div>
         </q-toolbar>
       </q-header>
-
+      
       <q-drawer
         v-model="menuDrawerOpen"
         :width="$q.screen.lt.md ? 230 : 330"
@@ -57,6 +57,7 @@
         bordered
         behavior="mobile"
         content-class="bg-layout-color"
+        v-if="$store.getters.getAuth || !($q.screen.height > 767 && $q.screen.width > 700)"
       >
         <q-scroll-area class="fit">
           <q-list padding class="menu-list">
