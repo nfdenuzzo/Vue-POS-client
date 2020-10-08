@@ -365,6 +365,14 @@ const routes = [
         beforeEnter: requireAuth
       },
       {
+        path: "/current-special/:special",
+        name: "currentSpecial",
+        meta: {
+          title: "Black Forest Grill - Current Special"
+        },
+        component: () => import("../views/Specials/viewCurrentSpecial.vue")
+      },
+      {
         path: "/callback",
         name: "Callback",
         component: Callback

@@ -1,10 +1,17 @@
 <template>
   <div class="text-color">
     <q-card>
+      <q-card-section
+        class="text-color row items-center q-pb-none"
+        v-if="isEditing"
+      >
+        <q-space />
+        <q-btn icon="close" flat round dense @click="closeDialog" />
+      </q-card-section>
       <div
         class="text-weight-bolder q-pb-xs  q-pt-md text-center text-subtitle1"
       >
-        Create Special Campagin Rule
+        {{ isEditing ? "Update" : "Create" }} Special Campagin Rule
       </div>
       <div class="row justify-center">
         <div class="q-pa-md">
@@ -267,6 +274,37 @@
             </div>
           </div>
           <div class="row justify-center">
+            <div class="col-xs-12 text-center q-px-md">
+              <div class="constrain-more q-pa-md" v-if="loadedImage && isEditing">
+                <div class="camera-frame q-pa-md">
+                  <q-img :src="ruleObject.campaignImage" />
+                </div>
+              </div>
+              <image-uploader
+                :preview="true"
+                :className="['fileinput', { 'fileinput--loaded': hasImage }]"
+                capture="environment"
+                :debug="1"
+                accept="image/*"
+                doNotResize="gif"
+                :autoRotate="true"
+                outputFormat="verbose"
+                @input="setImage"
+              >
+                <label for="fileInput" slot="upload-label">
+                  <div class="row justify-center">
+                    <q-icon size="19px" name="fas fa-camera" />
+                  </div>
+                  <div class="row justify-center">
+                    <span class="upload-caption">{{
+                      hasImage ? "Replace" : "Click to upload"
+                    }}</span>
+                  </div>
+                </label>
+              </image-uploader>
+            </div>
+          </div>
+          <div class="row justify-center">
             <div
               class="col-xs-11 col-sm-3 col-md-3 col-lg-2 q-pa-md text-color text-weight-bold"
             >
@@ -384,8 +422,11 @@
 <script>
 import sortBy from "lodash/sortBy";
 import { helperStandardDateOnlyFormat } from "../../../utils/dateUtil.js";
+import ImageUploader from "vue-image-upload-resize";
 export default {
-  components: {},
+  components: {
+    ImageUploader
+  },
   mixins: [],
   props: {
     selectedRule: {
@@ -431,6 +472,7 @@ export default {
       buyMenuItemOptions: [],
       getMenuItemOptions: [],
       ruleObject: {
+        campaignImage: null,
         ruleStructure: null,
         buyCategories: [],
         getCategories: [],
@@ -445,7 +487,10 @@ export default {
           to: helperStandardDateOnlyFormat(new Date())
         }
       },
-      dataLoaded: false
+      dataLoaded: false,
+      hasImage: null,
+      loadedImage: false,
+      image: null
     };
   },
   computed: {
@@ -480,6 +525,11 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    setImage: function(file) {
+      this.loadedImage = false;
+      this.hasImage = true;
+      this.ruleObject.campaignImage = file.dataUrl;
+    },
     removeBuyItemOption(option) {
       this.buyMenuItemOptions.splice(option.index, 1);
     },
@@ -503,6 +553,9 @@ export default {
     },
     async assignData() {
       this.ruleObject = JSON.parse(JSON.stringify(this.selectedRule));
+      if (this.ruleObject.campaignImage != null) {
+        this.loadedImage = true;
+      }
     },
     filterFnBuyMenuItems(val, update) {
       if (val === "") {
@@ -574,6 +627,7 @@ export default {
     async onReset() {
       await this.$refs.myForm.reset();
       this.ruleObject = {
+        campaignImage: null,
         ruleStructure: null,
         buyCategories: [],
         getCategories: [],
@@ -592,4 +646,8 @@ export default {
   }
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+#fileInput {
+  display: none;
+}
+</style>

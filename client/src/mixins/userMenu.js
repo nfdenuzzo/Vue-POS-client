@@ -30,6 +30,12 @@ export default {
             routeLink: "/view-my-profile",
             icon: "fas fa-user",
             routeName: "myProfile"
+          },
+          {
+            name: "Order History",
+            routeLink: "/order-history",
+            icon: "fas fa-list",
+            routeName: "orderHistory"
           }
         ];
       } else {

@@ -93,6 +93,21 @@ const generalSettings = {
         console.log("retrieveDefaultSettings -> ex", ex);
         return true
       }
+    },
+    async retrieveSpecialImageUrl({ commit, dispatch, rootState, rootGetters },
+      payload
+    ) {
+      try {
+        const result = await axios.axiosInstance.get(
+          `${generalSettingsUrl}/retrieve-campaign-image/${payload}`
+        );
+        if (result && result.status === 200) {
+          console.log("result", result)
+          return result.data.campaignImage;
+        }
+      } catch (ex) {
+        console.log("retrieveSpecialImageUrl -> ex", ex);
+      }
     }
   },
   mutations: {
