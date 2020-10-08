@@ -169,10 +169,8 @@ export default {
     async onSubmit() {
       this.updateBtnLoading = true;
       if (this.updateProfileObj.notificationsEnabled) {
-        this.updateProfileObj.subscriptionObject = await webPushCreateSub();
-        const qs = require("qs");
-        const newSubDataQS = qs.stringify(this.updateProfileObj.subscriptionObject);
-        this.updateProfileObj.subscriptionObject = newSubDataQS;
+        const obj = await webPushCreateSub();
+        this.updateProfileObj.subscriptionObject = obj
       }
       const result = await this.$store.dispatch(
         "updateUserProfile",
