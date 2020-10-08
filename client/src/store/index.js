@@ -40,10 +40,12 @@ export default new Vuex.Store({
       storage: window.localStorage,
       paths: [
         "auth",
+        "generalSettings.orderingActive",
         "generalSettings.openingTimes",
         "generalSettings.curentVATRate",
         "generalSettings.deliveryCharges",
         "generalSettings.settingsRetrievedDate",
+        "generalSettings.deliveryServiceStatus",
         "menuItems",
         "menuSideItems",
         "menuCategories",

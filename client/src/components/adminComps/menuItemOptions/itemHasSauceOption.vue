@@ -5,7 +5,7 @@
         <q-checkbox
           left-label
           v-model="updateMenuItemObj.hasSauceOptions"
-          label="Product has Sauce Options?"
+          label="Product has sauce options?"
           color="positive"
         />
       </div>

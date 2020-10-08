@@ -300,7 +300,7 @@
           class="row"
           v-if="!showAppInstallBanner && $route.name === 'HomePage'"
         >
-          <div class="col-xs-12 text-right q-pb-sm q-px-sm text-color no-wrap">
+          <div class="col-xs-12 text-right q-px-sm text-color no-wrap">
             <q-icon
               size="12px"
               name="fas fa-circle"
@@ -399,7 +399,7 @@ export default {
       return this.userMainMenuItems;
     },
     hasItemsInOrder() {
-      return this.$store.getters.getBasket.length > 0;
+      return this.$store.getters.getBasket != null ? this.$store.getters.getBasket.length > 0 : false;
     },
     getItemsInOrderCount() {
       return this.$store.getters.getBasket.reduce(

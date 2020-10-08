@@ -1,7 +1,7 @@
 <template>
   <div class="text-color">
     <div
-      class="row q-pt-md justify-center window-height"
+      class="row q-pt-md justify-center fill q-pb-lg"
       v-touch-swipe.mouse.left.right="handleSwipe"
     >
       <div class="col-xs-12 col-sm-12 col-md-10">

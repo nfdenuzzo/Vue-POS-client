@@ -5,7 +5,7 @@
         <q-checkbox
           left-label
           v-model="updateMenuItemObj.hasFishStyleOptions"
-          label="Product has Fish Style Options?"
+          label="Product has fish style options?"
           color="positive"
         />
       </div>

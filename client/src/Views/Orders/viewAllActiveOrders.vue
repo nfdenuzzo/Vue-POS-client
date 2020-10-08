@@ -1,7 +1,7 @@
 <template>
   <div class="text-color">
     <div class="row q-pa-md">
-      <div class="col-xs-5 col-md-4 col-lg-2">
+      <div class="col-xs-10 col-sm-8 col-md-4 col-lg-2">
         <q-input
           stack-label
           label="Filter Orders (Unique Order Id):"

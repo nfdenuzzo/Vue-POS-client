@@ -5,7 +5,7 @@
         <q-checkbox
           left-label
           v-model="updateMenuItemObj.calzoneOffered"
-          label="Calzone style Offered"
+          label="Calzone style offered"
           color="positive"
         />
       </div>

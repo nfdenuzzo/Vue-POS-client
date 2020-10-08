@@ -5,7 +5,7 @@
         <q-checkbox
           left-label
           v-model="updateMenuItemObj.hasBastingStyleOptions"
-          label="Product has Basting Style Options?"
+          label="Product has basting style options?"
           color="positive"
         />
       </div>
