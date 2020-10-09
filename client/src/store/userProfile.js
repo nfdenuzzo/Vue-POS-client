@@ -1,3 +1,4 @@
+import { Platform } from 'quasar'
 import axios from "../httpClient/config.js";
 
 const myProfileUrl = "/my-profile";
@@ -21,7 +22,8 @@ const myProfile = {
       payload
     ) {
       try {
-        const result = await axios.axiosInstance.get(`${myProfileUrl}`);
+        const isMobile = Platform.is.mobile ? true : false
+        const result = await axios.axiosInstance.get(`${myProfileUrl}/${isMobile}`);
         if (result && result.status === 200) {
           commit("setMyProfile", result.data);
           commit("setMyProfileRetrievedDate", new Date());

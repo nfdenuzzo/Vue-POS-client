@@ -171,6 +171,8 @@ export default {
       if (this.updateProfileObj.notificationsEnabled) {
         const obj = await webPushCreateSub();
         this.updateProfileObj.subscriptionObject = obj
+        this.updateProfileObj.isMobile = this.$q.platform.is.mobile
+        this.updateProfileObj.isDesktop = !this.$q.platform.is.mobile
       }
       const result = await this.$store.dispatch(
         "updateUserProfile",

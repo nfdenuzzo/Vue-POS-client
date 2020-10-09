@@ -583,9 +583,14 @@ export default {
           const qs = require("qs");
           const newSubData = newSub.toJSON(),
             newSubDataQS = qs.stringify(newSubData);
+          const payload = {
+            subscriptionObj: newSubDataQS,
+            isMobile: this.$q.platform.is.mobile,
+            isDesktop: !this.$q.platform.is.mobile
+          }
           let result = await this.$store.dispatch(
             "subscribeNotifications",
-            newSubDataQS
+            payload
           );
           if (result) {
             this.displayGrantedNotification();
