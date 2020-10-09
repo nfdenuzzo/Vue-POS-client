@@ -5,7 +5,7 @@ import { Notify } from 'quasar'
 export default async (/* { app, router, Vue ... } */) => {
   Notify.setDefaults({
     position: 'bottom',
-    timeout: 1500,
+    timeout: 2800,
     textColor: 'white',
   })
 }

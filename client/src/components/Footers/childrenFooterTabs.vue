@@ -1,13 +1,14 @@
 <template>
   <div container>
-    <q-footer bordered class="bg-main-layout-light">
+    <q-footer bordered class="bg-main-layout-light" :style="getApplicableHeight">
       <q-tabs
         inline-label
         outside-arrows
         mobile-arrows
-        class="bg-main-layout-light text-color shadow-2"
+        class="bg-main-layout-light text-color shadow-up-20 text-weight-bolder"
         active-color="logoRed"
         indicator-color="logoRed"
+        :style="getApplicableHeight"
       >
         <q-route-tab
           :to="option.path"
@@ -15,7 +16,7 @@
           v-for="(option, index) in childrenTabOptions"
           :key="index"
           exact
-          class="text-capitalize"
+          class="text-capitalize text-weight-bolder"
           :ripple="false"
         />
       </q-tabs>
@@ -44,6 +45,13 @@ export default {
     };
   },
   computed: {
+    getApplicableHeight() {
+      if (this.$q.platform.is.mobile) {
+        return 'min-height: 70px;';
+      } else {
+        return "";
+      }
+    },
     childrenTabOptions() {
       if (this.$route.path.includes("/menu-option-pizza")) {
         return this.pizzaTypes;
@@ -63,4 +71,8 @@ export default {
   methods: {}
 };
 </script>
-<style></style>
+<style lang='scss'>
+.q-tab__label {
+  font-weight: bold;
+} 
+</style>

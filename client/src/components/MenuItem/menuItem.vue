@@ -1,13 +1,13 @@
 <template>
   <div class="text-color row justify-center">
     <div class="col-xs-11">
-      <q-card @click="viewDetails" style="min-height: 130px; cursor: pointer;">
+      <q-card @click="viewDetails" style="cursor: pointer;" :style="getCardMinHeight">
         <div class="row q-pa-sm q-px-md">
-          <div class="col-xs-9 text-subtitle1 text-weight-bolder">
+          <div class="col-xs-8 text-subtitle1 text-weight-bolder">
             {{ item.name }}
           </div>
           <div
-            class="col-xs-3 self-end text-right text-weight-bolder text-subtitle1"
+            class="col-xs-4 self-start text-right text-weight-bolder text-subtitle1"
           >
             R {{ item.price }}
           </div>
@@ -30,6 +30,7 @@
             </q-avatar>
           </div>
         </div>
+        <br />
       </q-card>
     </div>
   </div>
@@ -48,7 +49,25 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    getCardMinHeight() {
+      if (this.$route.path.includes("/menu-option-chef-specials/")) {
+        if (this.$q.screen.md) {
+          return "min-height: 220px; max-height: 220px";
+        } else if (this.$q.screen.sm) {
+          return "min-height: 235px; max-height: 235px";
+        } else if (this.$q.screen.xs) {
+          return "min-height: 180px; max-height: 180px";
+        } else {
+          return "min-height: 180px; max-height: 180px";
+        }
+      } else if (this.item.menuItemImage) {
+        return "min-height: 180px; max-height: 180px";
+      } else {
+        return "min-height: 150px; max-height: 150px";
+      }
+    }
+  },
   watch: {},
   beforeCreate() {},
   created() {},
