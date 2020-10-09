@@ -17,7 +17,10 @@
                   aria-label="Menu"
                   class="q-mt-md text-color"
                   @click="menuDrawerOpen = !menuDrawerOpen"
-                  v-if="$store.getters.getAuth || !($q.screen.height > 767 && $q.screen.width > 700)"
+                  v-if="
+                    $store.getters.getAuth ||
+                      !($q.screen.height > 767 && $q.screen.width > 700)
+                  "
                 />
               </div>
               <div class="col-xs-10 text-center">
@@ -49,7 +52,7 @@
           </div>
         </q-toolbar>
       </q-header>
-      
+
       <q-drawer
         v-model="menuDrawerOpen"
         :width="$q.screen.lt.md ? 230 : 330"
@@ -57,7 +60,10 @@
         bordered
         behavior="mobile"
         content-class="bg-layout-color"
-        v-if="$store.getters.getAuth || !($q.screen.height > 767 && $q.screen.width > 700)"
+        v-if="
+          $store.getters.getAuth ||
+            !($q.screen.height > 767 && $q.screen.width > 700)
+        "
       >
         <q-scroll-area class="fit">
           <q-list padding class="menu-list">
@@ -109,6 +115,20 @@
             <q-separator
               v-if="$store.getters.getAuth && getUserMainMenuItem.length > 0"
             />
+            <div
+              class="row justify-center q-pt-md"
+              v-if="!$store.getters.getAuth && $route.name !== 'HomePage'"
+            >
+              <q-btn
+                push
+                class="text-capitalize"
+                color="positive"
+                label="Home Page"
+                style="min-width: 100px;"
+                size="md"
+                @click="goHome"
+              />
+            </div>
             <div
               v-if="$store.getters.getAuth && getUserMainMenuItem.length > 0"
             >
@@ -315,7 +335,14 @@
             <span> v{{ getLatestVersion }} </span>
           </div>
         </div>
-        <div v-if="$q.platform.is.ios && $q.platform.is.mobile && showAppInstallBanner && !getStandAloneStatus">
+        <div
+          v-if="
+            $q.platform.is.ios &&
+              $q.platform.is.mobile &&
+              showAppInstallBanner &&
+              !getStandAloneStatus
+          "
+        >
           <div class="row justify-center">
             <div
               class="col-xs-12 col-md-4 text-center bg-positive"
@@ -323,12 +350,19 @@
             >
               <div class="row text-white">
                 <div class="col-xs-12 text-right q-pr-md q-pt-xs">
-                  <q-btn icon="close" flat round dense size="sm" @click="neverShowAppInstallBanner"/>
+                  <q-btn
+                    icon="close"
+                    flat
+                    round
+                    dense
+                    size="sm"
+                    @click="neverShowAppInstallBanner"
+                  />
                 </div>
               </div>
               <div class="text-white" style="margin-top:-17px;">
                 Install this webapp on your iPhone,
-                <br /> 
+                <br />
                 Tap
                 <q-img
                   class="q-mb-xs"
@@ -363,7 +397,8 @@ import userMenu from "../../mixins/userMenu.js";
 const getLogout = () => import("../../utils/auth.js");
 const getUrlBase64ToUint8Array = () => import("../../utils/webpushUtil.js");
 import { checkBasketExpiry } from "../../utils/checkBasket.js";
-const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+const isInStandaloneMode = () =>
+  "standalone" in window.navigator && window.navigator.standalone;
 let deferredPrompt;
 export default {
   name: "MainLayout",
@@ -399,7 +434,9 @@ export default {
       return this.userMainMenuItems;
     },
     hasItemsInOrder() {
-      return this.$store.getters.getBasket != null ? this.$store.getters.getBasket.length > 0 : false;
+      return this.$store.getters.getBasket != null
+        ? this.$store.getters.getBasket.length > 0
+        : false;
     },
     getItemsInOrderCount() {
       return this.$store.getters.getBasket.reduce(
@@ -587,7 +624,7 @@ export default {
             subscriptionObj: newSubDataQS,
             isMobile: this.$q.platform.is.mobile,
             isDesktop: !this.$q.platform.is.mobile
-          }
+          };
           let result = await this.$store.dispatch(
             "subscribeNotifications",
             payload
