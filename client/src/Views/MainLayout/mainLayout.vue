@@ -397,6 +397,7 @@ import userMenu from "../../mixins/userMenu.js";
 const getLogout = () => import("../../utils/auth.js");
 const getUrlBase64ToUint8Array = () => import("../../utils/webpushUtil.js");
 import { checkBasketExpiry } from "../../utils/checkBasket.js";
+import { QSpinnerHourglass } from "quasar";
 const isInStandaloneMode = () =>
   "standalone" in window.navigator && window.navigator.standalone;
 let deferredPrompt;
@@ -477,14 +478,21 @@ export default {
     // payment -> the response form payment gateway redirect sends us here with a query in the url
     /// the tr query is the orderId we will use to query the payment status when we return to this page
     if (this.$route.query && this.$route.query.tr) {
+      this.$q.loading.show({
+        spinner: QSpinnerHourglass,
+        spinnerColor: "positive",
+        backgroundColor: "darkgrey",
+        message: "Processing...."
+      });
       const result = await this.$store.dispatch(
         "queryTransactionResult",
         this.$route.query.tr
       );
       if (result) {
         // if the  transaction was successfuly we can then clear the basket
-        this.$store.commit("updateBasket");
+        this.$store.commit("updateBasket", []);
       }
+      this.$q.loading.hide();
       this.viewPaymentStatusDialog = true;
       this.paymentResultSuccessful = result;
       this.$store.commit("setTranId", null);

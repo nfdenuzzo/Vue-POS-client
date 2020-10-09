@@ -12,7 +12,7 @@
                 <q-checkbox
                   left-label
                   v-model="useExistingContactNumber"
-                  label="Use existing contact number"
+                  :label="`Use existing contact number (${updateOrderDetailsObj.contactNumber})`"
                   color="positive"
                 />
               </div>
