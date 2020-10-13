@@ -1,7 +1,7 @@
 <template>
   <div class="text-color row justify-center">
     <div class="col-xs-11">
-      <q-card @click="viewDetails" style="cursor: pointer;" :style="getCardMinHeight">
+      <q-card @click="viewDetails" style="cursor: pointer;" :style="getCardMinHeight" >
         <div class="row q-pa-sm q-px-md">
           <div class="col-xs-8 text-subtitle1 text-weight-bolder">
             {{ item.name }}
@@ -51,18 +51,30 @@ export default {
   },
   computed: {
     getCardMinHeight() {
-      if (this.$route.path.includes("/menu-option-chef-specials/")) {
-        if (this.$q.screen.md) {
-          return "min-height: 220px; max-height: 220px";
+      if (this.$route.path.includes("/menu-option-chef-specials")) {
+        if (this.$q.screen.xs) {
+          return "min-height: 200px; max-height: 200px";
         } else if (this.$q.screen.sm) {
-          return "min-height: 235px; max-height: 235px";
-        } else if (this.$q.screen.xs) {
-          return "min-height: 180px; max-height: 180px";
+          if (this.$q.screen.width < 600) {
+            return "min-height: 220px; max-height: 220px";
+          } else {
+            return "min-height: 230px; max-height: 230px";
+          }
+        } else if (this.$q.screen.md) {
+          if (this.$q.screen.width < 1023) {
+            return "min-height: 200px; max-height: 200px";
+          } else {
+            return "min-height: 220px; max-height: 220px";
+          }
+        } else if (this.$q.screen.lg) {
+          return "min-height: 220px; max-height: 220px";
+        } else if (this.$q.screen.xl) {
+          return "min-height: 205px; max-height: 205px";
         } else {
-          return "min-height: 180px; max-height: 180px";
+          return "min-height: 220px; max-height: 220px";
         }
       } else if (this.item.menuItemImage) {
-        return "min-height: 180px; max-height: 180px";
+        return "min-height: 210px; max-height: 210px";
       } else {
         return "min-height: 150px; max-height: 150px";
       }
@@ -78,9 +90,7 @@ export default {
   beforeDestroy() {},
   methods: {
     viewDetails() {
-      if (this.$store.getters.getOrderingActive) {
-        this.$emit("viewDetails", this.item);
-      }
+      this.$emit("viewDetails", this.item);
     }
   }
 };

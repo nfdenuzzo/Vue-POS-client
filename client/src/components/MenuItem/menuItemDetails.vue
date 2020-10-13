@@ -469,7 +469,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraMainOptions">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraMainOptions && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -494,7 +494,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraDessertToppings">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraDessertToppings && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -506,8 +506,7 @@
             </div>
             <div
               class="row text-caption text-weight-bold"
-              v-if="addExtraDessertToppings"
-            >
+              v-if="addExtraDessertToppings && $store.getters.getOrderingActive">
               <q-option-group
                 v-model="selectedMenuItemDetails.extras.extraDessertToppings"
                 :options="extraDessertToppingsOptions"
@@ -519,7 +518,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraPastaToppings">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraPastaToppings && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -544,7 +543,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraBurgerToppings">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraBurgerToppings && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -569,7 +568,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraSaladToppings">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraSaladToppings && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -594,7 +593,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraPizzaToppings">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraPizzaToppings && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -620,7 +619,7 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraSuaces">
+          <div class="q-py-sm" v-if="menuItemDetails.offerExtraSuaces && $store.getters.getOrderingActive">
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -663,6 +662,7 @@
               color="positive"
               icon="fas fa-plus"
               @click="incrementItems"
+              :disable="!$store.getters.getOrderingActive"
             />
           </div>
 
@@ -680,7 +680,7 @@
             </div>
           </div>
 
-          <div class="row q-pa-sm justify-between q-pb-md">
+          <div class="row q-pa-sm q-pb-md" :class="$store.getters.getOrderingActive ? 'justify-between': 'justify-center'">
             <q-btn
               class="text-capitalize"
               color="logoRed"
@@ -688,6 +688,7 @@
               @click="closeMenuItemsDetails"
             />
             <q-btn
+              v-if="$store.getters.getOrderingActive"
               :disabled="!$store.getters.getAuth"
               class="text-capitalize"
               color="positive"
@@ -772,17 +773,17 @@ export default {
   },
   computed: {
     newPriceExtrasAdded() {
-      let price = this.menuItemDetails.price;
+      let price =  parseFloat(this.menuItemDetails.price);
       if (
         this.menuItemDetails.calzoneOffered &&
         this.selectedMenuItemDetails.makeCalzone
       ) {
-        price = price + this.menuItemDetails.calzonePrice;
+        price = parseFloat(price) + parseFloat(this.menuItemDetails.calzonePrice);
       }
       const keys = lodashKeys(this.selectedMenuItemDetails.extras);
       keys.forEach(key => {
         if (this.selectedMenuItemDetails.extras[key].length > 0) {
-          price = price + this.calculateExtrasSelectedCost(key);
+          price = parseFloat(price) + parseFloat(this.calculateExtrasSelectedCost(key));
         }
       });
       return price;
