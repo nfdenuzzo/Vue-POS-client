@@ -17,7 +17,7 @@ const basket = {
   },
   actions: {
     async addToBasket({ commit, dispatch, rootState, rootGetters }, payload) {
-      if (rootGetters.getBasket.length === 0) {
+      if (rootGetters.getBasket && rootGetters.getBasket.length === 0) {
         commit("setBasketCreateTime", new Date());
       }
       commit("setNewBasketItem", payload);

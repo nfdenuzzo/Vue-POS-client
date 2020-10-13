@@ -39,20 +39,13 @@ export default {
   mixins: [],
   props: {},
   data() {
-    return {
-      menuOptions: [
-        { name: "Starters", path: "/menu-option-starters" },
-        { name: "Pizza", path: "/menu-option-pizza" },
-        { name: "Pasta", path: "/menu-option-pasta" },
-        { name: "Chef Specials", path: "/menu-option-chef-specials" },
-        { name: "Seafood", path: "/menu-option-seafood" },
-        { name: "Kids Menu", path: "/menu-option-kids-menu" },
-        { name: "Desserts", path: "/menu-option-desserts" },
-        { name: "Extras", path: "/menu-option-extras" }
-      ]
-    };
+    return {};
   },
-  computed: {},
+  computed: {
+    menuOptions() {
+      return this.$store.getters.getMenuOptions;
+    }
+  },
   watch: {},
   beforeCreate() {},
   created() {},
