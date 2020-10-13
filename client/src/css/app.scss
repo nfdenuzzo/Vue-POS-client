@@ -31,6 +31,10 @@
   background-color: #ecf0f1;
 }
 
+.bg-positive {
+  background-color: $positive;
+}
+
 .bg-main-layout-dark {
   background-color: #92a2ae;
 }
@@ -141,4 +145,12 @@ body {
 
 .q-table__bottom-item {
   color: $goldBrown;
+}
+
+.q-checkbox--dense .q-checkbox__label {
+  padding: 0.3em;
+}
+
+.q-radio--dense .q-radio__label {
+  padding: 0.35em;
 }

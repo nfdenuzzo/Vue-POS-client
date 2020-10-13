@@ -338,6 +338,7 @@
         <div
           v-if="
             $q.platform.is.ios &&
+              $q.platform.is.safari &&
               $q.platform.is.mobile &&
               showAppInstallBanner &&
               !getStandAloneStatus

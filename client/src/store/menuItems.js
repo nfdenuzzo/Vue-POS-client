@@ -390,10 +390,10 @@ const menuItems = {
           return "getChefSpecialBurgerMenuItems";
         case "other-dishes":
           return "getChefSpecialOtherMenuItems";
-        case "kids-menu":
-          return "MenuOptionKids";
-        case "extras":
-          return "MenuOptionExtra";
+        case "MenuOptionKids":
+          return "getKidsMenuItems";
+        case "MenuOptionExtra":
+          return "getExtraMenuItems";
         default:
       }
     }

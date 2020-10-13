@@ -154,19 +154,19 @@ const routes = [
               auth: false
             }
           },
-          {
-            path: "other-dishes",
-            name: "other-dishes",
-            component: () => import("../views/Menu/menuOption.vue"),
-            meta: {
-              title: "Black Forest Grill - Other Dishes Menu",
-              dispatchMethod: {
-                name: "retrieveMenuItems",
-                payload: { value: "chef-special-other", forceRefresh: false }
-              },
-              auth: false
-            }
-          },
+          // {
+          //   path: "other-dishes",
+          //   name: "other-dishes",
+          //   component: () => import("../views/Menu/menuOption.vue"),
+          //   meta: {
+          //     title: "Black Forest Grill - Other Dishes Menu",
+          //     dispatchMethod: {
+          //       name: "retrieveMenuItems",
+          //       payload: { value: "chef-special-other", forceRefresh: false }
+          //     },
+          //     auth: false
+          //   }
+          // },
           {
             path: "burgers",
             name: "burgers",
@@ -208,19 +208,19 @@ const routes = [
         },
         component: () => import("../views/Menu/menuOption.vue")
       },
-      {
-        path: "/menu-option-desserts",
-        name: "MenuOptionDesserts",
-        meta: {
-          title: "Black Forest Grill - Desserts Menu",
-          dispatchMethod: {
-            name: "retrieveMenuItems",
-            payload: { value: "desserts", forceRefresh: false }
-          },
-          auth: false
-        },
-        component: () => import("../views/Menu/menuOption.vue")
-      },
+      // {
+      //   path: "/menu-option-desserts",
+      //   name: "MenuOptionDesserts",
+      //   meta: {
+      //     title: "Black Forest Grill - Desserts Menu",
+      //     dispatchMethod: {
+      //       name: "retrieveMenuItems",
+      //       payload: { value: "desserts", forceRefresh: false }
+      //     },
+      //     auth: false
+      //   },
+      //   component: () => import("../views/Menu/menuOption.vue")
+      // },
       {
         path: "/menu-option-extras",
         name: "MenuOptionExtra",

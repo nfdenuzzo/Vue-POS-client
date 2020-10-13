@@ -39,7 +39,7 @@ export default {
         { name: "Meat", path: "/menu-option-chef-specials" },
         { name: "Chicken", path: "/menu-option-chef-specials/chicken-dishes" },
         { name: "Pork", path: "/menu-option-chef-specials/pork-dishes" },
-        { name: "Other", path: "/menu-option-chef-specials/other-dishes" },
+        // { name: "Other", path: "/menu-option-chef-specials/other-dishes" },
         { name: "Burgers", path: "/menu-option-chef-specials/burgers" }
       ]
     };

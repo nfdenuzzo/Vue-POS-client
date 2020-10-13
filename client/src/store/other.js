@@ -1,3 +1,4 @@
+
 const other = {
   state: {
     menuOptions: [
@@ -7,7 +8,7 @@ const other = {
       { name: "Chef Specials", path: "/menu-option-chef-specials" },
       { name: "Seafood", path: "/menu-option-seafood" },
       { name: "Kids Menu", path: "/menu-option-kids-menu" },
-      { name: "Desserts", path: "/menu-option-desserts" },
+      // { name: "Desserts", path: "/menu-option-desserts" },
       { name: "Extras", path: "/menu-option-extras" }
     ]
   },
