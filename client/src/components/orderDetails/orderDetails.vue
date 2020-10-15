@@ -172,14 +172,17 @@
               Notifications will be sent to you when -
             </span>
             <br />
-            Your order has been processed. <br />Your order is being prepared.
-            <br />Your order is ready.
-            <span v-if="deliveryType === 'Delivery'"
-              ><br />Your order is out for Delivery</span
-            >
-            <span v-if="deliveryType !== 'Delivery'"
-              ><br />Your order is ready for Collection</span
-            >
+              Your order has been processed.
+            <br />
+              Your order is being prepared.
+            <br />
+            <span v-if="deliveryType === 'Delivery'">
+              Your order is ready and out for Delivery
+            </span>
+            <span v-if="deliveryType !== 'Delivery'">
+              <br />
+              Your order is ready for Collection
+            </span>
           </div>
         </q-form>
       </q-card>
