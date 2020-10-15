@@ -129,7 +129,7 @@
             <q-tr :props="props" :class="'cursor-pointer'">
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 <template>
-                  <div class="row no-wrap text-color" v-if="col.id != 5">
+                  <div class="row no-wrap text-color" v-if="col.id != 6">
                     {{ col.value }}
                   </div>
                   <div v-else>
@@ -163,11 +163,13 @@ export default {
         "email",
         "lastLoginDate",
         "created",
-        "emailVerified"
+        "emailVerified",
+        "contactNumber"
       ],
       columnsOptions: [
         { label: "Name", value: "name" },
         { label: "Email", value: "email" },
+        { label: "Contact No.", value: "contactNumber" },
         { label: "Last Login Date", value: "lastLoginDate" },
         { label: "Created", value: "created" },
         { label: "Email Verified", value: "emailVerified" }
@@ -200,6 +202,18 @@ export default {
         },
         {
           id: 3,
+          name: "contactNumber",
+          required: false,
+          label: "Contact No.",
+          align: "left",
+          field: row => {
+            return row.contactNumber;
+          },
+          sortable: true,
+          headerStyle: "font-size:14px;"
+        },
+        {
+          id: 4,
           name: "lastLoginDate",
           required: false,
           label: "Last Login Date",
@@ -211,7 +225,7 @@ export default {
           headerStyle: "font-size:14px;"
         },
         {
-          id: 4,
+          id: 5,
           name: "created",
           required: false,
           label: "Created",
@@ -223,7 +237,7 @@ export default {
           headerStyle: "font-size:14px;"
         },
         {
-          id: 5,
+          id: 6,
           name: "emailVerified",
           required: false,
           label: "Email Verified",

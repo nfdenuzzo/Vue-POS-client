@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center">
-    <div class="col-xs-12 col-sm-12" v-if="updateOrderDetailsObj">
+    <div class="col-xs-12 col-sm-12" v-if="dataPopulated">
       <q-card class="q-pa-md">
         <q-form ref="myForm" @submit="onSubmit">
           <div class="row justify-center">
@@ -12,7 +12,9 @@
                 <q-checkbox
                   left-label
                   v-model="useExistingContactNumber"
-                  :label="`Use existing contact number (${updateOrderDetailsObj.contactNumber})`"
+                  :label="
+                    `Use existing contact number (${updateOrderDetailsObj.contactNumber})`
+                  "
                   color="positive"
                 />
               </div>
@@ -136,23 +138,42 @@
             </div>
           </div>
           <div
-            class="col-xs-6 text-center q-px-md q-pt-md text-color text-weight-bold"
-            v-if="!$q.platform.is.ios"
+            class="col-xs-12 text-center q-px-md q-pt-md text-color text-weight-bold"
           >
-            <q-checkbox
-              left-label
-              v-model="subscribe"
-              label="Notify me when the status of my order changes"
-              color="positive"
-            />
+            Notify me when the status of my order changes using:
+          </div>
+          <div class="row justify-center q-py-md">
+            <div
+              class="col-xs-6 text-center q-px-md text-color text-weight-bold"
+            >
+              <q-checkbox
+                v-if="!$q.platform.is.ios"
+                left-label
+                v-model="subscribe"
+                label="Phone notifications"
+                color="positive"
+              />
+            </div>
+            <div
+              class="col-xs-6 text-center q-px-md text-color text-weight-bold"
+            >
+              <q-checkbox
+                left-label
+                v-model="subscribeEmail"
+                label="Emails"
+                color="positive"
+              />
+            </div>
           </div>
           <div
-            v-if="!$q.platform.is.ios"
             class="col-xs-6 text-center text-caption text-color text-weight-bold q-pt-sm"
           >
-            Notifications will be sent to you when - Your order has been
-            processed. <br />Your order is being prepared. <br />Your order is
-            ready.
+            <span class="text-weight-bolder">
+              Notifications will be sent to you when -
+            </span>
+            <br />
+            Your order has been processed. <br />Your order is being prepared.
+            <br />Your order is ready.
             <span v-if="deliveryType === 'Delivery'"
               ><br />Your order is out for Delivery</span
             >
@@ -168,6 +189,7 @@
 
 <script>
 import { webPushCreateSub } from "../../utils/webpushUtil.js";
+import isEmpty from "lodash/isEmpty";
 export default {
   components: {},
   mixins: [],
@@ -181,10 +203,15 @@ export default {
       hasExistingContactNumber: false,
       deliveryType: null,
       deliveryAreas: [],
-      subscribe: false
+      subscribe: false,
+      subscribeEmail: false,
+      assignedDataLoaded: false
     };
   },
   computed: {
+    dataPopulated() {
+      return !isEmpty(this.updateOrderDetailsObj);
+    },
     getOptions() {
       const options = [];
       if (this.$store.getters.getDeliveryServiceAvailable) {
@@ -211,6 +238,11 @@ export default {
     }
   },
   watch: {
+    getCurrentProfile(to, from) {
+      if (!isEmpty(to) && isEmpty(from) && this.assignedDataLoaded && isEmpty(this.updateOrderDetailsObj)) {
+        this.assignData()
+      }
+    },
     useExistingAddress() {
       if (this.useExistingAddress) {
         this.updateOrderDetailsObj.address = this.getCurrentProfile.address;
@@ -265,6 +297,7 @@ export default {
       } else {
         this.useExistingContactNumber = false;
       }
+      this.assignedDataLoaded = true
     },
     async onSubmit() {
       await this.$refs.myForm.validate().then(async success => {
@@ -279,6 +312,7 @@ export default {
     },
     async createDTO() {
       this.updateOrderDetailsObj.subscribeNotifications = this.subscribe;
+      this.updateOrderDetailsObj.subscribeEmailNotifications = this.subscribeEmail;
       if (this.updateOrderDetailsObj.subscribeNotifications) {
         this.updateOrderDetailsObj.subscriptionObject = await webPushCreateSub();
       }
