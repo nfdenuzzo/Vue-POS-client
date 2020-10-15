@@ -18,8 +18,8 @@
                   class="q-mt-md text-color"
                   @click="menuDrawerOpen = !menuDrawerOpen"
                   v-if="
-                    $store.getters.getAuth ||
-                      !($q.screen.height > 767 && $q.screen.width > 700)
+                    (($store.getters.getAuth ||
+                      !($q.screen.height > 767 && $q.screen.width > 700)) || (!$store.getters.getAuth && $route.name !== 'HomePage'))
                   "
                 />
               </div>
@@ -61,8 +61,9 @@
         behavior="mobile"
         content-class="bg-layout-color"
         v-if="
-          $store.getters.getAuth ||
-            !($q.screen.height > 767 && $q.screen.width > 700)
+          (($store.getters.getAuth ||
+            !($q.screen.height > 767 && $q.screen.width > 700)) ||
+            (!$store.getters.getAuth && $route.name !== 'HomePage'))
         "
       >
         <q-scroll-area class="fit">
@@ -174,17 +175,18 @@
             </div>
             <cooking-time-info
               class="q-pt-lg q-pb-sm"
-              v-if="$q.screen.width <= 700"
+              v-if="($q.screen.width <= 700) || (!$store.getters.getAuth && $route.name !== 'HomePage')"
               :drawer="true"
             />
             <trading-Hours
               class="q-pt-md q-pb-md"
-              v-if="$q.screen.width <= 700"
+              v-if="($q.screen.width <= 700) || (!$store.getters.getAuth && $route.name !== 'HomePage')"
               :drawer="true"
             />
             <delivery-charges
               class="q-pt-md q-pb-md"
-              v-if="$q.screen.width <= 700"
+              v-if="($q.screen.width <= 700) || (!$store.getters.getAuth && $route.name !== 'HomePage')"
+              :drawer="true"
             />
             <terms-and-conditions />
           </q-list>
@@ -579,6 +581,7 @@ export default {
       this.$router.push(link).catch(() => {});
     },
     goHome() {
+      this.menuDrawerOpen = false;
       this.$router.push("/").catch(() => {});
     },
     initNotificationsBanner() {
