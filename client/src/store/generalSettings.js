@@ -88,7 +88,7 @@ const generalSettings = {
         if (result && result.status === 200) {
           commit("setOrderingActive", result.data);
           if (!result.data) {
-            commit('clearBasket')
+            dispatch('clearBasket')
           }
           return true
         }
