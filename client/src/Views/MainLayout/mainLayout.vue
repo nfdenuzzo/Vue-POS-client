@@ -337,7 +337,7 @@
             <span> v{{ getLatestVersion }} </span>
           </div>
         </div>
-        <div
+        <!-- <div
           v-if="
             $q.platform.is.ios &&
               $q.platform.is.safari &&
@@ -387,7 +387,7 @@
               border-top: 20px solid #019247;"
             ></div>
           </div>
-        </div>
+        </div> -->
       </q-footer>
     </q-layout>
   </div>
