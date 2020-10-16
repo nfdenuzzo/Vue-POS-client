@@ -101,7 +101,21 @@
                     <q-checkbox
                       left-label
                       v-model="updateProfileObj.notificationsEnabled"
-                      label="Subscribe to Notifications"
+                      label="Subscribe to Phone Notifications"
+                      color="positive"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-center">
+              <div class="col-xs-10">
+                <div class="row">
+                  <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
+                    <q-checkbox
+                      left-label
+                      v-model="updateProfileObj.emailNotificationsEnabled"
+                      label="Subscribe to Email Notifications"
                       color="positive"
                     />
                   </div>

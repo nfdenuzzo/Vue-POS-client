@@ -87,6 +87,9 @@ const generalSettings = {
         );
         if (result && result.status === 200) {
           commit("setOrderingActive", result.data);
+          if (!result.data) {
+            dispatch('clearBasket')
+          }
           return true
         }
       } catch (ex) {

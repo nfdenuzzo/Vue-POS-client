@@ -1,7 +1,7 @@
 <template>
   <div class="text-color row justify-center">
     <div class="col-xs-11">
-      <q-card @click="viewDetails" style="cursor: pointer;" :style="getCardMinHeight" >
+      <q-card @click="viewDetails" style="cursor: pointer;" class="my-hover-shadow" :style="getCardMinHeight" >
         <div class="row q-pa-sm q-px-md">
           <div class="col-xs-8 text-subtitle1 text-weight-bolder">
             {{ item.name }}
