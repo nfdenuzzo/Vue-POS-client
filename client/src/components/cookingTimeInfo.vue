@@ -4,7 +4,7 @@
       class="text-center"
       v-for="(img, index) in images"
       :key="index"
-      :class="drawer ? 'col-xs-6' : 'col-xs-5'"
+      :class="drawer ? 'col-xs-6 col-sm-6 col-md-4' : 'col-xs-4 col-md-4'"
     >
       <q-avatar :size="drawer ? '50px' : '70px'" color="logoRed">
         <q-img contain :src="img.src"></q-img>

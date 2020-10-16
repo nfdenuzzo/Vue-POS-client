@@ -154,3 +154,8 @@ body {
 .q-radio--dense .q-radio__label {
   padding: 0.35em;
 }
+
+.my-hover-shadow:hover {
+  box-shadow: $shadow-5;
+  bottom: 2px;
+}
