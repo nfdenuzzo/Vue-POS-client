@@ -45,7 +45,9 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  overscroll-behavior: contain;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 100%;
 }
 
 .q-layout {
