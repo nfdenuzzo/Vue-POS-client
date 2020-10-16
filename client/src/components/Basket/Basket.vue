@@ -116,7 +116,7 @@ export default {
       let extrasCost = 0;
       this.showItemsInOrder.forEach(menuItemDetails => {
         if (menuItemDetails.makeCalzone) {
-          extrasCost = extrasCost + menuItemDetails.calzonePrice;
+          extrasCost = extrasCost + parseFloat(menuItemDetails.calzonePrice);
         }
         if (menuItemDetails.extraBurgerToppings.length > 0) {
           extrasCost =
