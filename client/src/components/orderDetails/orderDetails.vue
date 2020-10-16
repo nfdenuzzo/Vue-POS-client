@@ -145,9 +145,9 @@
           <div class="row justify-center q-py-md">
             <div
               class="col-xs-6 text-center q-px-md text-color text-weight-bold"
+              v-if="!$q.platform.is.ios"
             >
               <q-checkbox
-                v-if="!$q.platform.is.ios"
                 left-label
                 v-model="subscribe"
                 label="Phone notifications"

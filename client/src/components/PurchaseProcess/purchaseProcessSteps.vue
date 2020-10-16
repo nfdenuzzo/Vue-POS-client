@@ -73,9 +73,9 @@
             :invalidIds="invalidIds"
             :invalidCategories="invalidCategories"
           ></purchaseProcessError>
-          <div class="row justify-center q-pb-md">
-            <q-stepper-navigation>
-              <div class="row justify-center q-pb-md q-pt-sm">
+          <div class="row justify-center q-pb-xl">
+            <q-stepper-navigation :class="$q.platform.is.mobile ? 'fixed-bottom'  : ''">
+              <div class="row justify-center q-pb-md q-pt-sm" :class="$q.platform.is.mobile ? 'q-card'  : ''">
                 <q-btn
                   v-if="step > 1 && step !== 4"
                   color="logoRed"
