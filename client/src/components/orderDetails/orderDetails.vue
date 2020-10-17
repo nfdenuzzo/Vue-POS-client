@@ -180,7 +180,6 @@
               Your order is ready and out for Delivery
             </span>
             <span v-if="deliveryType !== 'Delivery'">
-              <br />
               Your order is ready for Collection
             </span>
           </div>
