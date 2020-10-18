@@ -98,7 +98,18 @@
             <trading-Hours />
           </div>
           <div v-if="!$q.platform.is.mobile" class="col-xs-4">
-            <div class="column justify-end" :style="$q.screen.lt.sm && !$q.screen.gt.sm ? 'height: 100%' : $q.screen.lt.md && !$q.screen.gt.md ? 'height: 75%' : $q.screen.lt.lg && !$q.screen.gt.lg ? 'height: 70%' : 'height: 65%'">
+            <div
+              class="column justify-end"
+              :style="
+                $q.screen.lt.sm && !$q.screen.gt.sm
+                  ? 'height: 100%'
+                  : $q.screen.lt.md && !$q.screen.gt.md
+                  ? 'height: 75%'
+                  : $q.screen.lt.lg && !$q.screen.gt.lg
+                  ? 'height: 70%'
+                  : 'height: 65%'
+              "
+            >
               <div class="col-4">
                 <privacy-policy-and-terms-and-conditions />
               </div>

@@ -172,9 +172,9 @@
               Notifications will be sent to you when -
             </span>
             <br />
-              Your order has been processed.
+            Your order has been processed.
             <br />
-              Your order is being prepared.
+            Your order is being prepared.
             <br />
             <span v-if="deliveryType === 'Delivery'">
               Your order is ready and out for Delivery
@@ -241,8 +241,13 @@ export default {
   },
   watch: {
     getCurrentProfile(to, from) {
-      if (!isEmpty(to) && isEmpty(from) && this.assignedDataLoaded && isEmpty(this.updateOrderDetailsObj)) {
-        this.assignData()
+      if (
+        !isEmpty(to) &&
+        isEmpty(from) &&
+        this.assignedDataLoaded &&
+        isEmpty(this.updateOrderDetailsObj)
+      ) {
+        this.assignData();
       }
     },
     useExistingAddress() {
@@ -299,7 +304,7 @@ export default {
       } else {
         this.useExistingContactNumber = false;
       }
-      this.assignedDataLoaded = true
+      this.assignedDataLoaded = true;
     },
     async onSubmit() {
       await this.$refs.myForm.validate().then(async success => {

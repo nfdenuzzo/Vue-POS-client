@@ -469,7 +469,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraMainOptions && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraMainOptions &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -494,7 +500,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraDessertToppings && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraDessertToppings &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -506,7 +518,8 @@
             </div>
             <div
               class="row text-caption text-weight-bold"
-              v-if="addExtraDessertToppings && $store.getters.getOrderingActive">
+              v-if="addExtraDessertToppings && $store.getters.getOrderingActive"
+            >
               <q-option-group
                 v-model="selectedMenuItemDetails.extras.extraDessertToppings"
                 :options="extraDessertToppingsOptions"
@@ -518,7 +531,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraPastaToppings && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraPastaToppings &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -543,7 +562,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraBurgerToppings && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraBurgerToppings &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -568,7 +593,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraSaladToppings && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraSaladToppings &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -593,7 +624,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraPizzaToppings && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraPizzaToppings &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -619,7 +656,13 @@
             </div>
           </div>
 
-          <div class="q-py-sm" v-if="menuItemDetails.offerExtraSuaces && $store.getters.getOrderingActive">
+          <div
+            class="q-py-sm"
+            v-if="
+              menuItemDetails.offerExtraSuaces &&
+                $store.getters.getOrderingActive
+            "
+          >
             <div class="row text-weight-bold">
               <q-checkbox
                 dense
@@ -680,7 +723,14 @@
             </div>
           </div>
 
-          <div class="row q-pa-sm q-pb-md" :class="$store.getters.getOrderingActive ? 'justify-between': 'justify-center'">
+          <div
+            class="row q-pa-sm q-pb-md"
+            :class="
+              $store.getters.getOrderingActive
+                ? 'justify-between'
+                : 'justify-center'
+            "
+          >
             <q-btn
               class="text-capitalize"
               color="logoRed"
@@ -773,17 +823,20 @@ export default {
   },
   computed: {
     newPriceExtrasAdded() {
-      let price =  parseFloat(this.menuItemDetails.price);
+      let price = parseFloat(this.menuItemDetails.price);
       if (
         this.menuItemDetails.calzoneOffered &&
         this.selectedMenuItemDetails.makeCalzone
       ) {
-        price = parseFloat(price) + parseFloat(this.menuItemDetails.calzonePrice);
+        price =
+          parseFloat(price) + parseFloat(this.menuItemDetails.calzonePrice);
       }
       const keys = lodashKeys(this.selectedMenuItemDetails.extras);
       keys.forEach(key => {
         if (this.selectedMenuItemDetails.extras[key].length > 0) {
-          price = parseFloat(price) + parseFloat(this.calculateExtrasSelectedCost(key));
+          price =
+            parseFloat(price) +
+            parseFloat(this.calculateExtrasSelectedCost(key));
         }
       });
       return price;

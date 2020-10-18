@@ -72,6 +72,15 @@
           No {{ itemRemoved.label }}
         </div>
       </div>
+      <div v-if="menuItemDetails.removedSaladToppings.length > 0">
+        <div
+          class="row"
+          v-for="(itemRemoved, index) in menuItemDetails.removedSaladToppings"
+          :key="index"
+        >
+          No {{ itemRemoved.label }}
+        </div>
+      </div>
       <div v-if="menuItemDetails.removedPastaToppings.length > 0">
         <div
           class="row"

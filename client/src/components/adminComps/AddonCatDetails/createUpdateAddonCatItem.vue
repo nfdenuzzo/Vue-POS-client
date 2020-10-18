@@ -104,11 +104,6 @@ export default {
       required: false,
       default: () => {}
     },
-    viewUpdateDialog: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     isEditing: {
       type: Boolean,
       required: false,
@@ -147,7 +142,7 @@ export default {
         name: null,
         disabled: false
       }),
-        this.$emit("update:viewUpdateDialog", false);
+        this.$emit("closeUpdateDialog");
     },
     async assignData() {
       this.addonCatObj = JSON.parse(JSON.stringify(this.selectedAddOnItem));

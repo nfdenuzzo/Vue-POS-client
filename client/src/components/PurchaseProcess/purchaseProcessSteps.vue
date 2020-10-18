@@ -73,12 +73,15 @@
             :invalidIds="invalidIds"
             :invalidCategories="invalidCategories"
           ></purchaseProcessError>
-          <purchaseProcessSuccess 
-            v-if="step === 5">
-          </purchaseProcessSuccess>
+          <purchaseProcessSuccess v-if="step === 5"> </purchaseProcessSuccess>
           <div class="row justify-center q-pb-xl">
-            <q-stepper-navigation :class="$q.platform.is.mobile ? 'fixed-bottom'  : ''">
-              <div class="row justify-center q-pb-md q-pt-sm" :class="$q.platform.is.mobile ? 'q-card'  : ''">
+            <q-stepper-navigation
+              :class="$q.platform.is.mobile ? 'fixed-bottom' : ''"
+            >
+              <div
+                class="row justify-center q-pb-md q-pt-sm"
+                :class="$q.platform.is.mobile ? 'q-card' : ''"
+              >
                 <q-btn
                   v-if="step > 1 && step !== 4 && step !== 5"
                   color="logoRed"
@@ -201,8 +204,7 @@ export default {
       const result = await this.$store.dispatch("placeOrder", orderSpecs);
       this.$q.loading.hide();
       if (result && result.success != null && result.success) {
-        if (orderSpecs.orderDetails.orderType !== "Delivery")
-          this.step = 5;
+        if (orderSpecs.orderDetails.orderType !== "Delivery") this.step = 5;
       } else if (result && result.success == null) {
         this.invalidNames = result.invalidNames;
         this.invalidIds = result.invalidIds;
