@@ -8,7 +8,7 @@
       </div>
     </q-card-section>
     <div class="row justify-center text-color">
-      <div class="col-xs-10 q-pa-sm">
+      <div class="col-xs-12 q-pa-sm">
         <q-card>
           <div class="row q-pa-sm">
             <div

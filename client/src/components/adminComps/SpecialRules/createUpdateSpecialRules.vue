@@ -275,7 +275,10 @@
           </div>
           <div class="row justify-center">
             <div class="col-xs-12 text-center q-px-md">
-              <div class="constrain-more q-pa-md" v-if="loadedImage && isEditing">
+              <div
+                class="constrain-more q-pa-md"
+                v-if="loadedImage && isEditing"
+              >
                 <div class="camera-frame q-pa-md">
                   <q-img :src="ruleObject.campaignImage" />
                 </div>
@@ -434,11 +437,6 @@ export default {
       required: false,
       default: () => {}
     },
-    viewUpdateDialog: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     isEditing: {
       type: Boolean,
       required: false,
@@ -549,7 +547,7 @@ export default {
       this.ruleObject.getItems.push(option[0]);
     },
     closeDialog() {
-      this.$emit("update:viewUpdateDialog", false);
+      this.$emit("closeUpdateDialog");
     },
     async assignData() {
       this.ruleObject = JSON.parse(JSON.stringify(this.selectedRule));

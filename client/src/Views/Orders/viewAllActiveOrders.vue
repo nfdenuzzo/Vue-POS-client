@@ -46,7 +46,7 @@
               <q-card class="row justify-center" dark>
                 <div
                   class="row justify-between q-px-md q-pt-md"
-                  v-if="group.status === 'New'"
+                  v-if="group.status === 'New' && !item.tableNo"
                 >
                   <div class="col-xs-6">
                     <q-input

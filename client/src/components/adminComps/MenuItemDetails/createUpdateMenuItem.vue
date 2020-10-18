@@ -304,11 +304,6 @@ export default {
       required: false,
       default: () => {}
     },
-    viewUpdateDialog: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     isEditing: {
       type: Boolean,
       required: false,
@@ -408,7 +403,7 @@ export default {
     },
     closeDialog() {
       this.menuItemObj = this.defaultMenuItemObject();
-      this.$emit("update:viewUpdateDialog", false);
+      this.$emit("closeUpdateDialog");
     },
     async assignData() {
       this.menuItemObj = JSON.parse(JSON.stringify(this.selectedMenuItem));

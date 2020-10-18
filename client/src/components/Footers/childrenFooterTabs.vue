@@ -1,6 +1,10 @@
 <template>
   <div container>
-    <q-footer bordered class="bg-main-layout-light" :style="getApplicableHeight">
+    <q-footer
+      bordered
+      class="bg-main-layout-light"
+      :style="getApplicableHeight"
+    >
       <q-tabs
         inline-label
         outside-arrows
@@ -47,7 +51,7 @@ export default {
   computed: {
     getApplicableHeight() {
       if (this.$q.platform.is.mobile) {
-        return 'min-height: 70px;';
+        return "min-height: 70px;";
       } else {
         return "";
       }
@@ -71,8 +75,8 @@ export default {
   methods: {}
 };
 </script>
-<style lang='scss'>
+<style lang="scss">
 .q-tab__label {
   font-weight: bold;
-} 
+}
 </style>

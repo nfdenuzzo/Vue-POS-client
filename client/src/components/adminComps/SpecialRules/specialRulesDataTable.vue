@@ -247,7 +247,7 @@
       <update-rule
         :isEditing="true"
         :selectedRule="selectedRuleObj"
-        :viewUpdateDialog.sync="viewUpdateDialog"
+        @closeUpdateDialog="closeUpdateDialog"
       />
     </q-dialog>
     <q-dialog
@@ -282,14 +282,23 @@ export default {
       import("../../adminComps/queryDeleteRequest.vue")
   },
   mixins: [],
-  props: {},
+  props: {
+    viewUpdateDialog: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    viewDeleteDialog: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
   data() {
     return {
       filter: "",
       deleteFunction: "deleteSpecialCampaignRule",
       selectedRuleObj: {},
-      viewUpdateDialog: false,
-      viewDeleteDialog: false,
       viewNotifyUsers: false,
       notifyId: null,
       loading: false,
@@ -468,17 +477,20 @@ export default {
       this.viewNotifyUsers = true;
     },
     closeDeleteDialog() {
-      this.viewDeleteDialog = false;
+      this.$emit("update:viewDeleteDialog", false);
       this.selectedRuleObj = {};
+    },
+    closeUpdateDialog() {
+      this.$emit("update:viewUpdateDialog", false);
     },
     handler(type, selectedRule) {
       this.selectedRuleObj = selectedRule;
       switch (type) {
         case "edit":
-          this.viewUpdateDialog = true;
+          this.$emit("update:viewUpdateDialog", true);
           break;
         case "delete":
-          this.viewDeleteDialog = true;
+          this.$emit("update:viewDeleteDialog", true);
           break;
         default:
           break;

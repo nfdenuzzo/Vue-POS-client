@@ -2,7 +2,10 @@
   <div>
     <create-side-item />
 
-    <current-side-items />
+    <current-side-items
+      :viewDeleteDialog.sync="viewDeleteDialog"
+      :viewUpdateDialog.sync="viewUpdateDialog"
+    />
   </div>
 </template>
 
@@ -18,10 +21,22 @@ export default {
         "../../components/adminComps/SideItemDetails/sideItemsDataTable.vue"
       )
   },
+  beforeRouteLeave(to, from, next) {
+    if (this.viewUpdateDialog || this.viewDeleteDialog) {
+      this.viewUpdateDialog = false;
+      this.viewDeleteDialog = false;
+      next(false);
+    } else {
+      next();
+    }
+  },
   mixins: [],
   props: {},
   data() {
-    return {};
+    return {
+      viewUpdateDialog: false,
+      viewDeleteDialog: false
+    };
   },
   computed: {},
   watch: {},

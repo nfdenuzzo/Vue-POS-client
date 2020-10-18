@@ -18,8 +18,9 @@
                   class="q-mt-md text-color"
                   @click="menuDrawerOpen = !menuDrawerOpen"
                   v-if="
-                    (($store.getters.getAuth ||
-                      !($q.screen.height > 767 && $q.screen.width > 700)) || (!$store.getters.getAuth && $route.name !== 'HomePage'))
+                    $store.getters.getAuth ||
+                      !($q.screen.height > 767 && $q.screen.width > 700) ||
+                      (!$store.getters.getAuth && $route.name !== 'HomePage')
                   "
                 />
               </div>
@@ -61,9 +62,9 @@
         behavior="mobile"
         content-class="bg-layout-color"
         v-if="
-          (($store.getters.getAuth ||
-            !($q.screen.height > 767 && $q.screen.width > 700)) ||
-            (!$store.getters.getAuth && $route.name !== 'HomePage'))
+          $store.getters.getAuth ||
+            !($q.screen.height > 767 && $q.screen.width > 700) ||
+            (!$store.getters.getAuth && $route.name !== 'HomePage')
         "
       >
         <q-scroll-area class="fit">
@@ -175,17 +176,26 @@
             </div>
             <cooking-time-info
               class="q-pt-lg q-pb-sm"
-              v-if="($q.screen.width <= 700) || (!$store.getters.getAuth && $route.name !== 'HomePage')"
+              v-if="
+                $q.screen.width <= 700 ||
+                  (!$store.getters.getAuth && $route.name !== 'HomePage')
+              "
               :drawer="true"
             />
             <trading-Hours
               class="q-pt-md q-pb-md"
-              v-if="($q.screen.width <= 700) || (!$store.getters.getAuth && $route.name !== 'HomePage')"
+              v-if="
+                $q.screen.width <= 700 ||
+                  (!$store.getters.getAuth && $route.name !== 'HomePage')
+              "
               :drawer="true"
             />
             <delivery-charges
               class="q-pt-md q-pb-md"
-              v-if="($q.screen.width <= 700) || (!$store.getters.getAuth && $route.name !== 'HomePage')"
+              v-if="
+                $q.screen.width <= 700 ||
+                  (!$store.getters.getAuth && $route.name !== 'HomePage')
+              "
               :drawer="true"
             />
             <terms-and-conditions />
@@ -493,7 +503,7 @@ export default {
       );
       if (result) {
         // if the  transaction was successfuly we can then clear the basket
-        this.$store.commit("updateBasket", []);
+        this.$store.dispatch("clearBasket");
       }
       this.$q.loading.hide();
       this.viewPaymentStatusDialog = true;
@@ -536,13 +546,6 @@ export default {
     "$store.getters.getAuth"() {
       if (this.$store.getters.getAuth) {
         this.initNotificationsBanner();
-      }
-    },
-    viewPurchaseProcess() {
-      if (this.viewPurchaseProcess) {
-        this.$store.commit("setViewingPurchaseProcess", true);
-      } else {
-        this.$store.commit("setViewingPurchaseProcess", false);
       }
     }
   },

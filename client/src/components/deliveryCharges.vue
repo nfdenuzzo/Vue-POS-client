@@ -17,7 +17,14 @@
           "
         >
           <div class="row justify-center">
-            <div class="text-left q-pl-sm" :class="(!$store.getters.getAuth && $route.name !== 'HomePage') && drawer ? 'col-xs-7 col-sm-6 col-md-5 col-lg-4 col-xl-3' : 'col-xs-7 col-sm-7 col-lg-4 col-xl-3'" >
+            <div
+              class="text-left q-pl-sm"
+              :class="
+                !$store.getters.getAuth && $route.name !== 'HomePage' && drawer
+                  ? 'col-xs-7 col-sm-6 col-md-5 col-lg-4 col-xl-3'
+                  : 'col-xs-7 col-sm-7 col-lg-4 col-xl-3'
+              "
+            >
               <span>
                 {{ item.area }}
               </span>

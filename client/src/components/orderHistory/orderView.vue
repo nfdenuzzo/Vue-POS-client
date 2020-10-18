@@ -91,7 +91,12 @@
           </div>
           <div class="col-xs-12">
             <span class="text-weight-bold">Notify Status change:</span>
-            {{ orderSpecifications.subscribeNotifications || orderSpecifications.subscribeEmailNotifications ? "Yes" : "No" }}
+            {{
+              orderSpecifications.subscribeNotifications ||
+              orderSpecifications.subscribeEmailNotifications
+                ? "Yes"
+                : "No"
+            }}
           </div>
         </div>
       </div>
@@ -110,13 +115,17 @@
             v-if="orderSpecifications.paymentType === 'Pay now'"
           >
             <span class="text-weight-bold">Payment Made</span>
-            <span v-if="orderSpecifications.invoice" class="text-weight-bold q-pl-sm">
+            <span
+              v-if="orderSpecifications.invoice"
+              class="text-weight-bold q-pl-sm"
+            >
               <a :href="orderSpecifications.invoice" target="_blank">
                 <q-icon
-                size="15px"
-                name="fas fa-receipt"
-                color="primary"
-              />Invoice</a>
+                  size="15px"
+                  name="fas fa-receipt"
+                  color="primary"
+                />Invoice</a
+              >
             </span>
           </div>
           <div class="col-xs-12" v-else>

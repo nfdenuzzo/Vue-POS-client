@@ -222,7 +222,7 @@
       <update-menu-item
         :isEditing="true"
         :selectedMenuItem="selectedMenuItemObj"
-        :viewUpdateDialog.sync="viewUpdateDialog"
+        @closeUpdateDialog="closeUpdateDialog"
       />
     </q-dialog>
     <q-dialog
@@ -246,14 +246,23 @@ export default {
       import("../../adminComps/queryDeleteRequest.vue")
   },
   mixins: [],
-  props: {},
+  props: {
+    viewUpdateDialog: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    viewDeleteDialog: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
   data() {
     return {
       filter: "",
       deleteFunction: "deleteMenuItem",
       selectedMenuItemObj: {},
-      viewUpdateDialog: false,
-      viewDeleteDialog: false,
       visibleColumns: [
         "name",
         "description",
@@ -357,17 +366,20 @@ export default {
   beforeDestroy() {},
   methods: {
     closeDeleteDialog() {
-      this.viewDeleteDialog = false;
+      this.$emit("update:viewDeleteDialog", false);
       this.selectedMenuItemObj = {};
+    },
+    closeUpdateDialog() {
+      this.$emit("update:viewUpdateDialog", false);
     },
     handler(type, selectedItem) {
       this.selectedMenuItemObj = selectedItem;
       switch (type) {
         case "edit":
-          this.viewUpdateDialog = true;
+          this.$emit("update:viewUpdateDialog", true);
           break;
         case "delete":
-          this.viewDeleteDialog = true;
+          this.$emit("update:viewDeleteDialog", true);
           break;
         default:
           break;
