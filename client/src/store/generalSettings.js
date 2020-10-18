@@ -10,7 +10,6 @@ const generalSettings = {
     openingTimes: [],
     settingsRetrievedDate: null,
     deliveryCharges: [],
-    viewingPurchaseProcess: false,
     payNowStatus: false,
     deliveryServiceAvailable: true,
     currentCampaignSpecials: []
@@ -18,9 +17,6 @@ const generalSettings = {
   getters: {
     getCurrentCampaignSpecials: state => {
       return state.currentCampaignSpecials;
-    },
-    getViewingPurchaseProcess: state => {
-      return state.viewingPurchaseProcess;
     },
     getDeliveryCharges: state => {
       return state.deliveryCharges;
@@ -128,9 +124,6 @@ const generalSettings = {
     },
     setSettingsRetrievedDate(state, payload) {
       state.settingsRetrievedDate = payload;
-    },
-    setViewingPurchaseProcess(state, payload) {
-      state.viewingPurchaseProcess = payload;
     },
     setPayNowStatus(state, payload) {
       state.payNowStatus = payload;

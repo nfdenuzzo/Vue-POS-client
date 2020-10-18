@@ -503,7 +503,7 @@ export default {
       );
       if (result) {
         // if the  transaction was successfuly we can then clear the basket
-        this.$store.commit("updateBasket", []);
+        this.$store.dispatch("clearBasket");
       }
       this.$q.loading.hide();
       this.viewPaymentStatusDialog = true;
@@ -546,13 +546,6 @@ export default {
     "$store.getters.getAuth"() {
       if (this.$store.getters.getAuth) {
         this.initNotificationsBanner();
-      }
-    },
-    viewPurchaseProcess() {
-      if (this.viewPurchaseProcess) {
-        this.$store.commit("setViewingPurchaseProcess", true);
-      } else {
-        this.$store.commit("setViewingPurchaseProcess", false);
       }
     }
   },

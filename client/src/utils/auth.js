@@ -30,6 +30,7 @@ export function logout() {
   clearIdToken();
   clearAccessToken();
   store.dispatch("updateAuthStatus", false);
+  store.dispatch("clearBasket");
   // this is required to log a user out as it saves a user
   auth.logout({
     returnTo: `${window.location.origin}`,

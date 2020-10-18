@@ -184,6 +184,13 @@ export default {
   beforeDestroy() {},
   methods: {
     closeDialog() {
+      if (this.step === 5) {
+        this.$store.dispatch("clearBasket");
+      }
+      if (this.step === 4) {
+        this.updateBasket();
+        this.updateMenuItems();
+      }
       this.$emit("update:viewPurchaseProcess", false);
     },
     proceedPaymentMethod(obj) {
@@ -204,12 +211,14 @@ export default {
       const result = await this.$store.dispatch("placeOrder", orderSpecs);
       this.$q.loading.hide();
       if (result && result.success != null && result.success) {
-        if (orderSpecs.orderDetails.orderType !== "Delivery") this.step = 5;
+        if (orderSpecs.paymentType !== "Pay Now") {
+          this.step = 5;
+        }
       } else if (result && result.success == null) {
         this.invalidNames = result.invalidNames;
         this.invalidIds = result.invalidIds;
         this.invalidCategories = result.invalidCategories;
-        this.step++;
+        this.step = 4;
       }
     },
     async proceed() {
@@ -220,8 +229,19 @@ export default {
         this.$refs.orderDetail.onSubmit();
       } else if (this.step === 3) {
         this.$refs.purchaseSummary.onSubmit();
-      } else if (this.step === 4 || this.step === 5) {
-        this.closeDialog();
+      }
+    },
+    async updateBasket() {
+      for (var i = 0; i < this.invalidIds.length; i++) {
+        await this.$store.dispatch("filteroutBasketItem", this.invalidIds[i]);
+      }
+    },
+    async updateMenuItems() {
+      for (var i = 0; i < this.invalidCategories.length; i++) {
+        await this.$store.dispatch("retrieveMenuItems", {
+          forceRefresh: true,
+          value: this.invalidCategories[i]
+        });
       }
     }
   }

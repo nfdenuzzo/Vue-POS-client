@@ -13,7 +13,7 @@
           <q-card>
             <div class="col-xs-12 q-pa-sm">
               <div
-                class="row text-weight-bold q-py-lg justify-center text-caption q-pa-md"
+                class="row text-weight-bold q-py-lg justify-center text-caption q-pa-md q-mr-md"
               >
                 <q-icon
                   size="60px"

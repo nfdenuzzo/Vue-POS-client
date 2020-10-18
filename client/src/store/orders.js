@@ -39,8 +39,6 @@ const menuSideItems = {
         if (result.data && result.data.externalUrl) {
           commit("setTranId", result.data.transactionId);
           window.location.href = result.data.externalUrl;
-        } else {
-          commit("updateBasket", []);
         }
         return { success: true };
       } else if (result && result.status === 406) {

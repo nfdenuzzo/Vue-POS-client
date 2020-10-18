@@ -65,28 +65,11 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  async mounted() {
-    await this.UpdateBasket();
-    await this.UpdateMenuItems();
-  },
+  async mounted() {},
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  methods: {
-    async UpdateBasket() {
-      for (var i = 0; i < this.invalidIds.length; i++) {
-        await this.$store.dispatch("filteroutBasketItem", this.invalidIds[i]);
-      }
-    },
-    async UpdateMenuItems() {
-      for (var i = 0; i < this.invalidCategories.length; i++) {
-        await this.$store.dispatch("retrieveMenuItems", {
-          forceRefresh: true,
-          value: this.invalidCategories[i]
-        });
-      }
-    }
-  }
+  methods: {}
 };
 </script>
 <style></style>
