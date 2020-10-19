@@ -47,18 +47,22 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       // this should solve the sock-js server error for local
-      publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
+      // publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
+      publicPath: ctx.dev ? '' : 'https://theblackforestgrill.co.za/',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "3.3",
+        VUE_APP_APP_V: "3.5",
         NODE_ENV: ctx.dev ? 'development' : 'production',
-        BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
+        // BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
+        BASE_URL: ctx.dev ? '/' : 'https://theblackforestgrill.co.za/',
         BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
         AUTH0_CLIENT_ID: ctx.dev ? 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8' : "9JkQg4SO38tx9phxatHw8ei0KxGqX5q6",
         AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
         AUTH0_AUDIENCE: ctx.dev ? 'https://bfgrill-pwa' : 'pwa1-api',
-        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://trusting-kilby-b32d22.netlify.app/`,
-        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://trusting-kilby-b32d22.netlify.app/callback`
+        // AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://trusting-kilby-b32d22.netlify.app/`,
+        // AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://trusting-kilby-b32d22.netlify.app/callback`
+        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://theblackforestgrill.co.za/`,
+        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://theblackforestgrill.co.za/callback`
       },
     
       transpile: true,
