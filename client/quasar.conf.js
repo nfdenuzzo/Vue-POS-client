@@ -48,10 +48,10 @@ module.exports = function (ctx) {
     build: {
       // this should solve the sock-js server error for local
       // publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
-      // publicPath: ctx.dev ? '' : 'https://theblackforestgrill.co.za/',
+      publicPath: '',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "3.5",
+        VUE_APP_APP_V: "3.6",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
         BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
@@ -61,8 +61,8 @@ module.exports = function (ctx) {
         AUTH0_AUDIENCE: ctx.dev ? 'https://bfgrill-pwa' : 'pwa1-api',
         // AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://trusting-kilby-b32d22.netlify.app/`,
         // AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://trusting-kilby-b32d22.netlify.app/callback`
-        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://www.theblackforestgrill.co.za/`,
-        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://www.theblackforestgrill.co.za/callback`
+        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://theblackforestgrill.co.za/`,
+        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://theblackforestgrill.co.za/callback`
       },
     
       transpile: true,
