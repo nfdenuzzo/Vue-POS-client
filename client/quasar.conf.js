@@ -48,7 +48,7 @@ module.exports = function (ctx) {
     build: {
       // this should solve the sock-js server error for local
       // publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
-      publicPath: ctx.dev ? '' : 'https://theblackforestgrill.co.za/',
+      // publicPath: ctx.dev ? '' : 'https://theblackforestgrill.co.za/',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
         VUE_APP_APP_V: "3.5",
