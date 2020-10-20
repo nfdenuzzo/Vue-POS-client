@@ -1,10 +1,6 @@
 <template>
   <div class="text-color">
-    <div class="row q-pt-md justify-center">
-      <div class="col-xs-12 col-sm-12 col-md-10">
-        <router-view />
-      </div>
-    </div>
+    <router-view />
     <div>
       <children-tab-options />
     </div>

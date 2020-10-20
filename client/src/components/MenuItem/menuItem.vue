@@ -57,29 +57,7 @@ export default {
   computed: {
     getCardMinHeight() {
       if (this.$route.path.includes("/menu-option-chef-specials")) {
-        if (this.$q.screen.xs) {
-          return "min-height: 200px; max-height: 200px";
-        } else if (this.$q.screen.sm) {
-          if (this.$q.screen.width < 600) {
-            return "min-height: 220px; max-height: 220px";
-          } else {
-            return "min-height: 230px; max-height: 230px";
-          }
-        } else if (this.$q.screen.md) {
-          if (this.$q.screen.width < 1023) {
-            return "min-height: 200px; max-height: 200px";
-          } else {
-            return "min-height: 220px; max-height: 220px";
-          }
-        } else if (this.$q.screen.lg) {
-          return "min-height: 220px; max-height: 220px";
-        } else if (this.$q.screen.xl) {
-          return "min-height: 205px; max-height: 205px";
-        } else {
-          return "min-height: 220px; max-height: 220px";
-        }
-      } else if (this.item.menuItemImage) {
-        return "min-height: 210px; max-height: 210px";
+        return "min-height: 200px; max-height: 200px";
       } else {
         return "min-height: 150px; max-height: 150px";
       }
