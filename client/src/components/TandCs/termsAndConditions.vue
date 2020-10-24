@@ -10,7 +10,7 @@
     <div class="text-color q-pa-lg">
       <div>
         These are the terms and conditions on which we supply products to you, whether in
-        store or by phone, via our websites (theblackforestgrill.com) and
+        store or by phone, via our websites (theblackforestgrill.co.za) and
         via our mobile, tablet or other applications (our "Sites"). Please read
         these terms and conditions carefully before ordering as these terms will
         apply to any orders you place. We recommend that you print and retain a
@@ -27,9 +27,8 @@
         </div>
         If you live outside a prescribed delivery areas, you
         will not be able to have our products delivered to your door although
-        you may collect any products you order from your chosen Store. We do not
-        accept orders from individuals to a country in which we do not have a
-        Store. For the safety of our drivers, a driver will only deliver to the
+        you may collect any products you order from your chosen Store. 
+        For the safety of our drivers, a driver will only deliver to the
         main door/reception when delivering to apartment blocks, flats or hotels.
 
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
@@ -60,9 +59,7 @@
         All products are subject to availability. In most cases, we
         will offer an alternative for any out-of-stock item. We do not use nuts in our products,
         however, some ingredients are produced in factories that handle nuts and
-        some ice creams contain nuts. For full ingredient lists, nutritional and
-        allergen information see here. Stores are busy working environments and
-        there is a risk of cross-contamination between toppings. If you have an
+        some ice creams contain nuts. If you have an
         allergy we kindly ask that you do not order online. Instead, please
         telephone us and inform your order-taker directly in full of your allergies. We do have a number of options
         available for vegetarians which are indicated on our menus. We also have
@@ -73,9 +70,7 @@
         risk of cross-contamination with your order is minimised. We have strict
         procedures in place for making pizzas that are suitable for vegans,
         however, please note that we do not have a dedicated preparation or
-        cooking area in our stores for vegan food. If you order a vegan pizza
-        the store will do their utmost to ensure that the risk of
-        cross-contamination with your order is minimised. Great care is taken in
+        cooking area in our stores for vegan food. Great care is taken in
         the preparation of all our products, however, we cannot guarantee that
         all bones from meat products have been removed and some may remain.
         Olives may contain stones. Cooked ham is formed from cured pork legs
@@ -85,13 +80,8 @@
         our products contained on our menus and Sites are for illustrative
         purposes only. Although we try our hardest to be consistent, at times,
         the size of the bases can vary and products you order may vary slightly
-        from those images. Gluten free pizzas are available on an 8.5" base
-        only. Our Delight range of pizzas are only under 650 calories with no
-        extra toppings ordered in a size small. As our pizzas are freshly hand
-        made to order, calories on each pizza may vary. Coca-Cola, Coke & the
-        Dynamic Ribbon Device are registered trademarks of The Coca-Cola
-        Company. TABASCO®, the Diamond and Bottle Logos are trademarks of
-        Mcllhenny Co.
+        from those images. As our pizzas are freshly hand
+        made to order, calories on each pizza may vary.
 
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
           AVAILABILITY AND DELIVERY
@@ -107,7 +97,8 @@
         cancel your order or claim compensation if your order isn’t fulfilled by
         the dynamic delivery time. Should you be
         unsatisfied with your order you can follow the standard process
-        available to all customers and contact our Customer Services team. Delivery isn't easy - but we've had a lot of practice
+        available to all customers and contact our Customer Services team.
+        Delivery isn't easy - but we've had a lot of practice
         in getting it right. That's why we don't support the use of third party
         delivery service companies to deliver our food. Trust the experts. We
         like to deliver the pizza ourselves as it allows us to maintain high
@@ -143,36 +134,28 @@
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
           PRICE AND PAYMENT
         </div>
-        Prices are as quoted on our menus, Sites and in store and may change
+        Prices are as quoted on our menus, These may change
         from time to time, although changes will not affect orders already
-        placed (unless due to a technical error). Prices include VAT. Prices are
-        set by each Franchisee and will vary between Stores. Each Franchisee
-        will typically verify prices as part of the order process and its
-        decision in relation to pricing is final and binding. The price
-        applicable for a 'Half and Half' pizza using standard menu toppings are
-        based on the most expensive half. Payments, for orders placed via the
-        Sites, are made directly to us and subsequently passed to the relevant
-        Franchisee. Payments, for orders placed in stores, are made directly to
-        the Franchisee.
+        placed (unless due to a technical error). Prices include VAT. The price
+        applicable for a 'Buy 1 and get one free' pizza using standard menu toppings are
+        based on the most expensive half.
 
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
           OUR LIABILITY
         </div>
-        If we and/or a Franchisee fail to comply with these terms, we and/or the
-        Franchisee (as applicable) are responsible for loss or damage you suffer
+        If we  fail to comply with these terms, we are responsible for loss or damage you suffer
         that is a foreseeable result of the breach of these terms or negligence,
         up to the amount of the purchase price you paid for the order applicable
-        to your claim. However, we and/or the Franchisee (as applicable) are not
+        to your claim. However, we are not
         responsible for any loss or damage that is not foreseeable. Loss or
         damage is foreseeable if it is an obvious consequence of a breach or if
         it would reasonably be contemplated by you, us and the Franchisee at the
-        time of your purchase. We and our Franchisees only supply products for
+        time of your purchase. We only supply products for
         private and business use. You agree not to use any product for
         commercial or re-sale purposes and we have no liability to you for any
         loss of profit, loss of business, business interruption, or loss of
-        business opportunity. We, and our Franchisees, do not exclude or limit
-        our liability for: death or personal injury caused by our, or our
-        Franchisee's, negligence; fraud or fraudulent misrepresentation; or any
+        business opportunity. We do not exclude or limit
+        our liability for: death or personal injury, negligence; fraud or fraudulent misrepresentation; or any
         liability which cannot legally be limited or excluded.
 
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
@@ -187,20 +170,17 @@
         information and other communications that we provide to you
         electronically comply with any legal requirement that such
         communications be in writing. This condition does not affect your
-        statutory rights. If you wish to contact us or a Franchisee at any time,
-        you should contact us using our Contact Form or contact the Franchisee
-        at your local Store.
+        statutory rights.
 
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
           EVENTS OUTSIDE OUR CONTROL
         </div>
-        We and our Franchisees will not be liable or responsible for any failure
+        We will not be liable or responsible for any failure
         to perform, or delay in performance of, any of our obligations under a
         contract that is caused by events outside our reasonable control (a
         "Force Majeure Event"). A Force Majeure Event includes any act, event,
         non-happening, omission or accident beyond both our reasonable control
-        and the reasonable control of our Franchisees and includes in particular
-        (without limitation) the following: strikes, lock-outs or other
+        and includes in particular (without limitation) the following: strikes, lock-outs or other
         industrial action; civil commotion, riot, invasion, terrorist attack or
         threat of terrorist attack, war (whether declared or not) or threat or
         preparation for war; fire, explosion, storm, flood, extreme snow, ice,
@@ -209,14 +189,14 @@
         transport or other means of public or private transport; impossibility
         of the use of public or private telecommunications networks; the acts,
         decrees, legislation, regulations or restrictions of any government; or
-        non-performance by suppliers or subcontractors. WAIVER If we or our
-        Franchisees fail to insist that you perform any of your obligations
-        under these terms and conditions, or if we or our Franchisees do not
+        non-performance by suppliers or subcontractors. WAIVER If we fail to 
+        insist that you perform any of your obligations
+        under these terms and conditions, or if we do not
         enforce our rights against you, or delay in doing so, that will not mean
-        that we or our Franchisees have waived our rights against you or that
-        you do not have to comply with those obligations. If we or our
-        Franchisees waive a default by you, this will only be done in writing,
-        and will not mean that we or our Franchisees will automatically waive
+        that we have waived our rights against you or that
+        you do not have to comply with those obligations. 
+        If we waive a default by you, this will only be done in writing,
+        and will not mean that we will automatically waive
         any later default by you.
 
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
@@ -230,7 +210,7 @@
         <div class="row text-weight-bolder text-subtitle2 q-pb-sm">
           ASSIGNMENT
         </div>
-        We or our Franchisees may transfer our rights and obligations under any
+        We may transfer our rights and obligations under any
         contract with you to another organisation, but this will not affect your
         rights or our obligations under these terms and conditions. You may only
         transfer your rights or your obligations under these terms and
@@ -288,7 +268,7 @@ export default {
   components: {},
   mixins: [],
   props: {
-    viewPrivacyPolicy: {
+    viewTandC: {
       type: Boolean,
       default: false,
       required: true
@@ -308,7 +288,7 @@ export default {
   beforeDestroy() {},
   methods: {
     closeDialog() {
-      this.$emit("update:viewPrivacyPolicy", false);
+      this.$emit("update:viewTandC", false);
     }
   }
 };
