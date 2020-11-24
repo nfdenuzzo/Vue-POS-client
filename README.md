@@ -23,3 +23,5 @@ Admin users will be able to view new orders on their screen, updating these orde
 Users will also be able to subscribe to special notifications where in future the owner can post specials and users woudl receive a notification on their phone.
 
 to be continued**
+
+Demo: https://trusting-kilby-b32d22.netlify.app/
