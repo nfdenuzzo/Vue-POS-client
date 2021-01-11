@@ -64,11 +64,11 @@ module.exports = function (ctx) {
         AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
         AUTH0_AUDIENCE: ctx.dev ? 'https://bfgrill-pwa' : 'pwa1-api',
         // we used the commented out code during development but seems no longer needed with the DNS settings
-        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://trusting-kilby-b32d22.netlify.app/`,
-        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://trusting-kilby-b32d22.netlify.app/callback`
+        // AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://trusting-kilby-b32d22.netlify.app/`,
+        // AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://trusting-kilby-b32d22.netlify.app/callback`
         // working prod
-        // AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://theblackforestgrill.co.za/`,
-        // AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://theblackforestgrill.co.za/callback`
+        AUTH0_LOGOUT_URL: ctx.dev ? `http://localhost:8080/` : `https://theblackforestgrill.co.za/`,
+        AUTH0_CALLBACK_URL: ctx.dev ? `http://localhost:8080/callback` : `https://theblackforestgrill.co.za/callback`
       },
     
       transpile: true,
