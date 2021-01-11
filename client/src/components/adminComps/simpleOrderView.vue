@@ -78,7 +78,7 @@
         </div>
         <div class="col-xs-12">
           <span class="text-weight-bold">Notify Status change:</span>
-          {{ orderSpecifications.subscribeNotifications ? "Yes" : "No" }}
+          {{ orderSpecifications.subscribeNotifications || orderSpecifications.subscribeEmailNotifications ? "Yes" : "No" }}
         </div>
       </div>
     </div>

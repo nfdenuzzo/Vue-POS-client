@@ -15,6 +15,7 @@
     <div class="row justify-center">
       <q-btn
         flat
+        @click="showTandC"
         color="positive"
         label="Terms and Conditions"
         class="text-weight-bolder  text-caption"
@@ -35,12 +36,24 @@
     >
       <privacy-policy :viewPrivacyPolicy.sync="viewPrivacyPolicy" />
     </q-dialog>
+
+    <q-dialog
+      v-model="viewTandC"
+      :full-height="true"
+      :full-width="true"
+      transition-show="slide-up"
+      transition-hide="slide-down"
+      :no-esc-dismiss="false"
+    >
+      <terms-and-conditions :viewTandC.sync="viewTandC" />
+    </q-dialog>
   </div>
 </template>
 <script>
 export default {
   components: {
-    "privacy-policy": () => import("./privacyPolicy.vue")
+    "privacy-policy": () => import("./privacyPolicy.vue"),
+    "terms-and-conditions": () => import("./termsAndConditions.vue")
   },
   mixins: [],
   props: {
@@ -52,7 +65,8 @@ export default {
   },
   data() {
     return {
-      viewPrivacyPolicy: false
+      viewPrivacyPolicy: false,
+      viewTandC: false
     };
   },
   computed: {},
@@ -67,6 +81,9 @@ export default {
   methods: {
     showPrivacyPolicy() {
       this.viewPrivacyPolicy = true;
+    },
+    showTandC() {
+      this.viewTandC = true;
     }
   }
 };

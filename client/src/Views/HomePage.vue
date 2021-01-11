@@ -56,7 +56,7 @@
           :style="$q.platform.is.ie ? 'flex-basis: 340px;' : ''"
         >
           <q-icon size="19px" name="fas fa-lock" class="q-mr-sm q-mb-xs" />
-          Sorry, we are currently closed for takeaways.
+          Sorry, our platform is closed for takeways.
         </q-banner>
       </div>
 

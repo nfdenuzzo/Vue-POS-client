@@ -69,6 +69,13 @@
         {{ orderSpecifications.createdAt }}
       </div>
     </div>
+    
+    <div class="text-color row items-center text-center q-pb-none">
+      <div class="col-xs-11 text-weight-medium">
+        Order Cancellations via Phone call only
+      </div>
+    </div>
+
     <div class="text-color row text-center q-pt-sm">
       <div class="col-xs-12 col-sm-6">
         <div class="row text-center">

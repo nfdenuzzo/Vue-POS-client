@@ -32,6 +32,7 @@
                     <q-input
                       outlined
                       dense
+                      color="positive"
                       debounce="300"
                       v-model="filter"
                       placeholder="Search"
