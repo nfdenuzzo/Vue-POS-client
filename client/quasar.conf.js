@@ -56,9 +56,9 @@ module.exports = function (ctx) {
         VUE_APP_APP_V: "0.4",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // we used the commented out code during development but seems no longer needed with the DNS settings
-        BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
+        // BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
         // working prod
-        // BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
+        BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
         BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
         AUTH0_CLIENT_ID: ctx.dev ? 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8' : "9JkQg4SO38tx9phxatHw8ei0KxGqX5q6",
         AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
