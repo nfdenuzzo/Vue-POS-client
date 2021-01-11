@@ -48,6 +48,7 @@ module.exports = function (ctx) {
     build: {
       // this should solve the sock-js server error for local
         // we used the commented out code during development but seems no longer needed with the DNS settings
+        // need to remove this if we are deploying to prod
       // publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
         // working prod
       // publicPath: '',
