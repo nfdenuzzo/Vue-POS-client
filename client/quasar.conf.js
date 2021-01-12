@@ -48,12 +48,13 @@ module.exports = function (ctx) {
     build: {
       // this should solve the sock-js server error for local
         // we used the commented out code during development but seems no longer needed with the DNS settings
+        // need to remove this if we are deploying to prod
       // publicPath: ctx.dev ? '' : 'https://trusting-kilby-b32d22.netlify.app/',
         // working prod
       // publicPath: '',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "0.1",
+        VUE_APP_APP_V: "0.2",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // we used the commented out code during development but seems no longer needed with the DNS settings
         BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
