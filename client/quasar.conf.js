@@ -54,7 +54,7 @@ module.exports = function (ctx) {
       // publicPath: '',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "0.2",
+        VUE_APP_APP_V: "0.3",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // we used the commented out code during development but seems no longer needed with the DNS settings
         BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
