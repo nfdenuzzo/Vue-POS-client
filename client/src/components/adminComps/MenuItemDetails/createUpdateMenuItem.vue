@@ -106,6 +106,18 @@
               />
             </div>
           </div>
+          <div
+            class="row justify-center"
+            v-if="isEditing && menuItemObj.menuItemImage"
+          >
+            <q-btn
+              label="Remove Image"
+              @click="removeImage"
+              color="red"
+              class="text-capitalize"
+              :loading="createUpdateBtnLoading"
+            />
+          </div>
 
           <div class="row justify-center">
             <div class="col-xs-11 col-sm-4 col-md-4 col-lg-2 q-px-md">
@@ -321,6 +333,7 @@ export default {
           numeralDecimalScale: 2
         }
       },
+      removingImage: false,
       dataLoaded: false,
       createUpdateBtnLoading: false,
       menuItemObj: this.defaultMenuItemObject()
@@ -353,6 +366,12 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    removeImage() {
+      this.removingImage = true;
+      this.menuItemObj.menuItemImage = "";
+      this.$refs.imagePage.resetFields();
+      this.onSubmit();
+    },
     onInputCleaveFormatValue() {
       this.menuItemObj.price = event.target._vCleave.getFormattedValue();
     },
@@ -408,7 +427,7 @@ export default {
     async assignData() {
       this.menuItemObj = JSON.parse(JSON.stringify(this.selectedMenuItem));
     },
-    async onSubmit() {
+    async onSubmit(removingImage) {
       const method = this.isEditing ? "updateMenuItem" : "createMenuItem";
       this.createUpdateBtnLoading = true;
       const result = await this.$store.dispatch(method, this.menuItemObj);
@@ -420,9 +439,10 @@ export default {
             : "Item created successfully.",
           color: "positive"
         });
-        if (this.isEditing) {
+        if (this.isEditing && !removingImage) {
           this.closeDialog();
         } else {
+          this.removingImage = false;
           this.onReset();
         }
       }

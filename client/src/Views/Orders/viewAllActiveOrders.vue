@@ -86,6 +86,7 @@
       v-model="viewOrderDetails"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <q-card dark>
         <div class="row text-color">
