@@ -236,6 +236,7 @@
       v-model="viewUpdateDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <update-delivery-charge
         :selectedDeliveryAreaObj="selectedDeliveryAreaObj"
@@ -247,6 +248,7 @@
       v-model="viewDeleteDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <query-delete-request
         :selectedItem="selectedDeliveryAreaObj"

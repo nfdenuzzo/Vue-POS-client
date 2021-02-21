@@ -216,6 +216,7 @@
       v-model="viewUpdateDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <update-addon-categories
         :isEditing="true"
@@ -228,6 +229,7 @@
       v-model="viewDeleteDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <query-delete-request
         :selectedItem="selectedAddOnItem"
