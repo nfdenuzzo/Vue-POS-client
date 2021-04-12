@@ -50,7 +50,7 @@
     "@quasar/app": "^2.1.14",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.0.1",
-    "@vue/test-utils": "^1.1.2",
+    "@vue/test-utils": "^1.1.4",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.15.0",
