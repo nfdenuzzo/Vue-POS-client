@@ -47,7 +47,7 @@
     "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
-    "@quasar/app": "^2.1.14",
+    "@quasar/app": "^2.2.6",
     "@quasar/quasar-app-extension-testing": "^1.0.3",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.0.1",
     "@vue/test-utils": "^1.1.2",
