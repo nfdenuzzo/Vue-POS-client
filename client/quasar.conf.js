@@ -54,10 +54,12 @@ module.exports = function (ctx) {
       // publicPath: '',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "0.1",
+        VUE_APP_APP_V: "0.3",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // we used the commented out code during development but seems no longer needed with the DNS settings
-        BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
+        // BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
+        BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
+        
         // working prod
         // BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
         BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
@@ -143,9 +145,9 @@ module.exports = function (ctx) {
         swSrc: './src-pwa/custom-service-worker.js',
       },
       manifest: {
-        name: `Black Forest Grill`,
-        short_name: `Black Forest Grill App`,
-        description: `Black Forest Grill & Pizzeria`,
+        name: `Franco's`,
+        short_name: `Franco's App`,
+        description: `Franco's, Pizza Pasta Grill`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -210,7 +212,7 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'blackforestgrillpwa'
+        appId: 'francoslegacypwa'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

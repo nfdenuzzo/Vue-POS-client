@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasSideOptions"
           label="Product has side options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -20,6 +21,7 @@
           :options="sideOptionOptions"
           label="Select Side Options"
           color="positive"
+          dark
           dense
           multiple
           use-chips
