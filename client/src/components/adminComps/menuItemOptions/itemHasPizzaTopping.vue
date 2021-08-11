@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasPizzaToppings"
           label="Product has pizza toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -21,6 +22,7 @@
           label="Select Pizza Toppings"
           color="positive"
           dense
+          dark
           multiple
           use-chips
           @filter="filterFnToppings"

@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasMeatStyleOptions"
           label="Product has meat style options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -21,6 +22,7 @@
           label="Select Meat Style Options"
           color="positive"
           dense
+          dark
           multiple
           use-chips
           @filter="filterFnMeatStyleOptions"

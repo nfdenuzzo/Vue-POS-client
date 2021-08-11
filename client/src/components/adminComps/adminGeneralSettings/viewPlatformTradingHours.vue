@@ -24,6 +24,7 @@
               </div>
               <div class="col-xs-6 col-sm-6 col-md-4 col-lg-2">
                 <q-checkbox
+                    dark
                   left-label
                   v-model="item.closed"
                   label="Closed:"
@@ -37,6 +38,7 @@
                       stack-label
                       outlined
                       dense
+                      dark
                       label="Opening Time [HH]"
                       mask="##"
                       v-model="item.time.start.hours"
@@ -49,6 +51,7 @@
                       stack-label
                       outlined
                       dense
+                      dark
                       label="Opening Time [mm]"
                       mask="##"
                       v-model="item.time.start.min"
@@ -61,6 +64,7 @@
                       stack-label
                       outlined
                       dense
+                      dark
                       label="Closing Time [HH]"
                       mask="##"
                       v-model="item.time.end.hours"
@@ -73,6 +77,7 @@
                       stack-label
                       outlined
                       dense
+                      dark
                       label="Closing Time [mm]"
                       mask="##"
                       v-model="item.time.end.min"
