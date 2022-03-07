@@ -11,7 +11,7 @@ const generalSettings = {
     settingsRetrievedDate: null,
     deliveryCharges: [],
     payNowStatus: false,
-    deliveryServiceAvailable: true,
+    deliveryServiceAvailable: false,
     currentCampaignSpecials: []
   },
   getters: {

@@ -32,7 +32,7 @@
                     <q-input
                       outlined
                       dense
-                      dark
+                      light
                       color="positive"
                       debounce="300"
                       v-model="filter"
@@ -46,7 +46,7 @@
                       color="positive"
                       v-model="visibleColumns"
                       multiple
-                      dark
+                      light
                       outlined
                       dense
                       options-dense

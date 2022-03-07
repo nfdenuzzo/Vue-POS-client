@@ -49,7 +49,7 @@
 
 // so this will then work as soon as it not sm
 
-@media (max-width: $breakpoint-xl-max) {
+@media (max-width: $breakpoint-lg-max) {
   .q-table__bottom-item {
     color: $primaryDark !important;
   }
@@ -175,10 +175,6 @@ body {
   color: $offwhite;
 }
 
-.q-field__native {
-  color: $offwhite;
-}
-
 .q-table__bottom-item {
   color: $offwhite;
 }
@@ -194,4 +190,10 @@ body {
 .my-hover-shadow:hover {
   box-shadow: $shadow-5;
   bottom: 2px;
+}
+
+::v-deep .light {
+  .q-field__native {
+    color: $primaryDark;
+  }
 }

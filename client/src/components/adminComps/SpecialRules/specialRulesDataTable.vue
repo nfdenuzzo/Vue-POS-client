@@ -31,7 +31,7 @@
                     <q-input
                       outlined
                       dense
-                      dark
+                      light
                       color="positive"
                       debounce="300"
                       v-model="filter"

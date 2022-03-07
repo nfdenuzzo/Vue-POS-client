@@ -68,7 +68,7 @@ const adminGeneralSettings = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {
@@ -107,7 +107,7 @@ const adminGeneralSettings = {
           { vatRate: payload }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {
@@ -173,6 +173,7 @@ const adminGeneralSettings = {
           `${adminGeneralSettingsUrl}/update-delivery-area`,
           payload
         );
+        console.log("🚀 ~ file: adminGeneralSettings.js ~ line 176 ~ result", result)
         if (result && result.status === 200) {
           await dispatch("retrieveAdminGeneralSettings");
           return result;
@@ -191,7 +192,7 @@ const adminGeneralSettings = {
           { data: { _id: payload } }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {

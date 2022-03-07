@@ -32,7 +32,7 @@
                     <q-input
                       outlined
                       dense
-                      dark
+                      light
                       color="positive"
                       debounce="300"
                       v-model="filter"
@@ -47,7 +47,7 @@
                       v-model="visibleColumns"
                       multiple
                       outlined
-                      dark
+                      light
                       dense
                       options-dense
                       :display-value="$q.lang.table.columns"

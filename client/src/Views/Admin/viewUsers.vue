@@ -30,7 +30,7 @@
                 <div class="col-xs-5 col-md-4 col-lg-2">
                   <q-input
                     outlined
-                    dark
+                    light
                     dense
                     color="positive"
                     debounce="300"
@@ -47,7 +47,7 @@
                     multiple
                     outlined
                     dense
-                    dark
+                    light
                     options-dense
                     :display-value="$q.lang.table.columns"
                     emit-value
