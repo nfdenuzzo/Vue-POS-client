@@ -173,7 +173,6 @@ const adminGeneralSettings = {
           `${adminGeneralSettingsUrl}/update-delivery-area`,
           payload
         );
-        console.log("🚀 ~ file: adminGeneralSettings.js ~ line 176 ~ result", result)
         if (result && result.status === 200) {
           await dispatch("retrieveAdminGeneralSettings");
           return result;
