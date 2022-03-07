@@ -54,7 +54,7 @@ module.exports = function (ctx) {
       // publicPath: '',
       vueRouterMode: 'history', // available values: 'hash', 'history'
       env: {
-        VUE_APP_APP_V: "0.4",
+        VUE_APP_APP_V: "0.5",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // we used the commented out code during development but seems no longer needed with the DNS settings
         // BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
@@ -150,7 +150,7 @@ module.exports = function (ctx) {
         description: `Franco's, Pizza Pasta Grill`,
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#ffffff',
+        background_color: '#363435',
         theme_color: '#019247',
         icons: [
           {
