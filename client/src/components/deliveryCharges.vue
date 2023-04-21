@@ -1,5 +1,5 @@
 <template>
-  <div class="text-color">
+  <div class="text-color" v-show="getDeliveryServiceAvailable">
     <div class="text-weight-bolder q-pb-xs text-center text-body2">
       Delivery Rates
     </div>
@@ -53,6 +53,9 @@ export default {
     return {};
   },
   computed: {
+    getDeliveryServiceAvailable() {
+      return this.$store.getters.getDeliveryServiceAvailable
+    },
     getDeliveryCharges() {
       return this.$store.getters.getDeliveryCharges;
     }

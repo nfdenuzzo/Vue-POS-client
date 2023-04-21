@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasDessertOptions"
           label="Product has dessert options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -16,6 +17,7 @@
       >
         <q-select
           outlined
+          dark
           v-model="updateMenuItemObj.chosenDessertOptions"
           :options="dessertOptions"
           label="Select Dessert Option"

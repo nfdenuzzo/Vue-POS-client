@@ -8,7 +8,7 @@ const routes = [
     path: "/",
     name: "App",
     meta: {
-      title: "Black Forest Grill",
+      title: "Franco's",
       auth: false
     },
     component: () => import("../Views/MainLayout/mainLayout.vue"),
@@ -22,7 +22,7 @@ const routes = [
         path: "/menu-options",
         name: "MenuOptions",
         meta: {
-          title: "Black Forest Grill - Menu Options",
+          title: "Franco's - Menu Options",
           // dispatchMethod: { name: "retrieveMenuItems", payload: "" },
           auth: false
         },
@@ -32,7 +32,7 @@ const routes = [
         path: "/menu-option-starters",
         name: "MenuOptionStarters",
         meta: {
-          title: "Black Forest Grill - Starters Menu",
+          title: "Franco's - Starters Menu",
           dispatchMethod: {
             name: "retrieveMenuItems",
             payload: { value: "starters", forceRefresh: false }
@@ -45,7 +45,7 @@ const routes = [
         path: "/menu-option-pizza",
         name: "MenuOptionPizza",
         meta: {
-          title: "Black Forest Grill - Pizza Menu",
+          title: "Franco's - Pizza Menu",
           dispatchMethod: { name: "retrieveMenuItems", payload: "" },
           auth: false
         },
@@ -56,7 +56,7 @@ const routes = [
             name: "signature-pizzas",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Signature Pizza Menu",
+              title: "Franco's - Signature Pizza Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "signature-pizzas", forceRefresh: false }
@@ -69,7 +69,7 @@ const routes = [
             name: "classic-pizzas",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Classic Pizza Menu",
+              title: "Franco's - Classic Pizza Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "classic-pizzas", forceRefresh: false }
@@ -82,7 +82,7 @@ const routes = [
             name: "pizza-breads",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Pizza Bread Menu",
+              title: "Franco's - Pizza Bread Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "pizza-breads", forceRefresh: false }
@@ -96,7 +96,7 @@ const routes = [
         path: "/menu-option-pasta",
         name: "MenuOptionPasta",
         meta: {
-          title: "Black Forest Grill - Pasta Menu",
+          title: "Franco's - Pasta Menu",
           dispatchMethod: {
             name: "retrieveMenuItems",
             payload: { value: "pasta", forceRefresh: false }
@@ -109,7 +109,7 @@ const routes = [
         path: "/menu-option-chef-specials",
         name: "MenuOptionChefSpecial",
         meta: {
-          title: "Black Forest Grill - Chef Specials Menu",
+          title: "Franco's - Chef Specials Menu",
           dispatchMethod: { name: "retrieveMenuItems", payload: "" },
           auth: false
         },
@@ -120,7 +120,7 @@ const routes = [
             name: "meat-dishes",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Meat Dishes Menu",
+              title: "Franco's - Meat Dishes Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "chef-special-meat", forceRefresh: false }
@@ -133,7 +133,7 @@ const routes = [
             name: "chicken-dishes",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Chicken Dishes Menu",
+              title: "Franco's - Chicken Dishes Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "chef-special-chicken", forceRefresh: false }
@@ -146,7 +146,7 @@ const routes = [
             name: "pork-dishes",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Pork Dishes Menu",
+              title: "Franco's - Pork Dishes Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "chef-special-pork", forceRefresh: false }
@@ -159,7 +159,7 @@ const routes = [
           //   name: "other-dishes",
           //   component: () => import("../views/Menu/menuOption.vue"),
           //   meta: {
-          //     title: "Black Forest Grill - Other Dishes Menu",
+          //     title: "Franco's - Other Dishes Menu",
           //     dispatchMethod: {
           //       name: "retrieveMenuItems",
           //       payload: { value: "chef-special-other", forceRefresh: false }
@@ -172,7 +172,7 @@ const routes = [
             name: "burgers",
             component: () => import("../views/Menu/menuOption.vue"),
             meta: {
-              title: "Black Forest Grill - Burgers Menu",
+              title: "Franco's - Burgers Menu",
               dispatchMethod: {
                 name: "retrieveMenuItems",
                 payload: { value: "chef-special-burgers", forceRefresh: false }
@@ -186,7 +186,7 @@ const routes = [
         path: "/menu-option-seafood",
         name: "MenuOptionSeafood",
         meta: {
-          title: "Black Forest Grill - Seafood Menu",
+          title: "Franco's - Seafood Menu",
           dispatchMethod: {
             name: "retrieveMenuItems",
             payload: { value: "seafood", forceRefresh: false }
@@ -199,7 +199,7 @@ const routes = [
         path: "/menu-option-kids-menu",
         name: "MenuOptionKids",
         meta: {
-          title: "Black Forest Grill - Kids Menu",
+          title: "Franco's - Kids Menu",
           dispatchMethod: {
             name: "retrieveMenuItems",
             payload: { value: "kids-menu", forceRefresh: false }
@@ -212,7 +212,7 @@ const routes = [
       //   path: "/menu-option-desserts",
       //   name: "MenuOptionDesserts",
       //   meta: {
-      //     title: "Black Forest Grill - Desserts Menu",
+      //     title: "Franco's - Desserts Menu",
       //     dispatchMethod: {
       //       name: "retrieveMenuItems",
       //       payload: { value: "desserts", forceRefresh: false }
@@ -225,7 +225,7 @@ const routes = [
         path: "/menu-option-extras",
         name: "MenuOptionExtra",
         meta: {
-          title: "Black Forest Grill - Extras menu",
+          title: "Franco's - Extras menu",
           dispatchMethod: {
             name: "retrieveMenuItems",
             payload: { value: "extras", forceRefresh: false }
@@ -238,7 +238,7 @@ const routes = [
         path: "/view-menu-categories",
         name: "menuCategories",
         meta: {
-          title: "Black Forest Grill - Menu Categories",
+          title: "Franco's - Menu Categories",
           dispatchMethod: { name: "retrieveMenuCategories", payload: "" },
           auth: true
         },
@@ -249,7 +249,7 @@ const routes = [
         path: "/create-side-item",
         name: "addSide",
         meta: {
-          title: "Black Forest Grill - Create Side Option",
+          title: "Franco's - Create Side Option",
           dispatchMethod: { name: "retrieveAdminSideItem", payload: "" },
           auth: true
         },
@@ -260,7 +260,7 @@ const routes = [
         path: "/create-addon-category",
         name: "addCategory",
         meta: {
-          title: "Black Forest Grill - Create Add-on Category",
+          title: "Franco's - Create Add-on Category",
           dispatchMethod: { name: "retrieveAdminAddonCategories", payload: "" },
           auth: true
         },
@@ -271,7 +271,7 @@ const routes = [
         path: "/create-menu-item",
         name: "addMenuItem",
         meta: {
-          title: "Black Forest Grill - Create Menu Item",
+          title: "Franco's - Create Menu Item",
           dispatchMethod: { name: "retrieveAdminMenuItems", payload: "" },
           auth: true
         },
@@ -282,7 +282,7 @@ const routes = [
         path: "/current-users",
         name: "currentUsers",
         meta: {
-          title: "Black Forest Grill - Current Users",
+          title: "Franco's - Current Users",
           dispatchMethod: { name: "retrieveUsersList", payload: "" },
           auth: true
         },
@@ -293,7 +293,7 @@ const routes = [
         path: "/view-my-profile",
         name: "myProfile",
         meta: {
-          title: "Black Forest Grill - My Profile",
+          title: "Franco's - My Profile",
           dispatchMethod: { name: "retrieveMyProfile", payload: "" },
           auth: true
         },
@@ -303,7 +303,7 @@ const routes = [
         path: "/view-my-active-orders",
         name: "activeOrders",
         meta: {
-          title: "Black Forest Grill - Active Orders",
+          title: "Franco's - Active Orders",
           dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
           auth: true
         },
@@ -313,7 +313,7 @@ const routes = [
         path: "/current-orders",
         name: "currentActiveOrders",
         meta: {
-          title: "Black Forest Grill - Current Orders",
+          title: "Franco's - Current Orders",
           dispatchMethod: { name: "retrieveActiveOrders", payload: "" },
           auth: true
         },
@@ -324,7 +324,7 @@ const routes = [
         path: "/order-history",
         name: "orderHistory",
         meta: {
-          title: "Black Forest Grill - Order History",
+          title: "Franco's - Order History",
           dispatchMethod: { name: "retrieveOrderHistory", payload: "" },
           auth: true
         },
@@ -335,7 +335,7 @@ const routes = [
         path: "/general-settings",
         name: "generalSettings",
         meta: {
-          title: "Black Forest Grill - Admin Settings",
+          title: "Franco's - Admin Settings",
           dispatchMethod: { name: "retrieveAdminGeneralSettings", payload: "" },
           auth: true
         },
@@ -346,7 +346,7 @@ const routes = [
         path: "/system-statistics",
         name: "systemStatistics",
         meta: {
-          title: "Black Forest Grill - Admin System Statistics",
+          title: "Franco's - Admin System Statistics",
           dispatchMethod: { name: "retrieveSystemStatistics", payload: "" },
           auth: true
         },
@@ -357,7 +357,7 @@ const routes = [
         path: "/campaigns",
         name: "campaigns",
         meta: {
-          title: "Black Forest Grill - Admin Campaigns",
+          title: "Franco's - Admin Campaigns",
           dispatchMethod: { name: "retrieveRules", payload: "" },
           auth: true
         },
@@ -368,7 +368,7 @@ const routes = [
         path: "/current-special/:special",
         name: "currentSpecial",
         meta: {
-          title: "Black Forest Grill - Current Special"
+          title: "Franco's - Current Special"
         },
         component: () => import("../views/Specials/viewCurrentSpecial.vue")
       },

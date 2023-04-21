@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasEggStyleOptions"
           label="Product has egg style options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -16,6 +17,7 @@
       >
         <q-select
           outlined
+          dark
           v-model="updateMenuItemObj.chosenEggStyleOptions"
           :options="eggOptionOptions"
           label="Select Egg Style Options"

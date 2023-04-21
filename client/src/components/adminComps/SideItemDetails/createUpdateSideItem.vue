@@ -35,6 +35,7 @@
                   <q-input
                     outlined
                     dense
+                    dark
                     v-model="sideItemObj.name"
                     label="Name"
                     color="positive"
@@ -56,6 +57,7 @@
                 >
                   <q-select
                     outlined
+                    dark
                     v-model="sideItemObj.addonCategory"
                     :options="getAddonCategoriesExcludingDisabled"
                     label="Add-on Category"
@@ -86,6 +88,7 @@
                   <q-input
                     outlined
                     dense
+                    dark
                     v-model="sideItemObj.price"
                     label="Item Price"
                     lazy-rules
@@ -109,6 +112,7 @@
                     v-model="sideItemObj.disabled"
                     label="Disable Item"
                     color="positive"
+                    dark
                   />
                 </div>
               </div>

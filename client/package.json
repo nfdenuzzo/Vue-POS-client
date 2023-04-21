@@ -1,8 +1,8 @@
 {
-  "name": "blackforestgrillpwa",
+  "name": "francospwa",
   "version": "0.0.1",
-  "description": "The Black Forest Grill",
-  "productName": "Black Forest Grill",
+  "description": "Franco's - Pizza Pasta Grill",
+  "productName": "Francos",
   "author": "Nic <nf.denuzzo@gmail.com>",
   "private": true,
   "scripts": {
@@ -34,7 +34,7 @@
     "dotenv": "^8.2.0",
     "idb": "^5.0.8",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "logrocket-vuex": "0.0.3",
     "md-gum-polyfill": "^1.0.0",
     "md5": "^2.3.0",
@@ -54,9 +54,9 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-loader": "^3.0.3",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-vue": "^6.1.2",
-    "strip-ansi": "=3.0.1",
+    "strip-ansi": "=7.0.0",
     "vue-jest": "^3.0.7",
     "workbox-webpack-plugin": "^5.1.4"
   },
