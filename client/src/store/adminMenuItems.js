@@ -26,7 +26,7 @@ const adminMenuItems = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminMenuItems", { forceRefresh: true });
+          await dispatch("retrieveAdminMenuItems", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -43,7 +43,7 @@ const adminMenuItems = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminMenuItems", { forceRefresh: true });
+          await dispatch("retrieveAdminMenuItems", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -60,7 +60,7 @@ const adminMenuItems = {
           { data: { _id: payload } }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminMenuItems", { forceRefresh: true });
+          await dispatch("retrieveAdminMenuItems", { forceRefresh: true });
           return result;
         }
       } catch (ex) {

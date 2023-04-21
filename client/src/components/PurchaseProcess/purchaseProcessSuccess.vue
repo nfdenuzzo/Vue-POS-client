@@ -31,7 +31,7 @@
 
                 <br />
                 <br />
-                The Black Forest Grill Team
+                The Franco's Team
               </div>
             </div>
           </q-card>

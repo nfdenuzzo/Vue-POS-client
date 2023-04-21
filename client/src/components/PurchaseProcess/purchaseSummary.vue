@@ -103,6 +103,7 @@
                   v-model="paymentType"
                   :options="getOptions"
                   color="positive"
+                  dark
                 />
               </div>
             </template>

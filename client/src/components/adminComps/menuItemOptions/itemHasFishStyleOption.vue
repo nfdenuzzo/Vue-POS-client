@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasFishStyleOptions"
           label="Product has fish style options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -16,6 +17,7 @@
       >
         <q-select
           outlined
+          dark
           v-model="updateMenuItemObj.chosenFishStyleOptions"
           :options="fishOptionOptions"
           label="Select Fish Style Options"

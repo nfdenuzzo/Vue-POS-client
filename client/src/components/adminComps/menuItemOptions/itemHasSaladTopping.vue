@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasSaladToppings"
           label="Product has salad toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -20,6 +21,7 @@
           :options="saladToppingOptions"
           label="Select Salad Toppings"
           color="positive"
+          dark
           dense
           multiple
           use-chips

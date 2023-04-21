@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasBurgerToppings"
           label="Product has burger toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -23,6 +24,7 @@
           dense
           multiple
           use-chips
+          dark
           @filter="filterFnToppings"
           use-input
           input-debounce="0"
