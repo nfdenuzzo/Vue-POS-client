@@ -1,6 +1,6 @@
-# Black Forest Grill (blackforestgrillpwa)
+# Francos (blackforestgrillpwa)
 
-A Black Forest Grill app
+A Francos app
 
 ## Install the dependencies
 ```bash
