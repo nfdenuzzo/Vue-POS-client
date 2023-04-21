@@ -12,6 +12,7 @@
     <div class="text-center q-pa-md">
       <div class="col-xs-11 col-md-5 q-pa-md text-color text-weight-bold">
         <q-file
+          dark
           dense
           v-model="imageUpload"
           @input="captureImageFallback"

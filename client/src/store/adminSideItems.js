@@ -26,8 +26,9 @@ const adminSideItems = {
           `${sideItemAdminUrl}/update-side-item`,
           payload
         );
+        console.log("🚀 ~ file: adminSideItems.js ~ line 29 ~ result", result)
         if (result && result.status === 200) {
-          dispatch("retrieveAdminSideItem", { forceRefresh: true });
+          await dispatch("retrieveAdminSideItem", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -43,8 +44,9 @@ const adminSideItems = {
           `${sideItemAdminUrl}/create-side-item`,
           payload
         );
+        console.log("🚀 ~ file: adminSideItems.js ~ line 47 ~ result", result)
         if (result && result.status === 200) {
-          dispatch("retrieveAdminSideItem", { forceRefresh: true });
+          await dispatch("retrieveAdminSideItem", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -61,7 +63,7 @@ const adminSideItems = {
           { data: { _id: payload } }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminSideItem", { forceRefresh: true });
+          await dispatch("retrieveAdminSideItem", { forceRefresh: true });
           return result;
         }
       } catch (ex) {

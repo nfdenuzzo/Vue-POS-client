@@ -22,7 +22,7 @@ const specialRules = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveRules", { forceRefresh: true });
+          await dispatch("retrieveRules", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -39,7 +39,7 @@ const specialRules = {
           { data: { _id: payload } }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveRules", { forceRefresh: true });
+          await dispatch("retrieveRules", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -67,7 +67,7 @@ const specialRules = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveRules", { forceRefresh: true });
+          await dispatch("retrieveRules", { forceRefresh: true });
           return result;
         }
       } catch (ex) {

@@ -5,7 +5,7 @@
         Current Add-on Categories
       </div>
       <div class="q-pa-md row justify-center">
-        <div class="col-xs-12 col-sm-12 col-md-7 text-color">
+        <div class="col-xs-12 col-sm-12 col-md-7 text-color-dark">
           <q-table
             dense
             separator="cell"
@@ -32,6 +32,7 @@
                     <q-input
                       outlined
                       dense
+                      light
                       color="positive"
                       debounce="300"
                       v-model="filter"
@@ -45,6 +46,7 @@
                       color="positive"
                       v-model="visibleColumns"
                       multiple
+                      light
                       outlined
                       dense
                       options-dense
@@ -87,13 +89,13 @@
                             <q-item-label
                               lines="1"
                               caption
-                              class="q-py-sm text-weight-bold text-color"
+                              class="q-py-sm text-weight-bold text-color-dark"
                               >{{ col.label }}</q-item-label
                             >
                           </div>
                           <div class="col-6 text-right">
                             <div
-                              class="text-color"
+                              class="text-color-dark"
                               v-if="col.name !== 'actions' && col.id !== 2"
                             >
                               {{ col.value }}
@@ -106,7 +108,7 @@
                                 class="text-capitalize"
                               />
                             </div>
-                            <div class="text-color" v-else>
+                            <div class="text-color-dark" v-else>
                               <span class="q-pr-sm">
                                 <q-btn
                                   round
@@ -150,7 +152,7 @@
                   v-for="col in props.cols"
                   :key="col.name"
                   :props="props"
-                  class="text-color text-weight-bold"
+                  class="text-color-dark text-weight-bold"
                 >
                   {{ col.label }}
                 </q-th>
@@ -162,7 +164,7 @@
               <q-tr :props="props" :class="'cursor-pointer'">
                 <q-td v-for="col in props.cols" :key="col.name" :props="props">
                   <template v-if="col.name === 'actions'">
-                    <div class="text-color row justify-center no-wrap">
+                    <div class="text-color-dark row justify-center no-wrap">
                       <span class="q-pr-sm">
                         <q-btn
                           round
@@ -192,7 +194,7 @@
                     </div>
                   </template>
                   <template v-else>
-                    <div class="row no-wrap text-color" v-if="col.id != 2">
+                    <div class="row no-wrap text-color-dark" v-if="col.id != 2">
                       {{ col.value }}
                     </div>
                     <div v-else>
@@ -366,7 +368,7 @@ export default {
 </script>
 <style lang="scss">
 .q-table__title {
-  color: $goldBrown;
+  color: $offwhite;
   font-weight: bold;
 }
 .q-table--dense .q-table__top {

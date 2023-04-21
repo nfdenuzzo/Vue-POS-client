@@ -16,11 +16,13 @@
                     `Use existing contact number (${updateOrderDetailsObj.contactNumber})`
                   "
                   color="positive"
+                  dark
                 />
               </div>
               <div class="col-xs-11 q-pa-md" v-if="!useExistingContactNumber">
                 <q-input
                   outlined
+                  dark
                   v-model="updateOrderDetailsObj.contactNumber"
                   label="Contact number"
                   lazy-rules
@@ -55,6 +57,7 @@
                             v-model="deliveryType"
                             :options="getOptions"
                             color="positive"
+                            dark
                           />
                         </div>
                       </template>
@@ -76,11 +79,13 @@
                   v-model="useExistingAddress"
                   label="Use existing delivery address"
                   color="positive"
+                  dark
                 />
               </div>
               <div class="col-xs-11 q-pa-md" v-if="!useExistingAddress">
                 <q-input
                   outlined
+                  dark
                   v-model="updateOrderDetailsObj.address"
                   label="Delievery Address"
                   autogrow
@@ -96,6 +101,7 @@
               <div class="col-xs-11 q-pa-md" v-if="!useExistingAddress">
                 <q-input
                   outlined
+                  dark
                   v-model="updateOrderDetailsObj.addressLine2"
                   label="Delievery Address Line 2"
                   autogrow
@@ -110,6 +116,7 @@
                   label="Select Delivery Area"
                   color="positive"
                   dense
+                  dark
                   @filter="filterFn"
                   use-input
                   input-debounce="0"
@@ -152,6 +159,7 @@
                 v-model="subscribe"
                 label="Phone notifications"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -162,6 +170,7 @@
                 v-model="subscribeEmail"
                 label="Emails"
                 color="positive"
+                dark
               />
             </div>
           </div>
