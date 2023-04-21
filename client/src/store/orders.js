@@ -35,7 +35,7 @@ const menuSideItems = {
         payload
       );
       if (result && result.status === 200) {
-        dispatch("retrieveActiveOrders", { forceRefresh: true });
+        await dispatch("retrieveActiveOrders", { forceRefresh: true });
         if (result.data && result.data.externalUrl) {
           commit("setTranId", result.data.transactionId);
           window.location.href = result.data.externalUrl;
@@ -61,7 +61,7 @@ const menuSideItems = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveActiveOrders", { forceRefresh: true });
+          await dispatch("retrieveActiveOrders", { forceRefresh: true });
           Loading.hide();
           return result;
         }
@@ -80,7 +80,7 @@ const menuSideItems = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveActiveOrders", { forceRefresh: true });
+          await dispatch("retrieveActiveOrders", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
