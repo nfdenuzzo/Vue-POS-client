@@ -35,6 +35,7 @@
                   <q-input
                     outlined
                     dense
+                    dark
                     v-model="addonCatObj.name"
                     label="Name"
                     lazy-rules
@@ -57,6 +58,7 @@
                 >
                   <q-checkbox
                     left-label
+                    dark
                     v-model="addonCatObj.disabled"
                     label="Disable Item"
                     color="positive"

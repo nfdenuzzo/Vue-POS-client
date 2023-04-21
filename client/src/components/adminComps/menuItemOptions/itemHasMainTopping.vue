@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasMainToppings"
           label="Product has main toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -21,6 +22,7 @@
           label="Select Main Toppings"
           color="positive"
           dense
+          dark
           multiple
           use-chips
           @filter="filterFnToppings"

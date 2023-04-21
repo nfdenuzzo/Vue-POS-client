@@ -84,7 +84,7 @@ export default {
 </script>
 <style lang="scss">
 .q-table__title {
-  color: $goldBrown;
+  color: $offwhite;
   font-weight: bold;
 }
 .q-table--dense .q-table__top {

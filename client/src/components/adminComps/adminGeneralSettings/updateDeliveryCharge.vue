@@ -13,6 +13,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="updateDeliveryAreaObj.area"
                 label="Area"
                 lazy-rules
@@ -29,6 +30,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="updateDeliveryAreaObj.price"
                 label="Delivery charge"
                 lazy-rules
