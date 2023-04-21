@@ -9,6 +9,7 @@
           v-model="updateMenuItemObj.offerExtraPizzaToppings"
           label="Product can have extra pizza toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -20,6 +21,7 @@
           v-model="updateMenuItemObj.offerExtraPastaToppings"
           label="Product can have extra pasta toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -31,6 +33,7 @@
           v-model="updateMenuItemObj.offerExtraBurgerToppings"
           label="Product can have extra burger toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -42,6 +45,7 @@
           v-model="updateMenuItemObj.offerExtraDessertToppings"
           label="Product can have extra dessert toppings?"
           color="positive"
+          dark
         />
       </div>
     </div>
@@ -55,6 +59,7 @@
           v-model="updateMenuItemObj.offerExtraSaladToppings"
           label="Product can have extra salad toppings?"
           color="positive"
+          dark
         />
       </div>
 
@@ -66,6 +71,7 @@
           v-model="updateMenuItemObj.offerExtraSuaces"
           label="Product can have extra sauces?"
           color="positive"
+          dark
         />
       </div>
 
@@ -77,6 +83,7 @@
           v-model="updateMenuItemObj.offerExtraMainOptions"
           label="Product can have main extras?"
           color="positive"
+          dark
         />
       </div>
     </div>

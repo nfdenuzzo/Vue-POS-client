@@ -21,6 +21,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="menuItemObj.name"
                 label="Item Name"
                 lazy-rules
@@ -37,6 +38,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="menuItemObj.price"
                 label="Item Price"
                 lazy-rules
@@ -51,6 +53,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="menuItemObj.description"
                 label="Item Description"
                 lazy-rules
@@ -72,6 +75,7 @@
                 label="Menu Category"
                 color="positive"
                 dense
+                dark
                 option-value="_id"
                 option-label="name"
                 lazy-rules
@@ -92,6 +96,7 @@
             >
               <q-checkbox
                 left-label
+                dark
                 v-model="menuItemObj.disabled"
                 label="Disable Item"
                 color="positive"

@@ -57,6 +57,7 @@
             <div class="row text-body2 text-weight-bold">
               <q-checkbox
                 dense
+                dark
                 left-label
                 v-model="selectedMenuItemDetails.makeCalzone"
                 :label="`Calzone ( + R ${menuItemDetails.calzonePrice})`"
@@ -483,6 +484,7 @@
                 label="Would you like to add extra's?"
                 v-model="addExtraMainOptions"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -514,6 +516,7 @@
                 label="Would you like to add extra's to your dessert?"
                 v-model="addExtraDessertToppings"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -545,6 +548,7 @@
                 label="Would you like to add extra's toppings to your pasta?"
                 v-model="addExtraPastaToppings"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -576,6 +580,7 @@
                 label="Would you like to add extra's to your burger?"
                 v-model="addExtraBurgerToppings"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -607,6 +612,7 @@
                 label="Would you like to add extra's to your salad?"
                 v-model="addExtraSaladToppings"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -638,6 +644,7 @@
                 label="Would you like to add extra toppings to your pizza?"
                 v-model="addExtraPizzaToppings"
                 color="positive"
+                dark
               />
             </div>
 
@@ -670,6 +677,7 @@
                 label="Would you like to add extra sauces?"
                 v-model="addExtraSauces"
                 color="positive"
+                dark
               />
             </div>
             <div

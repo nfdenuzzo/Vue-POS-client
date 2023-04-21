@@ -12,6 +12,7 @@
                 <q-input
                   outlined
                   dense
+                  dark
                   v-cleave="masks.TwoDecimals"
                   @input.native="onInputCleaveFormatValue()"
                   v-model="vat"
