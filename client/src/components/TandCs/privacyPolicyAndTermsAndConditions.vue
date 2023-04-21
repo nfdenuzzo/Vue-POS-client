@@ -8,7 +8,7 @@
         @click="showPrivacyPolicy"
         flat
         color="positive"
-        label="Privary Policy"
+        label="Privacy Policy"
         class="text-weight-bolder  text-caption"
       />
     </div>

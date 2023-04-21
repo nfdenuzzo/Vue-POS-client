@@ -49,7 +49,7 @@ export default {
     return {
       images: {
         // eslint-disable-next-line no-undef
-        Logo: require("../../assets/logo.png")
+        Logo: require("../../assets/francos_logo.png")
       }
     };
   },
