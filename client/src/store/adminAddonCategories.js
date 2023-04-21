@@ -27,7 +27,7 @@ const adminAddonCategories = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminAddonCategories", { forceRefresh: true });
+          await dispatch("retrieveAdminAddonCategories", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -43,8 +43,9 @@ const adminAddonCategories = {
           `${addonCategoriesAdminUrl}/create-addon-category`,
           payload
         );
+        console.log("🚀 ~ file: adminAddonCategories.js ~ line 46 ~ result", result)
         if (result && result.status === 200) {
-          dispatch("retrieveAdminAddonCategories", { forceRefresh: true });
+          await dispatch("retrieveAdminAddonCategories", { forceRefresh: true });
           return result;
         }
       } catch (ex) {
@@ -61,7 +62,7 @@ const adminAddonCategories = {
           { data: { _id: payload } }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminAddonCategories", { forceRefresh: true });
+          await dispatch("retrieveAdminAddonCategories", { forceRefresh: true });
           return result;
         }
       } catch (ex) {

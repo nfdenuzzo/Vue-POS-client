@@ -3,6 +3,7 @@
     <q-form ref="myForm" v-if="updateMenuItemObj">
       <div class="col-xs-11 col-md-5 q-pa-md text-color text-weight-bold">
         <q-checkbox
+          dark
           left-label
           v-model="updateMenuItemObj.hasBastingStyleOptions"
           label="Product has basting style options?"
@@ -20,6 +21,7 @@
           label="Select Basting Style Options"
           color="positive"
           dense
+          dark
           multiple
           use-chips
           @filter="filterFnBastingStyleOptions"

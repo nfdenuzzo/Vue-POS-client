@@ -6,6 +6,7 @@
     <div class="row justify-center">
       <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 q-pa-md">
         <q-input
+          dark
           outlined
           dense
           color="positive"
@@ -39,6 +40,7 @@
         <q-input
           outlined
           dense
+          dark
           v-model="dateTo"
           mask="date"
           :rules="['date']"

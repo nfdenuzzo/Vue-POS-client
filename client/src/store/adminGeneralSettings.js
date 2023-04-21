@@ -68,7 +68,7 @@ const adminGeneralSettings = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {
@@ -107,7 +107,7 @@ const adminGeneralSettings = {
           { vatRate: payload }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {
@@ -191,7 +191,7 @@ const adminGeneralSettings = {
           { data: { _id: payload } }
         );
         if (result && result.status === 200) {
-          dispatch("retrieveAdminGeneralSettings");
+          await dispatch("retrieveAdminGeneralSettings");
           return result;
         }
       } catch (ex) {
