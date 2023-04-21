@@ -31,6 +31,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="ruleObject.name"
                 label="Name"
                 lazy-rules
@@ -56,6 +57,7 @@
                     :options="getMenuCategories"
                     label="Select Menu Categories"
                     :value="[]"
+                    dark
                     dense
                     @input="option => selectBuyCatOption(option)"
                     color="positive"
@@ -79,6 +81,7 @@
                     label="Selected Categories"
                     color="positive"
                     dense
+                    dark
                     multiple
                     use-chips
                     option-value="_id"
@@ -112,6 +115,7 @@
                     label="Select Menu Items"
                     color="positive"
                     dense
+                    dark
                     multiple
                     use-chips
                     @input="option => selectBuyItemOption(option)"
@@ -139,6 +143,7 @@
                     color="positive"
                     @remove="option => removeBuyItemOption(option)"
                     dense
+                    dark
                     multiple
                     use-chips
                     option-value="_id"
@@ -170,6 +175,7 @@
                     label="Menu Categories"
                     :value="[]"
                     dense
+                    dark
                     @input="option => selectGetCatOption(option)"
                     color="positive"
                     option-value="_id"
@@ -192,6 +198,7 @@
                     label="Menu Categories"
                     color="positive"
                     dense
+                    dark
                     multiple
                     use-chips
                     option-value="_id"
@@ -219,6 +226,7 @@
                     label="Select Menu Items"
                     color="positive"
                     dense
+                    dark
                     multiple
                     use-chips
                     @input="option => selectGetItemOption(option)"
@@ -246,6 +254,7 @@
                     color="positive"
                     @remove="option => removeGetItemOption(option)"
                     dense
+                    dark
                     multiple
                     use-chips
                     option-value="_id"
@@ -316,6 +325,7 @@
                 v-model="ruleObject.disabled"
                 label="Disable Rule"
                 color="positive"
+                dark
               />
             </div>
             <div
@@ -326,6 +336,7 @@
                 v-model="ruleObject.repetitive"
                 label="Repetitive Rule"
                 color="positive"
+                dark
               />
               <q-select
                 v-if="ruleObject.repetitive"
@@ -334,6 +345,7 @@
                 label="Week Days"
                 color="positive"
                 dense
+                dark
                 outlined
                 multiple
                 use-chips
@@ -362,6 +374,7 @@
                 v-model="ruleObject.specificRange"
                 label="Run Specific Date Range"
                 color="positive"
+                dark
               />
               <div
                 v-if="
@@ -390,6 +403,7 @@
                 v-if="ruleObject.specificRange"
                 color="positive"
                 v-model="ruleObject.dateRange"
+                dark
               />
             </div>
           </div>
