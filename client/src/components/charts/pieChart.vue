@@ -35,14 +35,19 @@ export default {
         datasets: [
           {
             backgroundColor: ["#019247", "#D32735"],
-            data: [this.getOrdersForCollection, this.getOrdersForDelivery]
+            data: [this.getOrdersForCollection, this.getOrdersForDelivery],
           }
-        ]
+        ],
       },
       {
         responsive: true,
-        maintainAspectRatio: false
-      }
+        maintainAspectRatio: false,
+        legend: {
+          labels: {
+            fontColor: '#ffffff'
+          }
+        }
+      },
     );
   }
 };

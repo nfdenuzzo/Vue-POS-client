@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.calzoneOffered"
           label="Calzone style offered"
           color="positive"
+          dark
         />
       </div>
 
@@ -17,6 +18,7 @@
         <q-input
           outlined
           dense
+          dark
           v-model="updateMenuItemObj.calzonePrice"
           label="Calzone Add-on Price"
           lazy-rules
