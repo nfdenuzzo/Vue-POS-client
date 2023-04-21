@@ -12,7 +12,11 @@
 }
 
 .text-color {
-  color: $goldBrown;
+  color: $offwhite;
+}
+
+.text-color-dark {
+  color: $primaryDark;
 }
 
 .bg-logoRed {
@@ -20,7 +24,7 @@
 }
 
 .bg-goldBrown {
-  background-color: $goldBrown;
+  background-color: $offwhite;
 }
 
 .bg-transparent {
@@ -28,7 +32,7 @@
 }
 
 .bg-main-layout-light {
-  background-color: #ecf0f1;
+  background-color: $primaryDark;
 }
 
 .bg-positive {
@@ -36,11 +40,43 @@
 }
 
 .bg-main-layout-dark {
-  background-color: #92a2ae;
+  background-color: $primaryDark;
 }
 
 .q-card {
-  background: #ecf0f1;
+  background: $primaryDark;
+}
+
+// so this will then work as soon as it not sm
+
+@media (max-width: $breakpoint-lg-max) {
+  .q-table__bottom-item {
+    color: $primaryDark !important;
+  }
+}
+
+
+// so this will then work as soon as it sm or smaller 
+
+@media (max-width: $breakpoint-sm-max) {
+  .q-table__bottom-item {
+    color: $offwhite !important;
+  }
+  .material-icons { 
+    color: $offwhite !important;
+  }
+}
+
+
+.q-tab__label {
+  font-weight: 700;
+}
+
+.bg-text-helper {
+  background-color: rgba(0,0,0, 0.5);
+  color: white;
+  font-weight: bold;
+  z-index: 2;
 }
 
 body {
@@ -50,16 +86,16 @@ body {
 .q-layout {
   background: linear-gradient(
     to top,
-    #8e9eab,
-    #eef2f3
+    #5e5d5d,
+    $primaryDark
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .bg-layout-color {
   background: linear-gradient(
     to top,
-    #8e9eab,
-    #eef2f3
+    #5e5d5d,
+    $primaryDark
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -71,17 +107,17 @@ body {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px $goldBrown;
+  box-shadow: inset 0 0 5px $offwhite;
   border-radius: 3px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: $goldBrown;
+  background: $offwhite;
   border-radius: 3px;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: $goldBrown;
+  background: $offwhite;
 }
 
 .q-dialog__inner--minimized {
@@ -128,23 +164,19 @@ body {
 }
 
 .q-radio__label {
-  color: $goldBrown;
+  color: $offwhite;
 }
 
 .q-checkbox__label {
-  color: $goldBrown;
+  color: $offwhite;
 }
 
 .q-field__label {
-  color: $goldBrown;
-}
-
-.q-field__native {
-  color: $goldBrown;
+  color: $offwhite;
 }
 
 .q-table__bottom-item {
-  color: $goldBrown;
+  color: $offwhite;
 }
 
 .q-checkbox--dense .q-checkbox__label {
@@ -158,4 +190,10 @@ body {
 .my-hover-shadow:hover {
   box-shadow: $shadow-5;
   bottom: 2px;
+}
+
+::v-deep .light {
+  .q-field__native {
+    color: $primaryDark;
+  }
 }

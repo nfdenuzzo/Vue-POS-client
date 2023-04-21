@@ -48,7 +48,7 @@ const myProfile = {
           payload
         );
         if (result && result.status === 200) {
-          dispatch("retrieveMyProfile", { forceRefresh: true });
+          await dispatch("retrieveMyProfile", { forceRefresh: true });
           return result;
         }
       } catch (ex) {

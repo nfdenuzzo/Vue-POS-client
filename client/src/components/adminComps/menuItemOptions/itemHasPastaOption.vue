@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasPastaOptions"
           label="Product has pasta options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -20,6 +21,7 @@
           :options="pastaOptionOptions"
           label="Select Pasta Options"
           color="positive"
+          dark
           dense
           multiple
           use-chips

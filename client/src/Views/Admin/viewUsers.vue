@@ -4,7 +4,7 @@
       Current Users
     </div>
     <div class="q-pa-md row justify-center">
-      <div class="col-xs-12 col-sm-12 col-md-7 text-color">
+      <div class="col-xs-12 col-sm-12 col-md-7 text-color-dark">
         <q-table
           dense
           separator="cell"
@@ -30,6 +30,7 @@
                 <div class="col-xs-5 col-md-4 col-lg-2">
                   <q-input
                     outlined
+                    light
                     dense
                     color="positive"
                     debounce="300"
@@ -46,6 +47,7 @@
                     multiple
                     outlined
                     dense
+                    light
                     options-dense
                     :display-value="$q.lang.table.columns"
                     emit-value
@@ -86,12 +88,15 @@
                           <q-item-label
                             lines="1"
                             caption
-                            class="q-py-sm text-weight-bold text-color"
+                            class="q-py-sm text-weight-bold text-color-dark"
                             >{{ col.label }}</q-item-label
                           >
                         </div>
                         <div class="col-6 text-right">
-                          <div class="text-color breakWord" v-if="col.id != 5">
+                          <div
+                            class="text-color-dark breakWord"
+                            v-if="col.id != 5"
+                          >
                             {{ col.value }}
                           </div>
                           <div v-else>
@@ -118,7 +123,7 @@
                 v-for="col in props.cols"
                 :key="col.name"
                 :props="props"
-                class="text-color text-weight-bold"
+                class="text-color-dark text-weight-bold"
               >
                 {{ col.label }}
               </q-th>
@@ -130,7 +135,7 @@
             <q-tr :props="props" :class="'cursor-pointer'">
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 <template>
-                  <div class="row no-wrap text-color" v-if="col.id != 6">
+                  <div class="row no-wrap text-color-dark" v-if="col.id != 6">
                     {{ col.value }}
                   </div>
                   <div v-else>
@@ -272,7 +277,7 @@ export default {
 </script>
 <style lang="scss">
 .q-table__title {
-  color: $goldBrown;
+  color: $offwhite;
   font-weight: bold;
 }
 .q-table--dense .q-table__top {

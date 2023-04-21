@@ -17,7 +17,7 @@
         copy for future reference. By placing an order, you agree to be bound by
         these terms and conditions. If you do not accept these terms and
         conditions, you should not place an order. If you have any questions
-        relating to these terms and conditions please contact Black forest grill using our
+        relating to these terms and conditions please contact Franco's using our
         Contact Form before you place an order. Your use of our Sites, and any
         orders you place, is governed by our Terms of Use, Privacy Policy. Please take the time to read these, as they include
         important terms which apply to you
@@ -44,10 +44,10 @@
         Please make sure that the email address, home address and telephone
         number you provide are correct and in proper working order, as these are
         required to fulfil your order. Please also ensure that, where you have
-        placed an order for collection. Although Black forest grill always endeavours to provide the
+        placed an order for collection. Although Franco's always endeavours to provide the
         best deals, offers and savings, this may not always be possible due to
         the extremely large number of possible permutations that could be
-        available for any one transaction. Black forest grill does not warrant, express or
+        available for any one transaction. Franco'sl does not warrant, express or
         imply that we shall provide customers with the best deals, offers and
         savings at all times when ordering. You should check
         your order confirmation email carefully before travelling to collect
