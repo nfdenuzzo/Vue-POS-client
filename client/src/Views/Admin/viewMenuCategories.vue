@@ -4,7 +4,7 @@
       Current Menu Categories
     </div>
     <div class="q-pa-md row justify-center">
-      <div class="col-xs-12 col-sm-12 col-md-7 text-color">
+      <div class="col-xs-12 col-sm-12 col-md-7 text-color-dark">
         <q-table
           dense
           separator="cell"
@@ -74,7 +74,7 @@
                 v-for="col in props.cols"
                 :key="col.name"
                 :props="props"
-                class="text-color"
+                class="text-color-dark"
               >
                 {{ col.label }}
               </q-th>
@@ -86,7 +86,7 @@
             <q-tr :props="props" :class="'cursor-pointer'">
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 <template>
-                  <div class="row no-wrap text-color">
+                  <div class="row no-wrap text-color-dark">
                     {{ col.value }}
                   </div>
                 </template>
@@ -148,7 +148,7 @@ export default {
 </script>
 <style lang="scss">
 .q-table__title {
-  color: $goldBrown;
+  color: $offwhite;
   font-weight: bold;
 }
 .q-table--dense .q-table__top {

@@ -6,6 +6,7 @@
           stack-label
           label="Filter Orders (Unique Order Id):"
           outlined
+          dark
           color="positive"
           dense
           debounce="300"
@@ -50,6 +51,7 @@
                 >
                   <div class="col-xs-6">
                     <q-input
+                      dark
                       stack-label
                       label="Pilot Table No."
                       :key="item._id"
@@ -86,6 +88,7 @@
       v-model="viewOrderDetails"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <q-card dark>
         <div class="row text-color">
@@ -312,7 +315,7 @@ export default {
 
 .item-dropzone-area {
   height: 2rem;
-  background: $goldBrown;
+  background: $offwhite;
   opacity: 0.8;
   animation-duration: 0.5s;
   animation-name: nodeInserted;

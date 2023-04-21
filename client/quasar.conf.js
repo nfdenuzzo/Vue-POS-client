@@ -57,10 +57,12 @@ module.exports = function (ctx) {
         VUE_APP_APP_V: "0.6",
         NODE_ENV: ctx.dev ? 'development' : 'production',
         // we used the commented out code during development but seems no longer needed with the DNS settings
-        BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
+        // BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
+        BASE_URL: ctx.dev ? '/' : 'https://trusting-kilby-b32d22.netlify.app/',
+        
         // working prod
         // BASE_URL: ctx.dev ? '/' : 'https://www.theblackforestgrill.co.za/',
-        BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api/' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
+        BACKEND_URL: ctx.dev ? 'http://localhost:3000/dev/api' : 'https://i2flb4tlw1.execute-api.eu-west-2.amazonaws.com/dev/api/',
         AUTH0_CLIENT_ID: ctx.dev ? 'gxbeFt1w2X8voke4UM1bVcbxhee0c5N8' : "9JkQg4SO38tx9phxatHw8ei0KxGqX5q6",
         AUTH0_DOMAIN: ctx.dev ? 'dev-o3-zte9e.eu.auth0.com' : "bf-pwa-prod.eu.auth0.com",
         AUTH0_AUDIENCE: ctx.dev ? 'https://bfgrill-pwa' : 'pwa1-api',
@@ -143,12 +145,12 @@ module.exports = function (ctx) {
         swSrc: './src-pwa/custom-service-worker.js',
       },
       manifest: {
-        name: `Black Forest Grill`,
-        short_name: `Black Forest Grill App`,
-        description: `Black Forest Grill & Pizzeria`,
+        name: `Franco's`,
+        short_name: `Franco's App`,
+        description: `Franco's, Pizza Pasta Grill`,
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#ffffff',
+        background_color: '#363435',
         theme_color: '#019247',
         icons: [
           {
@@ -210,7 +212,7 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'blackforestgrillpwa'
+        appId: 'francoslegacypwa'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

@@ -40,7 +40,24 @@ export default {
       },
       {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        legend: {
+          labels: {
+            fontColor: 'white'
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+                fontColor: 'white'
+            }
+          }],
+          xAxes: [{
+            ticks: {
+                fontColor: 'white',
+            }
+          }]
+       }
       }
     );
   }

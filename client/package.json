@@ -1,8 +1,8 @@
 {
-  "name": "blackforestgrillpwa",
+  "name": "francospwa",
   "version": "0.0.1",
-  "description": "The Black Forest Grill",
-  "productName": "Black Forest Grill",
+  "description": "Franco's - Pizza Pasta Grill",
+  "productName": "Francos",
   "author": "Nic <nf.denuzzo@gmail.com>",
   "private": true,
   "scripts": {

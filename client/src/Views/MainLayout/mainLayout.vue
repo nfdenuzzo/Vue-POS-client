@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <q-layout view="lHh lpr lFf">
+    <q-layout view="lHh lpr lFf" :class="{ 'customBackground2' : isOnHomePage }">
       <q-header
         class="bg-main-layout-light"
         :class="mixin_tabMenuDisplay ? 'shadow-1' : 'shadow-10'"
@@ -8,14 +8,14 @@
         <q-toolbar class="bg-main-layout-light">
           <div class="col-xs-12">
             <div class="row">
-              <div class="col-xs-1">
+              <div class="col-xs-1 q-mt-lg q-pt-md">
                 <q-btn
                   flat
                   dense
                   round
                   icon="menu"
                   aria-label="Menu"
-                  class="q-mt-md text-color"
+                  class="text-color"
                   @click="menuDrawerOpen = !menuDrawerOpen"
                   v-if="
                     $store.getters.getAuth ||
@@ -28,7 +28,7 @@
                 <img
                   :src="images.Logo"
                   no-default-spinner
-                  style="height: 70px;"
+                  style="height: 100px;"
                   contain
                   class="cursor-pointer"
                   @click="goHome"
@@ -42,7 +42,7 @@
                   size="md"
                   icon="shopping_cart"
                   style="right:10px;"
-                  class="q-mt-md q-mr-lg bg-goldBrown"
+                  class="q-mt-md q-mr-lg bg-offwhite"
                 >
                   <q-badge round color="logoRed" floating>{{
                     getItemsInOrderCount
@@ -60,7 +60,7 @@
         overlay
         bordered
         behavior="mobile"
-        content-class="bg-layout-color"
+        content-class="bg-main-layout-light"
         v-if="
           $store.getters.getAuth ||
             !($q.screen.height > 767 && $q.screen.width > 700) ||
@@ -108,7 +108,7 @@
                   class="text-color"
                   @click="proceedToLink(menuItem.routeLink)"
                 >
-                  {{ menuItem.name }}
+                  {{ menuItem.name }} 
                 </q-item-section>
               </q-item>
               <q-separator />
@@ -203,7 +203,7 @@
         </q-scroll-area>
       </q-drawer>
 
-      <q-page-container>
+      <q-page-container >
         <transition
           appear
           enter-active-class="animated fadeIn"
@@ -214,10 +214,10 @@
             class="banner-container bg-positive"
           >
             <div class="constrain">
-              <q-banner class="bg-positive text-white" inline-actions dense>
+              <q-banner class="bg-positive text-white" inline-actions>
                 <template v-slot:avatar>
-                  <q-avatar size="40px" color="white">
-                    <q-img contain :src="images.Logo"></q-img>
+                  <q-avatar size="50px">
+                    <q-img :src="images.Logo"></q-img>
                   </q-avatar>
                 </template>
 
@@ -299,7 +299,7 @@
                   </q-avatar>
                 </template>
 
-                <b>Install Black Forest Grill App?</b>
+                <b>Install Franco's App?</b>
 
                 <template v-slot:action>
                   <q-btn
@@ -329,7 +329,7 @@
           </div>
         </transition>
         <div
-          class="row"
+          class="row bg-text-helper"
           v-if="!showAppInstallBanner && $route.name === 'HomePage'"
         >
           <div class="col-xs-12 text-right q-px-md text-color no-wrap">
@@ -338,7 +338,7 @@
               name="fas fa-circle"
               :color="getOnlineStatus ? 'positive' : 'logoRed'"
             >
-              <q-tooltip self="top middle" content-class="bg-white">
+              <q-tooltip self="top middle" content-class="bg-main-layout-dark">
                 <span class="text-color">
                   {{ getOnlineStatus ? "Server: Online" : "Server: Offline" }}
                 </span>
@@ -430,6 +430,9 @@ export default {
       import("../../components/TandCs/privacyPolicyAndTermsAndConditions.vue")
   },
   computed: {
+    isOnHomePage() {
+      return this.$route.name === 'HomePage'
+    },
     getLatestVersion() {
       return process.env.VUE_APP_APP_V;
     },
@@ -469,7 +472,7 @@ export default {
     return {
       images: {
         // eslint-disable-next-line no-undef
-        Logo: require("../../assets/logo-min.png"),
+        Logo: require("../../assets/francos_logo.png"),
         AppleShareIcon: require("../../assets/shareIcon-min.png")
       },
       viewPurchaseProcess: false,
@@ -676,4 +679,27 @@ export default {
   }
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+
+.customBackground {
+  background-image: url("../../assets/customBackground.png") !important;
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.customBackground2 {
+  background-image: url("../../assets/customBackground2.png") !important;
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>

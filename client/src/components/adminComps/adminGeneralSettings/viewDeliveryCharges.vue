@@ -13,6 +13,7 @@
                   <q-input
                     outlined
                     dense
+                    dark
                     v-model="createDeliveryAreaObj.area"
                     label="Area"
                     lazy-rules
@@ -29,6 +30,7 @@
                   <q-input
                     outlined
                     dense
+                    dark
                     v-model="createDeliveryAreaObj.price"
                     v-cleave="masks.TwoDecimals"
                     @input.native="onInputCleaveFormatValue()"
@@ -83,6 +85,7 @@
                     <q-input
                       outlined
                       dense
+                      light
                       color="positive"
                       debounce="300"
                       v-model="filter"
@@ -123,18 +126,18 @@
                             <q-item-label
                               lines="1"
                               caption
-                              class="q-py-sm text-weight-bold text-color"
+                              class="q-py-sm text-weight-bold text-color-dark"
                               >{{ col.label }}</q-item-label
                             >
                           </div>
                           <div class="col-6 text-right">
                             <div
-                              class="text-color"
+                              class="text-color-dark"
                               v-if="col.name !== 'actions'"
                             >
                               {{ col.value }}
                             </div>
-                            <div class="text-color" v-else>
+                            <div class="text-color-dark" v-else>
                               <span class="q-pr-sm">
                                 <q-btn
                                   round
@@ -178,7 +181,7 @@
                   v-for="col in props.cols"
                   :key="col.name"
                   :props="props"
-                  class="text-color text-weight-bold"
+                  class="text-color-dark text-weight-bold"
                 >
                   {{ col.label }}
                 </q-th>
@@ -190,7 +193,7 @@
               <q-tr :props="props" :class="'cursor-pointer'">
                 <q-td v-for="col in props.cols" :key="col.name" :props="props">
                   <template v-if="col.name === 'actions'">
-                    <div class="text-color row justify-center no-wrap">
+                    <div class="text-color-dark row justify-center no-wrap">
                       <span class="q-pr-sm">
                         <q-btn
                           round
@@ -220,7 +223,7 @@
                     </div>
                   </template>
                   <template v-else>
-                    <div class="row no-wrap text-color">
+                    <div class="row no-wrap text-color-dark">
                       {{ col.value }}
                     </div>
                   </template>
@@ -236,6 +239,7 @@
       v-model="viewUpdateDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <update-delivery-charge
         :selectedDeliveryAreaObj="selectedDeliveryAreaObj"
@@ -247,6 +251,7 @@
       v-model="viewDeleteDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <query-delete-request
         :selectedItem="selectedDeliveryAreaObj"

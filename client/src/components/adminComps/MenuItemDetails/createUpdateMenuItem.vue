@@ -21,6 +21,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="menuItemObj.name"
                 label="Item Name"
                 lazy-rules
@@ -37,6 +38,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="menuItemObj.price"
                 label="Item Price"
                 lazy-rules
@@ -51,6 +53,7 @@
               <q-input
                 outlined
                 dense
+                dark
                 v-model="menuItemObj.description"
                 label="Item Description"
                 lazy-rules
@@ -72,6 +75,7 @@
                 label="Menu Category"
                 color="positive"
                 dense
+                dark
                 option-value="_id"
                 option-label="name"
                 lazy-rules
@@ -92,6 +96,7 @@
             >
               <q-checkbox
                 left-label
+                dark
                 v-model="menuItemObj.disabled"
                 label="Disable Item"
                 color="positive"
@@ -105,6 +110,18 @@
                 :menuItemImage.sync="menuItemObj.menuItemImage"
               />
             </div>
+          </div>
+          <div
+            class="row justify-center"
+            v-if="isEditing && menuItemObj.menuItemImage"
+          >
+            <q-btn
+              label="Remove Image"
+              @click="removeImage"
+              color="red"
+              class="text-capitalize"
+              :loading="createUpdateBtnLoading"
+            />
           </div>
 
           <div class="row justify-center">
@@ -321,6 +338,7 @@ export default {
           numeralDecimalScale: 2
         }
       },
+      removingImage: false,
       dataLoaded: false,
       createUpdateBtnLoading: false,
       menuItemObj: this.defaultMenuItemObject()
@@ -353,6 +371,12 @@ export default {
   updated() {},
   beforeDestroy() {},
   methods: {
+    removeImage() {
+      this.removingImage = true;
+      this.menuItemObj.menuItemImage = "";
+      this.$refs.imagePage.resetFields();
+      this.onSubmit();
+    },
     onInputCleaveFormatValue() {
       this.menuItemObj.price = event.target._vCleave.getFormattedValue();
     },
@@ -408,7 +432,7 @@ export default {
     async assignData() {
       this.menuItemObj = JSON.parse(JSON.stringify(this.selectedMenuItem));
     },
-    async onSubmit() {
+    async onSubmit(removingImage) {
       const method = this.isEditing ? "updateMenuItem" : "createMenuItem";
       this.createUpdateBtnLoading = true;
       const result = await this.$store.dispatch(method, this.menuItemObj);
@@ -420,9 +444,10 @@ export default {
             : "Item created successfully.",
           color: "positive"
         });
-        if (this.isEditing) {
+        if (this.isEditing && !removingImage) {
           this.closeDialog();
         } else {
+          this.removingImage = false;
           this.onReset();
         }
       }

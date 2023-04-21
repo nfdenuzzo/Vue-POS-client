@@ -37,6 +37,7 @@
     <q-dialog
       v-model="viewMenuItemsDetails"
       v-if="viewMenuItemsDetails"
+      persistent
       :full-width="$q.platform.is.mobile ? true : false"
       :full-height="$q.platform.is.mobile ? true : false"
       transition-show="slide-up"

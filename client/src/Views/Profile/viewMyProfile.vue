@@ -10,6 +10,7 @@
             <div class="row justify-center">
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
+                  dark
                   outlined
                   v-model="updateProfileObj.userEmail"
                   label="Email"
@@ -19,6 +20,7 @@
               </div>
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
+                  dark
                   outlined
                   v-model="updateProfileObj.name"
                   label="Prefered username"
@@ -28,6 +30,7 @@
               </div>
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
+                  dark
                   outlined
                   v-model="updateProfileObj.address"
                   label="Address"
@@ -43,6 +46,7 @@
               </div>
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
+                  dark
                   outlined
                   v-model="updateProfileObj.addressLine2"
                   label="Address Line 2"
@@ -58,6 +62,7 @@
                   label="Select Delivery Area"
                   color="positive"
                   dense
+                  dark
                   @filter="filterFn"
                   use-input
                   input-debounce="0"
@@ -80,6 +85,7 @@
 
               <div class="col-xs-11 col-md-5 col-lg-5 q-pa-md">
                 <q-input
+                  dark
                   outlined
                   v-model="updateProfileObj.contactNumber"
                   label="Contact number"

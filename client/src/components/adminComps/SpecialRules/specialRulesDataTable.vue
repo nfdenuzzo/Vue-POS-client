@@ -31,6 +31,7 @@
                     <q-input
                       outlined
                       dense
+                      light
                       color="positive"
                       debounce="300"
                       v-model="filter"
@@ -71,13 +72,13 @@
                             <q-item-label
                               lines="1"
                               caption
-                              class="q-py-sm text-weight-bold text-color"
+                              class="q-py-sm text-weight-bold text-color-dark"
                               >{{ col.label }}</q-item-label
                             >
                           </div>
                           <div class="col-6 text-right">
                             <div
-                              class="text-color"
+                              class="text-color-dark"
                               v-if="
                                 col.name !== 'actions' &&
                                   col.id !== 6 &&
@@ -99,7 +100,7 @@
                                 class="text-capitalize"
                               />
                             </div>
-                            <div class="text-color" v-else>
+                            <div class="text-color-dark" v-else>
                               <span class="q-pr-sm">
                                 <q-btn
                                   round
@@ -158,7 +159,7 @@
                   v-for="col in props.cols"
                   :key="col.name"
                   :props="props"
-                  class="text-color text-weight-bold"
+                  class="text-color-dark text-weight-bold"
                 >
                   {{ col.label }}
                 </q-th>
@@ -170,7 +171,7 @@
               <q-tr :props="props" :class="'cursor-pointer'">
                 <q-td v-for="col in props.cols" :key="col.name" :props="props">
                   <template v-if="col.name === 'actions'">
-                    <div class="text-color row justify-center no-wrap">
+                    <div class="text-color-dark row justify-center no-wrap">
                       <span class="q-pr-sm">
                         <q-btn
                           round
@@ -215,7 +216,7 @@
                   </template>
                   <template v-else>
                     <div
-                      class="row no-wrap text-color"
+                      class="row no-wrap text-color-dark"
                       v-if="col.id !== 6 && col.id !== 7 && col.id !== 9"
                     >
                       {{ col.value }}
@@ -255,6 +256,7 @@
       v-model="viewDeleteDialog"
       transition-show="slide-up"
       transition-hide="slide-down"
+      persistent
     >
       <query-delete-request
         :selectedItem="selectedRuleObj"
@@ -502,7 +504,7 @@ export default {
 </script>
 <style lang="scss">
 .q-table__title {
-  color: $goldBrown;
+  color: $offwhite;
   font-weight: bold;
 }
 .q-table--dense .q-table__top {

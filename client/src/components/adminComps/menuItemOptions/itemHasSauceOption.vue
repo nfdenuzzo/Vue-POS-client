@@ -7,6 +7,7 @@
           v-model="updateMenuItemObj.hasSauceOptions"
           label="Product has sauce options?"
           color="positive"
+          dark
         />
       </div>
 
@@ -22,6 +23,7 @@
           color="positive"
           dense
           multiple
+          dark
           use-chips
           @filter="filterFnSauceOptions"
           use-input
