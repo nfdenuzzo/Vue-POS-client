@@ -1,4 +1,4 @@
-BlackForestGrillPWA
+Francos PWA
 
 Simple PWA which will make use of the following tech stack
 
@@ -8,7 +8,7 @@ Database - MongoDB
 Authentication handler - Auth0
 Server - Node.js + Express
 Notifcation server - web-push
-Payment gateway - mobiPaid ** TBC
+Payment gateway - TBC
 
 Detailed explaination of the application - This simple PWA will be designed for a restaurant, if you are not sure what a PWA a simple way to describe it would be - it gives users the ability to download the website which will in turn act like a native application opening in a standalone container.
 

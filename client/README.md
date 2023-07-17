@@ -1,4 +1,4 @@
-# Francos (blackforestgrillpwa)
+# Francos
 
 A Francos app
 
