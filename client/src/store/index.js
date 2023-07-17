@@ -18,10 +18,7 @@ import systemStatistics from "./adminSystemStatistics";
 import paymentSystem from "./paymentSystem";
 import specialRules from "./specialRules";
 import other from "./other";
-
 import createPersistedState from "vuex-persistedstate";
-import createPlugin from 'logrocket-vuex';
-const logrocketPlugin = createPlugin(LogRocket);
 
 Vue.use(Vuex);
 
@@ -35,7 +32,6 @@ Vue.use(Vuex);
  */
 export default new Vuex.Store({
   plugins: [
-    logrocketPlugin,
     createPersistedState({
       storage: window.localStorage,
       paths: [

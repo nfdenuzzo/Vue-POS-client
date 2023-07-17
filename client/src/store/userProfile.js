@@ -27,10 +27,6 @@ const myProfile = {
         if (result && result.status === 200) {
           commit("setMyProfile", result.data);
           commit("setMyProfileRetrievedDate", new Date());
-          LogRocket.identify(result.data.userEmail, {
-            name: result.data.name,
-            email: result.data.userEmail,
-          });
           return true;
         }
       } catch (ex) {
